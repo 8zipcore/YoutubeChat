@@ -1,0 +1,6 @@
+module Pods_YoutubeChat_YoutubeChatUITests {
+  umbrella header "Pods-YoutubeChat-YoutubeChatUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="ChatTableViewCell" selectionStyle="default" indentationWidth="10" rowHeight="71" id="KGk-i7-Jjw" customClass="ChatTableViewCell" customModule="YoutubeChat" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="321" height="71"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="321" height="71"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Vx-zG-Ezk">
+                        <rect key="frame" x="13" y="8" width="295" height="55"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Gy9-QT-wAK">
+                                <rect key="frame" x="0.0" y="0.0" width="54.666666666666664" height="55"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Gy9-QT-wAK" secondAttribute="height" multiplier="1:1" id="XSX-5X-VEa"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="채팅방 이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ugV-GM-WOs" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
+                                <rect key="frame" x="64.666666666666671" y="3.3333333333333339" width="78.000000000000014" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근 대화" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R11-cn-mDq" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
+                                <rect key="frame" x="66.666666666666671" y="28.333333333333336" width="203.66666666666663" height="20.333333333333336"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkU-Ob-QYp" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
+                                <rect key="frame" x="150.66666666666666" y="4.3333333333333339" width="10.666666666666657" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShB-hO-ESP" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
+                                <rect key="frame" x="259.33333333333331" y="2" width="29.666666666666686" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_icon" translatesAutoresizingMaskIntoConstraints="NO" id="jr7-Pd-5hA">
+                                <rect key="frame" x="280.33333333333331" y="28" width="8.6666666666666856" height="9"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="jr7-Pd-5hA" secondAttribute="height" multiplier="1:1" id="tK9-B2-XqM"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="R11-cn-mDq" firstAttribute="top" secondItem="ugV-GM-WOs" secondAttribute="bottom" constant="4" id="3iQ-p5-cjg"/>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="R11-cn-mDq" secondAttribute="bottom" id="BDV-5Y-Hl9"/>
+                            <constraint firstItem="Gy9-QT-wAK" firstAttribute="top" secondItem="8Vx-zG-Ezk" secondAttribute="top" id="JxK-eT-7EH"/>
+                            <constraint firstItem="ugV-GM-WOs" firstAttribute="centerY" secondItem="Gy9-QT-wAK" secondAttribute="centerY" multiplier="0.5" id="M3q-pX-LtK"/>
+                            <constraint firstItem="Gy9-QT-wAK" firstAttribute="leading" secondItem="8Vx-zG-Ezk" secondAttribute="leading" id="MRL-al-VEH"/>
+                            <constraint firstItem="R11-cn-mDq" firstAttribute="leading" secondItem="ugV-GM-WOs" secondAttribute="leading" constant="2" id="NiH-f1-1FW"/>
+                            <constraint firstItem="jr7-Pd-5hA" firstAttribute="top" secondItem="ShB-hO-ESP" secondAttribute="bottom" constant="5" id="Tao-5n-3kf"/>
+                            <constraint firstItem="gkU-Ob-QYp" firstAttribute="centerY" secondItem="ugV-GM-WOs" secondAttribute="centerY" constant="0.90000000000000002" id="Yrr-h4-Cb4"/>
+                            <constraint firstItem="ugV-GM-WOs" firstAttribute="leading" secondItem="Gy9-QT-wAK" secondAttribute="trailing" constant="10" id="aRk-iT-O5e"/>
+                            <constraint firstItem="jr7-Pd-5hA" firstAttribute="leading" secondItem="R11-cn-mDq" secondAttribute="trailing" constant="10" id="b3V-Ms-imc"/>
+                            <constraint firstItem="ShB-hO-ESP" firstAttribute="top" secondItem="8Vx-zG-Ezk" secondAttribute="top" constant="2" id="gYi-9G-s7h"/>
+                            <constraint firstAttribute="trailing" secondItem="ShB-hO-ESP" secondAttribute="trailing" constant="6" id="jB2-7h-D1b"/>
+                            <constraint firstItem="ShB-hO-ESP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gkU-Ob-QYp" secondAttribute="trailing" constant="10" id="s6T-yt-PNI"/>
+                            <constraint firstAttribute="bottom" secondItem="Gy9-QT-wAK" secondAttribute="bottom" id="teG-WV-stx"/>
+                            <constraint firstItem="gkU-Ob-QYp" firstAttribute="leading" secondItem="ugV-GM-WOs" secondAttribute="trailing" constant="8" symbolic="YES" id="vU1-ES-1dz"/>
+                            <constraint firstItem="jr7-Pd-5hA" firstAttribute="width" secondItem="8Vx-zG-Ezk" secondAttribute="width" multiplier="0.03" id="z0g-1r-hob"/>
+                            <constraint firstItem="jr7-Pd-5hA" firstAttribute="trailing" secondItem="ShB-hO-ESP" secondAttribute="trailing" id="zce-W9-PkB"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="8Vx-zG-Ezk" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.92" id="OIR-xj-L99"/>
+                    <constraint firstItem="8Vx-zG-Ezk" firstAttribute="height" secondItem="H2p-sc-9uM" secondAttribute="height" multiplier="0.77" id="XeB-he-9Eb"/>
+                    <constraint firstItem="8Vx-zG-Ezk" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="bdd-ZN-cjW"/>
+                    <constraint firstItem="8Vx-zG-Ezk" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="kvn-w1-j1U"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="chatImageView" destination="Gy9-QT-wAK" id="SBC-9h-9KG"/>
+                <outlet property="chatNameLabel" destination="ugV-GM-WOs" id="T7I-rZ-Bu3"/>
+                <outlet property="latestChatTimeLabel" destination="ShB-hO-ESP" id="xjf-mG-MQ2"/>
+                <outlet property="latestMessageLabel" destination="R11-cn-mDq" id="tqZ-qD-eUT"/>
+                <outlet property="newMessageIconImageView" destination="jr7-Pd-5hA" id="Ee0-MH-gWY"/>
+                <outlet property="peopleNumberLabel" destination="gkU-Ob-QYp" id="ZFE-7i-AAq"/>
+            </connections>
+            <point key="canvasLocation" x="11.450381679389313" y="-1.7605633802816902"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="alarm_icon" width="24" height="24"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
