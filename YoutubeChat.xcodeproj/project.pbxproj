@@ -11,10 +11,13 @@
 		361B067A2C1AC96300BD529B /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B06792C1AC96300BD529B /* Font.swift */; };
 		361B067C2C1ACD5800BD529B /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B067B2C1ACD5800BD529B /* Label.swift */; };
 		361B067F2C1ACEE800BD529B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 361B067E2C1ACEE800BD529B /* ProfileView.swift */; };
+		3625B0BB2C2BD16E00947E07 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625B0BA2C2BD16E00947E07 /* ProfileImageView.swift */; };
 		3655CB2B2C23041A0037F3DC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3655CB2A2C23041A0037F3DC /* Color.swift */; };
 		365C9DAB2C25A855004936FB /* ConfirmButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365C9DAA2C25A855004936FB /* ConfirmButton.swift */; };
 		365C9DAD2C25C111004936FB /* ChatOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365C9DAC2C25C111004936FB /* ChatOptionCollectionViewCell.swift */; };
 		368F7D202C296CC100A848CE /* ChatOptionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368F7D1F2C296CC100A848CE /* ChatOptionData.swift */; };
+		368F7D232C296F3400A848CE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368F7D212C296F3400A848CE /* ProfileViewController.swift */; };
+		368F7D242C296F3400A848CE /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 368F7D222C296F3400A848CE /* ProfileViewController.xib */; };
 		36AAECAD2C198E3D00532AF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AAECAC2C198E3D00532AF5 /* AppDelegate.swift */; };
 		36AAECAF2C198E3D00532AF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AAECAE2C198E3D00532AF5 /* SceneDelegate.swift */; };
 		36AAECB62C198E3E00532AF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36AAECB52C198E3E00532AF5 /* Assets.xcassets */; };
@@ -60,10 +63,13 @@
 		361B06792C1AC96300BD529B /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		361B067B2C1ACD5800BD529B /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		361B067E2C1ACEE800BD529B /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		3625B0BA2C2BD16E00947E07 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		3655CB2A2C23041A0037F3DC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		365C9DAA2C25A855004936FB /* ConfirmButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmButton.swift; sourceTree = "<group>"; };
 		365C9DAC2C25C111004936FB /* ChatOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		368F7D1F2C296CC100A848CE /* ChatOptionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOptionData.swift; sourceTree = "<group>"; };
+		368F7D212C296F3400A848CE /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		368F7D222C296F3400A848CE /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		36AAECA92C198E3D00532AF5 /* YoutubeChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36AAECAC2C198E3D00532AF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36AAECAE2C198E3D00532AF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,6 +138,7 @@
 				36DDD11F2C208027005A16E1 /* MakeGroupChatTextField.swift */,
 				365C9DAA2C25A855004936FB /* ConfirmButton.swift */,
 				365C9DAC2C25C111004936FB /* ChatOptionCollectionViewCell.swift */,
+				3625B0BA2C2BD16E00947E07 /* ProfileImageView.swift */,
 			);
 			path = SupportViews;
 			sourceTree = "<group>";
@@ -217,6 +224,8 @@
 				36AAECE12C19A1A700532AF5 /* MainViewController.xib */,
 				36DDD1192C2073A6005A16E1 /* MakeGroupChatViewController.swift */,
 				36DDD11A2C2073A6005A16E1 /* MakeGroupChatViewController.xib */,
+				368F7D212C296F3400A848CE /* ProfileViewController.swift */,
+				368F7D222C296F3400A848CE /* ProfileViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -367,6 +376,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				368F7D242C296F3400A848CE /* ProfileViewController.xib in Resources */,
 				36AAECB92C198E3E00532AF5 /* LaunchScreen.storyboard in Resources */,
 				36AAECE32C19A1A700532AF5 /* MainViewController.xib in Resources */,
 				36AAECB62C198E3E00532AF5 /* Assets.xcassets in Resources */,
@@ -466,10 +476,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				361B067A2C1AC96300BD529B /* Font.swift in Sources */,
+				368F7D232C296F3400A848CE /* ProfileViewController.swift in Sources */,
 				36C3A2AE2C1B401D008AE26F /* ChatTableViewCell.swift in Sources */,
 				368F7D202C296CC100A848CE /* ChatOptionData.swift in Sources */,
 				36AAECE22C19A1A700532AF5 /* MainViewController.swift in Sources */,
 				36DDD1202C208027005A16E1 /* MakeGroupChatTextField.swift in Sources */,
+				3625B0BB2C2BD16E00947E07 /* ProfileImageView.swift in Sources */,
 				3655CB2B2C23041A0037F3DC /* Color.swift in Sources */,
 				365C9DAD2C25C111004936FB /* ChatOptionCollectionViewCell.swift in Sources */,
 				36C3A2B12C1B48C6008AE26F /* SDGothicLabel.swift in Sources */,

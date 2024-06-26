@@ -9,6 +9,9 @@ import UIKit
 
 class ConfirmButton: UIButton {
     
+    // 비율 986:154
+    // 크기 superView.width * 0.85
+    
     override var isHighlighted: Bool {
         get {
             return super.isHighlighted
