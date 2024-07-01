@@ -1,16 +1,14 @@
 //
-//  File.swift
+//  ChatData.swift
 //  YoutubeChat
 //
-//  Created by 홍승아 on 6/17/24.
+//  Created by 홍승아 on 6/27/24.
 //
 
 import Foundation
 
 struct ChatData{
-    var chatImage: String
-    var chatName: String
-    var peopleNumber: Int
-    var latestMessage: String
-    var latestChatTime: String
+    var user: UserData
+    var message: String
+    var image: String
 }

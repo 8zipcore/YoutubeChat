@@ -11,9 +11,9 @@ class MainViewController: UIViewController {
 
     @IBOutlet weak var myProfileLabel: SDGothicLabel!
     @IBOutlet weak var chattingLabel: SDGothicLabel!
-    @IBOutlet weak var chatTableView: UITableView!
+    @IBOutlet weak var groupChatTableView: UITableView!
     
-    var chatArray:[ChatData] = []
+    var chatArray:[GroupChatData] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,13 +33,13 @@ class MainViewController: UIViewController {
         chattingLabel.font = SDGothic(size: 15)
         chattingLabel.setLetterSpacing(0.4)
         
-        let chatTableViewCellNib = UINib(nibName: ChatTableViewCell.identifier, bundle: nil)
-        chatTableView.register(chatTableViewCellNib, forCellReuseIdentifier: ChatTableViewCell.identifier)
+        let groupChatTableViewCellNib = UINib(nibName: GroupChatTableViewCell.identifier, bundle: nil)
+        groupChatTableView.register(groupChatTableViewCellNib, forCellReuseIdentifier: GroupChatTableViewCell.identifier)
         
-        chatTableView.dataSource = self
-        chatTableView.delegate = self
+        groupChatTableView.dataSource = self
+        groupChatTableView.delegate = self
         
-        chatTableView.bounces = false
+        groupChatTableView.bounces = false
     }
 
 
@@ -54,9 +54,9 @@ class MainViewController: UIViewController {
     */
 
     @IBAction func testButtonTapped(_ sender: Any) {
-        self.chatArray.append(ChatData(chatImage: "rikus", chatName: "유튜브 챗 유튜브 챗 유튜브 챗", peopleNumber: 3, latestMessage: "빠더너스 문상훈 초대석, 쇼츠 드라마 만들기", latestChatTime: "오전 12:00"))
+        self.chatArray.append(GroupChatData(chatImage: "rikus", chatName: "유튜브 챗 유튜브 챗 유튜브 챗", peopleNumber: 3, latestMessage: "빠더너스 문상훈 초대석, 쇼츠 드라마 만들기", latestChatTime: "오전 12:00"))
         
-        self.chatTableView.reloadData()
+        self.groupChatTableView.reloadData()
     }
 }
 
@@ -66,11 +66,11 @@ extension MainViewController: UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = chatTableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier, for: indexPath) as? ChatTableViewCell else { return UITableViewCell() }
+        guard let cell = groupChatTableView.dequeueReusableCell(withIdentifier: GroupChatTableViewCell.identifier, for: indexPath) as? GroupChatTableViewCell else { return UITableViewCell() }
         
-        let chatData = chatArray[indexPath.item]
+        let groupChatData = chatArray[indexPath.item]
         
-        cell.initView(chatData: chatData)
+        cell.initView(groupChatData: groupChatData)
         
         return cell
     }
@@ -82,11 +82,9 @@ extension MainViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let chatData = chatArray[indexPath.item]
-        
         let deleteAction = UIContextualAction(style: .normal, title: "나가기") { [weak self] _, _, success in
             self?.chatArray.remove(at: indexPath.row)
-            self?.chatTableView.deleteRows(at: [indexPath], with: .none)
+            self?.groupChatTableView.deleteRows(at: [indexPath], with: .none)
             success(true)
         }
         

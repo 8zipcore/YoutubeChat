@@ -1,5 +1,5 @@
 //
-//  ChatTableViewCell.swift
+//  GroupChatTableViewCell.swift
 //  YoutubeChat
 //
 //  Created by 홍승아 on 6/13/24.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-class ChatTableViewCell: UITableViewCell {
+class GroupChatTableViewCell: UITableViewCell {
     
-    static let identifier = "ChatTableViewCell"
+    static let identifier = "GroupChatTableViewCell"
     
     @IBOutlet weak var chatImageView: UIImageView!
     @IBOutlet weak var chatNameLabel: SDGothicLabel!
@@ -38,12 +38,12 @@ class ChatTableViewCell: UITableViewCell {
         latestMessageLabel.numberOfLines = 2
     }
     
-    func initView(chatData: ChatData){
-        chatImageView.image = UIImage(named: chatData.chatImage)
-        chatNameLabel.text = chatData.chatName
-        peopleNumberLabel.text = String(chatData.peopleNumber)
-        latestMessageLabel.text = chatData.latestMessage
-        latestChatTimeLabel.text = chatData.latestChatTime
+    func initView(groupChatData: GroupChatData){
+        chatImageView.image = UIImage(named: groupChatData.chatImage)
+        chatNameLabel.text = groupChatData.chatName
+        peopleNumberLabel.text = String(groupChatData.peopleNumber)
+        latestMessageLabel.text = groupChatData.latestMessage
+        latestChatTimeLabel.text = groupChatData.latestChatTime
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

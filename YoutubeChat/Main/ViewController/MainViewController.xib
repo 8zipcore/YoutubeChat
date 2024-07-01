@@ -10,8 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MainViewController" customModule="YoutubeChat" customModuleProvider="target">
             <connections>
-                <outlet property="chatTableView" destination="ycR-by-KKi" id="6ci-oI-W7w"/>
                 <outlet property="chattingLabel" destination="0Wl-UN-enQ" id="Br4-8o-W1j"/>
+                <outlet property="groupChatTableView" destination="ycR-by-KKi" id="FS5-dt-EI7"/>
                 <outlet property="myProfileLabel" destination="ZFg-DJ-qoG" id="JF8-n7-Uyd"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
