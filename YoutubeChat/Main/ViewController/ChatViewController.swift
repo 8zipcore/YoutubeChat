@@ -9,10 +9,12 @@ import UIKit
 
 class ChatViewController: UIViewController {
 
-    @IBOutlet weak var chatNameLabel: UILabel!
-    @IBOutlet weak var peopleNumberLabel: UILabel!
+    @IBOutlet weak var chatNameLabel: SDGothicLabel!
+    @IBOutlet weak var peopleNumberLabel: SDGothicLabel!
     @IBOutlet weak var chatTableView: UITableView!
-    @IBOutlet weak var chatTextField: ChatTextField!
+    @IBOutlet weak var chatTextView: ChatTextView!
+    
+    @IBOutlet weak var chatTextViewHeightContraint: NSLayoutConstraint!
     
     var data: [ChatData] = []
     
@@ -24,20 +26,22 @@ class ChatViewController: UIViewController {
     }
     
     private func configureView(){
+        chatNameLabel.setLabel(textColor: .black, fontSize: 15)
+        peopleNumberLabel.setLabel(textColor: Colors.gray, fontSize: 13)
+        
         self.chatTableView.dataSource = self
         self.chatTableView.delegate = self
+        
+        self.chatTextView.chatTextViewHeightDelegate = self
+        
+        chatNameLabel.text = "채팅방 이름"
+        peopleNumberLabel.text = "4"
+        
+        self.chatTextViewHeightContraint.constant = chatTextView.estimatedHeight()
     }
 
     @IBAction func sendButtonTapped(_ sender: Any) {
-        // addMessageData(name: "리")
-        let imageName = ["riku", "saku", "rikus", "testImage", "testImage2"]
-        
-        count = count + 1 == imageName.count ? 0 : count + 1
-        addImageData(name: "리", imgName: imageName[count])
-        
-        chatTableView.reloadData()
-
-        chatTableView.scrollToRow(at: IndexPath(row: self.data.count - 1, section: 0), at: .bottom, animated: true)
+        addMessageData(name: "리")
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -45,23 +49,23 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func testButtonTapped(_ sender: Any) {
-        let imageName = ["riku", "saku", "rikus", "testImage", "testImage2"]
-        
-        count = count + 1 == imageName.count ? 0 : count + 1
-        addImageData(name: "리코", imgName: imageName[count])
-        
-        chatTableView.reloadData()
-
-        chatTableView.scrollToRow(at: IndexPath(row: self.data.count - 1, section: 0), at: .bottom, animated: true)
+//        let imageName = ["riku", "saku", "rikus", "testImage", "testImage2"]
+//        
+//        count = count + 1 == imageName.count ? 0 : count + 1
+//        addImageData(name: "리코", imgName: imageName[count])
+//        
+//        chatTableView.reloadData()
+//
+//        chatTableView.scrollToRow(at: IndexPath(row: self.data.count - 1, section: 0), at: .bottom, animated: true)
     }
     
     func addMessageData(name: String){
-        let data = ChatData(user: UserData(name: name, profileImage: ""), message: self.chatTextField.text, image: "")
+        let data = ChatData(user: UserData(name: name, profileImage: ""), message: self.chatTextView.text, image: "")
         self.data.append(data)
     }
     
     func addImageData(name:String, imgName: String){
-        let data = ChatData(user: UserData(name: name, profileImage: ""), message: self.chatTextField.text, image: imgName)
+        let data = ChatData(user: UserData(name: name, profileImage: ""), message: self.chatTextView.text, image: imgName)
         self.data.append(data)
     }
 }
@@ -210,3 +214,8 @@ extension ChatViewController: UITableViewDelegate{
     }
 }
 
+extension ChatViewController: ChatTextViewDelegate{
+    func setChatTextViewHeight(_ height: CGFloat) {
+        self.chatTextViewHeightContraint.constant = height
+    }
+}

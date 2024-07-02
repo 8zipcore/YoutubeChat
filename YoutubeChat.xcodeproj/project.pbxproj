@@ -19,7 +19,7 @@
 		3625B0BB2C2BD16E00947E07 /* ProfileImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625B0BA2C2BD16E00947E07 /* ProfileImageView.swift */; };
 		3625B0BE2C2BE1FF00947E07 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625B0BC2C2BE1FF00947E07 /* ChatViewController.swift */; };
 		3625B0BF2C2BE1FF00947E07 /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3625B0BD2C2BE1FF00947E07 /* ChatViewController.xib */; };
-		3625B0C12C2BEA5A00947E07 /* ChatTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625B0C02C2BEA5A00947E07 /* ChatTextField.swift */; };
+		3625B0C12C2BEA5A00947E07 /* ChatTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625B0C02C2BEA5A00947E07 /* ChatTextView.swift */; };
 		3625B0C42C2BEF8100947E07 /* ChatWithProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625B0C22C2BEF8100947E07 /* ChatWithProfileTableViewCell.swift */; };
 		3625B0C52C2BEF8100947E07 /* ChatWithProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3625B0C32C2BEF8100947E07 /* ChatWithProfileTableViewCell.xib */; };
 		3625B0C72C2BF0F400947E07 /* MessageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3625B0C62C2BF0F400947E07 /* MessageLabel.swift */; };
@@ -87,7 +87,7 @@
 		3625B0BA2C2BD16E00947E07 /* ProfileImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageView.swift; sourceTree = "<group>"; };
 		3625B0BC2C2BE1FF00947E07 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		3625B0BD2C2BE1FF00947E07 /* ChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatViewController.xib; sourceTree = "<group>"; };
-		3625B0C02C2BEA5A00947E07 /* ChatTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextField.swift; sourceTree = "<group>"; };
+		3625B0C02C2BEA5A00947E07 /* ChatTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTextView.swift; sourceTree = "<group>"; };
 		3625B0C22C2BEF8100947E07 /* ChatWithProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatWithProfileTableViewCell.swift; sourceTree = "<group>"; };
 		3625B0C32C2BEF8100947E07 /* ChatWithProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatWithProfileTableViewCell.xib; sourceTree = "<group>"; };
 		3625B0C62C2BF0F400947E07 /* MessageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageLabel.swift; sourceTree = "<group>"; };
@@ -187,7 +187,7 @@
 				36DDD11F2C208027005A16E1 /* MakeGroupChatTextField.swift */,
 				365C9DAA2C25A855004936FB /* ConfirmButton.swift */,
 				3625B0BA2C2BD16E00947E07 /* ProfileImageView.swift */,
-				3625B0C02C2BEA5A00947E07 /* ChatTextField.swift */,
+				3625B0C02C2BEA5A00947E07 /* ChatTextView.swift */,
 				3625B0C62C2BF0F400947E07 /* MessageLabel.swift */,
 				3625B0C82C2C0DC600947E07 /* SDGothicTextView.swift */,
 				360274732C2E8E3D00A377FD /* ImageChatView.swift */,
@@ -564,7 +564,7 @@
 				360274742C2E8E3D00A377FD /* ImageChatView.swift in Sources */,
 				36DDD1182C2054F7005A16E1 /* GroupChatData.swift in Sources */,
 				36AAECAF2C198E3D00532AF5 /* SceneDelegate.swift in Sources */,
-				3625B0C12C2BEA5A00947E07 /* ChatTextField.swift in Sources */,
+				3625B0C12C2BEA5A00947E07 /* ChatTextView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
