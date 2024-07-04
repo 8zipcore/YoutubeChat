@@ -8,7 +8,9 @@ target 'YoutubeChat' do
   # Pods for YoutubeChat
   
   pod 'SnapKit'
-
+  pod 'Alamofire'
+  pod 'Kingfisher', '~> 6.0'
+  
   target 'YoutubeChatTests' do
     inherit! :search_paths
     # Pods for testing

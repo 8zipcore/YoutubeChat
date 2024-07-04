@@ -44,6 +44,7 @@
 		36C3A2AE2C1B401D008AE26F /* GroupChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C3A2AC2C1B401D008AE26F /* GroupChatTableViewCell.swift */; };
 		36C3A2AF2C1B401D008AE26F /* GroupChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C3A2AD2C1B401D008AE26F /* GroupChatTableViewCell.xib */; };
 		36C3A2B12C1B48C6008AE26F /* SDGothicLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C3A2B02C1B48C6008AE26F /* SDGothicLabel.swift */; };
+		36C9A4712C365852001D9A8B /* PlaylistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C9A4702C365852001D9A8B /* PlaylistViewModel.swift */; };
 		36CA84A22C32BB8F00427471 /* ImageChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CA84A02C32BB8F00427471 /* ImageChatTableViewCell.swift */; };
 		36CA84A32C32BB8F00427471 /* ImageChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36CA84A12C32BB8F00427471 /* ImageChatTableViewCell.xib */; };
 		36DDD1182C2054F7005A16E1 /* GroupChatData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DDD1172C2054F7005A16E1 /* GroupChatData.swift */; };
@@ -51,6 +52,13 @@
 		36DDD11C2C2073A6005A16E1 /* MakeGroupChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36DDD11A2C2073A6005A16E1 /* MakeGroupChatViewController.xib */; };
 		36DDD11E2C2076E7005A16E1 /* SDGothicButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DDD11D2C2076E7005A16E1 /* SDGothicButton.swift */; };
 		36DDD1202C208027005A16E1 /* MakeGroupChatTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DDD11F2C208027005A16E1 /* MakeGroupChatTextField.swift */; };
+		36E4F9F42C33F31300EC9285 /* YoutubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E4F9F32C33F31300EC9285 /* YoutubeView.swift */; };
+		36F351A62C351A3B0055BF64 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F351A42C351A3B0055BF64 /* PlaylistViewController.swift */; };
+		36F351A72C351A3B0055BF64 /* PlaylistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36F351A52C351A3B0055BF64 /* PlaylistViewController.xib */; };
+		36F351AA2C351C940055BF64 /* PlayListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F351A82C351C940055BF64 /* PlayListTableViewCell.swift */; };
+		36F351AB2C351C940055BF64 /* PlayListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36F351A92C351C940055BF64 /* PlayListTableViewCell.xib */; };
+		36F351AD2C3523CB0055BF64 /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F351AC2C3523CB0055BF64 /* Video.swift */; };
+		36F351B02C3525E20055BF64 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F351AF2C3525E20055BF64 /* APIManager.swift */; };
 		A3F361A04D1AEBAAE29CB3EB /* libPods-YoutubeChatTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D6108E4493C50CF59E57E864 /* libPods-YoutubeChatTests.a */; };
 		AF43E83CA5C723BC1BCE4C62 /* libPods-YoutubeChat-YoutubeChatUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3014348FCCF82F2A9279C6B8 /* libPods-YoutubeChat-YoutubeChatUITests.a */; };
 /* End PBXBuildFile section */
@@ -116,6 +124,7 @@
 		36C3A2AC2C1B401D008AE26F /* GroupChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatTableViewCell.swift; sourceTree = "<group>"; };
 		36C3A2AD2C1B401D008AE26F /* GroupChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupChatTableViewCell.xib; sourceTree = "<group>"; };
 		36C3A2B02C1B48C6008AE26F /* SDGothicLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDGothicLabel.swift; sourceTree = "<group>"; };
+		36C9A4702C365852001D9A8B /* PlaylistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewModel.swift; sourceTree = "<group>"; };
 		36CA84A02C32BB8F00427471 /* ImageChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageChatTableViewCell.swift; sourceTree = "<group>"; };
 		36CA84A12C32BB8F00427471 /* ImageChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageChatTableViewCell.xib; sourceTree = "<group>"; };
 		36DDD1172C2054F7005A16E1 /* GroupChatData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupChatData.swift; sourceTree = "<group>"; };
@@ -123,6 +132,13 @@
 		36DDD11A2C2073A6005A16E1 /* MakeGroupChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MakeGroupChatViewController.xib; sourceTree = "<group>"; };
 		36DDD11D2C2076E7005A16E1 /* SDGothicButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDGothicButton.swift; sourceTree = "<group>"; };
 		36DDD11F2C208027005A16E1 /* MakeGroupChatTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeGroupChatTextField.swift; sourceTree = "<group>"; };
+		36E4F9F32C33F31300EC9285 /* YoutubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeView.swift; sourceTree = "<group>"; };
+		36F351A42C351A3B0055BF64 /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
+		36F351A52C351A3B0055BF64 /* PlaylistViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistViewController.xib; sourceTree = "<group>"; };
+		36F351A82C351C940055BF64 /* PlayListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListTableViewCell.swift; sourceTree = "<group>"; };
+		36F351A92C351C940055BF64 /* PlayListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlayListTableViewCell.xib; sourceTree = "<group>"; };
+		36F351AC2C3523CB0055BF64 /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
+		36F351AF2C3525E20055BF64 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		489401D437C7792BFEEF6CEE /* Pods-YoutubeChatTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeChatTests.debug.xcconfig"; path = "Target Support Files/Pods-YoutubeChatTests/Pods-YoutubeChatTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5566D2ABE3F193DF04A2EE06 /* Pods-YoutubeChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeChat.debug.xcconfig"; path = "Target Support Files/Pods-YoutubeChat/Pods-YoutubeChat.debug.xcconfig"; sourceTree = "<group>"; };
 		60D83BB5E525AABE0F41E883 /* Pods-YoutubeChat-YoutubeChatUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YoutubeChat-YoutubeChatUITests.debug.xcconfig"; path = "Target Support Files/Pods-YoutubeChat-YoutubeChatUITests/Pods-YoutubeChat-YoutubeChatUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -173,6 +189,8 @@
 				360274702C2E8C5500A377FD /* ImageChatWithProfileTableViewCell.xib */,
 				36CA84A02C32BB8F00427471 /* ImageChatTableViewCell.swift */,
 				36CA84A12C32BB8F00427471 /* ImageChatTableViewCell.xib */,
+				36F351A82C351C940055BF64 /* PlayListTableViewCell.swift */,
+				36F351A92C351C940055BF64 /* PlayListTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -191,6 +209,7 @@
 				3625B0C62C2BF0F400947E07 /* MessageLabel.swift */,
 				3625B0C82C2C0DC600947E07 /* SDGothicTextView.swift */,
 				360274732C2E8E3D00A377FD /* ImageChatView.swift */,
+				36E4F9F32C33F31300EC9285 /* YoutubeView.swift */,
 			);
 			path = SupportViews;
 			sourceTree = "<group>";
@@ -265,6 +284,7 @@
 				36AAECDE2C19A00E00532AF5 /* ViewModel */,
 				36AAECDF2C19A01400532AF5 /* Model */,
 				361B06762C1ABB4B00BD529B /* SupportViews */,
+				36F351AE2C35259A0055BF64 /* Network */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -280,6 +300,8 @@
 				368F7D222C296F3400A848CE /* ProfileViewController.xib */,
 				3625B0BC2C2BE1FF00947E07 /* ChatViewController.swift */,
 				3625B0BD2C2BE1FF00947E07 /* ChatViewController.xib */,
+				36F351A42C351A3B0055BF64 /* PlaylistViewController.swift */,
+				36F351A52C351A3B0055BF64 /* PlaylistViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -287,6 +309,7 @@
 		36AAECDE2C19A00E00532AF5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				36C9A4702C365852001D9A8B /* PlaylistViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -298,8 +321,17 @@
 				368F7D1F2C296CC100A848CE /* ChatOptionData.swift */,
 				36AF12DE2C2D084600166FBE /* ChatData.swift */,
 				36AF12E02C2D088900166FBE /* UserData.swift */,
+				36F351AC2C3523CB0055BF64 /* Video.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		36F351AE2C35259A0055BF64 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				36F351AF2C3525E20055BF64 /* APIManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		615A91403C2D84CABB40B270 /* Frameworks */ = {
@@ -432,6 +464,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36F351A72C351A3B0055BF64 /* PlaylistViewController.xib in Resources */,
 				368F7D242C296F3400A848CE /* ProfileViewController.xib in Resources */,
 				3602746E2C2E6F4D00A377FD /* ChatTableViewCell.xib in Resources */,
 				36AAECB92C198E3E00532AF5 /* LaunchScreen.storyboard in Resources */,
@@ -443,6 +476,7 @@
 				36CA84A32C32BB8F00427471 /* ImageChatTableViewCell.xib in Resources */,
 				36DDD11C2C2073A6005A16E1 /* MakeGroupChatViewController.xib in Resources */,
 				36C3A2AF2C1B401D008AE26F /* GroupChatTableViewCell.xib in Resources */,
+				36F351AB2C351C940055BF64 /* PlayListTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -536,6 +570,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36F351B02C3525E20055BF64 /* APIManager.swift in Sources */,
 				36CA84A22C32BB8F00427471 /* ImageChatTableViewCell.swift in Sources */,
 				361B067A2C1AC96300BD529B /* Font.swift in Sources */,
 				3625B0C42C2BEF8100947E07 /* ChatWithProfileTableViewCell.swift in Sources */,
@@ -543,15 +578,20 @@
 				36AF12E12C2D088900166FBE /* UserData.swift in Sources */,
 				36AF12DF2C2D084600166FBE /* ChatData.swift in Sources */,
 				36C3A2AE2C1B401D008AE26F /* GroupChatTableViewCell.swift in Sources */,
+				36F351AD2C3523CB0055BF64 /* Video.swift in Sources */,
 				3625B0C92C2C0DC600947E07 /* SDGothicTextView.swift in Sources */,
 				368F7D202C296CC100A848CE /* ChatOptionData.swift in Sources */,
 				36AAECE22C19A1A700532AF5 /* MainViewController.swift in Sources */,
 				36DDD1202C208027005A16E1 /* MakeGroupChatTextField.swift in Sources */,
+				36F351AA2C351C940055BF64 /* PlayListTableViewCell.swift in Sources */,
 				3625B0BB2C2BD16E00947E07 /* ProfileImageView.swift in Sources */,
+				36F351A62C351A3B0055BF64 /* PlaylistViewController.swift in Sources */,
 				3602746D2C2E6F4D00A377FD /* ChatTableViewCell.swift in Sources */,
+				36C9A4712C365852001D9A8B /* PlaylistViewModel.swift in Sources */,
 				3655CB2B2C23041A0037F3DC /* Color.swift in Sources */,
 				365C9DAD2C25C111004936FB /* ChatOptionCollectionViewCell.swift in Sources */,
 				36C3A2B12C1B48C6008AE26F /* SDGothicLabel.swift in Sources */,
+				36E4F9F42C33F31300EC9285 /* YoutubeView.swift in Sources */,
 				36DDD11B2C2073A6005A16E1 /* MakeGroupChatViewController.swift in Sources */,
 				3625B0BE2C2BE1FF00947E07 /* ChatViewController.swift in Sources */,
 				3625B0C72C2BF0F400947E07 /* MessageLabel.swift in Sources */,
@@ -747,6 +787,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -776,6 +817,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

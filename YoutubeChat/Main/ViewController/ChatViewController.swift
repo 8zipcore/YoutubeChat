@@ -13,6 +13,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var peopleNumberLabel: SDGothicLabel!
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var chatTextView: ChatTextView!
+    @IBOutlet weak var youtubeView: YoutubeView!
     
     @IBOutlet weak var chatTextViewHeightContraint: NSLayoutConstraint!
     
@@ -49,6 +50,12 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func testButtonTapped(_ sender: Any) {
+        let playlistViewController = PlaylistViewController()
+        playlistViewController.modalPresentationStyle = .overCurrentContext
+        let frame = self.youtubeView.convert(self.view.frame, to: nil)
+        playlistViewController.yPoint = frame.minY + self.youtubeView.bounds.height
+        self.present(playlistViewController, animated: true)
+
 //        let imageName = ["riku", "saku", "rikus", "testImage", "testImage2"]
 //        
 //        count = count + 1 == imageName.count ? 0 : count + 1
