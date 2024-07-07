@@ -67,13 +67,11 @@ class ChatViewController: UIViewController {
     }
     
     func addMessageData(name: String){
-        let data = ChatData(user: UserData(name: name, profileImage: ""), message: self.chatTextView.text, image: "")
-        self.data.append(data)
+
     }
     
     func addImageData(name:String, imgName: String){
-        let data = ChatData(user: UserData(name: name, profileImage: ""), message: self.chatTextView.text, image: imgName)
-        self.data.append(data)
+
     }
 }
 

@@ -8,10 +8,16 @@
 import UIKit
 import SnapKit
 
+protocol ProfileImageViewDelegate{
+    func editButtonTapped()
+}
+
 class ProfileImageView: UIView {
     
     var profileImageView = UIImageView()
     var editButton = UIButton()
+    
+    var delegate: ProfileImageViewDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,6 +55,23 @@ class ProfileImageView: UIView {
         profileImageView.image = UIImage(named: "rikus")
         editButton.setTitle("편집", for: .normal)
         editButton.backgroundColor = .black
+        
+        editButton.addTarget(self, action: #selector(editButtonTouchUp(_:)), for: .touchUpInside)
+        editButton.addTarget(self, action: #selector(editButtonTouchDown(_:)), for: .touchDown)
+    }
+    
+    func setImage(_ image: UIImage){
+        self.profileImageView.image = image
+    }
+    
+    @objc
+    func editButtonTouchUp(_ sender: UIButton){
+        delegate?.editButtonTapped()
+    }
+    
+    @objc
+    func editButtonTouchDown(_ sender: UIButton){
+        
     }
     
 }

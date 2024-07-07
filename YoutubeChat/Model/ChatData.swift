@@ -8,7 +8,7 @@
 import Foundation
 
 struct ChatData{
-    var user: UserData
+    var user: User
     var message: String
     var image: String
 }

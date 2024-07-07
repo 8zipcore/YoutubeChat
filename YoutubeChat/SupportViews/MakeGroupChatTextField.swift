@@ -11,7 +11,7 @@ import SnapKit
 class MakeGroupChatTextField: UIView {
     
     // 비율 986:213
-    // 크기 superView.width * 0.85
+    // 크기 superView.width * 0.88
     
     var titleLabel = SDGothicLabel()
     var textField = UITextField()
