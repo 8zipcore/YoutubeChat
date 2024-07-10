@@ -16,6 +16,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
     private var imagePicker = UIImagePickerController()
     private var imageEditViewController = ImageEditViewController()
     
+    private let profileViewModel = ProfileViewModel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -39,10 +41,32 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
     }
     
     @IBAction func confirmButtonTapped(_ sender: Any) {
+        if nameTextField.isBlank(){
+            nameTextField.showAnimation()
+        } else {
+            print("✅ 클릭")
+            Task{
+                let user = User(id: nil, 
+                                name: nameTextField.text,
+                                image: profileViewModel.imageToString(image: profileImageView.image),
+                                statusMessage: "",
+                                chatID: [])
+                let response = try await profileViewModel.createProfile(user:user)
+                profileViewModel.setUser(response)
+                
+                DispatchQueue.main.async {
+                    self.showMainViewController()
+                }
+            }
+        }
     }
     
+    private func showMainViewController(){
+        let vc = MainViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
-
+                                                            
 extension ProfileViewController: ProfileImageViewDelegate{
     func editButtonTapped() {
         self.present(imagePicker, animated: true)
@@ -53,9 +77,7 @@ extension ProfileViewController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             imageEditViewController.pickedImage = pickedImage
-            
             imagePicker.pushViewController(imageEditViewController, animated: false)
-            // self.present(imageEditViewController, animated: false)
         }
     }
 }

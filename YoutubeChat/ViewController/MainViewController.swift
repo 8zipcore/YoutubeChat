@@ -9,6 +9,7 @@ import UIKit
 
 class MainViewController: UIViewController {
 
+    @IBOutlet weak var profileView: ProfileView!
     @IBOutlet weak var myProfileLabel: SDGothicLabel!
     @IBOutlet weak var chattingLabel: SDGothicLabel!
     @IBOutlet weak var groupChatTableView: UITableView!
@@ -22,6 +23,8 @@ class MainViewController: UIViewController {
     }
     
     private func configureView(){
+        profileView.setMyProfile()
+        
         myProfileLabel.text = "내 프로필"
         chattingLabel.text = "채팅"
         

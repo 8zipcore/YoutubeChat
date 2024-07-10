@@ -22,4 +22,5 @@ class NetworkManager{
             throw HttpError.badResponse
         }
     }
+
 }

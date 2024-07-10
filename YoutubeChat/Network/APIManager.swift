@@ -8,22 +8,6 @@
 import Foundation
 import Alamofire
 
-enum HttpError: Error {
-    case badURL, badResponse, errorDecodingData, invalidURL
-}
-
-enum DecodingError: Error {
-    case jsonParsing
-}
-
-enum MIMEType: String{
-    case JSON = "application/json"
-}
-
-enum HttpHeaders: String {
-    case contentType = "Content-Type"
-}
-
 enum YoutubeAPI{
     static let baseURL = "https://youtube.googleapis.com/youtube/v3/videos"
     static let apiKey = ""
@@ -43,7 +27,7 @@ class APIManager{
                 switch response.result{
                 case .success(let data):
                     do{
-                        guard let json = try JSONSerialization.jsonObject(with: data) as? [String:Any] else { throw DecodingError.jsonParsing }
+                        guard let json = try JSONSerialization.jsonObject(with: data) as? [String:Any] else { throw JsonError.decoding }
                         var video = Video(title: "", uploader: "", thumbnail: "")
                         if let items = json["items"] as? [[String:Any]]{
                             if items.count > 0, let item = items[0]["snippet"] as? [String:Any]{
@@ -58,7 +42,7 @@ class APIManager{
                         }
                         onComplete(.success(video))
                     } catch {
-                        onComplete(.failure(DecodingError.jsonParsing))
+                        onComplete(.failure(JsonError.decoding))
                     }
                 case .failure(let error):
                     onComplete(.failure(HttpError.badResponse))

@@ -76,4 +76,22 @@ class ProfileView: UIView {
             make.width.equalTo(messageLabelWidth)
         }
     }
+    
+    func setImage(_ image: UIImage?){
+        self.profileImageView.image = image
+    }
+    
+    func setName(_ name: String){
+        self.nameLabel.text = name
+    }
+    
+    func setStatusMessage(_ statusMessage: String){
+        self.messageLabel.text = statusMessage
+    }
+    
+    func setMyProfile(){
+        setImage(MyProfile.image)
+        setName(MyProfile.name)
+        setStatusMessage(MyProfile.statusMessage)
+    }
 }

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -13,6 +14,7 @@
                 <outlet property="chattingLabel" destination="0Wl-UN-enQ" id="Br4-8o-W1j"/>
                 <outlet property="groupChatTableView" destination="ycR-by-KKi" id="FS5-dt-EI7"/>
                 <outlet property="myProfileLabel" destination="ZFg-DJ-qoG" id="JF8-n7-Uyd"/>
+                <outlet property="profileView" destination="Y7b-6M-0iV" id="M44-sh-IRJ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

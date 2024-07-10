@@ -8,7 +8,9 @@
 import Foundation
 
 struct User: Codable{
-    var id: UUID
+    var id: UUID?
     var name: String
-    var profileImage: String
+    var image: String
+    var statusMessage: String
+    var chatID: [UUID]
 }

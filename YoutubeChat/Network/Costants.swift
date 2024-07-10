@@ -14,3 +14,19 @@ enum Constants{
 enum Endpoints {
     static let join = "join"
 }
+
+enum HttpError: Error {
+    case badURL, badResponse, errorDecodingData, invalidURL
+}
+
+enum JsonError: Error {
+    case encoding, decoding;
+}
+
+enum MIMEType: String{
+    case JSON = "application/json"
+}
+
+enum HttpHeaders: String {
+    case contentType = "Content-Type"
+}

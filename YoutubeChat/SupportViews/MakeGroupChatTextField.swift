@@ -16,6 +16,14 @@ class MakeGroupChatTextField: UIView {
     var titleLabel = SDGothicLabel()
     var textField = UITextField()
     
+    var text: String{
+        return self.textField.text ?? ""
+    }
+    
+    var textCount: Int{
+        return self.textField.text?.count ?? 0
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureView()
@@ -73,5 +81,25 @@ class MakeGroupChatTextField: UIView {
     func setText(title: String, placeHolder: String){
         self.titleLabel.text = title
         self.textField.placeholder = placeHolder
+    }
+    
+    func showAnimation(){
+        UIView.animate(withDuration: 0.07, animations: {
+            self.textField.transform = CGAffineTransform(translationX: -2, y: 0)
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.07, animations: {
+                self.textField.transform = CGAffineTransform(translationX: 4, y: 0)
+            }, completion: { _ in
+                UIView.animate(withDuration: 0.07, animations: {
+                    self.textField.transform = .identity
+                }, completion: { _ in
+                    
+                })
+            })
+        })
+    }
+    
+    func isBlank()-> Bool{
+        return textCount == 0
     }
 }

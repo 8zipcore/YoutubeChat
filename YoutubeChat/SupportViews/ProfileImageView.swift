@@ -18,6 +18,10 @@ class ProfileImageView: UIView {
     var editButton = UIButton()
     
     var delegate: ProfileImageViewDelegate?
+    
+    var image: UIImage?{
+        return profileImageView.image
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
