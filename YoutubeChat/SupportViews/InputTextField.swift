@@ -1,5 +1,5 @@
 //
-//  MakeGroupChatTextField.swift
+//  InputTextField.swift
 //  YoutubeChat
 //
 //  Created by 홍승아 on 6/17/24.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class MakeGroupChatTextField: UIView {
+class InputTextField: UIView {
     
     // 비율 986:213
     // 크기 superView.width * 0.88

@@ -13,13 +13,19 @@ class MainViewController: UIViewController {
     @IBOutlet weak var myProfileLabel: SDGothicLabel!
     @IBOutlet weak var chattingLabel: SDGothicLabel!
     @IBOutlet weak var groupChatTableView: UITableView!
-    
-    var chatArray:[GroupChatData] = []
+
+    var chatViewModel = ChatViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        initData()
     }
     
     private func configureView(){
@@ -43,37 +49,41 @@ class MainViewController: UIViewController {
         groupChatTableView.delegate = self
         
         groupChatTableView.bounces = false
+        
+    }
+    
+    private func initData(){
+        chatViewModel.fetchChatInfo()
+        groupChatTableView.reloadData()
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func creatGroupChatButtonTapped(_ sender: Any) {
+        let vc = CreateGroupChatViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-    */
-
+    
     @IBAction func testButtonTapped(_ sender: Any) {
+        
+        CoreDataManager.shared.deleteAllData()
+        /*
         self.chatArray.append(GroupChatData(chatImage: "rikus", chatName: "유튜브 챗 유튜브 챗 유튜브 챗", peopleNumber: 3, latestMessage: "빠더너스 문상훈 초대석, 쇼츠 드라마 만들기", latestChatTime: "오전 12:00"))
         
         self.groupChatTableView.reloadData()
+         */
     }
 }
 
 extension MainViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chatArray.count
+        return chatViewModel.myChatArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = groupChatTableView.dequeueReusableCell(withIdentifier: GroupChatTableViewCell.identifier, for: indexPath) as? GroupChatTableViewCell else { return UITableViewCell() }
         
-        let groupChatData = chatArray[indexPath.item]
+        let myChatInfo = chatViewModel.myChatArray[indexPath.item]
         
-        cell.initView(groupChatData: groupChatData)
+        cell.initView(myChatInfo: myChatInfo)
         
         return cell
     }
@@ -86,7 +96,7 @@ extension MainViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .normal, title: "나가기") { [weak self] _, _, success in
-            self?.chatArray.remove(at: indexPath.row)
+            self?.chatViewModel.myChatArray.remove(at: indexPath.row)
             self?.groupChatTableView.deleteRows(at: [indexPath], with: .none)
             success(true)
         }

@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
 
     @IBOutlet weak var profileImageView: ProfileImageView!
     @IBOutlet weak var titleLabel: SDGothicLabel!
-    @IBOutlet weak var nameTextField: MakeGroupChatTextField!
+    @IBOutlet weak var nameTextField: InputTextField!
     
     private var imagePicker = UIImagePickerController()
     private var imageEditViewController = ImageEditViewController()
@@ -48,28 +48,29 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
             Task{
                 let user = User(id: nil, 
                                 name: nameTextField.text,
-                                image: profileViewModel.imageToString(image: profileImageView.image),
+                                image: profileImageView.imageToString(),
                                 statusMessage: "",
                                 chatID: [])
                 let response = try await profileViewModel.createProfile(user:user)
                 profileViewModel.setUser(response)
                 
                 DispatchQueue.main.async {
-                    self.showMainViewController()
+                    self.presentMainViewController()
                 }
             }
         }
     }
     
-    private func showMainViewController(){
-        let vc = MainViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+    private func presentMainViewController(){
+        let navigationController = UINavigationController(rootViewController: MainViewController())
+        self.present(navigationController, animated: true)
     }
 }
                                                             
 extension ProfileViewController: ProfileImageViewDelegate{
     func editButtonTapped() {
-        self.present(imagePicker, animated: true)
+        let alert = self.profileImageView.alert { self.present(self.imagePicker, animated: true) }
+        self.present(alert, animated: true)
     }
 }
 

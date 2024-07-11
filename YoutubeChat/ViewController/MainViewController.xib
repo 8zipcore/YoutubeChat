@@ -27,9 +27,12 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="35"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PFu-Fg-pUu">
-                            <rect key="frame" x="308" y="0.0" width="75" height="35"/>
+                            <rect key="frame" x="281" y="0.0" width="102" height="35"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="채팅 만들기"/>
+                            <connections>
+                                <action selector="creatGroupChatButtonTapped:" destination="-1" eventType="touchUpInside" id="ssR-hF-ukf"/>
+                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxF-WN-Usm">
                             <rect key="frame" x="137" y="0.0" width="75" height="35"/>

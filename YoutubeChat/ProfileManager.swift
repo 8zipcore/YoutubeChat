@@ -26,9 +26,21 @@ class ProfileManager{
         MyProfile.statusMessage = user.statusMessage
     }
     
-    func saveUserID(id : UUID?){
-        UserDefaults.standard.set(id?.uuidString, forKey: "userID")
-        print("✅ id 저장")
+    func saveUser(_ user : User){
+        UserDefaults.standard.set(user.id?.uuidString, forKey: "userID")
+        UserDefaults.standard.set(user.name, forKey: "userName")
+        UserDefaults.standard.set(user.image, forKey: "userImage")
+        UserDefaults.standard.set(user.statusMessage, forKey: "userStatusMessage")
+    }
+    
+    func setUser(){
+        if let id = UserDefaults.standard.string(forKey: "userID"),
+           let name = UserDefaults.standard.string(forKey: "userName"),
+           let image = UserDefaults.standard.string(forKey: "userImage"),
+           let statusMessage = UserDefaults.standard.string(forKey: "userStatusMessage"){
+            let user = User(id: UUID(uuidString: id), name: name, image: image, statusMessage: statusMessage, chatID: [])
+            setMyProfile(user)
+        }
     }
     
     func isSavedID()-> Bool{

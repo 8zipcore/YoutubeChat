@@ -21,6 +21,8 @@ class ChatViewController: UIViewController {
     
     var count = 0
     
+    var chatInfo: ChatInfo?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -34,11 +36,13 @@ class ChatViewController: UIViewController {
         self.chatTableView.delegate = self
         
         self.chatTextView.chatTextViewHeightDelegate = self
-        
-        chatNameLabel.text = "채팅방 이름"
-        peopleNumberLabel.text = "4"
-        
+                
         self.chatTextViewHeightContraint.constant = chatTextView.estimatedHeight()
+        
+        if let chatInfo = chatInfo {
+            chatNameLabel.text = chatInfo.chatName
+            peopleNumberLabel.text = String(chatInfo.participantID.count)
+        }
     }
 
     @IBAction func sendButtonTapped(_ sender: Any) {
@@ -46,7 +50,7 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true)
+        self.navigationController?.popToRootViewController(animated: true)
     }
     
     @IBAction func testButtonTapped(_ sender: Any) {

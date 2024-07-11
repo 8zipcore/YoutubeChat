@@ -13,6 +13,7 @@ enum Constants{
 
 enum Endpoints {
     static let join = "join"
+    static let createChat = "chat/create"
 }
 
 enum HttpError: Error {

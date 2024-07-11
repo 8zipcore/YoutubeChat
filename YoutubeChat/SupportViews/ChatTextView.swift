@@ -1,5 +1,5 @@
 //
-//  ChatTextField.swift
+//  ChatTextView.swift
 //  YoutubeChat
 //
 //  Created by 홍승아 on 6/26/24.

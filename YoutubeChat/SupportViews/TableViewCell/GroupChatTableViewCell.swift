@@ -28,6 +28,7 @@ class GroupChatTableViewCell: UITableViewCell {
         chatImageView.contentMode = .scaleAspectFill
         chatImageView.clipsToBounds = true
         chatImageView.layer.cornerRadius = (self.bounds.height * 0.77) / 2.5
+        chatImageView.backgroundColor = Colors.pastelBlue
         
         chatNameLabel.setLabel(textColor: .black, fontSize: 15)
         peopleNumberLabel.setLabel(textColor: .darkGray, fontSize: 13)
@@ -38,12 +39,12 @@ class GroupChatTableViewCell: UITableViewCell {
         latestMessageLabel.numberOfLines = 2
     }
     
-    func initView(groupChatData: GroupChatData){
-        chatImageView.image = UIImage(named: groupChatData.chatImage)
-        chatNameLabel.text = groupChatData.chatName
-        peopleNumberLabel.text = String(groupChatData.peopleNumber)
-        latestMessageLabel.text = groupChatData.latestMessage
-        latestChatTimeLabel.text = groupChatData.latestChatTime
+    func initView(myChatInfo: MyChatInfo){
+        chatImageView.setImage(imageString: myChatInfo.chatImage)
+        chatNameLabel.text = myChatInfo.chatName
+        peopleNumberLabel.text = String(myChatInfo.participantNumber)
+        latestMessageLabel.text = myChatInfo.lastMessage
+        // latestChatTimeLabel.text = myChatInfo.timestamp
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

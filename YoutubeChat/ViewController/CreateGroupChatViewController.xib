@@ -2,14 +2,16 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MakeGroupChatViewController" customModule="YoutubeChat" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateGroupChatViewController" customModule="YoutubeChat" customModuleProvider="target">
             <connections>
+                <outlet property="chatImageView" destination="ytx-XH-ign" id="W74-XT-IEZ"/>
                 <outlet property="chatNameTextField" destination="ZhG-0g-SY9" id="dRv-1i-rMU"/>
                 <outlet property="chatOptionCollectionView" destination="z2z-Ty-TTZ" id="hse-2T-1o2"/>
                 <outlet property="chatOptionCollectionViewHeight" destination="8km-Po-rDd" id="NXU-12-nEj"/>
@@ -31,6 +33,9 @@
                             <state key="normal" title="&lt;">
                                 <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="d8g-9m-Bdt"/>
+                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="채팅방 만들기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3v-mK-3Gv" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
                             <rect key="frame" x="50.000000000000007" y="10.666666666666671" width="92.666666666666686" height="21"/>
@@ -47,38 +52,34 @@
                         <constraint firstItem="siy-gw-0Ps" firstAttribute="centerY" secondItem="hGS-wy-cOl" secondAttribute="centerY" id="vBL-13-Jwn"/>
                     </constraints>
                 </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ytx-XH-ign" customClass="ProfileImageView" customModule="YoutubeChat" customModuleProvider="target">
+                    <rect key="frame" x="153.33333333333334" y="126.66666666666669" width="86.333333333333343" height="86.333333333333314"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="ytx-XH-ign" secondAttribute="height" multiplier="1:1" id="ftc-OF-7SO"/>
+                    </constraints>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fQN-d2-ZgN" userLabel="정보입력View">
-                    <rect key="frame" x="0.0" y="101.66666666666669" width="393" height="716.33333333333326"/>
+                    <rect key="frame" x="0.0" y="238" width="393" height="580"/>
                     <subviews>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xo5-eq-2oM">
-                            <rect key="frame" x="165" y="57.999999999999986" width="63" height="63"/>
-                            <constraints>
-                                <constraint firstAttribute="width" secondItem="xo5-eq-2oM" secondAttribute="height" multiplier="1:1" id="NRz-RM-fDw"/>
-                            </constraints>
-                        </imageView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NxS-0S-SLB">
-                            <rect key="frame" x="208.66666666666666" y="86.666666666666671" width="34.333333333333343" height="34.333333333333329"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="+"/>
-                        </button>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZhG-0g-SY9" customClass="MakeGroupChatTextField" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="29.333333333333343" y="139" width="334.33333333333326" height="72.333333333333314"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZhG-0g-SY9" customClass="InputTextField" customModule="YoutubeChat" customModuleProvider="target">
+                            <rect key="frame" x="23.666666666666657" y="0.0" width="345.66666666666674" height="74.666666666666671"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" secondItem="ZhG-0g-SY9" secondAttribute="height" multiplier="978:212" id="eVz-5C-Omi"/>
+                                <constraint firstAttribute="width" secondItem="ZhG-0g-SY9" secondAttribute="height" multiplier="986:213" id="eVz-5C-Omi"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HEl-jf-THS" userLabel="채팅방옵션View">
-                            <rect key="frame" x="29.333333333333343" y="221.33333333333331" width="334.33333333333326" height="55"/>
+                            <rect key="frame" x="23.666666666666657" y="84.666666666666686" width="345.66666666666674" height="55"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="채팅방 옵션" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="abD-y1-uey" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="0.0" width="334.33333333333331" height="20"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="345.66666666666669" height="20"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="z2z-Ty-TTZ">
-                                    <rect key="frame" x="0.0" y="25" width="334.33333333333331" height="30"/>
+                                    <rect key="frame" x="0.0" y="25" width="345.66666666666669" height="30"/>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="8km-Po-rDd"/>
@@ -103,7 +104,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MbN-Qc-AP1" customClass="ConfirmButton" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="29.333333333333343" y="296.33333333333331" width="334.33333333333326" height="52.333333333333314"/>
+                            <rect key="frame" x="23.666666666666657" y="159.66666666666669" width="345.66666666666674" height="54"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="MbN-Qc-AP1" secondAttribute="height" multiplier="986:154" id="1xU-mP-dJz"/>
                             </constraints>
@@ -117,31 +118,29 @@
                     <constraints>
                         <constraint firstItem="ZhG-0g-SY9" firstAttribute="centerX" secondItem="fQN-d2-ZgN" secondAttribute="centerX" id="0lI-oZ-GxY"/>
                         <constraint firstItem="HEl-jf-THS" firstAttribute="trailing" secondItem="ZhG-0g-SY9" secondAttribute="trailing" id="1HH-zF-rqa"/>
+                        <constraint firstItem="ZhG-0g-SY9" firstAttribute="top" secondItem="fQN-d2-ZgN" secondAttribute="top" id="2zM-l9-QcX"/>
                         <constraint firstItem="HEl-jf-THS" firstAttribute="top" secondItem="ZhG-0g-SY9" secondAttribute="bottom" constant="10" id="524-Ha-cap"/>
                         <constraint firstItem="MbN-Qc-AP1" firstAttribute="leading" secondItem="HEl-jf-THS" secondAttribute="leading" id="9Qe-7M-Lkq"/>
-                        <constraint firstItem="ZhG-0g-SY9" firstAttribute="width" secondItem="fQN-d2-ZgN" secondAttribute="width" multiplier="0.85" id="CaQ-rb-nJD"/>
-                        <constraint firstItem="xo5-eq-2oM" firstAttribute="centerY" secondItem="fQN-d2-ZgN" secondAttribute="centerY" multiplier="0.25" id="MOX-iI-Fii"/>
+                        <constraint firstItem="ZhG-0g-SY9" firstAttribute="width" secondItem="fQN-d2-ZgN" secondAttribute="width" multiplier="0.88" id="CaQ-rb-nJD"/>
                         <constraint firstItem="MbN-Qc-AP1" firstAttribute="trailing" secondItem="HEl-jf-THS" secondAttribute="trailing" id="QrP-py-AU2"/>
-                        <constraint firstItem="ZhG-0g-SY9" firstAttribute="top" secondItem="xo5-eq-2oM" secondAttribute="bottom" constant="18" id="jv4-cv-maz"/>
-                        <constraint firstItem="xo5-eq-2oM" firstAttribute="centerX" secondItem="fQN-d2-ZgN" secondAttribute="centerX" id="kMS-a0-C2I"/>
                         <constraint firstItem="HEl-jf-THS" firstAttribute="leading" secondItem="ZhG-0g-SY9" secondAttribute="leading" id="kxd-o4-UOb"/>
-                        <constraint firstItem="NxS-0S-SLB" firstAttribute="bottom" secondItem="xo5-eq-2oM" secondAttribute="bottom" id="n97-Mg-Z8y"/>
-                        <constraint firstItem="NxS-0S-SLB" firstAttribute="centerX" secondItem="xo5-eq-2oM" secondAttribute="centerX" multiplier="1.15" id="oA8-ZT-Nce"/>
                         <constraint firstItem="MbN-Qc-AP1" firstAttribute="top" secondItem="HEl-jf-THS" secondAttribute="bottom" constant="20" id="rLn-b1-sLa"/>
-                        <constraint firstItem="xo5-eq-2oM" firstAttribute="width" secondItem="fQN-d2-ZgN" secondAttribute="width" multiplier="0.16" id="rvK-YM-ms7"/>
                     </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="fQN-d2-ZgN" firstAttribute="top" secondItem="hGS-wy-cOl" secondAttribute="bottom" id="0Mc-kw-MOr"/>
                 <constraint firstItem="hGS-wy-cOl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="6X3-KN-e42"/>
+                <constraint firstItem="ytx-XH-ign" firstAttribute="top" secondItem="hGS-wy-cOl" secondAttribute="bottom" constant="25" id="7Qu-u9-IwK"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="hGS-wy-cOl" secondAttribute="trailing" id="Cr7-GZ-rN2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="fQN-d2-ZgN" secondAttribute="bottom" id="SfG-Xs-dUh"/>
+                <constraint firstItem="ytx-XH-ign" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.22" id="bn5-mV-727"/>
+                <constraint firstItem="ytx-XH-ign" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="dHl-KQ-sqf"/>
                 <constraint firstItem="hGS-wy-cOl" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="f99-em-Jbv"/>
                 <constraint firstItem="fQN-d2-ZgN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="kR5-sa-9AH"/>
                 <constraint firstItem="hGS-wy-cOl" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="rjt-Xv-o4V"/>
+                <constraint firstItem="fQN-d2-ZgN" firstAttribute="top" secondItem="ytx-XH-ign" secondAttribute="bottom" constant="25" id="sFI-u2-elQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="fQN-d2-ZgN" secondAttribute="trailing" id="wcU-Tz-bio"/>
             </constraints>
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
