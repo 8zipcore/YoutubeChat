@@ -47,4 +47,8 @@ class ChatViewModel{
         
         return selectedChatOptions
     }
+    
+    func myChatInfoToChatInfo(myChatInfo: MyChatInfo)-> ChatInfo{
+        return ChatInfo(id: myChatInfo.chatID, chatName: myChatInfo.chatName, chatImage: myChatInfo.chatImage, hostID: UUID(), participantID: [], chatOption: [])
+    }
 }

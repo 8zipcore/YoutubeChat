@@ -28,6 +28,18 @@ class ChatViewController: UIViewController {
         configureView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        WebSocketManager.shared.connect()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(addMessageData(_:)), name: .receiveMessage, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        WebSocketManager.shared.disconnect()
+    }
+    
     private func configureView(){
         chatNameLabel.setLabel(textColor: .black, fontSize: 15)
         peopleNumberLabel.setLabel(textColor: Colors.gray, fontSize: 13)
@@ -46,7 +58,11 @@ class ChatViewController: UIViewController {
     }
 
     @IBAction func sendButtonTapped(_ sender: Any) {
-        addMessageData(name: "리")
+        guard let chatInfo = chatInfo else { return }
+        let chatData = ChatData(id: nil, groupChatID: chatInfo.id!, senderID: MyProfile.id, messageType: .text, message: chatTextView.text, image: "", timestamp: TimeInterval())
+        WebSocketManager.shared.sendMessage(chatData)
+        data.append(chatData)
+        chatTableView.reloadData()
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -70,8 +86,13 @@ class ChatViewController: UIViewController {
 //        chatTableView.scrollToRow(at: IndexPath(row: self.data.count - 1, section: 0), at: .bottom, animated: true)
     }
     
-    func addMessageData(name: String){
-
+    @objc func addMessageData(_ notification: Notification){
+        guard let chatData = notification.userInfo?["chatData"] as? ChatData else { return }
+        data.append(chatData)
+        DispatchQueue.main.async {
+            self.chatTableView.reloadData()
+        }
+        
     }
     
     func addImageData(name:String, imgName: String){
@@ -87,7 +108,7 @@ extension ChatViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let chatData = data[indexPath.item]
         
-        if chatData.user.name == "리코"{
+        if chatData.senderID == MyProfile.id{
             if chatData.image == ""{ // chatdata일 때
                 let nib = UINib(nibName: ChatTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ChatTableViewCell.identifier)
@@ -124,8 +145,8 @@ extension ChatViewController: UITableViewDataSource{
                 var profileHidden = false
                 
                 if indexPath.item != 0 {
-                    let previousUser = data[indexPath.item - 1].user
-                    if chatData.user.name == previousUser.name{
+                    let previousUser = data[indexPath.item - 1]
+                    if chatData.senderID == previousUser.senderID{
                         profileHidden = true
                     }
                 }
@@ -144,8 +165,8 @@ extension ChatViewController: UITableViewDataSource{
                 var profileHidden = false
                 
                 if indexPath.item != 0 {
-                    let previousUser = data[indexPath.item - 1].user
-                    if chatData.user.name == previousUser.name{
+                    let previousUser = data[indexPath.item - 1]
+                    if chatData.senderID == previousUser.senderID{
                         profileHidden = true
                     }
                 }
@@ -164,7 +185,7 @@ extension ChatViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let chatData = data[indexPath.item]
         
-        if chatData.user.name == "리코"{
+        if chatData.senderID == MyProfile.id{
             if chatData.image == ""{
                 guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier) as? ChatTableViewCell else {
                     return .zero
@@ -191,8 +212,8 @@ extension ChatViewController: UITableViewDelegate{
                 var profileHidden = false
                 
                 if indexPath.item != 0 {
-                    let previousUser = data[indexPath.item - 1].user
-                    if chatData.user.name == previousUser.name{
+                    let previousUser = data[indexPath.item - 1]
+                    if chatData.senderID == previousUser.senderID{
                         profileHidden = true
                     }
                 }
@@ -209,8 +230,8 @@ extension ChatViewController: UITableViewDelegate{
                 var profileHidden = false
                 
                 if indexPath.item != 0 {
-                    let previousUser = data[indexPath.item - 1].user
-                    if chatData.user.name == previousUser.name{
+                    let previousUser = data[indexPath.item - 1]
+                    if chatData.senderID == previousUser.senderID{
                         profileHidden = true
                     }
                 }

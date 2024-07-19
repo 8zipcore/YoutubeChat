@@ -16,7 +16,8 @@ class ProfileViewModel{
         return try await NetworkManager.shared.sendJsonData(user, to: url)
     }
     
-    func setUser(_ user: User){
+    func setUser(_ user: User) async throws{
         ProfileManager.shared.setMyProfile(user)
+        ProfileManager.shared.saveUser(user)
     }
 }

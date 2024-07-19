@@ -31,6 +31,15 @@ class ProfileManager{
         UserDefaults.standard.set(user.name, forKey: "userName")
         UserDefaults.standard.set(user.image, forKey: "userImage")
         UserDefaults.standard.set(user.statusMessage, forKey: "userStatusMessage")
+        
+        print("✅ 저장")
+    }
+    
+    func deleteUser(){
+        UserDefaults.standard.removeObject(forKey: "userID")
+        UserDefaults.standard.removeObject(forKey: "userName")
+        UserDefaults.standard.removeObject(forKey: "userImage")
+        UserDefaults.standard.removeObject(forKey: "userStatusMessage")
     }
     
     func setUser(){

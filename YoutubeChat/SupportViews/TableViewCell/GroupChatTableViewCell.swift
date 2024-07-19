@@ -37,6 +37,8 @@ class GroupChatTableViewCell: UITableViewCell {
         
         latestMessageLabel.setLabel(textColor: .gray, fontSize: 12)
         latestMessageLabel.numberOfLines = 2
+        
+        self.selectionStyle = .none
     }
     
     func initView(myChatInfo: MyChatInfo){
@@ -47,10 +49,9 @@ class GroupChatTableViewCell: UITableViewCell {
         // latestChatTimeLabel.text = myChatInfo.timestamp
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func showSeletedAnimation(){
+        UIView.animate(withDuration: 0.3, animations: {
+            self.backgroundColor = .red
+        })
     }
-    
 }

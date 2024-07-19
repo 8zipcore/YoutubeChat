@@ -63,7 +63,8 @@ class InputTextField: UIView {
         textField.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.width.equalTo(self.bounds.width * 0.9)
+            make.leading.equalToSuperview().inset(13)
+            make.trailing.equalToSuperview().inset(13)
         }
         
         titleLabel.setLabel(textColor: .black, fontSize: 13)

@@ -28,6 +28,10 @@ class MainViewController: UIViewController {
         initData()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
     private func configureView(){
         profileView.setMyProfile()
         
@@ -64,6 +68,7 @@ class MainViewController: UIViewController {
     
     @IBAction func testButtonTapped(_ sender: Any) {
         
+        ProfileManager.shared.deleteUser()
         CoreDataManager.shared.deleteAllData()
         /*
         self.chatArray.append(GroupChatData(chatImage: "rikus", chatName: "유튜브 챗 유튜브 챗 유튜브 챗", peopleNumber: 3, latestMessage: "빠더너스 문상훈 초대석, 쇼츠 드라마 만들기", latestChatTime: "오전 12:00"))
@@ -92,6 +97,12 @@ extension MainViewController: UITableViewDataSource{
 extension MainViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return self.view.bounds.width * 194 / 1023
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = ChatViewController()
+        vc.chatInfo = chatViewModel.myChatInfoToChatInfo(myChatInfo: self.chatViewModel.myChatArray[indexPath.item])
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {

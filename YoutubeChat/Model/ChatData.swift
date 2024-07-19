@@ -7,8 +7,16 @@
 
 import Foundation
 
-struct ChatData{
-    var user: User
+enum MessageType:Int, Codable{
+    case text, image, video, join, leave
+}
+
+struct ChatData: Codable{
+    var id: UUID?
+    var groupChatID: UUID
+    var senderID: UUID
+    var messageType: MessageType
     var message: String
     var image: String
+    var timestamp: TimeInterval
 }

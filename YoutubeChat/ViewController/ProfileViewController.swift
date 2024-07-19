@@ -46,13 +46,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
         } else {
             print("✅ 클릭")
             Task{
-                let user = User(id: nil, 
+                let user = User(id: nil,
                                 name: nameTextField.text,
                                 image: profileImageView.imageToString(),
                                 statusMessage: "",
                                 chatID: [])
                 let response = try await profileViewModel.createProfile(user:user)
-                profileViewModel.setUser(response)
+                try await profileViewModel.setUser(response)
                 
                 DispatchQueue.main.async {
                     self.presentMainViewController()
@@ -62,7 +62,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
     }
     
     private func presentMainViewController(){
-        let navigationController = UINavigationController(rootViewController: MainViewController())
+        let mainVC = MainViewController()
+        let navigationController = UINavigationController(rootViewController: mainVC)
+        navigationController.navigationBar.isHidden = true
+        navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true)
     }
 }
