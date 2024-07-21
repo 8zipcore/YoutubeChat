@@ -33,6 +33,28 @@ class NetworkManager{
         }
     }
     
+    func sendJsonData<T1: Codable, T2: Codable>(_ requestData: T1,_ reponseData: T2.Type, to url: URL) async throws -> T2{
+        guard let jsonData = try? JSONEncoder().encode(requestData) else {
+            throw JsonError.encoding
+        }
+//        print("✅ 전송 Data")
+//        debugPrint(data)
+        return try await withCheckedThrowingContinuation { continuation in
+            AF.upload(jsonData, to: url, method: .post, headers: ["Content-Type": "application/json"])
+                .responseDecodable(of: T2.self){ response in
+                    switch response.result{
+                    case .success(let data):
+                        print("⭐️ 성공")
+//                        debugPrint("✅ 수신 Data")
+//                        dump(data)
+                        continuation.resume(returning: data)
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    }
+                }
+        }
+    }
+    
     func fetchData<T: Codable>(to url: URL) async throws -> T {
         return await withCheckedContinuation{ continuation in
             AF.request(url, method: .get)

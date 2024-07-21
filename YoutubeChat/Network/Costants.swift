@@ -14,6 +14,7 @@ enum Constants{
 enum Endpoints {
     static let join = "join"
     static let createChat = "chat/create"
+    static let enterCode = "chat/entercode"
 }
 
 enum HttpError: Error {
@@ -31,3 +32,25 @@ enum MIMEType: String{
 enum HttpHeaders: String {
     case contentType = "Content-Type"
 }
+
+enum URLType{
+    case join
+    case createChat
+    case enterCode
+}
+
+class URLManager {
+    static let shared = URLManager()
+    
+    func url(_ type: URLType)-> URL?{
+        switch type{
+        case .join:
+            return URL(string: Constants.baseURL + Endpoints.join)
+        case .createChat:
+            return URL(string: Constants.baseURL + Endpoints.createChat)
+        case .enterCode:
+            return URL(string: Constants.baseURL + Endpoints.enterCode)
+        }
+    }
+}
+

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ChatInfo: Codable{
+struct Chat: Codable{
     var id: UUID?
     var chatName: String
     var chatImage: String

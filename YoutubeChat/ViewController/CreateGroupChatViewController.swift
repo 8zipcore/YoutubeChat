@@ -56,15 +56,12 @@ class CreateGroupChatViewController: UIViewController, UIImagePickerControllerDe
             chatNameTextField.showAnimation()
         } else {
             Task{
-                let chatInfo = ChatInfo(chatName: chatNameTextField.text,
+                let chatInfo = Chat(chatName: chatNameTextField.text,
                                     chatImage: chatImageView.imageToString(),
                                     hostID: MyProfile.id,
                                     participantID: [MyProfile.id],
                                     chatOption: chatViewModel.selectedChatOptions())
                 let response = try await chatViewModel.createGroupChat(chatInfo: chatInfo)
-                
-                chatViewModel.saveChatInfo(chatInfo: response)
-                
                 DispatchQueue.main.async {
                     self.presentChatViewController(chatInfo: response)
                 }
@@ -72,7 +69,7 @@ class CreateGroupChatViewController: UIViewController, UIImagePickerControllerDe
         }
     }
     
-    private func presentChatViewController(chatInfo: ChatInfo){
+    private func presentChatViewController(chatInfo: Chat){
         let vc = ChatViewController()
         vc.chatInfo = chatInfo
         self.navigationController?.pushViewController(vc, animated: true)

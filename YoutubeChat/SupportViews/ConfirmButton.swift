@@ -10,7 +10,7 @@ import UIKit
 class ConfirmButton: UIButton {
     
     // 비율 986:154
-    // 크기 superView.width * 0.85
+    // 크기 superView.width * 0.88
     
     override var isHighlighted: Bool {
         get {
@@ -46,5 +46,14 @@ class ConfirmButton: UIButton {
                          .font : SDGothicSemiBold(size: 18)]),
             for: .normal)
         self.layer.cornerRadius = self.bounds.height / 2
+    }
+    
+    func setTitle(_ string: String){
+        self.setAttributedTitle(
+            NSMutableAttributedString(
+            string: string,
+            attributes: [.foregroundColor : Colors.skyBlue,
+                         .font : SDGothicSemiBold(size: 18)]),
+            for: .normal)
     }
 }

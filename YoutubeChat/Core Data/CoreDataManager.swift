@@ -7,21 +7,17 @@
 
 import CoreData
 
-enum Entity: String{
-    case myChat = "MyChat"
-}
-
 class CoreDataManager{
     
     static let shared = CoreDataManager()
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "YoutubeChat")
-        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+        let container = NSPersistentContainer(name: "MyChat", managedObjectModel: createCoreDataModel())
+        container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
-        })
+        }
         return container
     }()
     
@@ -29,40 +25,72 @@ class CoreDataManager{
         return persistentContainer.viewContext
     }
     
-    func saveMyChatInfo(_ myChatInfo: MyChatInfo){
-        if let entity = NSEntityDescription.entity(forEntityName: Entity.myChat.rawValue, in: viewContext){
+    func createCoreDataModel() -> NSManagedObjectModel {
+        let model = NSManagedObjectModel()
+
+        // 엔티티 정의
+        let entity = NSEntityDescription()
+        entity.name = "MyChat"
+        entity.managedObjectClassName = NSStringFromClass(MyChat.self)
+        
+        // 속성 정의
+        entity.properties = [ 
+            attribute(name: "id", attributeType: .UUIDAttributeType, isOptional: false),
+            attribute(name: "chatName", attributeType: .stringAttributeType, isOptional: false),
+            attribute(name: "chatImage", attributeType: .stringAttributeType, isOptional: false),
+            attribute(name: "hostID", attributeType: .UUIDAttributeType, isOptional: false),
+            attribute(name: "participantID", attributeType: .binaryDataAttributeType, isOptional: true),
+            attribute(name: "chatOption", attributeType: .binaryDataAttributeType, isOptional: true)
+        ]
+
+        model.entities = [entity]
+        return model
+    }
+    
+    func attribute(name: String, attributeType: NSAttributeType, isOptional: Bool)-> NSAttributeDescription{
+        let attribute = NSAttributeDescription()
+        attribute.name = name
+        attribute.attributeType = attributeType
+        attribute.isOptional = isOptional
+        return attribute
+    }
+    
+    func saveChat(_ chat: Chat){
+        if let entity = NSEntityDescription.entity(forEntityName: "MyChat", in: viewContext){
             let chatInfo = NSManagedObject(entity: entity, insertInto: viewContext)
-            chatInfo.setValue(myChatInfo.chatID, forKey: "chat_id")
-            chatInfo.setValue(myChatInfo.chatName, forKey: "chat_name")
-            chatInfo.setValue(myChatInfo.chatImage, forKey: "chat_image")
-            chatInfo.setValue(myChatInfo.participantNumber, forKey: "participant_number")
-            chatInfo.setValue(myChatInfo.lastMessage, forKey: "last_message")
-            chatInfo.setValue(myChatInfo.timestamp, forKey: "timestamp")
+             chatInfo.setValue(chat.id, forKey: "id")
+             chatInfo.setValue(chat.chatName, forKey: "chatName")
+             chatInfo.setValue(chat.chatImage, forKey: "chatImage")
+             chatInfo.setValue(chat.hostID, forKey: "hostID")
+            if let participantIDArray = try? JSONEncoder().encode(chat.participantID) {
+                chatInfo.setValue(participantIDArray, forKey: "participantID")
+            }
+            if let chatOptionArray = try? JSONEncoder().encode(chat.chatOption) {
+                chatInfo.setValue(chatOptionArray, forKey: "chatOption")
+            }
         }
         
         saveContext()
     }
     
-    func fetchMyChatInfo()-> [MyChatInfo]{
-        var myChatInfoArray: [MyChatInfo] = []
+    func fetchChat()-> [Chat]{
+        var chatArray: [Chat] = []
         do{
-            guard let myChatInfos = try viewContext.fetch(MyChat.fetchRequest()) as? [MyChat] else {
+            guard let myChatArray = try viewContext.fetch(MyChat.fetchRequest()) as? [MyChat] else {
                 return [] }
             
-            myChatInfos.forEach{
-                myChatInfoArray.append(MyChatInfo(chatID: $0.chat_id!,
-                                                  chatName: $0.chat_name!,
-                                                  chatImage: $0.chat_image!,
-                                                  participantNumber: Int($0.participant_number),
-                                                  lastMessage: $0.last_message!,
-                                                  timestamp: $0.timestamp!))
+            myChatArray.forEach{
+                if let participantIDArray = try? JSONDecoder().decode([UUID].self, from: $0.participantID),
+                   let chatOptionArray = try? JSONDecoder().decode([Int].self, from: $0.chatOption){
+                    chatArray.append(Chat(id: $0.id, chatName: $0.chatName, chatImage: $0.chatImage, hostID: $0.hostID, participantID: participantIDArray, chatOption: chatOptionArray))
+                }
             }
             
         } catch{
             print("🌀 불러오기 Error: \(error.localizedDescription)")
         }
         
-        return myChatInfoArray
+        return chatArray
     }
     
     func saveContext(){
@@ -74,7 +102,7 @@ class CoreDataManager{
     }
     
     func deleteAllData() {
-        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: Entity.myChat.rawValue)
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "MyChat")
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
 
         do {

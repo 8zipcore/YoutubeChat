@@ -21,7 +21,7 @@ class ChatViewController: UIViewController {
     
     var count = 0
     
-    var chatInfo: ChatInfo?
+    var chatInfo: Chat?
     
     override func viewDidLoad() {
         super.viewDidLoad()

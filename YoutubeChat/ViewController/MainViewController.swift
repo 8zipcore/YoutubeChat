@@ -57,18 +57,29 @@ class MainViewController: UIViewController {
     }
     
     private func initData(){
-        chatViewModel.fetchChatInfo()
+        chatViewModel.fetchChat()
         groupChatTableView.reloadData()
     }
 
     @IBAction func creatGroupChatButtonTapped(_ sender: Any) {
-        let vc = CreateGroupChatViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alert.addAction(UIAlertAction(title: "채팅방 만들기", style: .default, handler: {_ in
+            let vc = CreateGroupChatViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }))
+        alert.addAction(UIAlertAction(title: "채팅방 참여하기", style: .default, handler: {_ in 
+            let vc = EnterChatRoomCodeViewController()
+            vc.modalPresentationStyle = .overCurrentContext
+            vc.parentNavigationController = self.navigationController
+            self.present(vc, animated: false)
+        }))
+        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
+        self.present(alert, animated: true)
     }
     
     @IBAction func testButtonTapped(_ sender: Any) {
         
-        ProfileManager.shared.deleteUser()
+        // ProfileManager.shared.deleteUser()
         CoreDataManager.shared.deleteAllData()
         /*
         self.chatArray.append(GroupChatData(chatImage: "rikus", chatName: "유튜브 챗 유튜브 챗 유튜브 챗", peopleNumber: 3, latestMessage: "빠더너스 문상훈 초대석, 쇼츠 드라마 만들기", latestChatTime: "오전 12:00"))
@@ -86,9 +97,9 @@ extension MainViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = groupChatTableView.dequeueReusableCell(withIdentifier: GroupChatTableViewCell.identifier, for: indexPath) as? GroupChatTableViewCell else { return UITableViewCell() }
         
-        let myChatInfo = chatViewModel.myChatArray[indexPath.item]
+        let chat = chatViewModel.myChatArray[indexPath.item]
         
-        cell.initView(myChatInfo: myChatInfo)
+        cell.initView(chat: chat)
         
         return cell
     }
@@ -101,7 +112,7 @@ extension MainViewController: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = ChatViewController()
-        vc.chatInfo = chatViewModel.myChatInfoToChatInfo(myChatInfo: self.chatViewModel.myChatArray[indexPath.item])
+        vc.chatInfo = self.chatViewModel.myChatArray[indexPath.item]
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

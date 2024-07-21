@@ -12,28 +12,32 @@ class ChatViewModel{
     var chatOptionArray = [ChatOptionData(chatOption: .anonymous),
                            ChatOptionData(chatOption: .addVideo)]
     
-    var myChatArray: [MyChatInfo] = []
+    var myChatArray: [Chat] = []
     
-    func createGroupChat(chatInfo: ChatInfo) async throws -> ChatInfo{
+    func createGroupChat(chatInfo: Chat) async throws -> Chat{
         guard let url = URL(string: Constants.baseURL + Endpoints.createChat) else {
             throw HttpError.badURL
         }
-        
-        return try await NetworkManager.shared.sendJsonData(chatInfo, to: url)
+        let response = try await NetworkManager.shared.sendJsonData(chatInfo, to: url)
+        saveChat(chat: response)
+        return response
     }
     
-    func saveChatInfo(chatInfo: ChatInfo){
-        var myChatInfo = MyChatInfo(chatID: chatInfo.id,
-                                    chatName: chatInfo.chatName, 
-                                    chatImage: chatInfo.chatImage,
-                                    participantNumber: chatInfo.participantID.count,
-                                    lastMessage: "",
-                                    timestamp: Date())
-        CoreDataManager.shared.saveMyChatInfo(myChatInfo)
+    func confirmEnterCode(enterCode: String) async throws -> Chat{
+        guard let url = URLManager.shared.url(.enterCode) else {
+            throw HttpError.badURL
+        }
+        let response = try await NetworkManager.shared.sendJsonData(enterCode, EnterChatData.self, to: url).chat!
+        saveChat(chat: response)
+        return response
     }
     
-    func fetchChatInfo(){
-        self.myChatArray = CoreDataManager.shared.fetchMyChatInfo()
+    func saveChat(chat: Chat){
+        CoreDataManager.shared.saveChat(chat)
+    }
+    
+    func fetchChat(){
+        self.myChatArray = CoreDataManager.shared.fetchChat()
     }
     
     func selectedChatOptions()-> [Int]{
@@ -46,9 +50,5 @@ class ChatViewModel{
         }
         
         return selectedChatOptions
-    }
-    
-    func myChatInfoToChatInfo(myChatInfo: MyChatInfo)-> ChatInfo{
-        return ChatInfo(id: myChatInfo.chatID, chatName: myChatInfo.chatName, chatImage: myChatInfo.chatImage, hostID: UUID(), participantID: [], chatOption: [])
     }
 }
