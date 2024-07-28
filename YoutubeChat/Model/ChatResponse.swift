@@ -11,7 +11,7 @@ enum EnterCodeResponse: Int, Codable{
     case invalidCode, validCode
 }
 
-struct EnterChatData: Codable{
+struct EnterChatResponseData: Codable{
     var respone: EnterCodeResponse
     var chat: Chat?
 }

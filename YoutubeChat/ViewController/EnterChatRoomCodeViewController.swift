@@ -62,13 +62,18 @@ class EnterChatRoomCodeViewController: UIViewController {
         }
         
         Task {
-            let chat = try await chatViewModel.confirmEnterCode(enterCode: codeTextField.text)
-            let vc = ChatViewController()
-            vc.chatInfo = chat
-            
-            self.dismiss(animated: false, completion: {
-                self.parentNavigationController?.pushViewController(vc, animated: true)
-            })
+            do{
+                let chat = try await chatViewModel.confirmEnterCode(enterCode: codeTextField.text)
+                let vc = ChatViewController()
+                vc.chatInfo = chat
+                vc.enteredWithCode = true
+                
+                self.dismiss(animated: false, completion: {
+                    self.parentNavigationController?.pushViewController(vc, animated: true)
+                })
+            } catch {
+                print("오류 - - -")
+            }
         }
     }
     

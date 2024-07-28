@@ -56,4 +56,8 @@ class ProfileManager{
         let id = UserDefaults.standard.string(forKey: "userID")
         return id == nil ? false : true
     }
+    
+    func isMyID(_ id: UUID)-> Bool{
+        return id == MyProfile.id
+    }
 }

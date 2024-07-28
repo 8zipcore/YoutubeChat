@@ -19,10 +19,10 @@ class WebSocketManager {
         receiveMessage()
     }
 
-    func sendMessage(_ chatData: ChatData) {
+    func sendMessage(_ message: Message) {
         do {
             let jsonEncoder = JSONEncoder()
-            let jsonData = try jsonEncoder.encode(chatData)
+            let jsonData = try jsonEncoder.encode(message)
             let data = URLSessionWebSocketTask.Message.data(jsonData)
             webSocketTask?.send(data) { error in
                 if let error = error {

@@ -13,6 +13,7 @@ class ChatViewModel{
                            ChatOptionData(chatOption: .addVideo)]
     
     var myChatArray: [Chat] = []
+    var messageArray: [Message] = []
     
     func createGroupChat(chatInfo: Chat) async throws -> Chat{
         guard let url = URL(string: Constants.baseURL + Endpoints.createChat) else {
@@ -27,7 +28,8 @@ class ChatViewModel{
         guard let url = URLManager.shared.url(.enterCode) else {
             throw HttpError.badURL
         }
-        let response = try await NetworkManager.shared.sendJsonData(enterCode, EnterChatData.self, to: url).chat!
+        let data = EnterChatRequestData(enterCode: enterCode, userID: MyProfile.id)
+        let response = try await NetworkManager.shared.sendJsonData(data, EnterChatResponseData.self, to: url).chat!
         saveChat(chat: response)
         return response
     }
@@ -50,5 +52,33 @@ class ChatViewModel{
         }
         
         return selectedChatOptions
+    }
+    
+    func sendMessage(_ data: Message){
+        WebSocketManager.shared.sendMessage(data)
+    }
+    
+    func receiveMessage(_ data: Message){
+        messageArray.append(data)
+    }
+    
+    func fetchMessage(_ id: UUID){
+        messageArray = CoreDataManager.shared.fetchMessage(id)
+    }
+    
+    func isPrevSender(_ index: Int)-> Bool{
+        if index == 0 {
+            return false
+        }
+        
+        var isPrevSender = false
+        
+        let previousUser = messageArray[index - 1]
+        let currentUser = messageArray[index]
+        if currentUser.senderID == previousUser.senderID{
+            isPrevSender = true
+        }
+        
+        return isPrevSender
     }
 }

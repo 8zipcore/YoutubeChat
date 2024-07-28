@@ -103,70 +103,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1908A6B4-8E32-43F8-9013-EE0149DF4182"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "YoutubeChat/Core Data/CoreDataManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "saveChat(_:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1908A6B4-8E32-43F8-9013-EE0149DF4182 - f4cb6de9bacfaa7b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "YoutubeChat.CoreDataManager.saveMyChatInfo(YoutubeChat.MyChatInfo) -&gt; ()"
-                  moduleName = "YoutubeChat"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sainkr/Desktop/YoutubeChat/YoutubeChat/Core%20Data/CoreDataManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "200">
-               </Location>
-               <Location
-                  uuid = "1908A6B4-8E32-43F8-9013-EE0149DF4182 - f4cb6de9bacfaa7b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "YoutubeChat.CoreDataManager.saveMyChatInfo(YoutubeChat.MyChatInfo) -&gt; ()"
-                  moduleName = "YoutubeChat"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/sainkr/Desktop/YoutubeChat/YoutubeChat/Core%20Data/CoreDataManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "33"
-                  endingLineNumber = "33"
-                  offsetFromSymbolStart = "368">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AA8645E7-11A3-4C4A-BACA-B5BE95D828D0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "YoutubeChat/Core Data/CoreDataManager.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "saveChat(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "90101BE0-D42C-41B0-84D8-DB525A812E2A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -174,8 +110,8 @@
             filePath = "YoutubeChat/ViewController/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
             landmarkName = "configureView()"
             landmarkType = "7">
             <Locations>
@@ -222,8 +158,8 @@
             filePath = "YoutubeChat/ViewController/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "55"
-            endingLineNumber = "55"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
             landmarkName = "configureView()"
             landmarkType = "7">
          </BreakpointContent>
@@ -279,16 +215,112 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "7C553C92-3155-4F68-A342-88B07A3BD721"
-            shouldBeEnabled = "Yes"
+            uuid = "2A181EB9-0BC8-4404-9650-D449C8DA6B9F"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "YoutubeChat/ViewController/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
-            landmarkName = "sendButtonTapped(_:)"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "ChatViewController"
+            landmarkType = "21">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2C3B6FFF-8E32-4FA1-9CA5-8DC4C3B5CCFA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YoutubeChat/ViewController/ChatViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
+            landmarkName = "receiveData(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "12E5D76F-3008-4DAC-95D6-0F9883BBF4A5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YoutubeChat/ViewController/ChatViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "receiveData(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8A248BE6-D5F6-45E0-9A6A-32E62B79C920"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YoutubeChat/ViewController/ChatViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "100"
+            endingLineNumber = "100"
+            landmarkName = "ChatViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "8A248BE6-D5F6-45E0-9A6A-32E62B79C920 - bcd80bf74bbc7418"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YoutubeChat.ChatViewController.receiveData(Foundation.Notification) -&gt; ()"
+                  moduleName = "YoutubeChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sainkr/Desktop/YoutubeChat/YoutubeChat/ViewController/ChatViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "376">
+               </Location>
+               <Location
+                  uuid = "8A248BE6-D5F6-45E0-9A6A-32E62B79C920 - bcd80bf74bbc7418"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "YoutubeChat.ChatViewController.receiveData(Foundation.Notification) -&gt; ()"
+                  moduleName = "YoutubeChat"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sainkr/Desktop/YoutubeChat/YoutubeChat/ViewController/ChatViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "99"
+                  endingLineNumber = "99"
+                  offsetFromSymbolStart = "816">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "10FBCEF6-5F00-4914-B0E6-89B9FFD775CB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "YoutubeChat/ViewController/ChatViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "initData()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

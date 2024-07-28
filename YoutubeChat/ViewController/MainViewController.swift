@@ -24,12 +24,11 @@ class MainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         initData()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
     }
     
     private func configureView(){
@@ -53,7 +52,6 @@ class MainViewController: UIViewController {
         groupChatTableView.delegate = self
         
         groupChatTableView.bounces = false
-        
     }
     
     private func initData(){

@@ -8,15 +8,16 @@
 import Foundation
 
 enum MessageType:Int, Codable{
-    case text, image, video, join, leave
+    case text, image, video, enter, leave
 }
 
-struct ChatData: Codable{
+struct Message: Codable{
     var id: UUID?
     var groupChatID: UUID
     var senderID: UUID
     var messageType: MessageType
-    var message: String
-    var image: String
-    var timestamp: TimeInterval
+    var text: String = ""
+    var image: String?
+    var timestamp: TimeInterval?
+    var isRead: Bool
 }

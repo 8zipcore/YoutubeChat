@@ -12,7 +12,7 @@ class CoreDataManager{
     static let shared = CoreDataManager()
     
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "MyChat", managedObjectModel: createCoreDataModel())
+        let container = NSPersistentContainer(name: "MyChat", managedObjectModel: createCoreDataModel()) // 모델 파일 이름
         container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -29,21 +29,22 @@ class CoreDataManager{
         let model = NSManagedObjectModel()
 
         // 엔티티 정의
-        let entity = NSEntityDescription()
-        entity.name = "MyChat"
-        entity.managedObjectClassName = NSStringFromClass(MyChat.self)
+        let MyChatEntity = NSEntityDescription()
+        MyChatEntity.name = "MyChat"
+        MyChatEntity.managedObjectClassName = NSStringFromClass(MyChat.self)
         
         // 속성 정의
-        entity.properties = [ 
+        MyChatEntity.properties = [
             attribute(name: "id", attributeType: .UUIDAttributeType, isOptional: false),
             attribute(name: "chatName", attributeType: .stringAttributeType, isOptional: false),
             attribute(name: "chatImage", attributeType: .stringAttributeType, isOptional: false),
             attribute(name: "hostID", attributeType: .UUIDAttributeType, isOptional: false),
             attribute(name: "participantID", attributeType: .binaryDataAttributeType, isOptional: true),
-            attribute(name: "chatOption", attributeType: .binaryDataAttributeType, isOptional: true)
+            attribute(name: "chatOption", attributeType: .binaryDataAttributeType, isOptional: true),
+            attribute(name: "message", attributeType: .binaryDataAttributeType, isOptional: true)
         ]
 
-        model.entities = [entity]
+        model.entities = [MyChatEntity]
         return model
     }
     
@@ -91,6 +92,45 @@ class CoreDataManager{
         }
         
         return chatArray
+    }
+    
+    func saveMessage(_ chatID: UUID, _ data: [Message]){
+        let fetchRequest: NSFetchRequest<MyChat> = MyChat.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", chatID.uuidString)
+
+        do {
+            if let chat = try viewContext.fetch(fetchRequest).first{
+                let message = try JSONEncoder().encode(data)
+                chat.message = message
+            }
+        } catch {
+            print("🌀 불러오기 Error: \(error.localizedDescription)")
+        }
+        
+    }
+    
+    func fetchMessage(_ chatID: UUID)-> [Message]{
+        var messageArray:[Message] = []
+        do{
+            guard let myChatArray = try viewContext.fetch(MyChat.fetchRequest()) as? [MyChat] else {
+                return [] }
+            
+            myChatArray.forEach{
+                if $0.id == chatID{
+                    do{
+                        messageArray = try JSONDecoder().decode([Message].self, from: $0.message)
+                        return
+                    } catch {
+                        print("🌀 JSONDecoding Error: \(error.localizedDescription)")
+                    }
+                }
+            }
+            
+        } catch{
+            print("🌀 불러오기 Error: \(error.localizedDescription)")
+        }
+        
+        return messageArray
     }
     
     func saveContext(){

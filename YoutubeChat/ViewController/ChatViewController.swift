@@ -17,11 +17,12 @@ class ChatViewController: UIViewController {
     
     @IBOutlet weak var chatTextViewHeightContraint: NSLayoutConstraint!
     
-    var data: [ChatData] = []
-    
+    var enteredWithCode = true
     var count = 0
     
     var chatInfo: Chat?
+    
+    private let chatViewModel = ChatViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,14 +31,14 @@ class ChatViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        WebSocketManager.shared.connect()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(addMessageData(_:)), name: .receiveMessage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveMessage, object: nil)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        WebSocketManager.shared.disconnect()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        initData()
     }
     
     private func configureView(){
@@ -56,13 +57,22 @@ class ChatViewController: UIViewController {
             peopleNumberLabel.text = String(chatInfo.participantID.count)
         }
     }
+    
+    private func initData(){
+        if enteredWithCode{ // 참여하기 쪽으로 들어왔을때
+            // 서버에서 참여했습니다. 문구 띄워야 함
+            let message = Message(groupChatID: chatInfo!.id!, senderID: MyProfile.id, messageType: .enter, isRead: true)
+            chatViewModel.sendMessage(message)
+        } else { // main에서 들어왔을 때
+            // 만약 그 전에 안읽은 메세지는 다 읽음 처리로
+            chatViewModel.fetchMessage(chatInfo!.id!)
+        }
+        
+        chatTableView.reloadData()
+    }
 
     @IBAction func sendButtonTapped(_ sender: Any) {
-        guard let chatInfo = chatInfo else { return }
-        let chatData = ChatData(id: nil, groupChatID: chatInfo.id!, senderID: MyProfile.id, messageType: .text, message: chatTextView.text, image: "", timestamp: TimeInterval())
-        WebSocketManager.shared.sendMessage(chatData)
-        data.append(chatData)
-        chatTableView.reloadData()
+
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -86,30 +96,37 @@ class ChatViewController: UIViewController {
 //        chatTableView.scrollToRow(at: IndexPath(row: self.data.count - 1, section: 0), at: .bottom, animated: true)
     }
     
-    @objc func addMessageData(_ notification: Notification){
-        guard let chatData = notification.userInfo?["chatData"] as? ChatData else { return }
-        data.append(chatData)
-        DispatchQueue.main.async {
-            self.chatTableView.reloadData()
+    @objc func receiveData(_ notification: Notification){
+        if let data = notification.userInfo?["chatData"] as? Data{
+            do {
+                let message = try JSONDecoder().decode(Message.self, from: data)
+                chatViewModel.receiveMessage(message)
+                 DispatchQueue.main.async {
+                     self.chatTableView.reloadData()
+                 }
+            } catch {
+                print("🌀 JSONDecoding Error: \(error.localizedDescription)")
+            }
         }
-        
     }
     
     func addImageData(name:String, imgName: String){
 
     }
 }
-
+// MARK: UITableViewDataSource
 extension ChatViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
+        return chatViewModel.messageArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let chatData = data[indexPath.item]
+        let message = chatViewModel.messageArray[indexPath.item]
         
-        if chatData.senderID == MyProfile.id{
-            if chatData.image == ""{ // chatdata일 때
+        // MARK: 내가 보낸 챗
+        if ProfileManager.shared.isMyID(message.senderID){
+            switch message.messageType{
+            case .text:
                 let nib = UINib(nibName: ChatTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ChatTableViewCell.identifier)
                 
@@ -117,10 +134,11 @@ extension ChatViewController: UITableViewDataSource{
                     return UITableViewCell()
                 }
 
-                cell.setText(text: chatData.message)
+                cell.setText(text: message.text)
                 
                 return cell
-            } else {
+            case .image:fallthrough
+            case .video:
                 let nib = UINib(nibName: ImageChatTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatTableViewCell.identifier)
                 
@@ -128,13 +146,16 @@ extension ChatViewController: UITableViewDataSource{
                     return UITableViewCell()
                 }
                 
-                let image = UIImage(named: chatData.image)!
+                let image = UIImage(named: message.image!)!
                 cell.setImage(image: image)
                 
                 return cell
+            case .enter:fallthrough
+            case .leave:break
             }
-        } else {
-            if chatData.image == ""{ // chatdata일 때
+        } else { // MARK: 남이 보낸 챗
+            switch message.messageType{
+            case .text:
                 let nib = UINib(nibName: ChatWithProfileTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ChatWithProfileTableViewCell.identifier)
                 
@@ -142,57 +163,51 @@ extension ChatViewController: UITableViewDataSource{
                     return UITableViewCell()
                 }
                 
-                var profileHidden = false
-                
-                if indexPath.item != 0 {
-                    let previousUser = data[indexPath.item - 1]
-                    if chatData.senderID == previousUser.senderID{
-                        profileHidden = true
-                    }
-                }
-                
-                cell.setText(text: chatData.message, profileHidden: profileHidden)
+                cell.setText(text: message.text, profileHidden: chatViewModel.isPrevSender(indexPath.item))
                 
                 return cell
-            } else { // 이미지 데이터
+            case .image:fallthrough
+            case .video:
                 let nib = UINib(nibName: ImageChatWithProfileTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatWithProfileTableViewCell.identifier)
                 
                 guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ImageChatWithProfileTableViewCell.identifier) as? ImageChatWithProfileTableViewCell else {
                     return UITableViewCell()
                 }
-                
-                var profileHidden = false
-                
-                if indexPath.item != 0 {
-                    let previousUser = data[indexPath.item - 1]
-                    if chatData.senderID == previousUser.senderID{
-                        profileHidden = true
-                    }
-                }
-                
-                let image = UIImage(named: chatData.image)!
-                cell.setImage(image: image, profileHidden: profileHidden)
+
+                let image = UIImage(named: message.image!)!
+                cell.setImage(image: image, profileHidden: chatViewModel.isPrevSender(indexPath.item))
                 
                 return cell
+            case .enter:fallthrough
+            case .leave:break
             }
- 
         }
+        
+        // MARK: 공통 챗 (시스템 챗)
+        self.chatTableView.register(SystemChatTableViewCell.self, forCellReuseIdentifier: SystemChatTableViewCell.identifier)
+        
+        guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: SystemChatTableViewCell.identifier, for: indexPath) as? SystemChatTableViewCell else { return UITableViewCell() }
+        
+        cell.configureView(message.text)
+        
+        return cell
     }
 }
-
+// MARK: UITableViewDelegate
 extension ChatViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let chatData = data[indexPath.item]
+        let message = chatViewModel.messageArray[indexPath.item]
         
-        if chatData.senderID == MyProfile.id{
-            if chatData.image == ""{
+        // MARK: 내가 보낸 챗
+        if ProfileManager.shared.isMyID(message.senderID){
+            switch message.messageType{
+            case .text:
                 guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier) as? ChatTableViewCell else {
-                    return .zero
-                }
-                
-                return cell.estimatedHeight(text: chatData.message)
-            } else {
+                    return .zero}
+                return cell.estimatedHeight(text: message.text)
+            case .image:fallthrough
+            case .video:
                 let nib = UINib(nibName: ImageChatTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatTableViewCell.identifier)
                 
@@ -200,26 +215,21 @@ extension ChatViewController: UITableViewDelegate{
                     return .zero
                 }
                 
-                let image = UIImage(named: chatData.image)!
+                let image = UIImage(named: message.image!)!
                 return cell.estimatedHeight(image: image)
+            case .enter:fallthrough
+            case .leave:break
             }
-        } else {
-            if chatData.image == ""{
+        } else { // MARK: 남이 보낸 챗
+            switch message.messageType{
+            case .text:
                 guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ChatWithProfileTableViewCell.identifier) as? ChatWithProfileTableViewCell else {
                     return .zero
                 }
                 
-                var profileHidden = false
-                
-                if indexPath.item != 0 {
-                    let previousUser = data[indexPath.item - 1]
-                    if chatData.senderID == previousUser.senderID{
-                        profileHidden = true
-                    }
-                }
-                
-                return cell.estimatedHeight(text: chatData.message, profileHidden: profileHidden)
-            } else { // 이미지 데이터
+                return cell.estimatedHeight(text: message.text, profileHidden: chatViewModel.isPrevSender(indexPath.item))
+            case .image:fallthrough
+            case .video:
                 let nib = UINib(nibName: ImageChatWithProfileTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatWithProfileTableViewCell.identifier)
                 
@@ -227,20 +237,18 @@ extension ChatViewController: UITableViewDelegate{
                     return .zero
                 }
                 
-                var profileHidden = false
-                
-                if indexPath.item != 0 {
-                    let previousUser = data[indexPath.item - 1]
-                    if chatData.senderID == previousUser.senderID{
-                        profileHidden = true
-                    }
-                }
-                
-                let image = UIImage(named: chatData.image)!
-                return cell.estimatedHeight(image: image, profileHidden: profileHidden)
+                let image = UIImage(named: message.image!)!
+                return cell.estimatedHeight(image: image, profileHidden: chatViewModel.isPrevSender(indexPath.item))
+            case .enter:fallthrough
+            case .leave:break
             }
         }
- 
+        
+        // MARK: 공통 챗 (시스템 챗)
+        guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: SystemChatTableViewCell.identifier) as? SystemChatTableViewCell else {
+            return 30
+        }
+        return cell.height(message.text)
     }
 }
 
