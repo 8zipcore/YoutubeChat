@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+protocol InputTextFieldDelegate{
+    func textFieldTextDidChange()
+}
+
 class InputTextField: UIView {
     
     // 비율 986:213
@@ -16,12 +20,18 @@ class InputTextField: UIView {
     var titleLabel = SDGothicLabel()
     var textField = UITextField()
     
+    var delegate: InputTextFieldDelegate?
+    
     var text: String{
         return self.textField.text ?? ""
     }
     
     var textCount: Int{
         return self.textField.text?.count ?? 0
+    }
+    
+    var placeHolder: String{
+        return self.textField.placeholder ?? ""
     }
     
     override func awakeFromNib() {
@@ -75,12 +85,21 @@ class InputTextField: UIView {
         textField.font = SDGothic(size: 15)
         textField.textColor = .black
         textField.tintColor = Colors.gray
+        textField.delegate = self
         
         textField.attributedPlaceholder = NSAttributedString(string: "채팅방 이름을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : Colors.gray])
     }
     
     func setText(title: String, placeHolder: String){
         self.titleLabel.text = title
+        self.textField.placeholder = placeHolder
+    }
+    
+    func setText(_ text: String){
+        self.textField.text = text
+    }
+    
+    func setPlaceHolder(_ placeHolder: String){
         self.textField.placeholder = placeHolder
     }
     
@@ -102,5 +121,11 @@ class InputTextField: UIView {
     
     func isBlank()-> Bool{
         return textCount == 0
+    }
+}
+
+extension InputTextField: UITextFieldDelegate{
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        delegate?.textFieldTextDidChange()
     }
 }

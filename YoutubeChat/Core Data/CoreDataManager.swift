@@ -74,6 +74,30 @@ class CoreDataManager{
         saveContext()
     }
     
+    func updateChat(_ newChat: Chat){
+        let fetchRequest: NSFetchRequest<MyChat> = MyChat.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", newChat.id!.uuidString)
+
+        do {
+            if let chat = try viewContext.fetch(fetchRequest).first{
+                chat.chatName = newChat.chatName
+                chat.chatImage = newChat.chatImage
+                chat.hostID = newChat.hostID
+                if let participantIDArray = try? JSONEncoder().encode(newChat.participantID) {
+                    chat.participantID = participantIDArray
+                }
+                if let chatOptionArray = try? JSONEncoder().encode(newChat.chatOption) {
+                    chat.chatOption = chatOptionArray
+                }
+                
+            }
+        } catch {
+            print("🌀 불러오기 Error: \(error.localizedDescription)")
+        }
+        
+        saveContext()
+    }
+    
     func fetchChat()-> [Chat]{
         var chatArray: [Chat] = []
         do{
@@ -94,36 +118,37 @@ class CoreDataManager{
         return chatArray
     }
     
-    func saveMessage(_ chatID: UUID, _ data: [Message]){
+    func saveMessage(_ message: Message){
         let fetchRequest: NSFetchRequest<MyChat> = MyChat.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %@", chatID.uuidString)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", message.groupChatID.uuidString)
 
         do {
             if let chat = try viewContext.fetch(fetchRequest).first{
-                let message = try JSONEncoder().encode(data)
-                chat.message = message
+                var messageArray: [Message] = []
+                
+                if chat.message.count > 0{
+                    messageArray = try JSONDecoder().decode([Message].self, from: chat.message)
+                    messageArray.append(message)
+                }
+                
+                chat.message = try JSONEncoder().encode(messageArray)
+                
+                saveContext()
             }
         } catch {
             print("🌀 불러오기 Error: \(error.localizedDescription)")
         }
-        
     }
     
-    func fetchMessage(_ chatID: UUID)-> [Message]{
+    func fetchMessage(_ id: UUID)-> [Message]{
+        let fetchRequest: NSFetchRequest<MyChat> = MyChat.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id.uuidString)
+        
         var messageArray:[Message] = []
+        
         do{
-            guard let myChatArray = try viewContext.fetch(MyChat.fetchRequest()) as? [MyChat] else {
-                return [] }
-            
-            myChatArray.forEach{
-                if $0.id == chatID{
-                    do{
-                        messageArray = try JSONDecoder().decode([Message].self, from: $0.message)
-                        return
-                    } catch {
-                        print("🌀 JSONDecoding Error: \(error.localizedDescription)")
-                    }
-                }
+            if let chat = try viewContext.fetch(fetchRequest).first{
+                messageArray = try JSONDecoder().decode([Message].self, from: chat.message)
             }
             
         } catch{
@@ -136,6 +161,7 @@ class CoreDataManager{
     func saveContext(){
         do {
             try viewContext.save()
+            print("⭐️ 저장 성공")
         } catch {
             print("🌀 저장 Error: \(error.localizedDescription)")
         }

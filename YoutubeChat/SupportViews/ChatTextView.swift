@@ -64,6 +64,10 @@ class ChatTextView: UIView {
         let estimatedSize = textView.sizeThatFits(size)
         return estimatedSize.height
     }
+    
+    func resetText(){
+        self.textView.text = ""
+    }
 }
 
 extension ChatTextView: UITextViewDelegate{

@@ -51,7 +51,8 @@ class SystemChatTableViewCell: UITableViewCell {
     
     func height(_ text: String) -> CGFloat{
         self.configureView(text)
-        return self.label.bounds.height
+        self.layoutIfNeeded()
+        return self.label.bounds.height + 6
     }
     
 }

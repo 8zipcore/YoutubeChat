@@ -39,6 +39,7 @@ class EnterChatRoomCodeViewController: UIViewController {
         
         self.contentView.layer.cornerRadius = self.contentView.bounds.height / 10
         
+        codeTextField.delegate = self
         codeTextField.setText(title: "참여 코드", placeHolder: "참여 코드를 입력하세요.")
         confirmButton.setTitle("참여하기")
         
@@ -63,18 +64,45 @@ class EnterChatRoomCodeViewController: UIViewController {
         
         Task {
             do{
-                let chat = try await chatViewModel.confirmEnterCode(enterCode: codeTextField.text)
-                let vc = ChatViewController()
-                vc.chatInfo = chat
-                vc.enteredWithCode = true
+                let data = try await chatViewModel.confirmEnterCode(enterCode: codeTextField.text)
+                switch data.responseCode{
+                case .invalidCode:
+                    self.codeTextField.setText("")
+                    self.codeTextField.setPlaceHolder("유효하지않은 코드입니다.")
+                    self.codeTextField.showAnimation()
+                case .validCode:
+                    chatViewModel.saveChat(chat: data.chat!)
+                    
+                    let vc = ChatViewController()
+                    vc.chatInfo = data.chat!
+                    vc.enteredWithCode = true
+                    
+                    self.dismiss(animated: false, completion: {
+                        self.parentNavigationController?.pushViewController(vc, animated: true)
+                    })
+                    
+                    print("- - - -성공 x")
+                case .existing:
+                    let vc = ChatViewController()
+                    vc.chatInfo = data.chat!
+                    
+                    self.dismiss(animated: false, completion: {
+                        self.parentNavigationController?.pushViewController(vc, animated: true)
+                    })
+                }
                 
-                self.dismiss(animated: false, completion: {
-                    self.parentNavigationController?.pushViewController(vc, animated: true)
-                })
+
             } catch {
                 print("오류 - - -")
             }
         }
     }
-    
+}
+
+extension EnterChatRoomCodeViewController: InputTextFieldDelegate{
+    func textFieldTextDidChange() {
+        if codeTextField.placeHolder != "참여 코드를 입력하세요."{
+            codeTextField.setPlaceHolder("참여 코드를 입력하세요.")
+        }
+    }
 }

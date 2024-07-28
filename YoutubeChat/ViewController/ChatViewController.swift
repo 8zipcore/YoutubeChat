@@ -17,7 +17,7 @@ class ChatViewController: UIViewController {
     
     @IBOutlet weak var chatTextViewHeightContraint: NSLayoutConstraint!
     
-    var enteredWithCode = true
+    var enteredWithCode = false
     var count = 0
     
     var chatInfo: Chat?
@@ -59,20 +59,27 @@ class ChatViewController: UIViewController {
     }
     
     private func initData(){
+        guard let chatInfo = chatInfo, let id = chatInfo.id else { return }
         if enteredWithCode{ // 참여하기 쪽으로 들어왔을때
             // 서버에서 참여했습니다. 문구 띄워야 함
-            let message = Message(groupChatID: chatInfo!.id!, senderID: MyProfile.id, messageType: .enter, isRead: true)
+            let message = Message(groupChatID: id, senderID: MyProfile.id, messageType: .enter, isRead: true)
             chatViewModel.sendMessage(message)
         } else { // main에서 들어왔을 때
             // 만약 그 전에 안읽은 메세지는 다 읽음 처리로
-            chatViewModel.fetchMessage(chatInfo!.id!)
+            chatViewModel.fetchMessage(id)
         }
         
         chatTableView.reloadData()
     }
 
     @IBAction func sendButtonTapped(_ sender: Any) {
-
+        if chatTextView.text.count == 0{
+            return
+        }
+        
+        let message = Message(groupChatID: chatInfo!.id!, senderID: MyProfile.id, messageType: .text, text: chatTextView.text, isRead: true)
+        chatViewModel.sendMessage(message)
+        chatTextView.resetText()
     }
     
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -103,7 +110,17 @@ class ChatViewController: UIViewController {
                 chatViewModel.receiveMessage(message)
                  DispatchQueue.main.async {
                      self.chatTableView.reloadData()
+                     self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: true)
                  }
+                
+                if message.messageType == .enter || message.messageType == .leave{
+                    Task{
+                        self.chatInfo = try await chatViewModel.fetchChat(id: message.groupChatID)
+                        DispatchQueue.main.async{
+                            self.peopleNumberLabel.text = String(self.chatInfo!.participantID.count)
+                        }
+                    }
+                }
             } catch {
                 print("🌀 JSONDecoding Error: \(error.localizedDescription)")
             }

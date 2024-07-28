@@ -8,10 +8,10 @@
 import Foundation
 
 enum EnterCodeResponse: Int, Codable{
-    case invalidCode, validCode
+    case invalidCode, validCode, existing
 }
 
 struct EnterChatResponseData: Codable{
-    var respone: EnterCodeResponse
+    var responseCode: EnterCodeResponse
     var chat: Chat?
 }

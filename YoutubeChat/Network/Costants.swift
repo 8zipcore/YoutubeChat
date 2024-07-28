@@ -15,6 +15,7 @@ enum Endpoints {
     static let join = "join"
     static let createChat = "chat/create"
     static let enterCode = "chat/entercode"
+    static let fetchChat = "chat/"
 }
 
 enum HttpError: Error {
@@ -37,12 +38,13 @@ enum URLType{
     case join
     case createChat
     case enterCode
+    case fetchChat
 }
 
 class URLManager {
     static let shared = URLManager()
     
-    func url(_ type: URLType)-> URL?{
+    func url(_ type: URLType, _ parameter: String?)-> URL?{
         switch type{
         case .join:
             return URL(string: Constants.baseURL + Endpoints.join)
@@ -50,6 +52,8 @@ class URLManager {
             return URL(string: Constants.baseURL + Endpoints.createChat)
         case .enterCode:
             return URL(string: Constants.baseURL + Endpoints.enterCode)
+        case .fetchChat:
+            return URL(string: Constants.baseURL + Endpoints.fetchChat + parameter!)
         }
     }
 }

@@ -24,13 +24,12 @@ class ChatViewModel{
         return response
     }
     
-    func confirmEnterCode(enterCode: String) async throws -> Chat{
-        guard let url = URLManager.shared.url(.enterCode) else {
+    func confirmEnterCode(enterCode: String) async throws -> EnterChatResponseData{
+        guard let url = URLManager.shared.url(.enterCode, nil) else {
             throw HttpError.badURL
         }
         let data = EnterChatRequestData(enterCode: enterCode, userID: MyProfile.id)
-        let response = try await NetworkManager.shared.sendJsonData(data, EnterChatResponseData.self, to: url).chat!
-        saveChat(chat: response)
+        let response = try await NetworkManager.shared.sendJsonData(data, EnterChatResponseData.self, to: url)
         return response
     }
     
@@ -38,8 +37,19 @@ class ChatViewModel{
         CoreDataManager.shared.saveChat(chat)
     }
     
+    func updateChat(chat: Chat){
+        CoreDataManager.shared.updateChat(chat)
+    }
+    
     func fetchChat(){
         self.myChatArray = CoreDataManager.shared.fetchChat()
+    }
+    
+    func fetchChat(id: UUID) async throws -> Chat{
+        guard let url = URLManager.shared.url(.fetchChat, id.uuidString) else { throw HttpError.badURL }
+        let response = try await NetworkManager.shared.fetchData(to: url, Chat.self)
+        updateChat(chat: response)
+        return response
     }
     
     func selectedChatOptions()-> [Int]{
@@ -60,6 +70,7 @@ class ChatViewModel{
     
     func receiveMessage(_ data: Message){
         messageArray.append(data)
+        CoreDataManager.shared.saveMessage(data)
     }
     
     func fetchMessage(_ id: UUID){
