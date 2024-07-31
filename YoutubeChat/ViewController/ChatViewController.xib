@@ -109,38 +109,20 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aOy-Va-Eee" userLabel="MessageInputView">
                     <rect key="frame" x="0.0" y="788" width="393" height="30"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="na4-GD-qAA">
-                            <rect key="frame" x="0.0" y="-4.3333333333333712" width="47" height="34.333333333333336"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
-                        </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5h-dg-U4g" customClass="ChatTextView" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="47" y="0.0" width="284.33333333333331" height="30"/>
+                            <rect key="frame" x="20" y="0.0" width="353" height="30"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="XZQ-jo-WFc"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6qu-tb-QUw" customClass="SDGothicButton" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="331.33333333333331" y="-5" width="53.666666666666686" height="35"/>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="전송"/>
-                            <connections>
-                                <action selector="sendButtonTapped:" destination="-1" eventType="touchUpInside" id="IWO-QC-f46"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="d5h-dg-U4g" firstAttribute="top" secondItem="aOy-Va-Eee" secondAttribute="top" id="UVz-rc-OQS"/>
                         <constraint firstAttribute="bottom" secondItem="d5h-dg-U4g" secondAttribute="bottom" id="Zrs-WZ-uOk"/>
-                        <constraint firstAttribute="bottom" secondItem="na4-GD-qAA" secondAttribute="bottom" id="c39-Jy-Nxg"/>
-                        <constraint firstAttribute="bottom" secondItem="6qu-tb-QUw" secondAttribute="bottom" id="i53-8w-7CT"/>
-                        <constraint firstItem="6qu-tb-QUw" firstAttribute="leading" secondItem="d5h-dg-U4g" secondAttribute="trailing" id="iTC-C5-IJW"/>
-                        <constraint firstItem="d5h-dg-U4g" firstAttribute="centerY" secondItem="aOy-Va-Eee" secondAttribute="centerY" id="uFn-AL-1iu"/>
-                        <constraint firstAttribute="trailing" secondItem="6qu-tb-QUw" secondAttribute="trailing" constant="8" id="v4I-SM-85o"/>
-                        <constraint firstItem="d5h-dg-U4g" firstAttribute="leading" secondItem="na4-GD-qAA" secondAttribute="trailing" id="vpZ-fR-ZUQ"/>
-                        <constraint firstItem="na4-GD-qAA" firstAttribute="leading" secondItem="aOy-Va-Eee" secondAttribute="leading" id="xz4-wd-bIT"/>
+                        <constraint firstAttribute="trailing" secondItem="d5h-dg-U4g" secondAttribute="trailing" constant="20" id="bbY-63-dAM"/>
+                        <constraint firstItem="d5h-dg-U4g" firstAttribute="leading" secondItem="aOy-Va-Eee" secondAttribute="leading" constant="20" id="kaw-7F-Qm2"/>
                     </constraints>
                 </view>
             </subviews>
@@ -168,7 +150,6 @@
     <resources>
         <image name="list.bullet" catalog="system" width="128" height="87"/>
         <image name="paperclip" catalog="system" width="121" height="128"/>
-        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

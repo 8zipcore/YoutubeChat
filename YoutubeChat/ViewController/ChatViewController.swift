@@ -48,7 +48,7 @@ class ChatViewController: UIViewController {
         self.chatTableView.dataSource = self
         self.chatTableView.delegate = self
         
-        self.chatTextView.chatTextViewHeightDelegate = self
+        self.chatTextView.delegate = self
                 
         self.chatTextViewHeightContraint.constant = chatTextView.estimatedHeight()
         
@@ -72,16 +72,6 @@ class ChatViewController: UIViewController {
         chatTableView.reloadData()
     }
 
-    @IBAction func sendButtonTapped(_ sender: Any) {
-        if chatTextView.text.count == 0{
-            return
-        }
-        
-        let message = Message(groupChatID: chatInfo!.id!, senderID: MyProfile.id, messageType: .text, text: chatTextView.text, isRead: true)
-        chatViewModel.sendMessage(message)
-        chatTextView.resetText()
-    }
-    
     @IBAction func backButtonTapped(_ sender: Any) {
         self.navigationController?.popToRootViewController(animated: true)
     }
@@ -270,6 +260,24 @@ extension ChatViewController: UITableViewDelegate{
 }
 
 extension ChatViewController: ChatTextViewDelegate{
+    func sendButtonTapped(_ sender: UIButton) {
+        if chatTextView.text.count == 0{
+            return
+        }
+        
+        let message = Message(groupChatID: chatInfo!.id!, senderID: MyProfile.id, messageType: .text, text: chatTextView.text, isRead: true)
+        chatViewModel.sendMessage(message)
+        chatTextView.resetText()
+    }
+    
+    func galleryButtonTapped(_ sender: UIButton) {
+        print("갤러리 버튼")
+    }
+    
+    func youtubeButtonTapped(_ sender: UIButton) {
+        print("유튜브 버튼")
+    }
+    
     func setChatTextViewHeight(_ height: CGFloat) {
         self.chatTextViewHeightContraint.constant = height
     }
