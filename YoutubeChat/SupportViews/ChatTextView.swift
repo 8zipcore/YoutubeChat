@@ -113,6 +113,10 @@ class ChatTextView: UIView {
         self.textView.text = ""
         setTextView()
     }
+    
+    func hideKeyboard(){
+        self.textView.resignFirstResponder()
+    }
 }
 // MARK: Button 관련
 extension ChatTextView{

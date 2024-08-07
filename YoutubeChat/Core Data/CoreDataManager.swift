@@ -56,17 +56,17 @@ class CoreDataManager{
         return attribute
     }
     
-    func saveChat(_ chat: Chat){
+    func saveChat(_ chatRoom: ChatRoom){
         if let entity = NSEntityDescription.entity(forEntityName: "MyChat", in: viewContext){
             let chatInfo = NSManagedObject(entity: entity, insertInto: viewContext)
-             chatInfo.setValue(chat.id, forKey: "id")
-             chatInfo.setValue(chat.chatName, forKey: "chatName")
-             chatInfo.setValue(chat.chatImage, forKey: "chatImage")
-             chatInfo.setValue(chat.hostID, forKey: "hostID")
-            if let participantIDArray = try? JSONEncoder().encode(chat.participantID) {
+             chatInfo.setValue(chatRoom.id, forKey: "id")
+             chatInfo.setValue(chatRoom.name, forKey: "chatName")
+             chatInfo.setValue(chatRoom.image, forKey: "chatImage")
+             chatInfo.setValue(chatRoom.hostId, forKey: "hostID")
+            if let participantIDArray = try? JSONEncoder().encode(chatRoom.participantIds) {
                 chatInfo.setValue(participantIDArray, forKey: "participantID")
             }
-            if let chatOptionArray = try? JSONEncoder().encode(chat.chatOption) {
+            if let chatOptionArray = try? JSONEncoder().encode(chatRoom.chatOptions) {
                 chatInfo.setValue(chatOptionArray, forKey: "chatOption")
             }
         }
@@ -74,19 +74,19 @@ class CoreDataManager{
         saveContext()
     }
     
-    func updateChat(_ newChat: Chat){
+    func updateChat(_ newChat: ChatRoom){
         let fetchRequest: NSFetchRequest<MyChat> = MyChat.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id == %@", newChat.id!.uuidString)
 
         do {
             if let chat = try viewContext.fetch(fetchRequest).first{
-                chat.chatName = newChat.chatName
-                chat.chatImage = newChat.chatImage
-                chat.hostID = newChat.hostID
-                if let participantIDArray = try? JSONEncoder().encode(newChat.participantID) {
+                chat.chatName = newChat.name
+                chat.chatImage = newChat.image
+                chat.hostID = newChat.hostId
+                if let participantIDArray = try? JSONEncoder().encode(newChat.participantIds) {
                     chat.participantID = participantIDArray
                 }
-                if let chatOptionArray = try? JSONEncoder().encode(newChat.chatOption) {
+                if let chatOptionArray = try? JSONEncoder().encode(newChat.chatOptions) {
                     chat.chatOption = chatOptionArray
                 }
                 
@@ -98,8 +98,8 @@ class CoreDataManager{
         saveContext()
     }
     
-    func fetchChat()-> [Chat]{
-        var chatArray: [Chat] = []
+    func fetchChat()-> [ChatRoom]{
+        var chatArray: [ChatRoom] = []
         do{
             guard let myChatArray = try viewContext.fetch(MyChat.fetchRequest()) as? [MyChat] else {
                 return [] }
@@ -107,7 +107,7 @@ class CoreDataManager{
             myChatArray.forEach{
                 if let participantIDArray = try? JSONDecoder().decode([UUID].self, from: $0.participantID),
                    let chatOptionArray = try? JSONDecoder().decode([Int].self, from: $0.chatOption){
-                    chatArray.append(Chat(id: $0.id, chatName: $0.chatName, chatImage: $0.chatImage, hostID: $0.hostID, participantID: participantIDArray, chatOption: chatOptionArray))
+                    // chatArray.append(ChatRoom(id: $0.id, chatName: $0.chatName, chatImage: $0.chatImage, hostID: $0.hostID, participantID: participantIDArray, chatOption: chatOptionArray))
                 }
             }
             
@@ -120,7 +120,7 @@ class CoreDataManager{
     
     func saveMessage(_ message: Message){
         let fetchRequest: NSFetchRequest<MyChat> = MyChat.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "id == %@", message.groupChatID.uuidString)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", message.chatRoomId.uuidString)
 
         do {
             if let chat = try viewContext.fetch(fetchRequest).first{

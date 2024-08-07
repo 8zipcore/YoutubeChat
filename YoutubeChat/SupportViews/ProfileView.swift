@@ -85,13 +85,13 @@ class ProfileView: UIView {
         self.nameLabel.text = name
     }
     
-    func setStatusMessage(_ statusMessage: String){
-        self.messageLabel.text = statusMessage
+    func setDescription(_ description: String){
+        self.messageLabel.text = description
     }
     
     func setMyProfile(){
         setImage(MyProfile.image)
         setName(MyProfile.name)
-        setStatusMessage(MyProfile.statusMessage)
+        setDescription(MyProfile.description)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CreateGroupChatViewController.swift
+//  CreateChatRoomViewController.swift
 //  YoutubeChat
 //
 //  Created by 홍승아 on 6/17/24.
@@ -7,19 +7,22 @@
 
 import UIKit
 
-class CreateGroupChatViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class CreateChatRoomViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
-    @IBOutlet weak var chatImageView: ProfileImageView!
+    @IBOutlet weak var chatRoomImageView: ChatRoomImageView!
     @IBOutlet weak var chatNameTextField: InputTextField!
+    @IBOutlet weak var descriptionTextView: InputTextView!
     @IBOutlet weak var chatOptionLabel: SDGothicLabel!
     @IBOutlet weak var chatOptionCollectionView: UICollectionView!
-    @IBOutlet weak var chatOptionCollectionViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var chatOptionCollectionViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var descriptionTextViewHeightConstraint: NSLayoutConstraint!
+
     private let cellHeight: CGFloat = 30
     private let cellSpacing: CGFloat = 10
     
     private var imagePicker = UIImagePickerController()
-    private var imageEditViewController = ImageEditViewController()
+    private var confirmImageViewController = ConfirmImageViewController()
     
     var chatViewModel = ChatViewModel()
     
@@ -29,8 +32,14 @@ class CreateGroupChatViewController: UIViewController, UIImagePickerControllerDe
         configurView()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        descriptionTextViewHeightConstraint.constant = descriptionTextView.estimatedHeight()
+    }
+    
     private func configurView(){
-        chatNameTextField.setText(title: "채팅방 이름", placeHolder: "채팅방 이름을 입력해주세요.")
+        chatNameTextField.setText(title: "채팅방 이름", placeHolder: "채팅방 이름을 입력해주세요.", maxLength: 30)
+        descriptionTextView.setText(title: "채팅방 소개", placeHolder: "해시태그로 채팅방을 소개해보세요.", maxLength: 80)
         chatOptionLabel.setLabel(textColor: .black, fontSize: 13)
         
         chatOptionCollectionView.dataSource = self
@@ -41,10 +50,10 @@ class CreateGroupChatViewController: UIViewController, UIImagePickerControllerDe
         imagePicker.sourceType = .photoLibrary
         imagePicker.allowsEditing = false
         
-        imageEditViewController.modalPresentationStyle = .fullScreen
-        imageEditViewController.delegate = self
+        confirmImageViewController.modalPresentationStyle = .fullScreen
+        confirmImageViewController.delegate = self
         
-        chatImageView.delegate = self
+        chatRoomImageView.delegate = self
     }
 
     @IBAction func backButtonTapped(_ sender: Any) {
@@ -56,12 +65,9 @@ class CreateGroupChatViewController: UIViewController, UIImagePickerControllerDe
             chatNameTextField.showAnimation()
         } else {
             Task{
-                let chatInfo = Chat(chatName: chatNameTextField.text,
-                                    chatImage: chatImageView.imageToString(),
-                                    hostID: MyProfile.id,
-                                    participantID: [MyProfile.id],
-                                    chatOption: chatViewModel.selectedChatOptions())
-                let response = try await chatViewModel.createGroupChat(chatInfo: chatInfo)
+                let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoomImageView.imageToString(), enterCode: "", hostId: MyProfile.id, participantIds: [MyProfile.id], chatOptions: chatViewModel.selectedChatOptions(), categories: descriptionTextView.hashTagTextArray())
+            
+                let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom)
                 DispatchQueue.main.async {
                     self.presentChatViewController(chatInfo: response)
                 }
@@ -69,16 +75,16 @@ class CreateGroupChatViewController: UIViewController, UIImagePickerControllerDe
         }
     }
     
-    private func presentChatViewController(chatInfo: Chat){
+    private func presentChatViewController(chatInfo: ChatRoom){
         let vc = ChatViewController()
-        vc.chatInfo = chatInfo
+        vc.chatRoom = chatInfo
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
 
 //MARK: CollectionView 관련
-extension CreateGroupChatViewController: UICollectionViewDataSource{
+extension CreateChatRoomViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return chatViewModel.chatOptionArray.count
     }
@@ -94,7 +100,7 @@ extension CreateGroupChatViewController: UICollectionViewDataSource{
     }
 }
 
-extension CreateGroupChatViewController: UICollectionViewDelegateFlowLayout{
+extension CreateChatRoomViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, data: chatViewModel.chatOptionArray[indexPath.item])
     }
@@ -104,7 +110,7 @@ extension CreateGroupChatViewController: UICollectionViewDelegateFlowLayout{
     }
 }
 
-extension CreateGroupChatViewController: UICollectionViewDelegate{
+extension CreateChatRoomViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         chatViewModel.chatOptionArray[indexPath.item].toggle()
         chatOptionCollectionView.reloadData()
@@ -112,27 +118,27 @@ extension CreateGroupChatViewController: UICollectionViewDelegate{
 }
 
 //MARK: ImageEdit 관련
-extension CreateGroupChatViewController: ProfileImageViewDelegate{
+extension CreateChatRoomViewController: ChatRoomImageViewDelegate{
     func editButtonTapped() {
-        let alert = self.chatImageView.alert { self.present(self.imagePicker, animated: true) }
+        let alert = self.chatRoomImageView.alert { self.present(self.imagePicker, animated: true) }
         self.present(alert, animated: true)
     }
 }
 
-extension CreateGroupChatViewController {
+extension CreateChatRoomViewController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
-            imageEditViewController.pickedImage = pickedImage
-            imagePicker.pushViewController(imageEditViewController, animated: false)
+            confirmImageViewController.pickedImage = pickedImage
+            imagePicker.pushViewController(confirmImageViewController, animated: false)
         }
     }
 }
 
-extension CreateGroupChatViewController: ImageEditViewControllerDelegate{
+extension CreateChatRoomViewController: EditImageViewControllerDelegate{
     func didDismissWithImage(image: UIImage?) {
         self.dismiss(animated: true)
         guard let image = image else { return }
-        chatImageView.setImage(image)
+        chatRoomImageView.setImage(image)
     }
 }
 

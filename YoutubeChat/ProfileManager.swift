@@ -10,8 +10,9 @@ import UIKit
 enum MyProfile{
     static var id = UUID()
     static var name = ""
+    static var description = ""
     static var image: UIImage?
-    static var statusMessage = ""
+    static var backgroundImage: UIImage?
 }
 
 class ProfileManager{
@@ -23,14 +24,15 @@ class ProfileManager{
         if !user.image.isEmpty, let imageData = Data(base64Encoded: user.image) {
             MyProfile.image = UIImage(data: imageData)
         }
-        MyProfile.statusMessage = user.statusMessage
+        MyProfile.description = user.description
     }
     
     func saveUser(_ user : User){
         UserDefaults.standard.set(user.id?.uuidString, forKey: "userID")
         UserDefaults.standard.set(user.name, forKey: "userName")
+        UserDefaults.standard.set(user.description, forKey: "userDescription")
         UserDefaults.standard.set(user.image, forKey: "userImage")
-        UserDefaults.standard.set(user.statusMessage, forKey: "userStatusMessage")
+        UserDefaults.standard.set(user.backgroundImage, forKey: "userBackgroundImage")
         
         print("✅ 저장")
     }
@@ -38,17 +40,19 @@ class ProfileManager{
     func deleteUser(){
         UserDefaults.standard.removeObject(forKey: "userID")
         UserDefaults.standard.removeObject(forKey: "userName")
+        UserDefaults.standard.removeObject(forKey: "userDescription")
         UserDefaults.standard.removeObject(forKey: "userImage")
-        UserDefaults.standard.removeObject(forKey: "userStatusMessage")
+        UserDefaults.standard.removeObject(forKey: "userBackgroundImage")
     }
     
     func setUser(){
         if let id = UserDefaults.standard.string(forKey: "userID"),
            let name = UserDefaults.standard.string(forKey: "userName"),
+           let description = UserDefaults.standard.string(forKey: "userDescription"),
            let image = UserDefaults.standard.string(forKey: "userImage"),
-           let statusMessage = UserDefaults.standard.string(forKey: "userStatusMessage"){
-            let user = User(id: UUID(uuidString: id), name: name, image: image, statusMessage: statusMessage, chatID: [])
-            setMyProfile(user)
+           let backgroundImage = UserDefaults.standard.string(forKey: "userBackgroundImage"){
+            let user = User(id: UUID(uuidString: id), name: name, description: description, image: image, backgroundImage: backgroundImage)
+             setMyProfile(user)
         }
     }
     

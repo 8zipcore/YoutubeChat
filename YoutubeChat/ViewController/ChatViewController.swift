@@ -14,15 +14,23 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var chatTextView: ChatTextView!
     @IBOutlet weak var youtubeView: YoutubeView!
-    
+
     @IBOutlet weak var chatTextViewHeightContraint: NSLayoutConstraint!
+    @IBOutlet weak var messageInputViewBottomConstraint: NSLayoutConstraint!
+    
+    private let messageInputViewBottomMargin: CGFloat = 7
+    private var keyboardAnimationDuraion: CGFloat = 0
     
     var enteredWithCode = false
     var count = 0
     
-    var chatInfo: Chat?
+    var chatRoom: ChatRoom?
     
     private let chatViewModel = ChatViewModel()
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +41,7 @@ class ChatViewController: UIViewController {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveMessage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -50,19 +59,20 @@ class ChatViewController: UIViewController {
         
         self.chatTextView.delegate = self
                 
-        self.chatTextViewHeightContraint.constant = chatTextView.estimatedHeight()
+        self.chatTextViewHeightContraint.constant = self.view.bounds.height * 0.04
         
-        if let chatInfo = chatInfo {
-            chatNameLabel.text = chatInfo.chatName
-            peopleNumberLabel.text = String(chatInfo.participantID.count)
-        }
+        chatTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:))))
+        
+        guard let chatRoom = chatRoom else { return }
+        chatNameLabel.text = chatRoom.name
+        peopleNumberLabel.text = String(chatRoom.participantIds.count)
     }
     
     private func initData(){
-        guard let chatInfo = chatInfo, let id = chatInfo.id else { return }
+        guard let chatInfo = chatRoom, let id = chatInfo.id else { return }
         if enteredWithCode{ // 참여하기 쪽으로 들어왔을때
             // 서버에서 참여했습니다. 문구 띄워야 함
-            let message = Message(groupChatID: id, senderID: MyProfile.id, messageType: .enter, isRead: true)
+            let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .enter, isRead: true)
             chatViewModel.sendMessage(message)
         } else { // main에서 들어왔을 때
             // 만약 그 전에 안읽은 메세지는 다 읽음 처리로
@@ -77,11 +87,7 @@ class ChatViewController: UIViewController {
     }
     
     @IBAction func testButtonTapped(_ sender: Any) {
-        let playlistViewController = PlaylistViewController()
-        playlistViewController.modalPresentationStyle = .overCurrentContext
-        let frame = self.youtubeView.convert(self.view.frame, to: nil)
-        playlistViewController.yPoint = frame.minY + self.youtubeView.bounds.height
-        self.present(playlistViewController, animated: true)
+
 
 //        let imageName = ["riku", "saku", "rikus", "testImage", "testImage2"]
 //        
@@ -105,9 +111,9 @@ class ChatViewController: UIViewController {
                 
                 if message.messageType == .enter || message.messageType == .leave{
                     Task{
-                        self.chatInfo = try await chatViewModel.fetchChat(id: message.groupChatID)
+                        self.chatRoom = try await chatViewModel.fetchChatRoom(id: message.chatRoomId)
                         DispatchQueue.main.async{
-                            self.peopleNumberLabel.text = String(self.chatInfo!.participantID.count)
+                            self.peopleNumberLabel.text = String(self.chatRoom!.participantIds.count)
                         }
                     }
                 }
@@ -120,6 +126,24 @@ class ChatViewController: UIViewController {
     func addImageData(name:String, imgName: String){
 
     }
+    
+    @objc func keyboardWillShow(_ notification: Notification){
+        if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
+        let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
+            keyboardAnimationDuraion = animationDuration
+            let keyboardHeight = keyboardFrame.height - self.view.safeAreaInsets.bottom + messageInputViewBottomMargin
+            UIView.animate(withDuration: animationDuration) {
+                self.messageInputViewBottomConstraint.constant = keyboardHeight
+            }
+        }
+    }
+    
+    @objc func hideKeyboard(_ sender: UITapGestureRecognizer){
+        self.chatTextView.hideKeyboard()
+        UIView.animate(withDuration: keyboardAnimationDuraion) {
+            self.messageInputViewBottomConstraint.constant = self.messageInputViewBottomMargin
+        }
+    }
 }
 // MARK: UITableViewDataSource
 extension ChatViewController: UITableViewDataSource{
@@ -131,7 +155,7 @@ extension ChatViewController: UITableViewDataSource{
         let message = chatViewModel.messageArray[indexPath.item]
         
         // MARK: 내가 보낸 챗
-        if ProfileManager.shared.isMyID(message.senderID){
+        if ProfileManager.shared.isMyID(message.senderId){
             switch message.messageType{
             case .text:
                 let nib = UINib(nibName: ChatTableViewCell.identifier, bundle: nil)
@@ -207,7 +231,7 @@ extension ChatViewController: UITableViewDelegate{
         let message = chatViewModel.messageArray[indexPath.item]
         
         // MARK: 내가 보낸 챗
-        if ProfileManager.shared.isMyID(message.senderID){
+        if ProfileManager.shared.isMyID(message.senderId){
             switch message.messageType{
             case .text:
                 guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier) as? ChatTableViewCell else {
@@ -265,7 +289,7 @@ extension ChatViewController: ChatTextViewDelegate{
             return
         }
         
-        let message = Message(groupChatID: chatInfo!.id!, senderID: MyProfile.id, messageType: .text, text: chatTextView.text, isRead: true)
+        let message = Message(chatRoomId: chatRoom!.id!, senderId: MyProfile.id, messageType: .text, text: chatTextView.text, isRead: true)
         chatViewModel.sendMessage(message)
         chatTextView.resetText()
     }
@@ -275,7 +299,11 @@ extension ChatViewController: ChatTextViewDelegate{
     }
     
     func youtubeButtonTapped(_ sender: UIButton) {
-        print("유튜브 버튼")
+        let playlistViewController = PlaylistViewController()
+        playlistViewController.modalPresentationStyle = .overCurrentContext
+        let frame = self.youtubeView.convert(self.view.frame, to: nil)
+        playlistViewController.yPoint = frame.minY + self.youtubeView.bounds.height
+        self.present(playlistViewController, animated: true)
     }
     
     func setChatTextViewHeight(_ height: CGFloat) {

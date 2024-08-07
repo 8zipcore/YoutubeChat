@@ -12,8 +12,10 @@ class PlaylistViewController: UIViewController {
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var titleLabel: SDGothicLabel!
     @IBOutlet weak var videoNumberLabel: SDGothicLabel!
-    
+    @IBOutlet weak var urlTextField: URLInputTextField!
     @IBOutlet weak var playlistTableView: UITableView!
+    
+    //@IBOutlet weak var urlTextViewHeightContraint: NSLayoutConstraint!
     
     var yPoint: CGFloat = 0
     
@@ -29,7 +31,7 @@ class PlaylistViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        self.view.frame = CGRectMake(0, yPoint, self.view.bounds.width, self.view.bounds.height - yPoint)
+        self.view.frame = CGRectMake(0, yPoint, self.view.bounds.width, self.view.window?.bounds.height ?? self.view.bounds.height - yPoint)
     }
     
     private func configureView(){
@@ -42,8 +44,12 @@ class PlaylistViewController: UIViewController {
         playlistTableView.dataSource = self
         playlistTableView.delegate = self
         
+        urlTextField.delegate = self
+        
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(_:)))
         self.topBarView.addGestureRecognizer(panGestureRecognizer)
+        
+        self.playlistTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:))))
     }
     
     @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
@@ -79,6 +85,10 @@ class PlaylistViewController: UIViewController {
     @IBAction func dismissButtonTapped(_ sender: Any) {
         self.dismiss(animated: true)
     }
+    
+    @objc func hideKeyboard(_ sender: UITapGestureRecognizer){
+        self.urlTextField.hideKeyboard()
+    }
 }
 
 extension PlaylistViewController: UITableViewDataSource{
@@ -101,5 +111,11 @@ extension PlaylistViewController: UITableViewDelegate{
         let spacing: CGFloat = 20
         let thumbnailImageViewWidth = self.view.bounds.width * 0.36
         return (thumbnailImageViewWidth * 9) / 16 + spacing
+    }
+}
+
+extension PlaylistViewController: URLInputTextFieldDelegate{
+    func addButtonTapped() {
+        urlTextField.hideKeyboard()
     }
 }

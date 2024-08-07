@@ -10,7 +10,7 @@ import Foundation
 struct User: Codable{
     var id: UUID?
     var name: String
+    var description: String
     var image: String
-    var statusMessage: String
-    var chatID: [UUID]
+    var backgroundImage: String
 }

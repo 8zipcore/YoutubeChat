@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="backgroundView" destination="NgV-16-OTP" id="9yL-HT-dPt"/>
                 <outlet property="codeTextField" destination="vVV-xS-cZF" id="3vI-ev-8hr"/>
+                <outlet property="codeTextFieldTopConstraint" destination="GiO-Pa-PSO" id="f2U-Av-lVb"/>
                 <outlet property="confirmButton" destination="Xqg-Ev-240" id="ZxZ-Ho-INI"/>
                 <outlet property="contentView" destination="O21-35-4cX" id="EKB-Cn-GoO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -28,17 +29,17 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O21-35-4cX" userLabel="ContentView">
-                    <rect key="frame" x="0.0" y="628.33333333333337" width="393" height="223.66666666666663"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="250.66666666666666"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vVV-xS-cZF" customClass="InputTextField" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="23.666666666666657" y="30.000000000000007" width="345.66666666666674" height="74.666666666666686"/>
+                            <rect key="frame" x="23.666666666666657" y="82" width="345.66666666666674" height="74.666666666666686"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="vVV-xS-cZF" secondAttribute="height" multiplier="986:213" id="OGb-hV-xRF"/>
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xqg-Ev-240" customClass="ConfirmButton" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="23.666666666666657" y="119.66666666666663" width="345.66666666666674" height="54"/>
+                            <rect key="frame" x="23.666666666666657" y="176.66666666666666" width="345.66666666666674" height="54"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="Xqg-Ev-240" secondAttribute="height" multiplier="986:154" id="nOz-h8-hUH"/>
                             </constraints>
@@ -53,26 +54,26 @@
                     <constraints>
                         <constraint firstItem="vVV-xS-cZF" firstAttribute="width" secondItem="O21-35-4cX" secondAttribute="width" multiplier="0.88" id="BxC-sx-AA3"/>
                         <constraint firstItem="Xqg-Ev-240" firstAttribute="leading" secondItem="vVV-xS-cZF" secondAttribute="leading" id="C9e-7G-12e"/>
-                        <constraint firstItem="vVV-xS-cZF" firstAttribute="top" secondItem="O21-35-4cX" secondAttribute="top" constant="30" id="GiO-Pa-PSO"/>
+                        <constraint firstItem="vVV-xS-cZF" firstAttribute="top" secondItem="O21-35-4cX" secondAttribute="top" constant="82" id="GiO-Pa-PSO"/>
                         <constraint firstItem="vVV-xS-cZF" firstAttribute="centerX" secondItem="O21-35-4cX" secondAttribute="centerX" id="L18-7K-5K3"/>
                         <constraint firstItem="Xqg-Ev-240" firstAttribute="trailing" secondItem="vVV-xS-cZF" secondAttribute="trailing" id="WDK-7t-KIE"/>
-                        <constraint firstItem="Xqg-Ev-240" firstAttribute="top" secondItem="vVV-xS-cZF" secondAttribute="bottom" constant="15" id="hIN-jT-gpj"/>
-                        <constraint firstAttribute="bottom" secondItem="Xqg-Ev-240" secondAttribute="bottom" constant="50" id="hnX-Gj-OCN"/>
+                        <constraint firstItem="Xqg-Ev-240" firstAttribute="top" secondItem="vVV-xS-cZF" secondAttribute="bottom" constant="20" id="hIN-jT-gpj"/>
+                        <constraint firstAttribute="bottom" secondItem="Xqg-Ev-240" secondAttribute="bottom" constant="20" id="hnX-Gj-OCN"/>
                     </constraints>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="O21-35-4cX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="77A-aN-952"/>
                 <constraint firstItem="NgV-16-OTP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="EGg-ha-hGb"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="NgV-16-OTP" secondAttribute="bottom" id="FUC-Xq-SXY"/>
                 <constraint firstItem="O21-35-4cX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="P4o-ZB-GPb"/>
                 <constraint firstItem="NgV-16-OTP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="SiG-uF-jNr"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NgV-16-OTP" secondAttribute="trailing" id="V3N-RX-L3g"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="O21-35-4cX" secondAttribute="trailing" id="nRp-a0-Vqq"/>
-                <constraint firstAttribute="bottom" secondItem="O21-35-4cX" secondAttribute="bottom" id="siP-8v-TY8"/>
             </constraints>
-            <point key="canvasLocation" x="-2" y="20"/>
+            <point key="canvasLocation" x="166" y="25"/>
         </view>
     </objects>
     <resources>

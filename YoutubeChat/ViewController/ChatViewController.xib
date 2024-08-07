@@ -15,6 +15,7 @@
                 <outlet property="chatTableView" destination="dlW-yw-UMX" id="OUP-Zr-tGd"/>
                 <outlet property="chatTextView" destination="d5h-dg-U4g" id="kod-fS-Fct"/>
                 <outlet property="chatTextViewHeightContraint" destination="XZQ-jo-WFc" id="sEl-lb-Cxu"/>
+                <outlet property="messageInputViewBottomConstraint" destination="yvq-Sw-Iyl" id="IA9-Az-Dw0"/>
                 <outlet property="peopleNumberLabel" destination="iL7-gF-Oen" id="giy-Ft-ORg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="youtubeView" destination="kRH-2e-4zm" id="F2u-qw-FV8"/>
@@ -91,10 +92,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMZ-xZ-MrI" userLabel="ChatView">
-                    <rect key="frame" x="0.0" y="321.33333333333326" width="393" height="466.66666666666674"/>
+                    <rect key="frame" x="0.0" y="321.33333333333326" width="393" height="459.66666666666674"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dlW-yw-UMX">
-                            <rect key="frame" x="9.6666666666666572" y="5" width="373.66666666666674" height="456.66666666666669"/>
+                            <rect key="frame" x="9.6666666666666572" y="5" width="373.66666666666674" height="449.66666666666669"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tableView>
                     </subviews>
@@ -107,10 +108,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aOy-Va-Eee" userLabel="MessageInputView">
-                    <rect key="frame" x="0.0" y="788" width="393" height="30"/>
+                    <rect key="frame" x="0.0" y="781" width="393" height="30"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5h-dg-U4g" customClass="ChatTextView" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="20" y="0.0" width="353" height="30"/>
+                            <rect key="frame" x="15" y="0.0" width="363" height="30"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="XZQ-jo-WFc"/>
@@ -121,8 +122,8 @@
                     <constraints>
                         <constraint firstItem="d5h-dg-U4g" firstAttribute="top" secondItem="aOy-Va-Eee" secondAttribute="top" id="UVz-rc-OQS"/>
                         <constraint firstAttribute="bottom" secondItem="d5h-dg-U4g" secondAttribute="bottom" id="Zrs-WZ-uOk"/>
-                        <constraint firstAttribute="trailing" secondItem="d5h-dg-U4g" secondAttribute="trailing" constant="20" id="bbY-63-dAM"/>
-                        <constraint firstItem="d5h-dg-U4g" firstAttribute="leading" secondItem="aOy-Va-Eee" secondAttribute="leading" constant="20" id="kaw-7F-Qm2"/>
+                        <constraint firstAttribute="trailing" secondItem="d5h-dg-U4g" secondAttribute="trailing" constant="15" id="bbY-63-dAM"/>
+                        <constraint firstItem="d5h-dg-U4g" firstAttribute="leading" secondItem="aOy-Va-Eee" secondAttribute="leading" constant="15" id="kaw-7F-Qm2"/>
                     </constraints>
                 </view>
             </subviews>
@@ -141,7 +142,7 @@
                 <constraint firstItem="CMZ-xZ-MrI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="eib-mD-yrl"/>
                 <constraint firstItem="aOy-Va-Eee" firstAttribute="top" secondItem="CMZ-xZ-MrI" secondAttribute="bottom" id="k4Z-zR-lNH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aOy-Va-Eee" secondAttribute="trailing" id="vyC-SW-ihH"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="aOy-Va-Eee" secondAttribute="bottom" id="yvq-Sw-Iyl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="aOy-Va-Eee" secondAttribute="bottom" constant="7" id="yvq-Sw-Iyl"/>
                 <constraint firstItem="Oi4-D9-kgx" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="zrh-dt-LXP"/>
             </constraints>
             <point key="canvasLocation" x="38.931297709923662" y="-11.267605633802818"/>

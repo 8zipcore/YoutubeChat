@@ -13,5 +13,5 @@ enum EnterCodeResponse: Int, Codable{
 
 struct EnterChatResponseData: Codable{
     var responseCode: EnterCodeResponse
-    var chat: Chat?
+    var chatRoom: ChatRoom?
 }

@@ -14,22 +14,36 @@ class EnterChatRoomCodeViewController: UIViewController {
     @IBOutlet weak var codeTextField: InputTextField!
     @IBOutlet weak var confirmButton: ConfirmButton!
     
+    @IBOutlet weak var codeTextFieldTopConstraint: NSLayoutConstraint!
+    
     let chatViewModel = ChatViewModel()
     var parentNavigationController: UINavigationController?
      
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         configureView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.codeTextFieldTopConstraint.constant = self.view.safeAreaInsets.top + 30
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         
+        self.contentView.frame = CGRect(x: 0, y: -self.contentView.bounds.height, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
+
         UIView.animate(withDuration: 0.15, animations: {
             self.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.3)
-            self.contentView.frame = CGRect(x: 0, y: self.view.bounds.height * 0.3, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
+            self.contentView.frame = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
+        },completion: { _ in
+            self.codeTextField.becomeFirstResponder()
         })
     }
     
@@ -49,7 +63,7 @@ class EnterChatRoomCodeViewController: UIViewController {
     @objc func dismiss(_ sender: UITapGestureRecognizer){
         UIView.animate(withDuration: 0.2, animations: {
             self.backgroundView.backgroundColor = .clear
-            self.contentView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
+            self.contentView.frame = CGRect(x: 0, y: -self.contentView.bounds.height, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
         }, completion: {_ in
             self.dismiss(animated: false)
         })
@@ -71,10 +85,10 @@ class EnterChatRoomCodeViewController: UIViewController {
                     self.codeTextField.setPlaceHolder("유효하지않은 코드입니다.")
                     self.codeTextField.showAnimation()
                 case .validCode:
-                    chatViewModel.saveChat(chat: data.chat!)
+                    // chatViewModel.saveChat(chat: data.chatRoom!)
                     
                     let vc = ChatViewController()
-                    vc.chatInfo = data.chat!
+                    vc.chatRoom = data.chatRoom
                     vc.enteredWithCode = true
                     
                     self.dismiss(animated: false, completion: {
@@ -84,7 +98,7 @@ class EnterChatRoomCodeViewController: UIViewController {
                     print("- - - -성공 x")
                 case .existing:
                     let vc = ChatViewController()
-                    vc.chatInfo = data.chat!
+                    vc.chatRoom = data.chatRoom
                     
                     self.dismiss(animated: false, completion: {
                         self.parentNavigationController?.pushViewController(vc, animated: true)
@@ -100,7 +114,7 @@ class EnterChatRoomCodeViewController: UIViewController {
 }
 
 extension EnterChatRoomCodeViewController: InputTextFieldDelegate{
-    func textFieldTextDidChange() {
+    func textFieldTextDidChange(_ sender: InputTextField) {
         if codeTextField.placeHolder != "참여 코드를 입력하세요."{
             codeTextField.setPlaceHolder("참여 코드를 입력하세요.")
         }

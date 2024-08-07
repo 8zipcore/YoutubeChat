@@ -10,17 +10,18 @@ import Foundation
 class ChatViewModel{
     
     var chatOptionArray = [ChatOptionData(chatOption: .anonymous),
-                           ChatOptionData(chatOption: .addVideo)]
+                           ChatOptionData(chatOption: .addVideo),
+                           ChatOptionData(chatOption: .privateRoom)]
     
-    var myChatArray: [Chat] = []
+    var myChatRoomArray: [ChatRoom] = []
     var messageArray: [Message] = []
     
-    func createGroupChat(chatInfo: Chat) async throws -> Chat{
+    func createChatRoom(chatRoom: ChatRoom) async throws -> ChatRoom{
         guard let url = URL(string: Constants.baseURL + Endpoints.createChat) else {
             throw HttpError.badURL
         }
-        let response = try await NetworkManager.shared.sendJsonData(chatInfo, to: url)
-        saveChat(chat: response)
+        let response = try await NetworkManager.shared.sendJsonData(chatRoom, to: url)
+        // saveChatRoom(chatRoom: response)
         return response
     }
     
@@ -33,22 +34,18 @@ class ChatViewModel{
         return response
     }
     
-    func saveChat(chat: Chat){
-        CoreDataManager.shared.saveChat(chat)
+    func saveChatRoom(chatRoom: ChatRoom){
+        // CoreDataManager.shared.saveChatRoom(chatRoom)
     }
     
-    func updateChat(chat: Chat){
-        CoreDataManager.shared.updateChat(chat)
+    func updateChatRoom(chatRoom: ChatRoom){
+        // CoreDataManager.shared.updateChatRoom(chatRoom)
     }
     
-    func fetchChat(){
-        self.myChatArray = CoreDataManager.shared.fetchChat()
-    }
-    
-    func fetchChat(id: UUID) async throws -> Chat{
+    func fetchChatRoom(id: UUID) async throws -> ChatRoom{
         guard let url = URLManager.shared.url(.fetchChat, id.uuidString) else { throw HttpError.badURL }
-        let response = try await NetworkManager.shared.fetchData(to: url, Chat.self)
-        updateChat(chat: response)
+        let response = try await NetworkManager.shared.fetchData(to: url, ChatRoom.self)
+        // updateChatRoom(chat: response)
         return response
     }
     
@@ -70,11 +67,11 @@ class ChatViewModel{
     
     func receiveMessage(_ data: Message){
         messageArray.append(data)
-        CoreDataManager.shared.saveMessage(data)
+        // CoreDataManager.shared.saveMessage(data)
     }
     
     func fetchMessage(_ id: UUID){
-        messageArray = CoreDataManager.shared.fetchMessage(id)
+        // messageArray = CoreDataManager.shared.fetchMessage(id)
     }
     
     func isPrevSender(_ index: Int)-> Bool{
@@ -86,7 +83,7 @@ class ChatViewModel{
         
         let previousUser = messageArray[index - 1]
         let currentUser = messageArray[index]
-        if currentUser.senderID == previousUser.senderID{
+        if currentUser.senderId == previousUser.senderId{
             isPrevSender = true
         }
         

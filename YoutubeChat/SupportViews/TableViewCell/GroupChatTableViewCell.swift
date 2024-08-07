@@ -41,10 +41,10 @@ class GroupChatTableViewCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    func initView(chat: Chat){
-        chatImageView.setImage(imageString: chat.chatImage)
-        chatNameLabel.text = chat.chatName
-        peopleNumberLabel.text = String(chat.participantID.count)
+    func initView(chatRoom: ChatRoom){
+        chatImageView.setImage(imageString: chatRoom.image)
+        chatNameLabel.text = chatRoom.name
+        peopleNumberLabel.text = String(chatRoom.participantIds.count)
         // latestMessageLabel.text = myChatInfo.lastMessage
         // latestChatTimeLabel.text = myChatInfo.timestamp
     }

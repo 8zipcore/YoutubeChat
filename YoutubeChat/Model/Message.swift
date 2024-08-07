@@ -13,8 +13,8 @@ enum MessageType:Int, Codable{
 
 struct Message: Codable{
     var id: UUID?
-    var groupChatID: UUID
-    var senderID: UUID
+    var chatRoomId: UUID
+    var senderId: UUID
     var messageType: MessageType
     var text: String = ""
     var image: String?

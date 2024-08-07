@@ -14,7 +14,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
     @IBOutlet weak var nameTextField: InputTextField!
     
     private var imagePicker = UIImagePickerController()
-    private var imageEditViewController = ImageEditViewController()
+    private var imageEditViewController = EditImageViewController()
     
     private let profileViewModel = ProfileViewModel()
     
@@ -48,9 +48,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate &
             Task{
                 let user = User(id: nil,
                                 name: nameTextField.text,
+                                description: "",
                                 image: profileImageView.imageToString(),
-                                statusMessage: "",
-                                chatID: [])
+                                backgroundImage: "")
                 let response = try await profileViewModel.createProfile(user:user)
                 try await profileViewModel.setUser(response)
                 
@@ -86,7 +86,7 @@ extension ProfileViewController {
     }
 }
 
-extension ProfileViewController: ImageEditViewControllerDelegate{
+extension ProfileViewController: EditImageViewControllerDelegate{
     func didDismissWithImage(image: UIImage?) {
         self.dismiss(animated: true)
         guard let image = image else { return }

@@ -1,5 +1,5 @@
 //
-//  ImageEditViewController.swift
+//  EditImageViewController.swift
 //  YoutubeChat
 //
 //  Created by 홍승아 on 7/5/24.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-protocol ImageEditViewControllerDelegate{
+protocol EditImageViewControllerDelegate{
     func didDismissWithImage(image: UIImage?)
 }
 
-class ImageEditViewController: UIViewController {
+class EditImageViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
@@ -24,7 +24,7 @@ class ImageEditViewController: UIViewController {
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     
     var pickedImage = UIImage()
-    var delegate: ImageEditViewControllerDelegate?
+    var delegate: EditImageViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,7 +133,7 @@ class ImageEditViewController: UIViewController {
     }
 }
 
-extension ImageEditViewController:UIScrollViewDelegate {
+extension EditImageViewController:UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
          return self.imageView
      }

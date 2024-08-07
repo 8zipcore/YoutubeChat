@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 protocol InputTextFieldDelegate{
-    func textFieldTextDidChange()
+    func textFieldTextDidChange(_ sender: InputTextField)
 }
 
 class InputTextField: UIView {
@@ -19,6 +19,9 @@ class InputTextField: UIView {
     
     var titleLabel = SDGothicLabel()
     var textField = UITextField()
+    var lengthLabel = SDGothicLabel()
+    
+    var maxLength = -1
     
     var delegate: InputTextFieldDelegate?
     
@@ -54,6 +57,7 @@ class InputTextField: UIView {
         let inputView = UIView()
 
         self.addSubview(titleLabel)
+        self.addSubview(lengthLabel)
         self.addSubview(inputView)
         inputView.addSubview(textField)
         
@@ -61,6 +65,12 @@ class InputTextField: UIView {
             make.top.equalToSuperview()
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
+        }
+        
+        lengthLabel.snp.makeConstraints{ make in
+            make.top.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.centerY.equalTo(titleLabel)
         }
         
         inputView.snp.makeConstraints{ make in
@@ -77,7 +87,9 @@ class InputTextField: UIView {
             make.trailing.equalToSuperview().inset(13)
         }
         
+        
         titleLabel.setLabel(textColor: .black, fontSize: 13)
+        lengthLabel.setLabel(textColor: Colors.gray, fontSize: 13)
 
         inputView.backgroundColor = Colors.lightGray
         inputView.layer.cornerRadius = 10
@@ -88,11 +100,21 @@ class InputTextField: UIView {
         textField.delegate = self
         
         textField.attributedPlaceholder = NSAttributedString(string: "채팅방 이름을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : Colors.gray])
+        
+        textField.autocorrectionType = .no
+        textField.spellCheckingType = .no
     }
     
     func setText(title: String, placeHolder: String){
         self.titleLabel.text = title
         self.textField.placeholder = placeHolder
+    }
+    
+    func setText(title: String, placeHolder: String, maxLength: Int){
+        self.titleLabel.text = title
+        self.textField.placeholder = placeHolder
+        self.lengthLabel.text = "0/\(maxLength)"
+        self.maxLength = maxLength
     }
     
     func setText(_ text: String){
@@ -101,6 +123,13 @@ class InputTextField: UIView {
     
     func setPlaceHolder(_ placeHolder: String){
         self.textField.placeholder = placeHolder
+    }
+    
+    func setLengthLabel(){
+        if maxLength != -1 {
+            lengthLabel.text = "\(textField.text?.count ?? 0)/\(maxLength)"
+        }
+        
     }
     
     func showAnimation(){
@@ -122,10 +151,24 @@ class InputTextField: UIView {
     func isBlank()-> Bool{
         return textCount == 0
     }
+    
+    func becomeFirstResponder(){
+        self.textField.becomeFirstResponder()
+    }
 }
 
 extension InputTextField: UITextFieldDelegate{
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        delegate?.textFieldTextDidChange()
+        setLengthLabel()
+        delegate?.textFieldTextDidChange(self)
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 현재 텍스트 길이
+        let currentText = textField.text ?? ""
+        // 변경될 텍스트 길이
+        let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
+        // 텍스트 길이 제한 설정
+        return maxLength != -1 ? updatedText.count <= maxLength : true
     }
 }
