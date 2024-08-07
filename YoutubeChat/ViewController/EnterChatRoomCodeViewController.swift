@@ -89,7 +89,6 @@ class EnterChatRoomCodeViewController: UIViewController {
                     
                     let vc = ChatViewController()
                     vc.chatRoom = data.chatRoom
-                    vc.enteredWithCode = true
                     
                     self.dismiss(animated: false, completion: {
                         self.parentNavigationController?.pushViewController(vc, animated: true)

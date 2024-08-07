@@ -9,6 +9,10 @@ import UIKit
 
 class SDGothicLabel: UILabel {
     
+    enum FontStyle{
+        case semibold, bold
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configureView()
@@ -33,6 +37,16 @@ class SDGothicLabel: UILabel {
     func setLabel(textColor: UIColor, fontSize: Int){
         self.textColor = textColor
         self.font = SDGothic(size: fontSize)
+    }
+    
+    func setLabel(textColor: UIColor, fontStyle: FontStyle, fontSize: Int){
+        self.textColor = textColor
+        switch fontStyle{
+        case .semibold:
+            self.font = SDGothicSemiBold(size: fontSize)
+        case .bold:
+            self.font = SDGothicBold(size: fontSize)
+        }
     }
     
     func setTitleLabel(){

@@ -1,5 +1,5 @@
 //
-//  ChatResponse.swift
+//  ResponseData.swift
 //  YoutubeChat
 //
 //  Created by 홍승아 on 7/21/24.
@@ -14,4 +14,12 @@ enum EnterCodeResponse: Int, Codable{
 struct EnterChatResponseData: Codable{
     var responseCode: EnterCodeResponse
     var chatRoom: ChatRoom?
+}
+
+enum ResponseCode: Int, Codable{
+    case success, failure
+}
+
+struct ResponseData: Codable{
+    var responseCode: ResponseCode
 }

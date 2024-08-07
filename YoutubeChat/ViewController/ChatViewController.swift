@@ -20,10 +20,7 @@ class ChatViewController: UIViewController {
     
     private let messageInputViewBottomMargin: CGFloat = 7
     private var keyboardAnimationDuraion: CGFloat = 0
-    
-    var enteredWithCode = false
-    var count = 0
-    
+
     var chatRoom: ChatRoom?
     
     private let chatViewModel = ChatViewModel()
@@ -35,6 +32,7 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+        initData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -44,10 +42,11 @@ class ChatViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        initData()
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        Task{
+            try await chatViewModel.quitChatRoom(id: chatRoom!.id!)
+        }
     }
     
     private func configureView(){
@@ -69,21 +68,28 @@ class ChatViewController: UIViewController {
     }
     
     private func initData(){
-        guard let chatInfo = chatRoom, let id = chatInfo.id else { return }
-        if enteredWithCode{ // 참여하기 쪽으로 들어왔을때
-            // 서버에서 참여했습니다. 문구 띄워야 함
-            let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .enter, isRead: true)
-            chatViewModel.sendMessage(message)
-        } else { // main에서 들어왔을 때
-            // 만약 그 전에 안읽은 메세지는 다 읽음 처리로
-            chatViewModel.fetchMessage(id)
+        chatViewModel.sendEnterMessage(chatRoom!)
+    }
+    
+    private func leave(){
+        Task{
+            let responseData = try await self.chatViewModel.leaveChatRoom(id: self.chatRoom!.id!)
+            print(responseData)
+            switch responseData.responseCode {
+            case .success:
+                self.chatViewModel.sendLeaveMessage(self.chatRoom!)
+                self.navigationController?.popToRootViewController(animated: true)
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                    self.chatViewModel.sendLeaveMessage(self.chatRoom!)
+                }
+            case .failure:
+                print("🌀 채팅방 나가기 실패")
+            }
         }
-        
-        chatTableView.reloadData()
     }
 
     @IBAction func backButtonTapped(_ sender: Any) {
-        self.navigationController?.popToRootViewController(animated: true)
+        leave()
     }
     
     @IBAction func testButtonTapped(_ sender: Any) {
@@ -108,15 +114,6 @@ class ChatViewController: UIViewController {
                      self.chatTableView.reloadData()
                      self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: true)
                  }
-                
-                if message.messageType == .enter || message.messageType == .leave{
-                    Task{
-                        self.chatRoom = try await chatViewModel.fetchChatRoom(id: message.chatRoomId)
-                        DispatchQueue.main.async{
-                            self.peopleNumberLabel.text = String(self.chatRoom!.participantIds.count)
-                        }
-                    }
-                }
             } catch {
                 print("🌀 JSONDecoding Error: \(error.localizedDescription)")
             }

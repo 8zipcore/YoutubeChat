@@ -13,10 +13,8 @@ class GroupChatTableViewCell: UITableViewCell {
     
     @IBOutlet weak var chatImageView: UIImageView!
     @IBOutlet weak var chatNameLabel: SDGothicLabel!
-    @IBOutlet weak var latestMessageLabel: SDGothicLabel!
+    @IBOutlet weak var descriptionLabel: SDGothicLabel!
     @IBOutlet weak var peopleNumberLabel: SDGothicLabel!
-    @IBOutlet weak var latestChatTimeLabel: SDGothicLabel!
-    @IBOutlet weak var newMessageIconImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -30,13 +28,11 @@ class GroupChatTableViewCell: UITableViewCell {
         chatImageView.layer.cornerRadius = (self.bounds.height * 0.77) / 2.5
         chatImageView.backgroundColor = Colors.pastelBlue
         
-        chatNameLabel.setLabel(textColor: .black, fontSize: 15)
+        chatNameLabel.setLabel(textColor: .black, fontStyle: .semibold, fontSize: 15)
         peopleNumberLabel.setLabel(textColor: .darkGray, fontSize: 13)
         
-        latestChatTimeLabel.setLabel(textColor: .gray, fontSize: 11)
-        
-        latestMessageLabel.setLabel(textColor: .gray, fontSize: 12)
-        latestMessageLabel.numberOfLines = 2
+        descriptionLabel.setLabel(textColor: .gray, fontSize: 12)
+        descriptionLabel.numberOfLines = 2
         
         self.selectionStyle = .none
     }
@@ -45,7 +41,7 @@ class GroupChatTableViewCell: UITableViewCell {
         chatImageView.setImage(imageString: chatRoom.image)
         chatNameLabel.text = chatRoom.name
         peopleNumberLabel.text = String(chatRoom.participantIds.count)
-        // latestMessageLabel.text = myChatInfo.lastMessage
+        descriptionLabel.text = chatRoom.description
         // latestChatTimeLabel.text = myChatInfo.timestamp
     }
 

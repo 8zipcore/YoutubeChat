@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -33,7 +34,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="최근 대화" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R11-cn-mDq" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
-                                <rect key="frame" x="66.666666666666671" y="28.333333333333336" width="203.66666666666663" height="20.333333333333336"/>
+                                <rect key="frame" x="66.666666666666671" y="28.333333333333336" width="218.33333333333331" height="20.333333333333336"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -44,18 +45,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ShB-hO-ESP" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
-                                <rect key="frame" x="259.33333333333331" y="2" width="29.666666666666686" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alarm_icon" translatesAutoresizingMaskIntoConstraints="NO" id="jr7-Pd-5hA">
-                                <rect key="frame" x="280.33333333333331" y="28" width="8.6666666666666856" height="9"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="jr7-Pd-5hA" secondAttribute="height" multiplier="1:1" id="tK9-B2-XqM"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
@@ -65,17 +54,11 @@
                             <constraint firstItem="ugV-GM-WOs" firstAttribute="centerY" secondItem="Gy9-QT-wAK" secondAttribute="centerY" multiplier="0.5" id="M3q-pX-LtK"/>
                             <constraint firstItem="Gy9-QT-wAK" firstAttribute="leading" secondItem="8Vx-zG-Ezk" secondAttribute="leading" id="MRL-al-VEH"/>
                             <constraint firstItem="R11-cn-mDq" firstAttribute="leading" secondItem="ugV-GM-WOs" secondAttribute="leading" constant="2" id="NiH-f1-1FW"/>
-                            <constraint firstItem="jr7-Pd-5hA" firstAttribute="top" secondItem="ShB-hO-ESP" secondAttribute="bottom" constant="5" id="Tao-5n-3kf"/>
                             <constraint firstItem="gkU-Ob-QYp" firstAttribute="centerY" secondItem="ugV-GM-WOs" secondAttribute="centerY" constant="0.90000000000000002" id="Yrr-h4-Cb4"/>
+                            <constraint firstAttribute="trailing" secondItem="R11-cn-mDq" secondAttribute="trailing" constant="10" id="aG4-OD-Y7M"/>
                             <constraint firstItem="ugV-GM-WOs" firstAttribute="leading" secondItem="Gy9-QT-wAK" secondAttribute="trailing" constant="10" id="aRk-iT-O5e"/>
-                            <constraint firstItem="jr7-Pd-5hA" firstAttribute="leading" secondItem="R11-cn-mDq" secondAttribute="trailing" constant="10" id="b3V-Ms-imc"/>
-                            <constraint firstItem="ShB-hO-ESP" firstAttribute="top" secondItem="8Vx-zG-Ezk" secondAttribute="top" constant="2" id="gYi-9G-s7h"/>
-                            <constraint firstAttribute="trailing" secondItem="ShB-hO-ESP" secondAttribute="trailing" constant="6" id="jB2-7h-D1b"/>
-                            <constraint firstItem="ShB-hO-ESP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gkU-Ob-QYp" secondAttribute="trailing" constant="10" id="s6T-yt-PNI"/>
                             <constraint firstAttribute="bottom" secondItem="Gy9-QT-wAK" secondAttribute="bottom" id="teG-WV-stx"/>
                             <constraint firstItem="gkU-Ob-QYp" firstAttribute="leading" secondItem="ugV-GM-WOs" secondAttribute="trailing" constant="8" symbolic="YES" id="vU1-ES-1dz"/>
-                            <constraint firstItem="jr7-Pd-5hA" firstAttribute="width" secondItem="8Vx-zG-Ezk" secondAttribute="width" multiplier="0.03" id="z0g-1r-hob"/>
-                            <constraint firstItem="jr7-Pd-5hA" firstAttribute="trailing" secondItem="ShB-hO-ESP" secondAttribute="trailing" id="zce-W9-PkB"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -90,16 +73,13 @@
             <connections>
                 <outlet property="chatImageView" destination="Gy9-QT-wAK" id="SBC-9h-9KG"/>
                 <outlet property="chatNameLabel" destination="ugV-GM-WOs" id="T7I-rZ-Bu3"/>
-                <outlet property="latestChatTimeLabel" destination="ShB-hO-ESP" id="xjf-mG-MQ2"/>
-                <outlet property="latestMessageLabel" destination="R11-cn-mDq" id="tqZ-qD-eUT"/>
-                <outlet property="newMessageIconImageView" destination="jr7-Pd-5hA" id="Ee0-MH-gWY"/>
+                <outlet property="descriptionLabel" destination="R11-cn-mDq" id="Vko-J6-Oc1"/>
                 <outlet property="peopleNumberLabel" destination="gkU-Ob-QYp" id="ZFE-7i-AAq"/>
             </connections>
             <point key="canvasLocation" x="11.450381679389313" y="-1.7605633802816902"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="alarm_icon" width="24" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

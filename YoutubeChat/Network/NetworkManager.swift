@@ -49,6 +49,7 @@ class NetworkManager{
 //                        dump(data)
                         continuation.resume(returning: data)
                     case .failure(let error):
+                        debugPrint("🌀 error : \(error)")
                         continuation.resume(throwing: error)
                     }
                 }
@@ -73,7 +74,7 @@ class NetworkManager{
         }
     }
     
-    func fetchData<T: Codable>(to url: URL, _ data: T.Type) async throws -> T{
+    func fetchData<T: Codable>(to url: URL, _ dataType: T.Type) async throws -> T{
         return try await withCheckedThrowingContinuation { continuation in
             AF.request(url, method: .get)
                 .responseDecodable(of: T.self){ response in

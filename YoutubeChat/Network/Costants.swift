@@ -13,9 +13,12 @@ enum Constants{
 
 enum Endpoints {
     static let join = "join"
-    static let createChat = "chat/create"
+    static let fetch = "chat/fetch"
+    static let create = "chat/create"
     static let enterCode = "chat/entercode"
-    static let fetchChat = "chat/"
+    static let enter = "chat/enter"
+    static let leave = "chat/leave"
+    static let quit = "chat/quit"
 }
 
 enum HttpError: Error {
@@ -36,24 +39,33 @@ enum HttpHeaders: String {
 
 enum URLType{
     case join
-    case createChat
+    case fetch
+    case create
     case enterCode
-    case fetchChat
+    case enter
+    case leave
+    case quit
 }
 
 class URLManager {
     static let shared = URLManager()
     
-    func url(_ type: URLType, _ parameter: String?)-> URL?{
+    func url(_ type: URLType, _ parameter: String = "")-> URL?{
         switch type{
         case .join:
             return URL(string: Constants.baseURL + Endpoints.join)
-        case .createChat:
-            return URL(string: Constants.baseURL + Endpoints.createChat)
+        case .fetch:
+            return URL(string: Constants.baseURL + Endpoints.fetch)
+        case .create:
+            return URL(string: Constants.baseURL + Endpoints.create)
         case .enterCode:
             return URL(string: Constants.baseURL + Endpoints.enterCode)
-        case .fetchChat:
-            return URL(string: Constants.baseURL + Endpoints.fetchChat + parameter!)
+        case .enter:
+            return URL(string: Constants.baseURL + Endpoints.enter)
+        case .leave:
+            return URL(string: Constants.baseURL + Endpoints.leave)
+        case .quit:
+            return URL(string: Constants.baseURL + Endpoints.quit)
         }
     }
 }
