@@ -25,7 +25,7 @@ class ChatRoomInfoViewController: UIViewController {
     }
     
     private func configureView(){
-        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Error !"); return }
+        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
         nameLabel.setLabel(textColor: .white, fontStyle: .bold, fontSize: 25)
         descriptionLabel.setLabel(textColor: Colors.gray, fontSize: 18)
         optionLabel.setLabel(textColor: Colors.lightGray, fontSize: 15)

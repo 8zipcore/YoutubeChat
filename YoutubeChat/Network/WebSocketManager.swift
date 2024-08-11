@@ -48,7 +48,12 @@ class WebSocketManager {
                     // 받은 메시지를 처리
                 case .data(let data):
                     print("Received data: \(data)")
-                    NotificationCenter.default.post(name: .receiveMessage, object: nil, userInfo: ["chatData" : data])
+                    do {
+                        try self?.decodingData(data)
+                    } catch {
+                        print("Error handling result: \(error)")
+                    }
+                    
                     // 받은 데이터를 처리
                 @unknown default:
                     fatalError()
@@ -57,6 +62,20 @@ class WebSocketManager {
                 // 다시 메시지를 받기 위해 호출
                 self?.receiveMessage()
             }
+        }
+    }
+    
+    func decodingData(_ data: Data) throws {
+        do {
+            let message = try JSONDecoder().decode(Message.self, from: data)
+            NotificationCenter.default.post(name: .receiveMessage, object: nil, userInfo: ["message" : message])
+            print("1️⃣ 진입")
+        } catch is DecodingError{
+            let addVideoResponseData = try JSONDecoder().decode(AddVideoResponseData.self, from: data)
+            NotificationCenter.default.post(name: .receiveVideo, object: nil, userInfo: ["video" : addVideoResponseData])
+            print("2️⃣ 진입")
+        } catch {
+            print("🌀 JSONDecoding Error: \(error.localizedDescription)")
         }
     }
 

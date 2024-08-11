@@ -17,6 +17,14 @@ class URLInputTextField: UIView {
     var textField = UITextField()
     var addButton = UIButton()
     
+    
+    var text: String{
+        return textField.text ?? ""
+    }
+    var isBlank: Bool{
+        return textField.text?.count == 0
+    }
+    
     var delegate: URLInputTextFieldDelegate?
     
     override func awakeFromNib() {
@@ -47,6 +55,8 @@ class URLInputTextField: UIView {
             make.leading.equalTo(textField.snp.trailing).inset(-10)
             make.trailing.equalToSuperview().inset(10)
             make.centerY.equalToSuperview()
+            make.width.equalTo(self.bounds.height * 0.6)
+            make.height.equalTo(self.bounds.height * 0.6)
         }
         
         self.backgroundColor = Colors.lightGray
@@ -57,8 +67,9 @@ class URLInputTextField: UIView {
         textField.tintColor = Colors.gray
         textField.attributedPlaceholder = NSAttributedString(string: "유튜브 url을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : Colors.gray])
         
-        addButton.setTitle("추가", for: .normal)
-        addButton.setTitleColor(.black, for: .normal)
+        addButton.setImage(UIImage(named: "plus"), for: .normal)
+//        addButton.setTitle("추가", for: .normal)
+//        addButton.setTitleColor(.black, for: .normal)
         
         addButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addButtonTapped(_:))))
     }

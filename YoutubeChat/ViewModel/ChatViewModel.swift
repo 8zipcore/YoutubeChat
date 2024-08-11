@@ -29,7 +29,7 @@ class ChatViewModel{
         guard let url = URLManager.shared.url(.enterCode) else {
             throw HttpError.badURL
         }
-        let data = EnterChatRequestData(enterCode: enterCode, userID: MyProfile.id)
+        let data = EnterChatRequestData(enterCode: enterCode, userId: MyProfile.id)
         let response = try await NetworkManager.shared.sendJsonData(data, EnterChatResponseData.self, to: url)
         return response
     }
@@ -44,7 +44,7 @@ class ChatViewModel{
     
     func enterChatRoom(id: UUID) async throws -> ChatRoom{
         guard let url = URLManager.shared.url(.enter) else { throw HttpError.badURL }
-        let enterChatRoomData = EnterChatRoomData(chatRoomID: id, userID: MyProfile.id)
+        let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
         let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ChatRoom.self, to: url)
         // updateChatRoom(chat: response)
         return response
@@ -52,7 +52,7 @@ class ChatViewModel{
     
     func leaveChatRoom(id: UUID) async throws -> ResponseData{
         guard let url = URLManager.shared.url(.leave) else { throw HttpError.badURL }
-        let enterChatRoomData = EnterChatRoomData(chatRoomID: id, userID: MyProfile.id)
+        let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
         let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ResponseData.self, to: url)
         // updateChatRoom(chat: response)
         return response
@@ -60,7 +60,7 @@ class ChatViewModel{
     
     func quitChatRoom(id: UUID) async throws {
         guard let url = URLManager.shared.url(.leave) else { throw HttpError.badURL }
-        let enterChatRoomData = EnterChatRoomData(chatRoomID: id, userID: MyProfile.id)
+        let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
         _ = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ResponseData.self, to: url)
     }
     

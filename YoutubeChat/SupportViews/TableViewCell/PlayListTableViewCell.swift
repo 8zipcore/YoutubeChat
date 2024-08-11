@@ -34,7 +34,7 @@ class PlayListTableViewCell: UITableViewCell {
         uploaderLabel.setLabel(textColor: .black, fontSize: 13)
     }
     
-    func setVideo(video: Video){
+    func setVideo(_ video: Video){
         if let url = URL(string: video.thumbnail){
             thumbnailImageView.kf.setImage(with: url)
         }

@@ -9,10 +9,32 @@ import Foundation
 
 struct EnterChatRequestData: Codable{
     var enterCode: String
-    var userID: UUID
+    var userId: UUID
 }
 
 struct EnterChatRoomData: Codable{
-    var chatRoomID: UUID
-    var userID: UUID
+    var chatRoomId: UUID
+    var userId: UUID
+}
+
+struct FetchVideoRequestData: Codable{
+    var chatRoomId: UUID
+    var userId: UUID
+}
+
+struct AddVideoRequestData: Codable{
+    var chatRoomId: UUID
+    var userId: UUID
+    var url: String
+}
+
+struct StartVideoRequestData: Codable{
+    var chatRoomId: UUID
+    var videoId: String
+    var startTime: Double
+}
+
+struct DeleteVideoRequestData: Codable{
+    var chatRoomId: UUID
+    var startTime: Double
 }

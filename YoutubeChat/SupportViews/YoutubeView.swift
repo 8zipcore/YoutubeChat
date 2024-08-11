@@ -8,9 +8,21 @@
 import UIKit
 import SnapKit
 import WebKit
+import YouTubeiOSPlayerHelper
+
+protocol YoutubeViewDelegate{
+    func didStartVideo(_ video: Video)
+    func didEndVideo(_ video: Video)
+}
 
 class YoutubeView: UIView {
-     
+    
+    var youtubeView: YTPlayerView?
+    
+    private var video: Video?
+    
+    var delegate: YoutubeViewDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         configreView()
@@ -26,18 +38,30 @@ class YoutubeView: UIView {
     }
     
     private func configreView(){
+        youtubeView = YTPlayerView()
+        youtubeView?.delegate = self
         
-        let config = WKWebViewConfiguration()
-        config.allowsInlineMediaPlayback = true
-        let webView = WKWebView(frame: .zero, configuration: config)
+        self.addSubview(youtubeView!)
         
-        self.addSubview(webView)
-        
-        webView.snp.makeConstraints{ make in
+        youtubeView!.snp.makeConstraints{ make in
             make.edges.equalToSuperview()
         }
-        
-        guard let url = URL(string: "https://www.youtube.com/embed/Js67kofnQw0") else { return  }
-        webView.load(URLRequest(url: url))
+    }
+    
+    func playYoutube(_ video: Video){
+        self.video = video
+        // let startTime = Date().timeIntervalSince1970 - video.startTime
+        self.youtubeView?.load(withVideoId: video.id, playerVars: ["start" : 0, "autoplay": 1])
+    }
+}
+
+extension YoutubeView: YTPlayerViewDelegate{
+    func playerView(_ playerView: YTPlayerView, didChangeTo state: YTPlayerState) {
+        guard let video = video else { print("🌀 video Data Nil Error"); return }
+        if state == .playing{
+            delegate?.didStartVideo(video)
+        } else if state == .ended{
+            delegate?.didEndVideo(video)
+        }
     }
 }

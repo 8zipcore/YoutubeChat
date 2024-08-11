@@ -9,4 +9,5 @@ import Foundation
 
 extension Notification.Name {
     static let receiveMessage = Notification.Name("receiveMessage")
+    static let receiveVideo = Notification.Name("receiveVideo")
 }

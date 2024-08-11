@@ -15,15 +15,17 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var chatTextView: ChatTextView!
     @IBOutlet weak var youtubeView: YoutubeView!
 
+    @IBOutlet weak var youtubeViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatTextViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var messageInputViewBottomConstraint: NSLayoutConstraint!
     
     private let messageInputViewBottomMargin: CGFloat = 7
     private var keyboardAnimationDuraion: CGFloat = 0
 
-    var chatRoom: ChatRoom?
-    
     private let chatViewModel = ChatViewModel()
+    private let youtubeViewModel = YoutubeViewModel()
+    
+    var chatRoom: ChatRoom?
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -39,6 +41,7 @@ class ChatViewController: UIViewController {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveMessage, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveVideo, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
     }
     
@@ -62,13 +65,21 @@ class ChatViewController: UIViewController {
         
         chatTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:))))
         
-        guard let chatRoom = chatRoom else { return }
+        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
         chatNameLabel.text = chatRoom.name
         peopleNumberLabel.text = String(chatRoom.participantIds.count)
+        
+        youtubeViewHeightConstraint.constant = 0
+        youtubeView.delegate = self
     }
     
     private func initData(){
-        chatViewModel.sendEnterMessage(chatRoom!)
+        guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
+        Task{
+            try await youtubeViewModel.fetchVideos(id,{
+                self.playYoutube()
+            })
+        }
     }
     
     private func leave(){
@@ -94,29 +105,18 @@ class ChatViewController: UIViewController {
     
     @IBAction func testButtonTapped(_ sender: Any) {
 
-
-//        let imageName = ["riku", "saku", "rikus", "testImage", "testImage2"]
-//        
-//        count = count + 1 == imageName.count ? 0 : count + 1
-//        addImageData(name: "리코", imgName: imageName[count])
-//        
-//        chatTableView.reloadData()
-//
-//        chatTableView.scrollToRow(at: IndexPath(row: self.data.count - 1, section: 0), at: .bottom, animated: true)
     }
     
     @objc func receiveData(_ notification: Notification){
-        if let data = notification.userInfo?["chatData"] as? Data{
-            do {
-                let message = try JSONDecoder().decode(Message.self, from: data)
-                chatViewModel.receiveMessage(message)
-                 DispatchQueue.main.async {
-                     self.chatTableView.reloadData()
-                     self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: true)
-                 }
-            } catch {
-                print("🌀 JSONDecoding Error: \(error.localizedDescription)")
-            }
+        if let data = notification.userInfo?["message"] as? Message{
+            chatViewModel.receiveMessage(data)
+             DispatchQueue.main.async {
+                 self.chatTableView.reloadData()
+                 self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: true)
+             }
+        } else if let data = notification.userInfo?["video"] as? AddVideoResponseData {
+            youtubeViewModel.videoArray = data.videos
+            playYoutube()
         }
     }
     
@@ -139,6 +139,16 @@ class ChatViewController: UIViewController {
         self.chatTextView.hideKeyboard()
         UIView.animate(withDuration: keyboardAnimationDuraion) {
             self.messageInputViewBottomConstraint.constant = self.messageInputViewBottomMargin
+        }
+    }
+    
+    private func playYoutube(){
+        if self.youtubeViewModel.videoArray.count == 1 {
+            let video = self.youtubeViewModel.videoArray[0]
+            DispatchQueue.main.async{
+                self.youtubeViewHeightConstraint.constant = self.view.bounds.width * 9 / 16
+                self.youtubeView.playYoutube(video)
+            }
         }
     }
 }
@@ -280,9 +290,10 @@ extension ChatViewController: UITableViewDelegate{
     }
 }
 
+// MARK: ChatTextViewDelegate
 extension ChatViewController: ChatTextViewDelegate{
     func sendButtonTapped(_ sender: UIButton) {
-        if chatTextView.text.count == 0{
+        if chatTextView.isBlank {
             return
         }
         
@@ -296,14 +307,48 @@ extension ChatViewController: ChatTextViewDelegate{
     }
     
     func youtubeButtonTapped(_ sender: UIButton) {
-        let playlistViewController = PlaylistViewController()
-        playlistViewController.modalPresentationStyle = .overCurrentContext
+        let vc = PlaylistViewController()
+        vc.chatViewModel = self.chatViewModel
+        vc.youtubeViewModel = self.youtubeViewModel
+        
         let frame = self.youtubeView.convert(self.view.frame, to: nil)
-        playlistViewController.yPoint = frame.minY + self.youtubeView.bounds.height
-        self.present(playlistViewController, animated: true)
+        vc.yPoint = frame.minY + self.view.bounds.width * 9 / 16
+        vc.chatRoom = chatRoom
+        
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: true)
     }
     
     func setChatTextViewHeight(_ height: CGFloat) {
         self.chatTextViewHeightContraint.constant = height
+    }
+}
+
+// MARK: YoutubeViewDelegate
+extension ChatViewController: YoutubeViewDelegate{
+    func didStartVideo(_ video: Video) {
+        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
+        if chatRoom.hostId == MyProfile.id{
+            Task{
+                try await self.youtubeViewModel.updateStartTime(chatRoom.id!, video.id)
+            }
+        }
+    }
+    
+    func didEndVideo(_ video: Video) {
+        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
+        
+        if let index = self.youtubeViewModel.videoArray.firstIndex(where: { $0.id == video.id }) {
+            self.youtubeViewModel.videoArray.remove(at: index)
+            let addVideoResponseData = AddVideoResponseData(responseCode: .success, videos: self.youtubeViewModel.videoArray)
+            NotificationCenter.default.post(name: .receiveVideo, object: nil, userInfo: ["video" : addVideoResponseData])
+            Task{
+                try await self.youtubeViewModel.deleteVideo(chatRoom.id!, video.startTime)
+            }
+            // 아예 없으면
+            if self.youtubeViewModel.videoArray.count == 0{
+                youtubeViewHeightConstraint.constant = 0
+            }
+        }
     }
 }

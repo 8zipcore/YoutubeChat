@@ -10,6 +10,7 @@ import UIKit
 class PlaylistViewController: UIViewController {
 
     @IBOutlet weak var topBarView: UIView!
+    @IBOutlet weak var indicatorView: UIView!
     @IBOutlet weak var titleLabel: SDGothicLabel!
     @IBOutlet weak var videoNumberLabel: SDGothicLabel!
     @IBOutlet weak var urlTextField: URLInputTextField!
@@ -18,16 +19,25 @@ class PlaylistViewController: UIViewController {
     //@IBOutlet weak var urlTextViewHeightContraint: NSLayoutConstraint!
     
     var yPoint: CGFloat = 0
+    var chatRoom: ChatRoom?
     
-    var playlistViewModel = PlaylistViewModel()
+    var chatViewModel: ChatViewModel?
+    var youtubeViewModel: YoutubeViewModel?
     
-    // test
-    var array:[Video] = []
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         configureView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveVideo, object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -37,6 +47,8 @@ class PlaylistViewController: UIViewController {
     private func configureView(){
         titleLabel.setLabel(textColor: .black, fontSize: 18)
         videoNumberLabel.setLabel(textColor: Colors.gray, fontSize: 15)
+        
+        indicatorView.layer.cornerRadius = self.indicatorView.bounds.height / 2
         
         let nib = UINib(nibName: PlayListTableViewCell.identifier, bundle: nil)
         playlistTableView.register(nib, forCellReuseIdentifier: PlayListTableViewCell.identifier)
@@ -50,6 +62,8 @@ class PlaylistViewController: UIViewController {
         self.topBarView.addGestureRecognizer(panGestureRecognizer)
         
         self.playlistTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:))))
+        
+        urlTextField.textField.text = "https://www.youtube.com/watch?v=IQh5Tp5RirQ"
     }
     
     @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
@@ -89,18 +103,32 @@ class PlaylistViewController: UIViewController {
     @objc func hideKeyboard(_ sender: UITapGestureRecognizer){
         self.urlTextField.hideKeyboard()
     }
+    
+    @objc func receiveData(_ notification: Notification){
+        if let data = notification.userInfo?["video"] as? AddVideoResponseData {
+
+            youtubeViewModel?.videoArray = data.videos
+            print("⭐️ received : \(data.videos)")
+            DispatchQueue.main.async{
+                self.playlistTableView.reloadData()
+            }
+            
+        } else {
+            print("🌀 decoding error")
+        }
+    }
 }
 
 extension PlaylistViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return array.count
+        return youtubeViewModel?.videoArray.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = playlistTableView.dequeueReusableCell(withIdentifier: PlayListTableViewCell.identifier, for: indexPath) as? PlayListTableViewCell else {
+        guard let cell = playlistTableView.dequeueReusableCell(withIdentifier: PlayListTableViewCell.identifier, for: indexPath) as? PlayListTableViewCell, let youtubeViewModel = youtubeViewModel else {
             return UITableViewCell() }
         
-        cell.setVideo(video: array[indexPath.item])
+        cell.setVideo(youtubeViewModel.videoArray[indexPath.item])
         
         return cell
     }
@@ -116,6 +144,12 @@ extension PlaylistViewController: UITableViewDelegate{
 
 extension PlaylistViewController: URLInputTextFieldDelegate{
     func addButtonTapped() {
+        if urlTextField.isBlank {
+            return
+        }
         urlTextField.hideKeyboard()
+        guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
+        let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .video, text: urlTextField.text, isRead: true)
+        chatViewModel?.sendMessage(message)
     }
 }

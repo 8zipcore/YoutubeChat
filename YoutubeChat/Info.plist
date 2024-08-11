@@ -4,6 +4,20 @@
 <dict>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
+        <key>NSExceptionDomains</key>
+        <dict>
+            <key>youtube.com</key>
+            <dict>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+                <key>NSExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+                <key>NSExceptionRequiresForwardSecrecy</key>
+                <false/>
+                <key>NSIncludesSubdomains</key>
+                <true/>
+            </dict>
+        </dict>
         <key>UIUserInterfaceStyle</key>
         <string>Light</string>
 		<key>UIApplicationSupportsMultipleScenes</key>

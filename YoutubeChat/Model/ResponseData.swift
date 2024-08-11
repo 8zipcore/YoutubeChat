@@ -23,3 +23,8 @@ enum ResponseCode: Int, Codable{
 struct ResponseData: Codable{
     var responseCode: ResponseCode
 }
+
+struct AddVideoResponseData: Codable{
+    var responseCode: ResponseCode
+    var videos: [Video]
+}

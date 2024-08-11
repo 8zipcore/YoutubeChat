@@ -19,6 +19,11 @@ enum Endpoints {
     static let enter = "chat/enter"
     static let leave = "chat/leave"
     static let quit = "chat/quit"
+    
+    // Youtube 관련
+    static let fetchVideos = "chat/fetchVideos"
+    static let updateStartTime = "chat/updateStartTime"
+    static let deleteVideo = "chat/deleteVideo"
 }
 
 enum HttpError: Error {
@@ -45,6 +50,9 @@ enum URLType{
     case enter
     case leave
     case quit
+    case fetchVideos
+    case updateStartTime
+    case deleteVideo
 }
 
 class URLManager {
@@ -66,6 +74,12 @@ class URLManager {
             return URL(string: Constants.baseURL + Endpoints.leave)
         case .quit:
             return URL(string: Constants.baseURL + Endpoints.quit)
+        case .fetchVideos:
+            return URL(string: Constants.baseURL + Endpoints.fetchVideos)
+        case .updateStartTime:
+            return URL(string: Constants.baseURL + Endpoints.updateStartTime)
+        case .deleteVideo:
+            return URL(string: Constants.baseURL + Endpoints.deleteVideo)
         }
     }
 }

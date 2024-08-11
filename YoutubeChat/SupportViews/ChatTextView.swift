@@ -32,6 +32,10 @@ class ChatTextView: UIView {
     var text: String{
         return self.textView.text
     }
+    
+    var isBlank: Bool {
+        return self.textView.text.count == 0
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
