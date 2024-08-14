@@ -13,7 +13,11 @@ class MainViewController: UIViewController {
     @IBOutlet weak var myProfileLabel: SDGothicLabel!
     @IBOutlet weak var chattingLabel: SDGothicLabel!
     @IBOutlet weak var groupChatTableView: UITableView!
-
+    @IBOutlet weak var categoryCollectionView: UICollectionView!
+    
+    private let cellHeight: CGFloat = 30
+    private let cellSpacing: CGFloat = 6
+    
     var chatViewModel = ChatViewModel()
     
     override func viewDidLoad() {
@@ -51,6 +55,10 @@ class MainViewController: UIViewController {
         groupChatTableView.delegate = self
         
         groupChatTableView.bounces = false
+        
+        categoryCollectionView.dataSource = self
+        categoryCollectionView.delegate = self
+        categoryCollectionView.register(ChatOptionCollectionViewCell.self, forCellWithReuseIdentifier: ChatOptionCollectionViewCell.identifier)
     }
     
     private func initData(){
@@ -132,4 +140,38 @@ extension MainViewController: UITableViewDelegate{
         
         return swipeActionConfig
     }*/
+}
+
+//MARK: CollectionView 관련
+extension MainViewController: UICollectionViewDataSource{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return chatViewModel.categoryArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: ChatOptionCollectionViewCell.identifier, for: indexPath) as? ChatOptionCollectionViewCell else {
+             return UICollectionViewCell()
+        }
+        let category = chatViewModel.categoryArray[indexPath.item]
+        cell.configureView(title: category.title, isSelected: category.isSelected)
+        return cell
+    }
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let category = chatViewModel.categoryArray[indexPath.item]
+        return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, title: category.title, isSelected: category.isSelected)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return cellSpacing
+    }
+}
+
+extension MainViewController: UICollectionViewDelegate{
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        chatViewModel.categoryArray[indexPath.item].toggle()
+        categoryCollectionView.reloadData()
+    }
 }

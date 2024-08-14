@@ -9,6 +9,7 @@ import Foundation
 
 class ChatViewModel{
     
+    var categoryArray: [CategoryData] = [CategoryData(title: "검색"),CategoryData(title: "K-pop"),CategoryData(title: "ㅎㅎ"),]
     var chatOptionArray = [ChatOptionData(chatOption: .anonymous),
                            ChatOptionData(chatOption: .addVideo),
                            ChatOptionData(chatOption: .privateRoom)]

@@ -50,11 +50,11 @@ class ChatOptionCollectionViewCell: UICollectionViewCell {
         isSelected = false
     }
     
-    func configureView(_ data: ChatOptionData){
-        self.label.text = data.title
+    func configureView(title: String, isSelected: Bool){
+        self.label.text = title
 
-        self.backgroundColor = data.isSelected ? Colors.trueBlue : Colors.lightGray
-        self.label.textColor = data.isSelected ? Colors.white : Colors.gray
+        self.backgroundColor = isSelected ? Colors.trueBlue : Colors.lightGray
+        self.label.textColor = isSelected ? Colors.white : Colors.gray
     }
     
     func setText(text: String){
@@ -64,9 +64,9 @@ class ChatOptionCollectionViewCell: UICollectionViewCell {
 }
 
 extension ChatOptionCollectionViewCell{
-    static func fittingSize(cellHeight: CGFloat, data: ChatOptionData) -> CGSize {
+    static func fittingSize(cellHeight: CGFloat, title: String, isSelected: Bool) -> CGSize {
         let cell = ChatOptionCollectionViewCell()
-        cell.configureView(data)
+        cell.configureView(title: title, isSelected: isSelected)
         let targetSize = CGSize(
             width: UIView.layoutFittingCompressedSize.width,
             height: cellHeight)

@@ -93,16 +93,16 @@ extension CreateChatRoomViewController: UICollectionViewDataSource{
         guard let cell = chatOptionCollectionView.dequeueReusableCell(withReuseIdentifier: ChatOptionCollectionViewCell.identifier, for: indexPath) as? ChatOptionCollectionViewCell else {
              return UICollectionViewCell()
         }
-        
-        cell.configureView(chatViewModel.chatOptionArray[indexPath.item])
-        
+        let option = chatViewModel.chatOptionArray[indexPath.item]
+        cell.configureView(title: option.title, isSelected: option.isSelected)
         return cell
     }
 }
 
 extension CreateChatRoomViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, data: chatViewModel.chatOptionArray[indexPath.item])
+        let option = chatViewModel.chatOptionArray[indexPath.item]
+        return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, title: option.title, isSelected: option.isSelected)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
