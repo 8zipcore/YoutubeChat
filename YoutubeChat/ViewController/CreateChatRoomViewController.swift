@@ -69,15 +69,15 @@ class CreateChatRoomViewController: UIViewController, UIImagePickerControllerDel
             
                 let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom)
                 DispatchQueue.main.async {
-                    self.presentChatViewController(chatInfo: response)
+                    self.presentChatViewController(chatRoom: response)
                 }
             }
         }
     }
     
-    private func presentChatViewController(chatInfo: ChatRoom){
+    private func presentChatViewController(chatRoom: ChatRoomData){
         let vc = ChatViewController()
-        vc.chatRoom = chatInfo
+        vc.chatRoom = chatRoom
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

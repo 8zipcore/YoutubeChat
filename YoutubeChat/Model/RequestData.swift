@@ -30,11 +30,11 @@ struct AddVideoRequestData: Codable{
 
 struct StartVideoRequestData: Codable{
     var chatRoomId: UUID
-    var videoId: String
+    var videoId: UUID
     var startTime: Double
 }
 
 struct DeleteVideoRequestData: Codable{
     var chatRoomId: UUID
-    var startTime: Double
+    var videoId: UUID
 }

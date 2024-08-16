@@ -8,8 +8,9 @@
 import Foundation
 
 struct Video: Codable{
-    var id: String
-    var userID: UUID
+    var id: UUID?
+    var youtubeId: String
+    var userId: UUID
     var title: String
     var uploader: String
     var thumbnail: String
@@ -19,7 +20,8 @@ struct Video: Codable{
     
     enum CodingKeys: String, CodingKey {
         case id
-        case userID = "user_id"
+        case youtubeId = "youtube_id"
+        case userId = "user_id"
         case title
         case uploader
         case thumbnail

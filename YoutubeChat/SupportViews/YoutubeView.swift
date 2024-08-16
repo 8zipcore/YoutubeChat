@@ -20,6 +20,8 @@ class YoutubeView: UIView {
     var youtubeView: YTPlayerView?
     
     private var video: Video?
+    private var loadTime: Double = 0
+    var shouldSeek = false
     
     var delegate: YoutubeViewDelegate?
     
@@ -50,12 +52,24 @@ class YoutubeView: UIView {
     
     func playYoutube(_ video: Video){
         self.video = video
-        // let startTime = Date().timeIntervalSince1970 - video.startTime
-        self.youtubeView?.load(withVideoId: video.id, playerVars: ["start" : 0, "autoplay": 1])
+        self.loadTime = Date().timeIntervalSince1970
+        self.youtubeView?.load(withVideoId: video.youtubeId, playerVars: ["autoplay": 1])
     }
 }
 
 extension YoutubeView: YTPlayerViewDelegate{
+    // 플레이어가 준비되었을 때 호출되는 메소드
+    func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
+        print("Player is ready.")
+        if shouldSeek{
+            guard let video = video else { print("🌀 video Data Nil Error"); return }
+            let delaySecond = Float(Date().timeIntervalSince1970 - loadTime)
+            let startSecond = Float(round(Date().timeIntervalSince1970 - video.startTime))
+            playerView.seek(toSeconds: startSecond + delaySecond, allowSeekAhead: true)
+            shouldSeek = false
+        }
+    }
+    
     func playerView(_ playerView: YTPlayerView, didChangeTo state: YTPlayerState) {
         guard let video = video else { print("🌀 video Data Nil Error"); return }
         if state == .playing{

@@ -19,7 +19,7 @@ class PlaylistViewController: UIViewController {
     //@IBOutlet weak var urlTextViewHeightContraint: NSLayoutConstraint!
     
     var yPoint: CGFloat = 0
-    var chatRoom: ChatRoom?
+    var chatRoomId: UUID?
     
     var chatViewModel: ChatViewModel?
     var youtubeViewModel: YoutubeViewModel?
@@ -63,7 +63,7 @@ class PlaylistViewController: UIViewController {
         
         self.playlistTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:))))
         
-        urlTextField.textField.text = "https://www.youtube.com/watch?v=IQh5Tp5RirQ"
+        urlTextField.textField.text = "https://www.youtube.com/watch?v=2bLuBCw1zXE"
     }
     
     @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
@@ -148,7 +148,7 @@ extension PlaylistViewController: URLInputTextFieldDelegate{
             return
         }
         urlTextField.hideKeyboard()
-        guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
+        guard let id = chatRoomId else { print("🌀 ChatRoom Data Nil Error") ; return }
         let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .video, text: urlTextField.text, isRead: true)
         chatViewModel?.sendMessage(message)
     }

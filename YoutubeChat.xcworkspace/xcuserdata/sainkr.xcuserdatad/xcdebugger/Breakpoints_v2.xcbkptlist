@@ -21,7 +21,7 @@
             <Locations>
                <Location
                   uuid = "645DE3F6-D1C1-4547-AF81-0C6A51B59A46 - d6ea11af6fe5397c"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in YoutubeChat.ChatRoomInfoViewController.enterButtonTapped(Any) -&gt; ()"
@@ -36,7 +36,7 @@
                </Location>
                <Location
                   uuid = "645DE3F6-D1C1-4547-AF81-0C6A51B59A46 - 8ff676dfc3b5f00c"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "(2) await resume partial function for closure #1 @Sendable () async throws -&gt; () in YoutubeChat.ChatRoomInfoViewController.enterButtonTapped(Any) -&gt; ()"
@@ -51,7 +51,7 @@
                </Location>
                <Location
                   uuid = "645DE3F6-D1C1-4547-AF81-0C6A51B59A46 - a5955b020dcc857a"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in YoutubeChat.ChatRoomInfoViewController.enterButtonTapped(Any) -&gt; ()"
@@ -66,7 +66,7 @@
                </Location>
                <Location
                   uuid = "645DE3F6-D1C1-4547-AF81-0C6A51B59A46 - 6c1620547d3b277b"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in YoutubeChat.ChatRoomInfoViewController.enterButtonTapped(Any) -&gt; ()"
@@ -81,7 +81,7 @@
                </Location>
                <Location
                   uuid = "645DE3F6-D1C1-4547-AF81-0C6A51B59A46 - 6c1620547d3b277b"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in YoutubeChat.ChatRoomInfoViewController.enterButtonTapped(Any) -&gt; ()"
@@ -95,22 +95,6 @@
                   offsetFromSymbolStart = "156">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E93889F2-19B1-4B0D-90AA-F4712E0BE95F"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "YoutubeChat/ViewController/ChatRoomInfoViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "enterButtonTapped(_:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

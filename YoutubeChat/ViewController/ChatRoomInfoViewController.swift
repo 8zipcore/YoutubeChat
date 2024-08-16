@@ -17,7 +17,7 @@ class ChatRoomInfoViewController: UIViewController {
     
     private var chatViewModel = ChatViewModel()
     
-    var chatRoom: ChatRoom?
+    var chatRoom: ChatRoomData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +50,8 @@ class ChatRoomInfoViewController: UIViewController {
             let chatRoom = try await chatViewModel.enterChatRoom(id: chatRoom!.id!)
             let vc = ChatViewController()
             vc.chatRoom = chatRoom
+            vc.isEnter = true
+            
             DispatchQueue.main.async{
                 self.navigationController?.pushViewController(vc, animated: true)
             }

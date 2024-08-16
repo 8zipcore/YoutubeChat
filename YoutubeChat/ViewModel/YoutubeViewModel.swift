@@ -17,12 +17,12 @@ class YoutubeViewModel{
         completion()
     }
     
-    func updateStartTime(_ chatRoomId: UUID, _ videoId: String) async throws{
+    func updateStartTime(_ chatRoomId: UUID, _ id: UUID) async throws{
         guard let url = URLManager.shared.url(.updateStartTime) else { throw HttpError.badURL }
         let startTime = Date().timeIntervalSince1970
         self.videoArray[0].startTime = startTime
         print("😉 start Time : \(startTime)")
-        let response = try await NetworkManager.shared.sendJsonData(StartVideoRequestData(chatRoomId: chatRoomId, videoId: videoId, startTime: startTime), ResponseData.self, to: url)
+        let response = try await NetworkManager.shared.sendJsonData(StartVideoRequestData(chatRoomId: chatRoomId, videoId: id, startTime: startTime), ResponseData.self, to: url)
         switch response.responseCode{
         case .success:
             print("✅ update 성공")
@@ -31,9 +31,9 @@ class YoutubeViewModel{
         }
     }
     
-    func deleteVideo(_ chatRoomId: UUID, _ startTime: Double) async throws{
+    func deleteVideo(_ chatRoomId: UUID, _ id: UUID) async throws{
         guard let url = URLManager.shared.url(.deleteVideo) else { throw HttpError.badURL }
-        let response = try await NetworkManager.shared.sendJsonData(DeleteVideoRequestData(chatRoomId: chatRoomId, startTime: startTime), ResponseData.self, to: url)
+        let response = try await NetworkManager.shared.sendJsonData(DeleteVideoRequestData(chatRoomId: chatRoomId, videoId: id), ResponseData.self, to: url)
         switch response.responseCode{
         case .success:
             print("✅ delete 성공")

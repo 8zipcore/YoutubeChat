@@ -67,13 +67,18 @@ class WebSocketManager {
     
     func decodingData(_ data: Data) throws {
         do {
-            let message = try JSONDecoder().decode(Message.self, from: data)
-            NotificationCenter.default.post(name: .receiveMessage, object: nil, userInfo: ["message" : message])
-            print("1️⃣ 진입")
-        } catch is DecodingError{
-            let addVideoResponseData = try JSONDecoder().decode(AddVideoResponseData.self, from: data)
-            NotificationCenter.default.post(name: .receiveVideo, object: nil, userInfo: ["video" : addVideoResponseData])
-            print("2️⃣ 진입")
+            let sendData = try JSONDecoder().decode(SendData.self, from: data)
+            
+            switch sendData.type{
+            case .message:
+                let message = try JSONDecoder().decode(Message.self, from: sendData.data)
+                NotificationCenter.default.post(name: .receiveMessage, object: nil, userInfo: ["message" : message])
+                print("1️⃣ 진입")
+            case .video:
+                let addVideoResponseData = try JSONDecoder().decode(AddVideoResponseData.self, from: sendData.data)
+                NotificationCenter.default.post(name: .receiveVideo, object: nil, userInfo: ["video" : addVideoResponseData])
+                print("2️⃣ 진입")
+            }
         } catch {
             print("🌀 JSONDecoding Error: \(error.localizedDescription)")
         }

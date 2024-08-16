@@ -50,13 +50,13 @@ class ChatWithProfileTableViewCell: UITableViewCell {
         
         nameLabel.setLabel(textColor: .black, fontSize: 13)
         nameLabelHeightConstraint.constant = self.bounds.height * 0.1
-        
-        nameLabel.text = "리코"
-        profileImageView.image = UIImage(named: "riku")
     }
     
-    func setText(text: String, profileHidden: Bool){
+    func setText(text: String, user: User?, profileHidden: Bool){
         messageLabel.setText(text: text)
+        
+        nameLabel.text = user?.name
+        profileImageView.setImage(imageString: user?.image ?? "")
         
         let estimatedWidth = messageLabel.width(text: text)
         if estimatedWidth < messageLabelWidthContraint.constant{

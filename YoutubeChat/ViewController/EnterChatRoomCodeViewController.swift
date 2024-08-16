@@ -86,9 +86,9 @@ class EnterChatRoomCodeViewController: UIViewController {
                     self.codeTextField.showAnimation()
                 case .validCode:
                     // chatViewModel.saveChat(chat: data.chatRoom!)
-                    
                     let vc = ChatViewController()
                     vc.chatRoom = data.chatRoom
+                    vc.isEnter = true
                     
                     self.dismiss(animated: false, completion: {
                         self.parentNavigationController?.pushViewController(vc, animated: true)

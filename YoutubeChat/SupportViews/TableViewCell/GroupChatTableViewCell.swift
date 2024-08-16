@@ -37,7 +37,7 @@ class GroupChatTableViewCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    func initView(chatRoom: ChatRoom){
+    func initView(chatRoom: ChatRoomData){
         chatImageView.setImage(imageString: chatRoom.image)
         chatNameLabel.text = chatRoom.name
         peopleNumberLabel.text = String(chatRoom.participantIds.count)
