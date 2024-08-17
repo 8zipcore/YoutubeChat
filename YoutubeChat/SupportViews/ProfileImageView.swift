@@ -16,6 +16,11 @@ class ProfileImageView: UIView {
     
     var profileImageView = UIImageView()
     var editButton = UIButton()
+    var isEditMode: Bool = false {
+        didSet{
+            editButton.isHidden = !isEditMode
+        }
+    }
     
     var delegate: ProfileImageViewDelegate?
     
@@ -60,20 +65,18 @@ class ProfileImageView: UIView {
         
         profileImageView.backgroundColor = Colors.pastelBlue
         
-        if let editButtonImage = UIImage(named: "plus") {
-            let rederingImage = editButtonImage.withRenderingMode(.alwaysTemplate)
-            editButton.setBackgroundImage(rederingImage, for: .normal)
-            editButton.setBackgroundImage(rederingImage, for: .highlighted)
-        }
-        
-        editButton.tintColor = UIColor(white: 0, alpha: 0.8)
-        
+        editButton.setImage(UIImage(named: "camera_icon"), for: .normal)
+
         editButton.addTarget(self, action: #selector(editButtonTouchUp(_:)), for: .touchUpInside)
         editButton.addTarget(self, action: #selector(editButtonTouchDown(_:)), for: .touchDown)
+        
+        editButton.isHidden = !isEditMode
+        
+        setImage(nil)
     }
     
-    func setImage(_ image: UIImage){
-        self.profileImageView.image = image
+    func setImage(_ image: UIImage?){
+        self.profileImageView.image = image ?? UIImage(named: "default_profile")
     }
     
     func alert(_ presentImagePickerViewController: @escaping () -> Void) -> UIAlertController{

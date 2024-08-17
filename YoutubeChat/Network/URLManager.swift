@@ -13,6 +13,8 @@ enum Constants{
 
 enum Endpoints {
     static let join = "join"
+    static let update = "update"
+    
     static let fetch = "chat/fetch"
     static let create = "chat/create"
     static let enterCode = "chat/entercode"
@@ -45,6 +47,7 @@ enum HttpHeaders: String {
 
 enum URLType{
     case join
+    case update
     case fetch
     case create
     case enterCode
@@ -64,6 +67,8 @@ class URLManager {
         switch type{
         case .join:
             return URL(string: Constants.baseURL + Endpoints.join)
+        case .update:
+            return URL(string: Constants.baseURL + Endpoints.update)
         case .fetch:
             return URL(string: Constants.baseURL + Endpoints.fetch)
         case .create:

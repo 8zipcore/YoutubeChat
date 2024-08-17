@@ -12,7 +12,11 @@ class ProfileViewModel{
     
     func createProfile(user: User) async throws -> User{
         guard let url = URL(string: Constants.baseURL + Endpoints.join) else { throw HttpError.badURL }
-        
+        return try await NetworkManager.shared.sendJsonData(user, to: url)
+    }
+    
+    func updateProfile(user: User) async throws -> User{
+        guard let url = URL(string: Constants.baseURL + Endpoints.update) else { throw HttpError.badURL }
         return try await NetworkManager.shared.sendJsonData(user, to: url)
     }
     

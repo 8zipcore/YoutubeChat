@@ -36,6 +36,8 @@ class MainViewController: UIViewController {
     
     private func configureView(){
         profileView.setMyProfile()
+        let profileViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped(_:)))
+        profileView.addGestureRecognizer(profileViewTapGestureRecognizer)
         
         myProfileLabel.text = "내 프로필"
         chattingLabel.text = "채팅"
@@ -102,6 +104,11 @@ class MainViewController: UIViewController {
         
         self.groupChatTableView.reloadData()
          */
+    }
+    
+    @objc func profileViewTapped(_ sender: UITapGestureRecognizer){
+        let vc = ProfileInfoViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
