@@ -340,7 +340,7 @@ extension ChatViewController: ChatTextViewDelegate{
     }
     
     func youtubeButtonTapped(_ sender: UIButton) {
-        guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
+        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
         
         let vc = PlaylistViewController()
         vc.chatViewModel = self.chatViewModel
@@ -348,7 +348,7 @@ extension ChatViewController: ChatTextViewDelegate{
         
         let frame = self.youtubeView.convert(self.view.frame, to: nil)
         vc.yPoint = frame.minY + self.view.bounds.width * 9 / 16
-        vc.chatRoomId = id
+        vc.chatRoom = chatRoom
         
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: true)

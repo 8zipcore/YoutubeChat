@@ -9,7 +9,7 @@ import Foundation
 
 enum ChatOption: Int, Codable{
     case anonymous
-    case addVideo
+    case videoAddDenied
     case privateRoom
 }
 
@@ -19,8 +19,8 @@ struct ChatOptionData: Codable{
         switch chatOption{
         case .anonymous:
             return "익명으로 들어가기"
-        case .addVideo:
-            return "비디오 추가 허용"
+        case .videoAddDenied:
+            return "방장만 영상 추가"
         case .privateRoom:
             return "비공개 방"
         }

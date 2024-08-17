@@ -30,4 +30,8 @@ struct ChatRoomData: Codable{
     var participants: [User] // 이것이 새로 추가됏다 . . .
     var chatOptions: [Int]
     var categories: [String]
+    
+    func isOptionContains(_ chatOption: ChatOption) -> Bool{
+        return self.chatOptions.contains(chatOption.rawValue)
+    }
 }

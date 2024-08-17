@@ -11,7 +11,7 @@ class ChatViewModel{
     
     var categoryArray: [CategoryData] = [CategoryData(title: "검색"),CategoryData(title: "K-pop"),CategoryData(title: "ㅎㅎ"),]
     var chatOptionArray = [ChatOptionData(chatOption: .anonymous),
-                           ChatOptionData(chatOption: .addVideo),
+                           ChatOptionData(chatOption: .videoAddDenied),
                            ChatOptionData(chatOption: .privateRoom)]
     var chatRoomArray: [ChatRoomData] = []
     var messageArray: [Message] = []
@@ -100,16 +100,8 @@ class ChatViewModel{
         
         chatRoom.chatOptions.forEach { option in
             text.append(" ")
-            let type = ChatOption(rawValue: option)
-            switch type {
-            case .anonymous:
-                text.append("/ 익명")
-            case .addVideo:
-                text.append("/ 동영상 추가 허용")
-            case .privateRoom:
-                break
-            case nil:
-                break
+            if let type = ChatOption(rawValue: option){
+                text.append(ChatOptionData(chatOption: type).title)
             }
         }
         

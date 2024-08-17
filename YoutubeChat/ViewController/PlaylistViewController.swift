@@ -16,10 +16,10 @@ class PlaylistViewController: UIViewController {
     @IBOutlet weak var urlTextField: URLInputTextField!
     @IBOutlet weak var playlistTableView: UITableView!
     
-    //@IBOutlet weak var urlTextViewHeightContraint: NSLayoutConstraint!
+    @IBOutlet weak var urlTextFieldHeightConstraint: NSLayoutConstraint!
     
     var yPoint: CGFloat = 0
-    var chatRoomId: UUID?
+    var chatRoom: ChatRoomData?
     
     var chatViewModel: ChatViewModel?
     var youtubeViewModel: YoutubeViewModel?
@@ -45,6 +45,8 @@ class PlaylistViewController: UIViewController {
     }
     
     private func configureView(){
+        guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
+        
         titleLabel.setLabel(textColor: .black, fontSize: 18)
         videoNumberLabel.setLabel(textColor: Colors.gray, fontSize: 15)
         
@@ -64,6 +66,10 @@ class PlaylistViewController: UIViewController {
         self.playlistTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:))))
         
         urlTextField.textField.text = "https://www.youtube.com/watch?v=2bLuBCw1zXE"
+        
+        if chatRoom.isOptionContains(.videoAddDenied) && chatRoom.hostId != MyProfile.id{
+            urlTextFieldHeightConstraint.constant = 0
+        }
     }
     
     @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
@@ -148,7 +154,7 @@ extension PlaylistViewController: URLInputTextFieldDelegate{
             return
         }
         urlTextField.hideKeyboard()
-        guard let id = chatRoomId else { print("🌀 ChatRoom Data Nil Error") ; return }
+        guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
         let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .video, text: urlTextField.text, isRead: true)
         chatViewModel?.sendMessage(message)
     }

@@ -35,7 +35,6 @@ class MainViewController: UIViewController {
     }
     
     private func configureView(){
-        profileView.setMyProfile()
         let profileViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped(_:)))
         profileView.addGestureRecognizer(profileViewTapGestureRecognizer)
         
@@ -64,6 +63,7 @@ class MainViewController: UIViewController {
     }
     
     private func initData(){
+        profileView.setMyProfile()
         Task{
             try await chatViewModel.fetchAllChatRooms({
                 DispatchQueue.main.async{

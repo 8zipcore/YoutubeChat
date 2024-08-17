@@ -31,10 +31,6 @@ class ProfileView: UIView {
     private func configureView(){
         addSubViews()
         
-        profileImageView.image = UIImage(named: "riku")
-        nameLabel.text = "승아"
-        messageLabel.text = "유튜브챗 유튜브챗 유튜브챗 유튜브챗"
-        
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = (self.bounds.height * 0.8) / 2.5

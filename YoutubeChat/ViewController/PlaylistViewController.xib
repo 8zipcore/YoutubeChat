@@ -16,6 +16,7 @@
                 <outlet property="titleLabel" destination="ILQ-k9-HLV" id="BUY-F6-eOc"/>
                 <outlet property="topBarView" destination="vPb-Sc-qkQ" id="PZb-vE-cOS"/>
                 <outlet property="urlTextField" destination="sub-Bs-Dxn" id="R7U-Zr-5Zj"/>
+                <outlet property="urlTextFieldHeightConstraint" destination="g6T-6f-m3u" id="hcR-FU-7ic"/>
                 <outlet property="videoNumberLabel" destination="GgH-JO-iVs" id="J4a-0f-KsD"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>

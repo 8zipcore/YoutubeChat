@@ -12,8 +12,8 @@ enum Constants{
 }
 
 enum Endpoints {
-    static let join = "join"
-    static let update = "update"
+    static let join = "user/join"
+    static let update = "user/update"
     
     static let fetch = "chat/fetch"
     static let create = "chat/create"
