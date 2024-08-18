@@ -33,7 +33,7 @@ class SDGothicButton: UIButton {
     
     private func configureView(){
         let attributedString = NSMutableAttributedString(string: self.titleLabel?.text ?? "")
-        attributedString.addAttribute(.font, value: SDGothicSemiBold(size: 35), range: NSRange(location: 0, length: attributedString.length))
+        attributedString.addAttribute(.font, value: SDGothicSemiBold(size: 20), range: NSRange(location: 0, length: attributedString.length))
         self.titleLabel?.attributedText = attributedString
         
         self.tintColor = .black

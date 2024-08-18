@@ -185,6 +185,10 @@ extension MainViewController: UICollectionViewDelegateFlowLayout{
 extension MainViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         chatViewModel.categoryArray[indexPath.item].toggle()
+        if indexPath.item == 0 {
+            let vc = SearchChatRoomViewController()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
         categoryCollectionView.reloadData()
     }
 }

@@ -21,7 +21,6 @@ class ChatViewModel{
             throw HttpError.badURL
         }
         let response = try await NetworkManager.shared.sendJsonData(chatRoom, ChatRoomData.self, to: url)
-        // saveChatRoom(chatRoom: response)
         return response
     }
     
@@ -38,7 +37,6 @@ class ChatViewModel{
         guard let url = URLManager.shared.url(.enter) else { throw HttpError.badURL }
         let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
         let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ChatRoomData.self, to: url)
-        // updateChatRoom(chat: response)
         return response
     }
     
@@ -46,7 +44,6 @@ class ChatViewModel{
         guard let url = URLManager.shared.url(.leave) else { throw HttpError.badURL }
         let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
         let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ResponseData.self, to: url)
-        // updateChatRoom(chat: response)
         return response
     }
     

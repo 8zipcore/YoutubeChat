@@ -45,7 +45,7 @@ class PlaylistViewController: UIViewController {
     }
     
     private func configureView(){
-        guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
+        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
         
         titleLabel.setLabel(textColor: .black, fontSize: 18)
         videoNumberLabel.setLabel(textColor: Colors.gray, fontSize: 15)
@@ -59,6 +59,7 @@ class PlaylistViewController: UIViewController {
         playlistTableView.delegate = self
         
         urlTextField.delegate = self
+        urlTextField.type = .url
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(_:)))
         self.topBarView.addGestureRecognizer(panGestureRecognizer)

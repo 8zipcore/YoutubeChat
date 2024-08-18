@@ -38,3 +38,8 @@ struct DeleteVideoRequestData: Codable{
     var chatRoomId: UUID
     var videoId: UUID
 }
+
+struct SearchChatRoomData: Codable{
+    var searchTerm: String
+    var chatOptions: [ChatOption]
+}

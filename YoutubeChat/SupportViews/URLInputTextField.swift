@@ -8,21 +8,45 @@
 import UIKit
 import SnapKit
 
-protocol URLInputTextFieldDelegate{
-    func addButtonTapped()
+@objc protocol URLInputTextFieldDelegate{
+    @objc optional func addButtonTapped()
+    @objc optional func textFieldDidChange(_ text: String)
 }
 
 class URLInputTextField: UIView {
+    
+    enum ViewType{
+        case url, search
+    }
 
     var textField = UITextField()
     var addButton = UIButton()
     
-    
     var text: String{
         return textField.text ?? ""
     }
+    
     var isBlank: Bool{
         return textField.text?.count == 0
+    }
+    
+    var type: ViewType?{
+        didSet{
+            var imageName = ""
+            var placeHolder = ""
+            switch type {
+            case .url:
+                imageName = "plus"
+                placeHolder = "유튜브 url을 입력해주세요."
+            case .search:
+                imageName = "plus"
+                placeHolder = "검색"
+            case .none:
+                break
+            }
+            addButton.setImage(UIImage(named: imageName), for: .normal)
+            textField.attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: [NSAttributedString.Key.foregroundColor : Colors.gray])
+        }
     }
     
     var delegate: URLInputTextFieldDelegate?
@@ -65,18 +89,14 @@ class URLInputTextField: UIView {
         textField.font = SDGothic(size: 15)
         textField.textColor = .black
         textField.tintColor = Colors.gray
-        textField.attributedPlaceholder = NSAttributedString(string: "유튜브 url을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : Colors.gray])
-        
-        addButton.setImage(UIImage(named: "plus"), for: .normal)
-//        addButton.setTitle("추가", for: .normal)
-//        addButton.setTitleColor(.black, for: .normal)
+        textField.delegate = self
         
         addButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addButtonTapped(_:))))
     }
     
     @objc func addButtonTapped(_ sender: UITapGestureRecognizer){
         // guard let button = sender.view as? UIButton else { return }
-        delegate?.addButtonTapped()
+        delegate?.addButtonTapped?()
     }
     
     func hideKeyboard(){
@@ -84,4 +104,12 @@ class URLInputTextField: UIView {
     }
 }
 
+extension URLInputTextField: UITextFieldDelegate{
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        if textField.text?.count  == 0{
+            return
+        }
+        delegate?.textFieldDidChange?(textField.text!)
+    }
+}
 
