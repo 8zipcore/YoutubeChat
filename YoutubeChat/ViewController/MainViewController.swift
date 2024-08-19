@@ -19,6 +19,7 @@ class MainViewController: UIViewController {
     private let cellSpacing: CGFloat = 6
     
     var chatViewModel = ChatViewModel()
+    var searchViewModel = SearchViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +71,11 @@ class MainViewController: UIViewController {
                     self.groupChatTableView.reloadData()
                 }
             })
+            let response = try await searchViewModel.fetchCategories()
+            searchViewModel.setTop5Categories(response)
+            DispatchQueue.main.async{
+                self.categoryCollectionView.reloadData()
+            }
         }
     }
     
@@ -91,13 +97,13 @@ class MainViewController: UIViewController {
     
     @IBAction func testButtonTapped(_ sender: Any) {
         
-        initData()
+        // initData()
         
         // 데이터 삭제
-        /*
+        
          ProfileManager.shared.deleteUser()
          CoreDataManager.shared.deleteAllData()
-        */
+        
         
         /*
         self.chatArray.append(GroupChatData(chatImage: "rikus", chatName: "유튜브 챗 유튜브 챗 유튜브 챗", peopleNumber: 3, latestMessage: "빠더너스 문상훈 초대석, 쇼츠 드라마 만들기", latestChatTime: "오전 12:00"))
@@ -158,23 +164,33 @@ extension MainViewController: UITableViewDelegate{
 //MARK: CollectionView 관련
 extension MainViewController: UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return chatViewModel.categoryArray.count
+        return searchViewModel.top5Categories.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = categoryCollectionView.dequeueReusableCell(withReuseIdentifier: ChatOptionCollectionViewCell.identifier, for: indexPath) as? ChatOptionCollectionViewCell else {
              return UICollectionViewCell()
         }
-        let category = chatViewModel.categoryArray[indexPath.item]
-        cell.configureView(title: category.title, isSelected: category.isSelected)
+        
+        if indexPath.item == 0{
+            cell.configureView(title: "검색", isSelected: false)
+        } else {
+            let category = searchViewModel.top5Categories[indexPath.item - 1]
+            cell.configureView(title: category.title, isSelected: category.isSelected)
+        }
+        
         return cell
     }
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let category = chatViewModel.categoryArray[indexPath.item]
-        return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, title: category.title, isSelected: category.isSelected)
+        if indexPath.item == 0 {
+            return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, title: "검색", isSelected: false)
+        } else {
+            let category = searchViewModel.top5Categories[indexPath.item - 1]
+            return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, title: category.title, isSelected: category.isSelected)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -184,11 +200,32 @@ extension MainViewController: UICollectionViewDelegateFlowLayout{
 
 extension MainViewController: UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        chatViewModel.categoryArray[indexPath.item].toggle()
         if indexPath.item == 0 {
             let vc = SearchChatRoomViewController()
             self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            // 취소하는거면 unselected
+            if searchViewModel.top5Categories[indexPath.item - 1].isSelected == true {
+                Task{
+                    try await chatViewModel.fetchAllChatRooms({
+                        DispatchQueue.main.async{
+                            self.groupChatTableView.reloadData()
+                        }
+                    })
+                }
+            } else {
+                searchViewModel.resetTop5CategoriesSelection()
+                Task{
+                    let category = searchViewModel.top5Categories[indexPath.item - 1].title
+                    let response = try await self.searchViewModel.fetchChatRooms(category)
+                    self.chatViewModel.chatRoomArray = response
+                    DispatchQueue.main.async{
+                        self.groupChatTableView.reloadData()
+                    }
+                }
+            }
+            searchViewModel.top5Categories[indexPath.item - 1].toggle()
+            categoryCollectionView.reloadData()
         }
-        categoryCollectionView.reloadData()
     }
 }

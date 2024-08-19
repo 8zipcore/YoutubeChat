@@ -24,6 +24,9 @@ enum Endpoints {
     static let find = "chat/find"
     static let search = "chat/search"
     
+    static let categories = "category/fetch"
+    static let fetchByCategory = "category/fetchChatRooms"
+    
     // Youtube 관련
     static let fetchVideos = "chat/fetchVideos"
     static let updateStartTime = "chat/updateStartTime"
@@ -57,6 +60,8 @@ enum URLType{
     case quit
     case find
     case search
+    case categories
+    case fetchByCategory
     case fetchVideos
     case updateStartTime
     case deleteVideo
@@ -87,6 +92,10 @@ class URLManager {
             return URL(string: Constants.baseURL + Endpoints.find)
         case .search:
             return URL(string: Constants.baseURL + Endpoints.search)
+        case .categories:
+            return URL(string: Constants.baseURL + Endpoints.categories)
+        case .fetchByCategory:
+            return URL(string: Constants.baseURL + Endpoints.fetchByCategory)
         case .fetchVideos:
             return URL(string: Constants.baseURL + Endpoints.fetchVideos)
         case .updateStartTime:
