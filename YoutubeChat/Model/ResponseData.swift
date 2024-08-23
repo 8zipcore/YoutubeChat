@@ -37,3 +37,9 @@ struct SendData: Codable{
     var type: SendDataType
     var data: Data
 }
+
+struct ChatRoomResponseData: Codable{
+    var responseCode: ResponseCode
+    var chatRoom: ChatRoomData?
+}
+

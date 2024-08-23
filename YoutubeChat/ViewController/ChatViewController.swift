@@ -30,10 +30,6 @@ class ChatViewController: UIViewController {
     var chatRoom: ChatRoomData?
     var isEnter = false
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -55,6 +51,11 @@ class ChatViewController: UIViewController {
                 try await chatViewModel.quitChatRoom(id: chatRoom!.id!)
             }
         }
+        
+        NotificationCenter.default.removeObserver(self)
+        /*
+        NotificationCenter.default.removeObserver(self, name: .receiveVideo, object: nil)
+        NotificationCenter.default.removeObserver(self, name: .receiveMessage, object: nil)*/
     }
     
     private func configureView(){
@@ -124,12 +125,14 @@ class ChatViewController: UIViewController {
                     self.chatTableView.reloadData()
                     self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: true)
                 }
-                if data.messageType == .enter || data.messageType == .leave {
+                if data.messageType == .enter || data.messageType == .leave{
                     Task {
-                        let response = try await self.chatViewModel.findChatRoom(id: id)
-                        self.chatRoom = response
-                        DispatchQueue.main.async {
-                            self.peopleNumberLabel.text = String(response.participants.count)
+                        if let response = try await
+                            self.chatViewModel.findChatRoom(id: id){
+                            self.chatRoom = response
+                            DispatchQueue.main.async {
+                                self.peopleNumberLabel.text = String(response.participants.count)
+                            }
                         }
                     }
                 }

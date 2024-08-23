@@ -64,7 +64,11 @@ extension YoutubeView: YTPlayerViewDelegate{
         if shouldSeek{
             guard let video = video else { print("🌀 video Data Nil Error"); return }
             let delaySecond = Float(Date().timeIntervalSince1970 - loadTime)
-            let startSecond = Float(round(Date().timeIntervalSince1970 - video.startTime))
+            var startSecond: Float = 0
+            if video.startTime > 0 {
+                startSecond = Float(round(Date().timeIntervalSince1970 - video.startTime))
+            }
+            
             playerView.seek(toSeconds: startSecond + delaySecond, allowSeekAhead: true)
             shouldSeek = false
         }

@@ -27,6 +27,7 @@ class NetworkManager{
 //                        dump(data)
                         continuation.resume(returning: data)
                     case .failure(let error):
+                        print("🌀 실패 : \(error)")
                         continuation.resume(throwing: error)
                     }
                 }

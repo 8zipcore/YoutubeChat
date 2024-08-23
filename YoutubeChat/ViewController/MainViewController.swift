@@ -96,20 +96,17 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func testButtonTapped(_ sender: Any) {
-        
-        // initData()
-        
         // 데이터 삭제
-        
          ProfileManager.shared.deleteUser()
          CoreDataManager.shared.deleteAllData()
-        
-        
-        /*
-        self.chatArray.append(GroupChatData(chatImage: "rikus", chatName: "유튜브 챗 유튜브 챗 유튜브 챗", peopleNumber: 3, latestMessage: "빠더너스 문상훈 초대석, 쇼츠 드라마 만들기", latestChatTime: "오전 12:00"))
-        
-        self.groupChatTableView.reloadData()
-         */
+    }
+    
+    @IBAction func fetchChatRoomButtonTapped(_ sender: Any) {
+        initData()
+    }
+    
+    @IBAction func conntectWebSocketButtonTapped(_ sender: Any) {
+        WebSocketManager.shared.connect()
     }
     
     @objc func profileViewTapped(_ sender: UITapGestureRecognizer){

@@ -28,18 +28,37 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="35"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxF-WN-Usm">
-                            <rect key="frame" x="137" y="0.0" width="75" height="35"/>
+                            <rect key="frame" x="8" y="0.0" width="114" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Delete Data"/>
                             <connections>
                                 <action selector="testButtonTapped:" destination="-1" eventType="touchUpInside" id="Kzn-XM-gp6"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3bu-jj-osk">
+                            <rect key="frame" x="310" y="0.0" width="83" height="35"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="새로고침"/>
+                            <connections>
+                                <action selector="fetchChatRoomButtonTapped:" destination="-1" eventType="touchUpInside" id="cff-d8-YlP"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bqc-P7-cU2">
+                            <rect key="frame" x="191" y="0.0" width="108" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Connected"/>
+                            <connections>
+                                <action selector="conntectWebSocketButtonTapped:" destination="-1" eventType="touchUpInside" id="h96-Km-Fzf"/>
                             </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="83s-fp-yQs"/>
+                        <constraint firstItem="3bu-jj-osk" firstAttribute="centerY" secondItem="oeD-bG-ahM" secondAttribute="centerY" id="caZ-8b-Iqz"/>
+                        <constraint firstAttribute="trailing" secondItem="3bu-jj-osk" secondAttribute="trailing" id="q5x-gr-ZT9"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LNy-DR-ImS" userLabel="프로필View">

@@ -40,6 +40,11 @@ class PlaylistViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveVideo, object: nil)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     override func viewWillLayoutSubviews() {
         self.view.frame = CGRectMake(0, yPoint, self.view.bounds.width, self.view.window?.bounds.height ?? self.view.bounds.height - yPoint)
     }

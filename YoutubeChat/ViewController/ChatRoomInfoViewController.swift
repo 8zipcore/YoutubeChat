@@ -47,13 +47,19 @@ class ChatRoomInfoViewController: UIViewController {
 
     @IBAction func enterButtonTapped(_ sender: Any) {
         Task{
-            let chatRoom = try await chatViewModel.enterChatRoom(id: chatRoom!.id!)
-            let vc = ChatViewController()
-            vc.chatRoom = chatRoom
-            vc.isEnter = true
-            
-            DispatchQueue.main.async{
-                self.navigationController?.pushViewController(vc, animated: true)
+            let chatRoomResponseData = try await chatViewModel.enterChatRoom(id: chatRoom!.id!)
+            switch chatRoomResponseData.responseCode {
+            case .success:
+                let vc = ChatViewController()
+                vc.chatRoom = chatRoomResponseData.chatRoom!
+                vc.isEnter = true
+                DispatchQueue.main.async{
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            case .failure:
+                // 존재하지 않는 방입니다?
+                // alert 추가
+                self.navigationController?.popViewController(animated: true)
             }
         }
     }

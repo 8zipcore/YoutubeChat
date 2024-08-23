@@ -33,10 +33,10 @@ class ChatViewModel{
         return response
     }
     
-    func enterChatRoom(id: UUID) async throws -> ChatRoomData{
+    func enterChatRoom(id: UUID) async throws -> ChatRoomResponseData{
         guard let url = URLManager.shared.url(.enter) else { throw HttpError.badURL }
         let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
-        let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ChatRoomData.self, to: url)
+        let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ChatRoomResponseData.self, to: url)
         return response
     }
     
@@ -53,10 +53,10 @@ class ChatViewModel{
         _ = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ResponseData.self, to: url)
     }
     
-    func findChatRoom(id: UUID) async throws -> ChatRoomData{
+    func findChatRoom(id: UUID) async throws -> ChatRoomData?{
         guard let url = URLManager.shared.url(.find) else { throw HttpError.badURL }
         let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
-        let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ChatRoomData.self, to: url)
+        let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ChatRoomData?.self, to: url)
         return response
     }
     
