@@ -11,7 +11,7 @@ protocol EditProfileTextViewControllerDelegate {
     func didEndEdit(_ text: String, _ type: EditProfileTextViewController.ViewType)
 }
 
-class EditProfileTextViewController: UIViewController {
+class EditProfileTextViewController: BaseViewController {
     
     enum ViewType{
         case name, description

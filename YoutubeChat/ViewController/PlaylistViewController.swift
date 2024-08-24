@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PlaylistViewController: UIViewController {
+class PlaylistViewController: BaseViewController{
 
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var indicatorView: UIView!

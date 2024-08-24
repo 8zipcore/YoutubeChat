@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchChatRoomViewController: UIViewController {
+class SearchChatRoomViewController: BaseViewController {
 
     @IBOutlet weak var textField: URLInputTextField!
     @IBOutlet weak var chatOptionCollectionView: UICollectionView!

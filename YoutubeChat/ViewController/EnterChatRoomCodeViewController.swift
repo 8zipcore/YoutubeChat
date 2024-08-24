@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EnterChatRoomCodeViewController: UIViewController {
+class EnterChatRoomCodeViewController: BaseViewController {
 
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var contentView: UIView!

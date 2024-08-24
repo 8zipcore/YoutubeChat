@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatViewController: UIViewController {
+class ChatViewController: BaseViewController {
 
     @IBOutlet weak var chatNameLabel: SDGothicLabel!
     @IBOutlet weak var peopleNumberLabel: SDGothicLabel!

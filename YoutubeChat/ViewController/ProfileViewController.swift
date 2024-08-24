@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
+class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate{
 
     @IBOutlet weak var profileImageView: ProfileImageView!
     @IBOutlet weak var titleLabel: SDGothicLabel!

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreateChatRoomViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
 
     @IBOutlet weak var chatRoomImageView: ChatRoomImageView!
     @IBOutlet weak var chatNameTextField: InputTextField!

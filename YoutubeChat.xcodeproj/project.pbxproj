@@ -47,6 +47,7 @@
 		365C9DAD2C25C111004936FB /* ChatOptionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 365C9DAC2C25C111004936FB /* ChatOptionCollectionViewCell.swift */; };
 		366105E52C63616800BB7585 /* ChatRoomInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366105E32C63616800BB7585 /* ChatRoomInfoViewController.swift */; };
 		366105E62C63616800BB7585 /* ChatRoomInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 366105E42C63616800BB7585 /* ChatRoomInfoViewController.xib */; };
+		366BA3612C79A17F00AAEFC9 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366BA3602C79A17F00AAEFC9 /* BaseViewController.swift */; };
 		367EF3EF2C5F506A009232C1 /* ChatRoomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367EF3EE2C5F506A009232C1 /* ChatRoomImageView.swift */; };
 		367EF3F12C5F5AD1009232C1 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367EF3F02C5F5AD1009232C1 /* InputTextView.swift */; };
 		368F7D202C296CC100A848CE /* ChatOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368F7D1F2C296CC100A848CE /* ChatOption.swift */; };
@@ -158,6 +159,7 @@
 		365C9DAC2C25C111004936FB /* ChatOptionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOptionCollectionViewCell.swift; sourceTree = "<group>"; };
 		366105E32C63616800BB7585 /* ChatRoomInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomInfoViewController.swift; sourceTree = "<group>"; };
 		366105E42C63616800BB7585 /* ChatRoomInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomInfoViewController.xib; sourceTree = "<group>"; };
+		366BA3602C79A17F00AAEFC9 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		367EF3EE2C5F506A009232C1 /* ChatRoomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomImageView.swift; sourceTree = "<group>"; };
 		367EF3F02C5F5AD1009232C1 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		368F7D1F2C296CC100A848CE /* ChatOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOption.swift; sourceTree = "<group>"; };
@@ -399,6 +401,7 @@
 				36E4CE832C6F90CD00105F62 /* EditProfileTextViewController.xib */,
 				3659B6172C70DEA0004327DF /* SearchChatRoomViewController.swift */,
 				3659B6182C70DEA0004327DF /* SearchChatRoomViewController.xib */,
+				366BA3602C79A17F00AAEFC9 /* BaseViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -702,6 +705,7 @@
 				3625B0C92C2C0DC600947E07 /* SDGothicTextView.swift in Sources */,
 				368F7D202C296CC100A848CE /* ChatOption.swift in Sources */,
 				361102C12C3EA17000046BE1 /* ChatViewModel.swift in Sources */,
+				366BA3612C79A17F00AAEFC9 /* BaseViewController.swift in Sources */,
 				36AAECE22C19A1A700532AF5 /* MainViewController.swift in Sources */,
 				3659B6192C70DEA0004327DF /* SearchChatRoomViewController.swift in Sources */,
 				367EF3F12C5F5AD1009232C1 /* InputTextView.swift in Sources */,
