@@ -75,6 +75,7 @@ class PlaylistViewController: BaseViewController{
         
         if chatRoom.isOptionContains(.videoAddDenied) && chatRoom.hostId != MyProfile.id{
             urlTextFieldHeightConstraint.constant = 0
+            urlTextField.isHidden = true
         }
     }
     

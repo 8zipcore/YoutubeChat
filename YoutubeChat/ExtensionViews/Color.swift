@@ -20,6 +20,8 @@ struct Colors{
     static let gray = RGB(red: 167, green: 163, blue: 163)
     static let white = RGB(red: 253, green: 253, blue: 253)
     static let pastelBlue = RGB(red: 227, green: 245, blue: 255)
-    static let skyBlue = RGB(red: 90, green: 167, blue: 246)
+    static let skyBlue = RGB(red: 60, green: 147, blue: 236)
     static let trueBlue = RGB(red: 94, green: 158, blue: 247)
+    static let mint = RGB(red: 231, green: 252, blue: 211)
+    static let violet = RGB(red: 91, green: 49, blue: 89)
 }

@@ -59,8 +59,8 @@ class ChatViewController: BaseViewController {
     }
     
     private func configureView(){
-        chatNameLabel.setLabel(textColor: .black, fontSize: 15)
-        peopleNumberLabel.setLabel(textColor: Colors.gray, fontSize: 13)
+        chatNameLabel.setLabel(textColor: .black, fontSize: 17)
+        peopleNumberLabel.setLabel(textColor: Colors.gray, fontSize: 15)
         
         self.chatTableView.dataSource = self
         self.chatTableView.delegate = self
@@ -113,6 +113,13 @@ class ChatViewController: BaseViewController {
     
     @IBAction func testButtonTapped(_ sender: Any) {
 
+    }
+    
+    @IBAction func menuButtonTapped(_ sender: Any) {
+        let vc = ChatMenuViewController()
+        vc.chatRoom = chatRoom
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: true)
     }
     
     @objc func receiveData(_ notification: Notification){

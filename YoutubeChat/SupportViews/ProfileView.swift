@@ -10,7 +10,7 @@ import SnapKit
 
 class ProfileView: UIView {
     
-    var profileImageView = UIImageView()
+    var profileImageView = ProfileImageView()
     var nameLabel = SDGothicLabel()
     var messageLabel = SDGothicLabel()
     
@@ -31,14 +31,13 @@ class ProfileView: UIView {
     private func configureView(){
         addSubViews()
         
-        profileImageView.contentMode = .scaleAspectFill
-        profileImageView.clipsToBounds = true
-        profileImageView.layer.cornerRadius = (self.bounds.height * 0.8) / 2.5
-        
         nameLabel.setLabel(textColor: .black, fontSize: 15)
         
         messageLabel.setLabel(textColor: .gray, fontSize: 12)
         messageLabel.textAlignment = .right
+        
+        profileImageView.clipsToBounds = true
+        profileImageView.isUserInteractionEnabled = false
     }
     
     private func addSubViews(){
@@ -48,14 +47,13 @@ class ProfileView: UIView {
         
         let width = self.bounds.width
         let height = self.bounds.height
-        let verticalSpacing = self.bounds.height * 0.1
         let horizontalSpacing = self.bounds.width * 0.05
         
         profileImageView.snp.makeConstraints{ make in
-            make.top.equalToSuperview().inset(verticalSpacing)
-            make.bottom.equalToSuperview().inset(verticalSpacing)
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.leading.equalToSuperview().inset(horizontalSpacing)
-            make.width.equalTo(height * 0.8)
+            make.width.equalTo(height)
         }
         
         nameLabel.snp.makeConstraints{ make in
@@ -73,8 +71,8 @@ class ProfileView: UIView {
         }
     }
     
-    func setImage(_ image: UIImage?){
-        self.profileImageView.image = image
+    func setImage(_ image: String){
+        self.profileImageView.setImage(image)
     }
     
     func setName(_ name: String){

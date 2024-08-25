@@ -11,8 +11,12 @@ enum MyProfile{
     static var id = UUID()
     static var name = ""
     static var description = ""
-    static var image: UIImage?
-    static var backgroundImage: UIImage?
+    static var image = ""
+    static var backgroundImage = ""
+    
+    static var user: User{
+        return User(name: name, description: description, image: image, backgroundImage: backgroundImage)
+    }
 }
 
 class ProfileManager{
@@ -21,9 +25,8 @@ class ProfileManager{
     func setMyProfile(_ user: User){
         MyProfile.id = user.id ?? UUID()
         MyProfile.name = user.name
-        if !user.image.isEmpty, let imageData = Data(base64Encoded: user.image) {
-            MyProfile.image = UIImage(data: imageData)
-        }
+        MyProfile.image = user.image
+        MyProfile.backgroundImage = user.backgroundImage
         MyProfile.description = user.description
     }
     

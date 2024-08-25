@@ -83,6 +83,7 @@ class MainViewController: UIViewController {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "채팅방 만들기", style: .default, handler: {_ in
             let vc = CreateChatRoomViewController()
+            vc.viewType = .create
             self.navigationController?.pushViewController(vc, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "채팅방 참여하기", style: .default, handler: {_ in 
@@ -111,6 +112,8 @@ class MainViewController: UIViewController {
     
     @objc func profileViewTapped(_ sender: UITapGestureRecognizer){
         let vc = ProfileInfoViewController()
+        vc.user = MyProfile.user
+        vc.viewType = .myProfile
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

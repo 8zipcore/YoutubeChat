@@ -10,6 +10,7 @@ import SnapKit
 
 protocol ProfileImageViewDelegate{
     func editButtonTapped()
+    func profileImageViewTapped()
 }
 
 class ProfileImageView: UIView {
@@ -27,6 +28,8 @@ class ProfileImageView: UIView {
     var image: UIImage?{
         return profileImageView.image
     }
+    
+    var isDefaultImage = true
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,6 +45,22 @@ class ProfileImageView: UIView {
         super.init(coder: coder)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        profileImageView.snp.makeConstraints{ make in
+            make.width.equalTo(self.bounds.width * 0.8)
+            make.height.equalTo(self.bounds.height * 0.8)
+        }
+        
+        editButton.snp.makeConstraints{ make in
+            make.width.equalTo(self.bounds.height * 0.3)
+            make.height.equalTo(self.bounds.height * 0.3)
+        }
+        
+        profileImageView.layer.cornerRadius = self.bounds.height / 3.2
+    }
+    
     private func configureView(){
         self.addSubview(profileImageView)
         self.addSubview(editButton)
@@ -49,18 +68,13 @@ class ProfileImageView: UIView {
         profileImageView.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.width.equalTo(self.bounds.width * 0.8)
-            make.height.equalTo(self.bounds.height * 0.8)
         }
         
         editButton.snp.makeConstraints{ make in
             make.trailing.equalToSuperview().inset(3)
             make.bottom.equalToSuperview().inset(5)
-            make.width.equalTo(self.bounds.height * 0.3)
-            make.height.equalTo(self.bounds.height * 0.3)
         }
         
-        profileImageView.layer.cornerRadius = self.bounds.height / 3.2
         profileImageView.clipsToBounds = true
         
         profileImageView.backgroundColor = Colors.pastelBlue
@@ -72,11 +86,26 @@ class ProfileImageView: UIView {
         
         editButton.isHidden = !isEditMode
         
+        profileImageView.isUserInteractionEnabled = true
+        let tapGestrue = UITapGestureRecognizer(target: self, action: #selector(profileImageViewTapped(_:)))
+        profileImageView.addGestureRecognizer(tapGestrue)
+        
         setImage(nil)
     }
     
     func setImage(_ image: UIImage?){
+        isDefaultImage = image == nil ? true : false
         self.profileImageView.image = image ?? UIImage(named: "default_profile")
+    }
+    
+    func setImage(_ imageString: String){
+        if imageString == ""{
+            setImage(nil)
+        } else {
+            if let data = Data(base64Encoded: imageString){
+               setImage(UIImage(data: data))
+            }
+        }
     }
     
     func alert(_ presentImagePickerViewController: @escaping () -> Void) -> UIAlertController{
@@ -85,7 +114,7 @@ class ProfileImageView: UIView {
             presentImagePickerViewController()
         }))
         alert.addAction(UIAlertAction(title: "기본 이미지 적용", style: .default, handler: { _ in
-            self.profileImageView.image = nil
+            self.setImage(nil)
         }))
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         return alert
@@ -105,6 +134,14 @@ class ProfileImageView: UIView {
         UIView.animate(withDuration: 0.1, animations: {
             self.editButton.tintColor = Colors.gray
         })
+    }
+    
+    @objc
+    func profileImageViewTapped(_ sender: UITapGestureRecognizer){
+        if isEditMode {
+            return
+        }
+        delegate?.profileImageViewTapped()
     }
     
     func imageToString()-> String{

@@ -48,6 +48,8 @@
 		366105E52C63616800BB7585 /* ChatRoomInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366105E32C63616800BB7585 /* ChatRoomInfoViewController.swift */; };
 		366105E62C63616800BB7585 /* ChatRoomInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 366105E42C63616800BB7585 /* ChatRoomInfoViewController.xib */; };
 		366BA3612C79A17F00AAEFC9 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366BA3602C79A17F00AAEFC9 /* BaseViewController.swift */; };
+		366BA3642C79FEE300AAEFC9 /* ChatMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366BA3622C79FEE300AAEFC9 /* ChatMenuViewController.swift */; };
+		366BA3652C79FEE300AAEFC9 /* ChatMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 366BA3632C79FEE300AAEFC9 /* ChatMenuViewController.xib */; };
 		367EF3EF2C5F506A009232C1 /* ChatRoomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367EF3EE2C5F506A009232C1 /* ChatRoomImageView.swift */; };
 		367EF3F12C5F5AD1009232C1 /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367EF3F02C5F5AD1009232C1 /* InputTextView.swift */; };
 		368F7D202C296CC100A848CE /* ChatOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368F7D1F2C296CC100A848CE /* ChatOption.swift */; };
@@ -65,6 +67,10 @@
 		36AAECD02C198E3E00532AF5 /* YoutubeChatUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AAECCF2C198E3E00532AF5 /* YoutubeChatUITestsLaunchTests.swift */; };
 		36AAECE22C19A1A700532AF5 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AAECE02C19A1A700532AF5 /* MainViewController.swift */; };
 		36AAECE32C19A1A700532AF5 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36AAECE12C19A1A700532AF5 /* MainViewController.xib */; };
+		36AE4DFD2C7A04570027D442 /* ProfileTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AE4DFB2C7A04570027D442 /* ProfileTableViewCell.swift */; };
+		36AE4DFE2C7A04570027D442 /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36AE4DFC2C7A04570027D442 /* ProfileTableViewCell.xib */; };
+		36AE4E052C7A2B000027D442 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AE4E032C7A2B000027D442 /* ImageViewController.swift */; };
+		36AE4E062C7A2B000027D442 /* ImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36AE4E042C7A2B000027D442 /* ImageViewController.xib */; };
 		36AF12DF2C2D084600166FBE /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AF12DE2C2D084600166FBE /* Message.swift */; };
 		36AF12E12C2D088900166FBE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AF12E02C2D088900166FBE /* User.swift */; };
 		36B3AFD32C5A7B980050BF94 /* URLInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3AFD22C5A7B980050BF94 /* URLInputTextField.swift */; };
@@ -160,6 +166,8 @@
 		366105E32C63616800BB7585 /* ChatRoomInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomInfoViewController.swift; sourceTree = "<group>"; };
 		366105E42C63616800BB7585 /* ChatRoomInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatRoomInfoViewController.xib; sourceTree = "<group>"; };
 		366BA3602C79A17F00AAEFC9 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		366BA3622C79FEE300AAEFC9 /* ChatMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMenuViewController.swift; sourceTree = "<group>"; };
+		366BA3632C79FEE300AAEFC9 /* ChatMenuViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatMenuViewController.xib; sourceTree = "<group>"; };
 		367EF3EE2C5F506A009232C1 /* ChatRoomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoomImageView.swift; sourceTree = "<group>"; };
 		367EF3F02C5F5AD1009232C1 /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		368F7D1F2C296CC100A848CE /* ChatOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatOption.swift; sourceTree = "<group>"; };
@@ -181,6 +189,10 @@
 		36AAECCF2C198E3E00532AF5 /* YoutubeChatUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeChatUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		36AAECE02C19A1A700532AF5 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		36AAECE12C19A1A700532AF5 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		36AE4DFB2C7A04570027D442 /* ProfileTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewCell.swift; sourceTree = "<group>"; };
+		36AE4DFC2C7A04570027D442 /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
+		36AE4E032C7A2B000027D442 /* ImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		36AE4E042C7A2B000027D442 /* ImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageViewController.xib; sourceTree = "<group>"; };
 		36AF12DE2C2D084600166FBE /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		36AF12E02C2D088900166FBE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		36B3AFD22C5A7B980050BF94 /* URLInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputTextField.swift; sourceTree = "<group>"; };
@@ -266,6 +278,8 @@
 				36F351A82C351C940055BF64 /* PlayListTableViewCell.swift */,
 				36F351A92C351C940055BF64 /* PlayListTableViewCell.xib */,
 				365158592C53DEF200A288F1 /* SystemChatTableViewCell.swift */,
+				36AE4DFB2C7A04570027D442 /* ProfileTableViewCell.swift */,
+				36AE4DFC2C7A04570027D442 /* ProfileTableViewCell.xib */,
 			);
 			path = TableViewCell;
 			sourceTree = "<group>";
@@ -402,6 +416,10 @@
 				3659B6172C70DEA0004327DF /* SearchChatRoomViewController.swift */,
 				3659B6182C70DEA0004327DF /* SearchChatRoomViewController.xib */,
 				366BA3602C79A17F00AAEFC9 /* BaseViewController.swift */,
+				366BA3622C79FEE300AAEFC9 /* ChatMenuViewController.swift */,
+				366BA3632C79FEE300AAEFC9 /* ChatMenuViewController.xib */,
+				36AE4E032C7A2B000027D442 /* ImageViewController.swift */,
+				36AE4E042C7A2B000027D442 /* ImageViewController.xib */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -587,7 +605,9 @@
 				3602746E2C2E6F4D00A377FD /* ChatTableViewCell.xib in Resources */,
 				36CD688F2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.xib in Resources */,
 				36AAECB92C198E3E00532AF5 /* LaunchScreen.storyboard in Resources */,
+				366BA3652C79FEE300AAEFC9 /* ChatMenuViewController.xib in Resources */,
 				3639746C2C37C294009C96CF /* EditImageViewController.xib in Resources */,
+				36AE4DFE2C7A04570027D442 /* ProfileTableViewCell.xib in Resources */,
 				3625B0C52C2BEF8100947E07 /* ChatWithProfileTableViewCell.xib in Resources */,
 				36E4CE852C6F90CD00105F62 /* EditProfileTextViewController.xib in Resources */,
 				3625B0BF2C2BE1FF00947E07 /* ChatViewController.xib in Resources */,
@@ -599,6 +619,7 @@
 				36DDD11C2C2073A6005A16E1 /* CreateChatRoomViewController.xib in Resources */,
 				36C3A2AF2C1B401D008AE26F /* GroupChatTableViewCell.xib in Resources */,
 				36F351AB2C351C940055BF64 /* PlayListTableViewCell.xib in Resources */,
+				36AE4E062C7A2B000027D442 /* ImageViewController.xib in Resources */,
 				36D4488C2C5FC97800BAD898 /* ConfirmImageViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -696,6 +717,7 @@
 				36CA84A22C32BB8F00427471 /* ImageChatTableViewCell.swift in Sources */,
 				361B067A2C1AC96300BD529B /* Font.swift in Sources */,
 				3653CB0A2C4CFA75009711F0 /* MyChat.swift in Sources */,
+				36AE4DFD2C7A04570027D442 /* ProfileTableViewCell.swift in Sources */,
 				3625B0C42C2BEF8100947E07 /* ChatWithProfileTableViewCell.swift in Sources */,
 				368F7D232C296F3400A848CE /* ProfileViewController.swift in Sources */,
 				36AF12E12C2D088900166FBE /* User.swift in Sources */,
@@ -725,6 +747,7 @@
 				3653CB082C4CEE73009711F0 /* ResponseData.swift in Sources */,
 				3602746D2C2E6F4D00A377FD /* ChatTableViewCell.swift in Sources */,
 				3639746E2C37D9CF009C96CF /* ScrollView.swift in Sources */,
+				366BA3642C79FEE300AAEFC9 /* ChatMenuViewController.swift in Sources */,
 				36C9A4712C365852001D9A8B /* YoutubeViewModel.swift in Sources */,
 				3655CB2B2C23041A0037F3DC /* Color.swift in Sources */,
 				365C9DAD2C25C111004936FB /* ChatOptionCollectionViewCell.swift in Sources */,
@@ -734,6 +757,7 @@
 				36CD688E2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.swift in Sources */,
 				36DE90EB2C48E1CA002FE3C0 /* NotificationName.swift in Sources */,
 				3639745E2C3794C2009C96CF /* NetworkManager.swift in Sources */,
+				36AE4E052C7A2B000027D442 /* ImageViewController.swift in Sources */,
 				366105E52C63616800BB7585 /* ChatRoomInfoViewController.swift in Sources */,
 				36DDD11B2C2073A6005A16E1 /* CreateChatRoomViewController.swift in Sources */,
 				3625B0BE2C2BE1FF00947E07 /* ChatViewController.swift in Sources */,

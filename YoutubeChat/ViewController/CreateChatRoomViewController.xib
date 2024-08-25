@@ -18,6 +18,7 @@
                 <outlet property="chatRoomImageView" destination="ytx-XH-ign" id="Tyu-lL-9Ss"/>
                 <outlet property="descriptionTextView" destination="fGb-Sc-HEK" id="FgV-3G-d0b"/>
                 <outlet property="descriptionTextViewHeightConstraint" destination="QQj-4s-7Va" id="ZmH-kM-OnA"/>
+                <outlet property="titleLabel" destination="m3v-mK-3Gv" id="I7s-Fj-Cwy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="W6t-y6-scW"/>
             </connections>
         </placeholder>
@@ -29,18 +30,19 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hGS-wy-cOl" userLabel="TopBar">
                     <rect key="frame" x="0.0" y="59" width="393" height="42.666666666666657"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siy-gw-0Ps">
-                            <rect key="frame" x="10" y="6.3333333333333286" width="30" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siy-gw-0Ps">
+                            <rect key="frame" x="10.000000000000002" y="11.33333333333333" width="19.666666666666671" height="19.666666666666671"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="siy-gw-0Ps" secondAttribute="height" multiplier="1:1" id="UFV-RR-mPR"/>
+                            </constraints>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="&lt;">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
+                            <state key="normal" image="back_icon"/>
                             <connections>
                                 <action selector="backButtonTapped:" destination="-1" eventType="touchUpInside" id="d8g-9m-Bdt"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="채팅방 만들기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3v-mK-3Gv" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="50.000000000000007" y="10.666666666666671" width="92.666666666666686" height="21"/>
+                            <rect key="frame" x="44.666666666666664" y="10.666666666666671" width="92.666666666666686" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -48,9 +50,10 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="m3v-mK-3Gv" firstAttribute="leading" secondItem="siy-gw-0Ps" secondAttribute="trailing" constant="10" id="MGv-rk-Pfd"/>
+                        <constraint firstItem="m3v-mK-3Gv" firstAttribute="centerY" secondItem="hGS-wy-cOl" secondAttribute="centerY" id="9Jc-LS-5NE"/>
+                        <constraint firstItem="m3v-mK-3Gv" firstAttribute="leading" secondItem="siy-gw-0Ps" secondAttribute="trailing" constant="15" id="MGv-rk-Pfd"/>
                         <constraint firstItem="siy-gw-0Ps" firstAttribute="leading" secondItem="hGS-wy-cOl" secondAttribute="leading" constant="10" id="Qfu-x3-d4c"/>
-                        <constraint firstItem="m3v-mK-3Gv" firstAttribute="centerY" secondItem="siy-gw-0Ps" secondAttribute="centerY" id="YbS-Ca-P2o"/>
+                        <constraint firstItem="siy-gw-0Ps" firstAttribute="width" secondItem="hGS-wy-cOl" secondAttribute="width" multiplier="0.05" id="oUx-5O-CXS"/>
                         <constraint firstItem="siy-gw-0Ps" firstAttribute="centerY" secondItem="hGS-wy-cOl" secondAttribute="centerY" id="vBL-13-Jwn"/>
                     </constraints>
                 </view>
@@ -160,6 +163,7 @@
         </view>
     </objects>
     <resources>
+        <image name="back_icon" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

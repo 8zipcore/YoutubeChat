@@ -18,6 +18,8 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
     
     private let profileViewModel = ProfileViewModel()
     
+    private var isDefaultImage = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,6 +33,8 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
         
         profileImageView.delegate = self
         imageEditViewController.delegate = self
+        
+        profileImageView.isEditMode = true
         
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
@@ -49,7 +53,7 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
                 let user = User(id: nil,
                                 name: nameTextField.text,
                                 description: "",
-                                image: profileImageView.imageToString(),
+                                image: profileImageView.isDefaultImage ? "" : profileImageView.imageToString(),
                                 backgroundImage: "")
                 let response = try await profileViewModel.createProfile(user:user)
                 try await profileViewModel.setUser(response)
@@ -71,6 +75,12 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
 }
                                                             
 extension ProfileViewController: ProfileImageViewDelegate{
+    func profileImageViewTapped() {
+        let vc = ImageViewController()
+        vc.image = profileImageView.image
+        self.present(vc, animated: true)
+    }
+    
     func editButtonTapped() {
         let alert = self.profileImageView.alert { self.present(self.imagePicker, animated: true) }
         self.present(alert, animated: true)

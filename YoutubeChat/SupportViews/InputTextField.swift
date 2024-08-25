@@ -119,6 +119,7 @@ class InputTextField: UIView {
     
     func setText(_ text: String){
         self.textField.text = text
+        self.lengthLabel.text = "\(text.count)/\(maxLength)"
     }
     
     func setPlaceHolder(_ placeHolder: String){
@@ -129,7 +130,6 @@ class InputTextField: UIView {
         if maxLength != -1 {
             lengthLabel.text = "\(textField.text?.count ?? 0)/\(maxLength)"
         }
-        
     }
     
     func showAnimation(){

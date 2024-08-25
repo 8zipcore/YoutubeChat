@@ -8,7 +8,12 @@
 import UIKit
 
 class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    enum ViewType{
+        case create, edit
+    }
 
+    @IBOutlet weak var titleLabel: SDGothicLabel!
     @IBOutlet weak var chatRoomImageView: ChatRoomImageView!
     @IBOutlet weak var chatNameTextField: InputTextField!
     @IBOutlet weak var descriptionTextView: InputTextView!
@@ -25,11 +30,13 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
     private var confirmImageViewController = ConfirmImageViewController()
     
     var chatViewModel = ChatViewModel()
+    var viewType: ViewType?
+    var chatRoom: ChatRoomData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configurView()
+        configureView()
     }
     
     override func viewDidLayoutSubviews() {
@@ -37,7 +44,9 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
         descriptionTextViewHeightConstraint.constant = descriptionTextView.estimatedHeight()
     }
     
-    private func configurView(){
+    private func configureView(){
+        titleLabel.setLabel(textColor: .black, fontSize: 17)
+        
         chatNameTextField.setText(title: "채팅방 이름", placeHolder: "채팅방 이름을 입력해주세요.", maxLength: 30)
         descriptionTextView.setText(title: "채팅방 소개", placeHolder: "해시태그로 채팅방을 소개해보세요.", maxLength: 80)
         chatOptionLabel.setLabel(textColor: .black, fontSize: 13)
@@ -54,10 +63,31 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
         confirmImageViewController.delegate = self
         
         chatRoomImageView.delegate = self
+        
+        switch viewType {
+        case .create:
+            titleLabel.text = "채팅방 만들기"
+        case .edit:
+            guard let chatRoom = chatRoom else { return }
+            titleLabel.text = "채팅방 편집"
+            chatNameTextField.setText(chatRoom.name)
+            descriptionTextView.setText(text: chatRoom.description)
+            for index in chatViewModel.chatOptionArray.indices{
+                if chatRoom.chatOptions.contains(chatViewModel.chatOptionArray[index].chatOption.rawValue){
+                    chatViewModel.chatOptionArray[index].isSelected = true
+                }
+            }
+        case nil:
+            break
+        }
     }
 
     @IBAction func backButtonTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        if self.navigationController == nil {
+            self.dismiss(animated: true)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func confirmButtonTapped(_ sender: Any) {
@@ -65,11 +95,20 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
             chatNameTextField.showAnimation()
         } else {
             Task{
-                let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoomImageView.imageToString(), enterCode: "", hostId: MyProfile.id, participantIds: [MyProfile.id], chatOptions: chatViewModel.selectedChatOptions(), categories: descriptionTextView.hashTagTextArray())
-            
-                let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom)
-                DispatchQueue.main.async {
-                    self.presentChatViewController(chatRoom: response)
+                switch viewType {
+                case .create:
+                    let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoomImageView.imageToString(), enterCode: "", hostId: MyProfile.id, participantIds: [MyProfile.id], chatOptions: chatViewModel.selectedChatOptions(), categories: descriptionTextView.hashTagTextArray())
+                    
+                    let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom)
+                    DispatchQueue.main.async {
+                        self.presentChatViewController(chatRoom: response)
+                    }
+                case .edit:
+                    DispatchQueue.main.async {
+                        self.dismiss(animated: true)
+                    }
+                case nil:
+                    break
                 }
             }
         }

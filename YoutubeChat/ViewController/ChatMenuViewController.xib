@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChatMenuViewController" customModule="YoutubeChat" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundView" destination="bqS-fe-pWA" id="WdY-IY-xby"/>
+                <outlet property="chatRoomEditButton" destination="0Nz-6X-WOv" id="G8H-EH-LjF"/>
+                <outlet property="chatRoomEditButtonTrailingConstraint" destination="4iZ-Ps-1Pq" id="D4U-CG-hkw"/>
+                <outlet property="contentView" destination="6Wr-2x-ssg" id="I8l-Wu-2N7"/>
+                <outlet property="enterCodeShareButton" destination="cYv-Ov-Yw7" id="IjO-Ia-Mbf"/>
+                <outlet property="participantsLabel" destination="bmJ-4C-HOj" id="C5u-5j-cFF"/>
+                <outlet property="profileTableView" destination="0Di-El-UGl" id="ywm-YG-FBv"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqS-fe-pWA">
+                    <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Wr-2x-ssg">
+                    <rect key="frame" x="196.66666666666663" y="0.0" width="196.33333333333337" height="852"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Nz-6X-WOv">
+                            <rect key="frame" x="170.66666666666666" y="58.999999999999993" width="15.666666666666657" height="15.666666666666664"/>
+                            <color key="backgroundColor" systemColor="linkColor"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="0Nz-6X-WOv" secondAttribute="height" multiplier="1:1" id="q35-h9-Sac"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Button" image="edit_icon"/>
+                            <connections>
+                                <action selector="chatRoomEditButtonTapped:" destination="-1" eventType="touchUpInside" id="CYy-2i-3lU"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYv-Ov-Yw7">
+                            <rect key="frame" x="144.00000000000003" y="58.666666666666664" width="16.666666666666657" height="16.666666666666664"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="cYv-Ov-Yw7" secondAttribute="height" multiplier="1:1" id="gyo-zZ-sok"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Button" image="share_icon"/>
+                            <connections>
+                                <action selector="enterCodeShareButtonTapped:" destination="-1" eventType="touchUpInside" id="tW5-B6-zy3"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="대화상대" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmJ-4C-HOj" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
+                            <rect key="frame" x="10" y="79" width="134" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0Di-El-UGl">
+                            <rect key="frame" x="5" y="110" width="186.33333333333334" height="708"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </tableView>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="bmJ-4C-HOj" firstAttribute="leading" secondItem="6Wr-2x-ssg" secondAttribute="leading" constant="10" id="14Z-68-ad1"/>
+                        <constraint firstAttribute="trailing" secondItem="0Nz-6X-WOv" secondAttribute="trailing" constant="10" id="4iZ-Ps-1Pq"/>
+                        <constraint firstItem="0Di-El-UGl" firstAttribute="top" secondItem="bmJ-4C-HOj" secondAttribute="bottom" constant="10" id="EA8-6e-1jt"/>
+                        <constraint firstItem="cYv-Ov-Yw7" firstAttribute="centerY" secondItem="0Nz-6X-WOv" secondAttribute="centerY" id="H9s-Qp-Q78"/>
+                        <constraint firstItem="0Nz-6X-WOv" firstAttribute="leading" secondItem="cYv-Ov-Yw7" secondAttribute="trailing" constant="10" id="QPQ-ec-G9q"/>
+                        <constraint firstItem="0Di-El-UGl" firstAttribute="leading" secondItem="6Wr-2x-ssg" secondAttribute="leading" constant="5" id="Qjr-Jb-1CS"/>
+                        <constraint firstItem="cYv-Ov-Yw7" firstAttribute="width" secondItem="0Nz-6X-WOv" secondAttribute="width" constant="1" id="XUn-9b-7c6"/>
+                        <constraint firstItem="cYv-Ov-Yw7" firstAttribute="leading" secondItem="bmJ-4C-HOj" secondAttribute="trailing" id="etO-ka-jPk"/>
+                        <constraint firstAttribute="trailing" secondItem="0Di-El-UGl" secondAttribute="trailing" constant="5" id="onf-27-SPV"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="6Wr-2x-ssg" secondAttribute="bottom" id="5sm-mL-2h4"/>
+                <constraint firstItem="0Di-El-UGl" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="CUz-fI-H7a"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6Wr-2x-ssg" secondAttribute="trailing" id="E8F-7b-EFW"/>
+                <constraint firstItem="0Nz-6X-WOv" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.04" id="Ehq-gJ-ve3"/>
+                <constraint firstItem="bmJ-4C-HOj" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="Wn5-th-WXg"/>
+                <constraint firstItem="6Wr-2x-ssg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ytp-It-sWW"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bqS-fe-pWA" secondAttribute="bottom" id="cUM-jT-vSu"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="0Nz-6X-WOv" secondAttribute="top" id="fOF-ck-xyv"/>
+                <constraint firstItem="bqS-fe-pWA" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hR6-hq-ogd"/>
+                <constraint firstItem="bqS-fe-pWA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="khQ-4A-9VK"/>
+                <constraint firstItem="6Wr-2x-ssg" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.5" id="mNY-zN-9nY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="bqS-fe-pWA" secondAttribute="trailing" id="ocS-xC-dnK"/>
+            </constraints>
+            <point key="canvasLocation" x="8" y="-11"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="edit_icon" width="512" height="512"/>
+        <image name="share_icon" width="48" height="48"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -14,8 +14,9 @@ protocol ChatRoomImageViewDelegate{
 
 class ChatRoomImageView: UIView {
     
+    var overlayView = UIView()
     var chatRoomImageView = UIImageView()
-    var editButton = UIButton()
+    var editImageView = UIImageView()
     
     var delegate: ChatRoomImageViewDelegate?
     
@@ -39,7 +40,8 @@ class ChatRoomImageView: UIView {
     
     private func configureView(){
         self.addSubview(chatRoomImageView)
-        self.addSubview(editButton)
+        self.addSubview(overlayView)
+        self.addSubview(editImageView)
         
         chatRoomImageView.snp.makeConstraints{ make in
             make.centerX.equalToSuperview()
@@ -48,28 +50,34 @@ class ChatRoomImageView: UIView {
             make.height.equalTo(self.bounds.height * 0.8)
         }
         
-        editButton.snp.makeConstraints{ make in
-            make.trailing.equalTo(chatRoomImageView.snp.trailing).inset(3)
-            make.bottom.equalTo(chatRoomImageView.snp.bottom).inset(5)
-            make.width.equalTo(self.bounds.height * 0.15)
-            make.height.equalTo(self.bounds.height * 0.15)
+        overlayView.snp.makeConstraints{ make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalTo(self.bounds.width * 0.8)
+            make.height.equalTo(self.bounds.height * 0.8)
         }
         
-        chatRoomImageView.layer.cornerRadius = self.bounds.height / 10
+        editImageView.snp.makeConstraints{ make in
+            make.centerX.equalToSuperview()
+            make.centerY.equalToSuperview()
+            make.width.equalTo(self.bounds.width * 0.2)
+            make.height.equalTo(self.bounds.width * 0.2)
+        }
+        
+        overlayView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+        
+        let editImage = UIImage(named: "edit_image_icon")?.withRenderingMode(.alwaysTemplate)
+        editImageView.image = editImage
+        editImageView.tintColor = .white
+        
+        chatRoomImageView.contentMode = .scaleAspectFill
         chatRoomImageView.clipsToBounds = true
+
+        chatRoomImageView.layer.cornerRadius = self.bounds.height * 0.08
+        overlayView.layer.cornerRadius = self.bounds.height * 0.08
         
-        chatRoomImageView.backgroundColor = Colors.pastelBlue
-        
-        if let editButtonImage = UIImage(named: "plus") {
-            let rederingImage = editButtonImage.withRenderingMode(.alwaysTemplate)
-            editButton.setBackgroundImage(rederingImage, for: .normal)
-            editButton.setBackgroundImage(rederingImage, for: .highlighted)
-        }
-        
-        editButton.tintColor = UIColor(white: 0, alpha: 0.8)
-        
-        editButton.addTarget(self, action: #selector(editButtonTouchUp(_:)), for: .touchUpInside)
-        editButton.addTarget(self, action: #selector(editButtonTouchDown(_:)), for: .touchDown)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(editViewTapped(_:)))
+        overlayView.addGestureRecognizer(tapGesture)
     }
     
     func setImage(_ image: UIImage){
@@ -89,19 +97,8 @@ class ChatRoomImageView: UIView {
     }
     
     @objc
-    func editButtonTouchUp(_ sender: UIButton){
-        UIView.animate(withDuration: 0.1, animations: {
-            self.editButton.tintColor = UIColor(white: 0, alpha: 0.8)
-        }, completion: { _ in
-            self.delegate?.editButtonTapped()
-        })
-    }
-    
-    @objc
-    func editButtonTouchDown(_ sender: UIButton){
-        UIView.animate(withDuration: 0.1, animations: {
-            self.editButton.tintColor = Colors.gray
-        })
+    func editViewTapped(_ sender: UITapGestureRecognizer){
+        self.delegate?.editButtonTapped()
     }
     
     func imageToString()-> String{

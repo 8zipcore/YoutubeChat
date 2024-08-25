@@ -13,6 +13,10 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
         case profile, background
     }
     
+    enum ViewType{
+        case create, myProfile, userProfile
+    }
+    
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet var editTopBarView: UIView!
     @IBOutlet weak var bottomView: UIView!
@@ -36,6 +40,9 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
     
     private var imageType: ImageType?
     
+    var viewType: ViewType?
+    var user: User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -52,6 +59,7 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
         descriptionLabel.lineBreakMode = .byCharWrapping
         descriptionLabel.setLabel(textColor: .white, fontSize: 15)
         
+        backgroundImageView.isUserInteractionEnabled = true
         backgroundImageView.contentMode = .scaleAspectFill
         let backgroundImageViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundImageViewTapped(_:)))
         backgroundImageView.addGestureRecognizer(backgroundImageViewTapGestureRecognizer)
@@ -73,12 +81,28 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
         editTopBarView.frame = topBarView.frame
         self.view.addSubview(editTopBarView)
         
-        setMyProfile()
-        setEditMode(false)
+        setProfile()
+        
+        switch viewType {
+        case .create:
+            setEditMode(true)
+        case .myProfile:
+            setEditMode(false)
+        case .userProfile:
+            setEditMode(false)
+            profileEditButton.isHidden = true
+        case nil:
+            break
+        }
     }
     
     @IBAction func dismissButtonTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        if self.navigationController == nil {
+            self.dismiss(animated: true)
+        } else {
+            self.navigationController?.popViewController(animated: true)
+        }
+
     }
     
     @objc func profileEditButtonTapped(_ sender: UITapGestureRecognizer){
@@ -87,13 +111,14 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
     
     @IBAction func editCancelButtonTapped(_ sender: Any) {
         setEditMode(false)
-        setMyProfile()
+        setProfile()
     }
     
     @IBAction func editEndedButtonTapped(_ sender: Any) {
+        guard let user = user else { print("🌀 user data is nil "); return }
         setEditMode(false)
         Task{
-            let user = User(id: MyProfile.id,
+            let user = User(id: user.id,
                             name: nameLabel.text ?? "",
                             description: descriptionLabel.text ?? "",
                             image: profileImageView.imageToString(),
@@ -132,15 +157,25 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
         editButtonArray.forEach{
             $0.isHidden = !isEdit
         }
-        
-        backgroundImageView.isUserInteractionEnabled = isEdit
     }
     
-    private func setMyProfile(){
-        nameLabel.text = MyProfile.name
-        descriptionLabel.text = MyProfile.description
-        profileImageView.setImage(MyProfile.image ?? UIImage())
-        backgroundImageView.image = MyProfile.backgroundImage
+    private func isEditMode()-> Bool{
+        return topBarView.isHidden ? true : false
+    }
+    
+    private func setProfile(){
+        guard let user = user else { print("🌀 user data is nil "); return }
+        nameLabel.text = user.name
+        descriptionLabel.text = user.description
+        profileImageView.setImage(user.image)
+        backgroundImageView.setImage(imageString: user.backgroundImage)
+    }
+    
+    private func presentImageViewController(_ image: UIImage?){
+        let vc = ImageViewController()
+        vc.image = image
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
     }
 }
 
@@ -156,14 +191,24 @@ extension ProfileInfoViewController: EditProfileTextViewControllerDelegate{
 }
 
 extension ProfileInfoViewController: ProfileImageViewDelegate{
+    func profileImageViewTapped() {
+        presentImageViewController(profileImageView.image)
+    }
+    
     func editButtonTapped() {
         imageType = .profile
         presentAlert()
     }
     
     @objc func backgroundImageViewTapped(_ sender: UITapGestureRecognizer){
-        imageType = .background
-        presentAlert()
+        if isEditMode(){
+            imageType = .background
+            presentAlert()
+        } else {
+            if let image = backgroundImageView.image{
+                presentImageViewController(image)
+            }
+        }
     }
     
     private func presentAlert(){

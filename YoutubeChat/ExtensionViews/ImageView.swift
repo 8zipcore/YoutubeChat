@@ -13,7 +13,7 @@ extension UIImageView{
     }
     
     func imageToString() -> String{
-        guard let imageData = self.image?.pngData() else { return "" }
+        guard let image = self.image, let imageData = image.pngData()  else { return "" }
         return imageData.base64EncodedString()
     }
     

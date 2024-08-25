@@ -118,6 +118,12 @@ class InputTextView: UIView{
         self.maxLength = maxLength
     }
     
+    func setText(text: String){
+        self.textView.text = text
+        self.placeHolderLabel.text = ""
+        self.lengthLabel.text = "\(text.count)/\(maxLength)"
+    }
+    
     func setLengthLabel(){
         lengthLabel.text = "\(textView.text?.count ?? 0)/\(maxLength)"
     }
