@@ -23,14 +23,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7v3-3q-7Jy" customClass="URLInputTextField" customModule="YoutubeChat" customModuleProvider="target">
-                    <rect key="frame" x="10" y="74" width="338.66666666666669" height="40"/>
+                    <rect key="frame" x="10" y="74" width="328.66666666666669" height="40"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="LOG-d6-0uu"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="niA-om-Enf">
-                    <rect key="frame" x="353.66666666666669" y="74" width="39.333333333333314" height="40"/>
+                    <rect key="frame" x="343.66666666666669" y="74" width="39.333333333333314" height="40"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="취소">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -66,7 +66,7 @@
                 <constraint firstItem="4Ba-Ya-tMK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="BLx-Q0-0Dl"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="4Ba-Ya-tMK" secondAttribute="bottom" id="FiS-6J-CD4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4Ba-Ya-tMK" secondAttribute="trailing" id="L5a-pH-1Fl"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="niA-om-Enf" secondAttribute="trailing" id="Ms7-kk-d54"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="niA-om-Enf" secondAttribute="trailing" constant="10" id="Ms7-kk-d54"/>
                 <constraint firstItem="y3k-kk-zkU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="NpF-pM-p0q"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="y3k-kk-zkU" secondAttribute="trailing" constant="15" id="XSt-uj-07M"/>
                 <constraint firstItem="y3k-kk-zkU" firstAttribute="top" secondItem="7v3-3q-7Jy" secondAttribute="bottom" constant="10" id="ayf-cW-WlV"/>

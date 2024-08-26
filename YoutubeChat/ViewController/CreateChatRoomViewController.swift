@@ -42,6 +42,7 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         descriptionTextViewHeightConstraint.constant = descriptionTextView.estimatedHeight()
+        chatOptionCollectionViewHeight.constant = chatOptionCollectionView.contentSize.height
     }
     
     private func configureView(){
@@ -54,6 +55,13 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
         chatOptionCollectionView.dataSource = self
         chatOptionCollectionView.delegate = self       
         chatOptionCollectionView.register(ChatOptionCollectionViewCell.self, forCellWithReuseIdentifier: ChatOptionCollectionViewCell.identifier)
+        
+        let layout = LeftAlignedFlowLayout()
+        layout.minimumInteritemSpacing = cellSpacing // 셀 사이의 간격
+        layout.minimumLineSpacing = 10      // 줄 사이의 간격
+        layout.sectionInset = .zero
+
+        chatOptionCollectionView.collectionViewLayout = layout
         
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
@@ -133,7 +141,7 @@ extension CreateChatRoomViewController: UICollectionViewDataSource{
              return UICollectionViewCell()
         }
         let option = chatViewModel.chatOptionArray[indexPath.item]
-        cell.configureView(title: option.title, isSelected: option.isSelected)
+        cell.configureView(image: nil, title: option.title, isSelected: option.isSelected)
         return cell
     }
 }
@@ -141,7 +149,7 @@ extension CreateChatRoomViewController: UICollectionViewDataSource{
 extension CreateChatRoomViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let option = chatViewModel.chatOptionArray[indexPath.item]
-        return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, title: option.title, isSelected: option.isSelected)
+        return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, image: nil, title: option.title, isSelected: option.isSelected)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

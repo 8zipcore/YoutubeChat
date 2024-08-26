@@ -58,6 +58,7 @@
 		3695D4642C3F863000AEAC73 /* ChatRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3695D4632C3F863000AEAC73 /* ChatRoom.swift */; };
 		3695D4672C3FABF400AEAC73 /* YoutubeChat.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3695D4652C3FABF400AEAC73 /* YoutubeChat.xcdatamodeld */; };
 		3695D46E2C3FB02F00AEAC73 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3695D46D2C3FB02F00AEAC73 /* CoreDataManager.swift */; };
+		36A418612C7CA25700A1E951 /* CollcetionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36A418602C7CA25700A1E951 /* CollcetionView.swift */; };
 		36AAECAD2C198E3D00532AF5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AAECAC2C198E3D00532AF5 /* AppDelegate.swift */; };
 		36AAECAF2C198E3D00532AF5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AAECAE2C198E3D00532AF5 /* SceneDelegate.swift */; };
 		36AAECB62C198E3E00532AF5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 36AAECB52C198E3E00532AF5 /* Assets.xcassets */; };
@@ -176,6 +177,7 @@
 		3695D4632C3F863000AEAC73 /* ChatRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRoom.swift; sourceTree = "<group>"; };
 		3695D4662C3FABF400AEAC73 /* YoutubeChat.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = YoutubeChat.xcdatamodel; sourceTree = "<group>"; };
 		3695D46D2C3FB02F00AEAC73 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		36A418602C7CA25700A1E951 /* CollcetionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollcetionView.swift; sourceTree = "<group>"; };
 		36AAECA92C198E3D00532AF5 /* YoutubeChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YoutubeChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36AAECAC2C198E3D00532AF5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		36AAECAE2C198E3D00532AF5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 				3655CB2A2C23041A0037F3DC /* Color.swift */,
 				3639746D2C37D9CF009C96CF /* ScrollView.swift */,
 				361102BE2C3E7CC200046BE1 /* ImageView.swift */,
+				36A418602C7CA25700A1E951 /* CollcetionView.swift */,
 			);
 			path = ExtensionViews;
 			sourceTree = "<group>";
@@ -728,6 +731,7 @@
 				368F7D202C296CC100A848CE /* ChatOption.swift in Sources */,
 				361102C12C3EA17000046BE1 /* ChatViewModel.swift in Sources */,
 				366BA3612C79A17F00AAEFC9 /* BaseViewController.swift in Sources */,
+				36A418612C7CA25700A1E951 /* CollcetionView.swift in Sources */,
 				36AAECE22C19A1A700532AF5 /* MainViewController.swift in Sources */,
 				3659B6192C70DEA0004327DF /* SearchChatRoomViewController.swift in Sources */,
 				367EF3F12C5F5AD1009232C1 /* InputTextView.swift in Sources */,

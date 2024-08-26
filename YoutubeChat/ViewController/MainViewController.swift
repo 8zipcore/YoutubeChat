@@ -173,10 +173,11 @@ extension MainViewController: UICollectionViewDataSource{
         }
         
         if indexPath.item == 0{
-            cell.configureView(title: "검색", isSelected: false)
+            let image = UIImage(named: "search_icon")
+            cell.configureView(image: image, title: "검색", isSelected: true)
         } else {
             let category = searchViewModel.top5Categories[indexPath.item - 1]
-            cell.configureView(title: category.title, isSelected: category.isSelected)
+            cell.configureView(image: nil, title: category.title, isSelected: category.isSelected)
         }
         
         return cell
@@ -186,10 +187,11 @@ extension MainViewController: UICollectionViewDataSource{
 extension MainViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item == 0 {
-            return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, title: "검색", isSelected: false)
+            let image = UIImage(named: "search_icon")
+            return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, image: image, title: "검색", isSelected: false)
         } else {
             let category = searchViewModel.top5Categories[indexPath.item - 1]
-            return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, title: category.title, isSelected: category.isSelected)
+            return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, image: nil, title: category.title, isSelected: category.isSelected)
         }
     }
     

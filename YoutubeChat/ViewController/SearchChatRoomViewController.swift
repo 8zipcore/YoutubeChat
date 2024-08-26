@@ -47,13 +47,22 @@ class SearchChatRoomViewController: BaseViewController {
 
 extension SearchChatRoomViewController: URLInputTextFieldDelegate{
     func textFieldDidChange(_ text: String) {
-        Task{
-            let response = try await searchViewModel.searchChatRoom(text, searchViewModel.selectedChatOptionArray())
-            searchViewModel.chatRoomArray = response
-            DispatchQueue.main.async{
-                self.groupChatTableView.reloadData()
+        if text.count > 0 {
+            Task{
+                let response = try await searchViewModel.searchChatRoom(text, searchViewModel.selectedChatOptionArray())
+                searchViewModel.chatRoomArray = response
+                DispatchQueue.main.async{
+                    self.groupChatTableView.reloadData()
+                }
             }
         }
+        
+        self.textField.button.isHidden = text.count > 0 ? false : true
+    }
+    
+    func buttonTapped() {
+        self.textField.setText("")
+        self.textField.button.isHidden = true
     }
 }
 
@@ -92,7 +101,7 @@ extension SearchChatRoomViewController: UICollectionViewDataSource{
              return UICollectionViewCell()
         }
         let option = searchViewModel.chatOptionArray[indexPath.item]
-        cell.configureView(title: option.title, isSelected: option.isSelected)
+        cell.configureView(image: nil, title: option.title, isSelected: option.isSelected)
         return cell
     }
 }
@@ -100,7 +109,7 @@ extension SearchChatRoomViewController: UICollectionViewDataSource{
 extension SearchChatRoomViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let category = searchViewModel.chatOptionArray[indexPath.item]
-        return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, title: category.title, isSelected: category.isSelected)
+        return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, image: nil, title: category.title, isSelected: category.isSelected)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {

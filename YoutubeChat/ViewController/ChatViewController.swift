@@ -14,10 +14,12 @@ class ChatViewController: BaseViewController {
     @IBOutlet weak var chatTableView: UITableView!
     @IBOutlet weak var chatTextView: ChatTextView!
     @IBOutlet weak var youtubeView: YoutubeView!
-
+    @IBOutlet weak var youtubeButton: UIButton!
+    
     @IBOutlet weak var youtubeViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var chatTextViewHeightContraint: NSLayoutConstraint!
     @IBOutlet weak var messageInputViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var youtubeButtonBottomConstraint: NSLayoutConstraint!
     
     private let messageInputViewBottomMargin: CGFloat = 7
     private var keyboardAnimationDuraion: CGFloat = 0
@@ -53,9 +55,13 @@ class ChatViewController: BaseViewController {
         }
         
         NotificationCenter.default.removeObserver(self)
-        /*
-        NotificationCenter.default.removeObserver(self, name: .receiveVideo, object: nil)
-        NotificationCenter.default.removeObserver(self, name: .receiveMessage, object: nil)*/
+    }
+    
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        
+        self.chatTextViewHeightContraint.constant = chatTextView.estimatedHeight()
+        self.youtubeButtonBottomConstraint.constant = (self.chatTextViewHeightContraint.constant -  self.youtubeButton.bounds.height) / 2
     }
     
     private func configureView(){
@@ -66,8 +72,6 @@ class ChatViewController: BaseViewController {
         self.chatTableView.delegate = self
         
         self.chatTextView.delegate = self
-                
-        self.chatTextViewHeightContraint.constant = self.view.bounds.height * 0.04
         
         chatTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:))))
         
@@ -104,22 +108,6 @@ class ChatViewController: BaseViewController {
                 print("🌀 채팅방 나가기 실패")
             }
         }
-    }
-
-    @IBAction func backButtonTapped(_ sender: Any) {
-        isBackButtonClicked = true
-        leave()
-    }
-    
-    @IBAction func testButtonTapped(_ sender: Any) {
-
-    }
-    
-    @IBAction func menuButtonTapped(_ sender: Any) {
-        let vc = ChatMenuViewController()
-        vc.chatRoom = chatRoom
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: true)
     }
     
     @objc func receiveData(_ notification: Notification){
@@ -191,6 +179,39 @@ class ChatViewController: BaseViewController {
                 isEnter = false
             }
         }
+    }
+}
+// MARK: ButtonTapped
+extension ChatViewController{
+    @IBAction func backButtonTapped(_ sender: Any) {
+        isBackButtonClicked = true
+        leave()
+    }
+    
+    @IBAction func testButtonTapped(_ sender: Any) {
+
+    }
+    
+    @IBAction func menuButtonTapped(_ sender: Any) {
+        let vc = ChatMenuViewController()
+        vc.chatRoom = chatRoom
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: true)
+    }
+    
+    @IBAction func youtubeButtonTapped(_ sender: Any) {
+        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
+        
+        let vc = PlaylistViewController()
+        vc.chatViewModel = self.chatViewModel
+        vc.youtubeViewModel = self.youtubeViewModel
+        
+        let frame = self.youtubeView.convert(self.view.frame, to: nil)
+        vc.yPoint = frame.minY + self.view.bounds.width * 9 / 16
+        vc.chatRoom = chatRoom
+        
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: true)
     }
 }
 // MARK: UITableViewDataSource
@@ -335,7 +356,7 @@ extension ChatViewController: UITableViewDelegate{
 
 // MARK: ChatTextViewDelegate
 extension ChatViewController: ChatTextViewDelegate{
-    func sendButtonTapped(_ sender: UIButton) {
+    func sendButtonTapped() {
         if chatTextView.isBlank {
             return
         }
@@ -343,25 +364,6 @@ extension ChatViewController: ChatTextViewDelegate{
         let message = Message(chatRoomId: chatRoom!.id!, senderId: MyProfile.id, messageType: .text, text: chatTextView.text, isRead: true)
         chatViewModel.sendMessage(message)
         chatTextView.resetText()
-    }
-    
-    func galleryButtonTapped(_ sender: UIButton) {
-        print("갤러리 버튼")
-    }
-    
-    func youtubeButtonTapped(_ sender: UIButton) {
-        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
-        
-        let vc = PlaylistViewController()
-        vc.chatViewModel = self.chatViewModel
-        vc.youtubeViewModel = self.youtubeViewModel
-        
-        let frame = self.youtubeView.convert(self.view.frame, to: nil)
-        vc.yPoint = frame.minY + self.view.bounds.width * 9 / 16
-        vc.chatRoom = chatRoom
-        
-        vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: true)
     }
     
     func setChatTextViewHeight(_ height: CGFloat) {

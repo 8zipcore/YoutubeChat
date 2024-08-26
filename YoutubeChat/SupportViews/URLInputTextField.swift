@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 @objc protocol URLInputTextFieldDelegate{
-    @objc optional func addButtonTapped()
+    @objc optional func buttonTapped()
     @objc optional func textFieldDidChange(_ text: String)
 }
 
@@ -20,7 +20,9 @@ class URLInputTextField: UIView {
     }
 
     var textField = UITextField()
-    var addButton = UIButton()
+    var button = UIButton()
+    
+    private var buttonWidthMultiplier: CGFloat = 0.6
     
     var text: String{
         return textField.text ?? ""
@@ -39,12 +41,14 @@ class URLInputTextField: UIView {
                 imageName = "plus"
                 placeHolder = "유튜브 url을 입력해주세요."
             case .search:
-                imageName = "plus"
+                imageName = "gray_xmark"
                 placeHolder = "검색"
+                buttonWidthMultiplier = 0.4
+                button.isHidden = true
             case .none:
                 break
             }
-            addButton.setImage(UIImage(named: imageName), for: .normal)
+            button.setImage(UIImage(named: imageName), for: .normal)
             textField.attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: [NSAttributedString.Key.foregroundColor : Colors.gray])
         }
     }
@@ -65,9 +69,17 @@ class URLInputTextField: UIView {
         super.init(coder: coder)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        button.snp.makeConstraints{ make in
+            make.width.equalTo(self.bounds.height * buttonWidthMultiplier)
+            make.height.equalTo(self.bounds.height * buttonWidthMultiplier)
+        }
+    }
+    
     func configureView(){
         self.addSubview(textField)
-        self.addSubview(addButton)
+        self.addSubview(button)
         
         textField.snp.makeConstraints{ make in
             make.top.equalToSuperview()
@@ -75,12 +87,10 @@ class URLInputTextField: UIView {
             make.leading.equalToSuperview().inset(15)
         }
         
-        addButton.snp.makeConstraints{ make in
+        button.snp.makeConstraints{ make in
             make.leading.equalTo(textField.snp.trailing).inset(-10)
             make.trailing.equalToSuperview().inset(10)
             make.centerY.equalToSuperview()
-            make.width.equalTo(self.bounds.height * 0.6)
-            make.height.equalTo(self.bounds.height * 0.6)
         }
         
         self.backgroundColor = Colors.lightGray
@@ -91,24 +101,25 @@ class URLInputTextField: UIView {
         textField.tintColor = Colors.gray
         textField.delegate = self
         
-        addButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(addButtonTapped(_:))))
+        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(buttonTapped(_:))))
     }
     
-    @objc func addButtonTapped(_ sender: UITapGestureRecognizer){
+    @objc func buttonTapped(_ sender: UITapGestureRecognizer){
         // guard let button = sender.view as? UIButton else { return }
-        delegate?.addButtonTapped?()
+        delegate?.buttonTapped?()
     }
     
     func hideKeyboard(){
         textField.resignFirstResponder()
     }
+    
+    func setText(_ text: String){
+        self.textField.text = text
+    }
 }
 
 extension URLInputTextField: UITextFieldDelegate{
     func textFieldDidChangeSelection(_ textField: UITextField) {
-        if textField.text?.count  == 0{
-            return
-        }
         delegate?.textFieldDidChange?(textField.text!)
     }
 }

@@ -77,7 +77,7 @@ class ProfileImageView: UIView {
         
         profileImageView.clipsToBounds = true
         
-        profileImageView.backgroundColor = Colors.pastelBlue
+        profileImageView.backgroundColor = Colors.skyBlue
         
         editButton.setImage(UIImage(named: "camera_icon"), for: .normal)
 

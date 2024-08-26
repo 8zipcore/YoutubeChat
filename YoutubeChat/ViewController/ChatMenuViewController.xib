@@ -34,19 +34,19 @@
                     <rect key="frame" x="196.66666666666663" y="0.0" width="196.33333333333337" height="852"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Nz-6X-WOv">
-                            <rect key="frame" x="170.66666666666666" y="58.999999999999993" width="15.666666666666657" height="15.666666666666664"/>
-                            <color key="backgroundColor" systemColor="linkColor"/>
+                            <rect key="frame" x="162.66666666666666" y="58.999999999999993" width="23.666666666666657" height="23.666666666666664"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="0Nz-6X-WOv" secondAttribute="height" multiplier="1:1" id="q35-h9-Sac"/>
                             </constraints>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" title="Button" image="edit_icon"/>
+                            <state key="normal" title="Button" image="edit_profile_icon"/>
                             <connections>
                                 <action selector="chatRoomEditButtonTapped:" destination="-1" eventType="touchUpInside" id="CYy-2i-3lU"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cYv-Ov-Yw7">
-                            <rect key="frame" x="144.00000000000003" y="58.666666666666664" width="16.666666666666657" height="16.666666666666664"/>
+                            <rect key="frame" x="128.33333333333334" y="58.666666666666664" width="24.333333333333343" height="24.333333333333336"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="cYv-Ov-Yw7" secondAttribute="height" multiplier="1:1" id="gyo-zZ-sok"/>
                             </constraints>
@@ -57,7 +57,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="대화상대" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bmJ-4C-HOj" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="10" y="79" width="134" height="21"/>
+                            <rect key="frame" x="9.9999999999999929" y="79" width="118.33333333333331" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -87,7 +87,7 @@
                 <constraint firstAttribute="bottom" secondItem="6Wr-2x-ssg" secondAttribute="bottom" id="5sm-mL-2h4"/>
                 <constraint firstItem="0Di-El-UGl" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" id="CUz-fI-H7a"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="6Wr-2x-ssg" secondAttribute="trailing" id="E8F-7b-EFW"/>
-                <constraint firstItem="0Nz-6X-WOv" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.04" id="Ehq-gJ-ve3"/>
+                <constraint firstItem="0Nz-6X-WOv" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.06" id="Ehq-gJ-ve3"/>
                 <constraint firstItem="bmJ-4C-HOj" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="Wn5-th-WXg"/>
                 <constraint firstItem="6Wr-2x-ssg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Ytp-It-sWW"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="bqS-fe-pWA" secondAttribute="bottom" id="cUM-jT-vSu"/>
@@ -101,11 +101,8 @@
         </view>
     </objects>
     <resources>
-        <image name="edit_icon" width="512" height="512"/>
-        <image name="share_icon" width="48" height="48"/>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="edit_profile_icon" width="58" height="58"/>
+        <image name="share_icon" width="58" height="58"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

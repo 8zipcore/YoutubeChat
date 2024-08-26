@@ -53,8 +53,8 @@ class EditImageViewController: UIViewController {
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 3.0
         
-        cancelButton.tintColor = Colors.trueBlue
-        confirmButton.tintColor = Colors.trueBlue
+        cancelButton.tintColor = .white
+        confirmButton.tintColor = .white
         
         self.editView.clipsToBounds = true
     }

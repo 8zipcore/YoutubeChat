@@ -145,7 +145,7 @@
                         <constraint firstAttribute="width" secondItem="PFu-Fg-pUu" secondAttribute="height" multiplier="1:1" id="3PZ-xM-PDn"/>
                     </constraints>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Button" image="plusCircleIcon"/>
+                    <state key="normal" title="Button" image="plus_icon"/>
                     <connections>
                         <action selector="creatGroupChatButtonTapped:" destination="-1" eventType="touchUpInside" id="ssR-hF-ukf"/>
                     </connections>
@@ -175,7 +175,7 @@
         </view>
     </objects>
     <resources>
-        <image name="plusCircleIcon" width="202" height="202"/>
+        <image name="plus_icon" width="202" height="202"/>
         <image name="refresh_icon" width="70" height="70"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

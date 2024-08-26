@@ -26,7 +26,7 @@ class GroupChatTableViewCell: UITableViewCell {
         chatImageView.contentMode = .scaleAspectFill
         chatImageView.clipsToBounds = true
         chatImageView.layer.cornerRadius = (self.bounds.height * 0.77) / 2.5
-        chatImageView.backgroundColor = Colors.pastelBlue
+        chatImageView.backgroundColor = Colors.skyBlue
         
         chatNameLabel.setLabel(textColor: .black, fontStyle: .semibold, fontSize: 15)
         peopleNumberLabel.setLabel(textColor: .darkGray, fontSize: 13)

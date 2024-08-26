@@ -27,15 +27,6 @@ class ChatMenuViewController: UIViewController {
     }
     
     private func configureView(){
-        if let editImage = UIImage(named: "edit_icon")?.withRenderingMode(.alwaysTemplate),
-            let shareImage = UIImage(named: "share_icon")?.withRenderingMode(.alwaysTemplate){
-            chatRoomEditButton.setImage(editImage, for: .normal)
-            enterCodeShareButton.setImage(shareImage, for: .normal)
-        }
-        chatRoomEditButton.tintColor = Colors.gray
-        chatRoomEditButton.backgroundColor = .clear
-        enterCodeShareButton.tintColor = Colors.gray
-        
         participantsLabel.setLabel(textColor: .black, fontSize: 15)
         
         profileTableView.register(UINib(nibName: ProfileTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileTableViewCell.identifier)
