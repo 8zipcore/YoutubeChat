@@ -57,7 +57,7 @@ class ChatTextView: UIView {
                 make.height.equalTo(sendButtonWidth)
             }
             
-            self.layer.cornerRadius = self.bounds.height / 2.5
+            self.layer.cornerRadius = self.bounds.height / 2
             
             isInitView = true
         }
@@ -70,7 +70,7 @@ class ChatTextView: UIView {
         textView.snp.makeConstraints{ make in
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().inset(5)
         }
         
         sendButton.snp.makeConstraints{ make in
@@ -78,16 +78,17 @@ class ChatTextView: UIView {
             make.trailing.equalToSuperview().inset(5)
         }
         
-        self.backgroundColor = Colors.lightGray
+        self.backgroundColor = UIColor(white: 1, alpha: 0.2)
         self.clipsToBounds = true
         
         textView.font = SDGothic(size: 15)
-        textView.textColor = .black
+        textView.textColor = .white
         textView.tintColor = Colors.gray
         textView.delegate = self
         textView.backgroundColor = .clear
         
         sendButton.setImage(UIImage(named: "send_icon"), for: .normal)
+        sendButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(sendButtonTapped(_:))))
         
         self.layoutIfNeeded()
     }

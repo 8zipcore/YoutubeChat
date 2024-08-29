@@ -75,6 +75,8 @@
 		36AF12DF2C2D084600166FBE /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AF12DE2C2D084600166FBE /* Message.swift */; };
 		36AF12E12C2D088900166FBE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36AF12E02C2D088900166FBE /* User.swift */; };
 		36B3AFD32C5A7B980050BF94 /* URLInputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36B3AFD22C5A7B980050BF94 /* URLInputTextField.swift */; };
+		36BEF3962C7F6F9B00631D17 /* TransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BEF3952C7F6F9B00631D17 /* TransitionAnimation.swift */; };
+		36BEF3982C7F709100631D17 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36BEF3972C7F709100631D17 /* BaseNavigationController.swift */; };
 		36C1F2202C6F33310053B164 /* ProfileInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1F21E2C6F33310053B164 /* ProfileInfoViewController.swift */; };
 		36C1F2212C6F33310053B164 /* ProfileInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36C1F21F2C6F33310053B164 /* ProfileInfoViewController.xib */; };
 		36C1F4392C40BE69003CD06D /* WebSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C1F4382C40BE69003CD06D /* WebSocketManager.swift */; };
@@ -98,6 +100,8 @@
 		36E4CE842C6F90CD00105F62 /* EditProfileTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E4CE822C6F90CD00105F62 /* EditProfileTextViewController.swift */; };
 		36E4CE852C6F90CD00105F62 /* EditProfileTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E4CE832C6F90CD00105F62 /* EditProfileTextViewController.xib */; };
 		36E4F9F42C33F31300EC9285 /* YoutubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E4F9F32C33F31300EC9285 /* YoutubeView.swift */; };
+		36EDC6412C803ADF00FF92DD /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EDC6402C803ADF00FF92DD /* SearchTextField.swift */; };
+		36EDC6432C8051C000FF92DD /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EDC6422C8051C000FF92DD /* ClearButton.swift */; };
 		36F351A62C351A3B0055BF64 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F351A42C351A3B0055BF64 /* PlaylistViewController.swift */; };
 		36F351A72C351A3B0055BF64 /* PlaylistViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36F351A52C351A3B0055BF64 /* PlaylistViewController.xib */; };
 		36F351AA2C351C940055BF64 /* PlayListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F351A82C351C940055BF64 /* PlayListTableViewCell.swift */; };
@@ -198,6 +202,8 @@
 		36AF12DE2C2D084600166FBE /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		36AF12E02C2D088900166FBE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		36B3AFD22C5A7B980050BF94 /* URLInputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLInputTextField.swift; sourceTree = "<group>"; };
+		36BEF3952C7F6F9B00631D17 /* TransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionAnimation.swift; sourceTree = "<group>"; };
+		36BEF3972C7F709100631D17 /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		36C1F21E2C6F33310053B164 /* ProfileInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfoViewController.swift; sourceTree = "<group>"; };
 		36C1F21F2C6F33310053B164 /* ProfileInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileInfoViewController.xib; sourceTree = "<group>"; };
 		36C1F4382C40BE69003CD06D /* WebSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocketManager.swift; sourceTree = "<group>"; };
@@ -221,6 +227,8 @@
 		36E4CE822C6F90CD00105F62 /* EditProfileTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTextViewController.swift; sourceTree = "<group>"; };
 		36E4CE832C6F90CD00105F62 /* EditProfileTextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditProfileTextViewController.xib; sourceTree = "<group>"; };
 		36E4F9F32C33F31300EC9285 /* YoutubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeView.swift; sourceTree = "<group>"; };
+		36EDC6402C803ADF00FF92DD /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
+		36EDC6422C8051C000FF92DD /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
 		36F351A42C351A3B0055BF64 /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
 		36F351A52C351A3B0055BF64 /* PlaylistViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlaylistViewController.xib; sourceTree = "<group>"; };
 		36F351A82C351C940055BF64 /* PlayListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListTableViewCell.swift; sourceTree = "<group>"; };
@@ -305,6 +313,9 @@
 				36E4F9F32C33F31300EC9285 /* YoutubeView.swift */,
 				367EF3EE2C5F506A009232C1 /* ChatRoomImageView.swift */,
 				3659B6152C708806004327DF /* ImageButton.swift */,
+				36BEF3952C7F6F9B00631D17 /* TransitionAnimation.swift */,
+				36EDC6402C803ADF00FF92DD /* SearchTextField.swift */,
+				36EDC6422C8051C000FF92DD /* ClearButton.swift */,
 			);
 			path = SupportViews;
 			sourceTree = "<group>";
@@ -423,6 +434,7 @@
 				366BA3632C79FEE300AAEFC9 /* ChatMenuViewController.xib */,
 				36AE4E032C7A2B000027D442 /* ImageViewController.swift */,
 				36AE4E042C7A2B000027D442 /* ImageViewController.xib */,
+				36BEF3972C7F709100631D17 /* BaseNavigationController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -721,8 +733,10 @@
 				361B067A2C1AC96300BD529B /* Font.swift in Sources */,
 				3653CB0A2C4CFA75009711F0 /* MyChat.swift in Sources */,
 				36AE4DFD2C7A04570027D442 /* ProfileTableViewCell.swift in Sources */,
+				36EDC6412C803ADF00FF92DD /* SearchTextField.swift in Sources */,
 				3625B0C42C2BEF8100947E07 /* ChatWithProfileTableViewCell.swift in Sources */,
 				368F7D232C296F3400A848CE /* ProfileViewController.swift in Sources */,
+				36EDC6432C8051C000FF92DD /* ClearButton.swift in Sources */,
 				36AF12E12C2D088900166FBE /* User.swift in Sources */,
 				36AF12DF2C2D084600166FBE /* Message.swift in Sources */,
 				36C3A2AE2C1B401D008AE26F /* GroupChatTableViewCell.swift in Sources */,
@@ -731,6 +745,7 @@
 				368F7D202C296CC100A848CE /* ChatOption.swift in Sources */,
 				361102C12C3EA17000046BE1 /* ChatViewModel.swift in Sources */,
 				366BA3612C79A17F00AAEFC9 /* BaseViewController.swift in Sources */,
+				36BEF3962C7F6F9B00631D17 /* TransitionAnimation.swift in Sources */,
 				36A418612C7CA25700A1E951 /* CollcetionView.swift in Sources */,
 				36AAECE22C19A1A700532AF5 /* MainViewController.swift in Sources */,
 				3659B6192C70DEA0004327DF /* SearchChatRoomViewController.swift in Sources */,
@@ -749,6 +764,7 @@
 				3695D4672C3FABF400AEAC73 /* YoutubeChat.xcdatamodeld in Sources */,
 				36F351A62C351A3B0055BF64 /* PlaylistViewController.swift in Sources */,
 				3653CB082C4CEE73009711F0 /* ResponseData.swift in Sources */,
+				36BEF3982C7F709100631D17 /* BaseNavigationController.swift in Sources */,
 				3602746D2C2E6F4D00A377FD /* ChatTableViewCell.swift in Sources */,
 				3639746E2C37D9CF009C96CF /* ScrollView.swift in Sources */,
 				366BA3642C79FEE300AAEFC9 /* ChatMenuViewController.swift in Sources */,

@@ -57,7 +57,7 @@
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="35" id="83s-fp-yQs"/>
                         <constraint firstItem="3bu-jj-osk" firstAttribute="centerY" secondItem="oeD-bG-ahM" secondAttribute="centerY" id="caZ-8b-Iqz"/>
@@ -82,7 +82,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Y7b-6M-0iV" firstAttribute="leading" secondItem="LNy-DR-ImS" secondAttribute="leading" id="5en-oM-CmR"/>
                         <constraint firstItem="ZFg-DJ-qoG" firstAttribute="top" secondItem="LNy-DR-ImS" secondAttribute="top" id="FeT-pk-Nkw"/>
@@ -97,7 +97,7 @@
                     <subviews>
                         <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="inD-7D-zfz">
                             <rect key="frame" x="15" y="0.0" width="363" height="30"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8J6-gJ-gzl">
                                 <size key="itemSize" width="128" height="128"/>
                                 <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -106,7 +106,7 @@
                             </collectionViewFlowLayout>
                         </collectionView>
                     </subviews>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="2Yh-QV-PRd"/>
                         <constraint firstAttribute="trailing" secondItem="inD-7D-zfz" secondAttribute="trailing" constant="15" id="7gV-yJ-uPp"/>
@@ -126,10 +126,10 @@
                         </label>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ycR-by-KKi">
                             <rect key="frame" x="0.0" y="41" width="393" height="545"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tableView>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="0Wl-UN-enQ" firstAttribute="leading" secondItem="EmT-cf-IFf" secondAttribute="leading" constant="15" id="2nr-Ks-NVt"/>
                         <constraint firstAttribute="bottom" secondItem="ycR-by-KKi" secondAttribute="bottom" id="GA9-rz-JqC"/>

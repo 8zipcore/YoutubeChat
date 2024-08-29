@@ -44,11 +44,13 @@ class ChatWithProfileTableViewCell: UITableViewCell {
     }
     
     private func configureView(){
+        self.backgroundColor = .clear
+        
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = self.profileImageView.bounds.height / 2
         
-        nameLabel.setLabel(textColor: .black, fontSize: 13)
+        nameLabel.setLabel(textColor: .white, fontSize: 13)
         nameLabelHeightConstraint.constant = self.bounds.height * 0.1
     }
     

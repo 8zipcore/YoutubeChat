@@ -48,7 +48,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="m3v-mK-3Gv" firstAttribute="centerY" secondItem="hGS-wy-cOl" secondAttribute="centerY" id="9Jc-LS-5NE"/>
                         <constraint firstItem="m3v-mK-3Gv" firstAttribute="leading" secondItem="siy-gw-0Ps" secondAttribute="trailing" constant="15" id="MGv-rk-Pfd"/>
@@ -59,7 +59,7 @@
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ytx-XH-ign" customClass="ChatRoomImageView" customModule="YoutubeChat" customModuleProvider="target">
                     <rect key="frame" x="137.66666666666666" y="106.66666666666669" width="117.66666666666666" height="157"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="ytx-XH-ign" secondAttribute="height" multiplier="3:4" id="ftc-OF-7SO"/>
                     </constraints>
@@ -102,7 +102,7 @@
                                 </label>
                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="z2z-Ty-TTZ">
                                     <rect key="frame" x="0.0" y="30.333333333333314" width="345.66666666666669" height="30"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="8km-Po-rDd"/>
                                     </constraints>
@@ -114,7 +114,7 @@
                                     </collectionViewFlowLayout>
                                 </collectionView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="abD-y1-uey" firstAttribute="top" secondItem="HEl-jf-THS" secondAttribute="top" id="JGi-7s-kUA"/>
                                 <constraint firstAttribute="trailing" secondItem="z2z-Ty-TTZ" secondAttribute="trailing" id="R3T-j0-VQI"/>
@@ -126,7 +126,7 @@
                             </constraints>
                         </view>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="ZhG-0g-SY9" firstAttribute="centerX" secondItem="fQN-d2-ZgN" secondAttribute="centerX" id="0lI-oZ-GxY"/>
                         <constraint firstItem="HEl-jf-THS" firstAttribute="trailing" secondItem="ZhG-0g-SY9" secondAttribute="trailing" id="1HH-zF-rqa"/>

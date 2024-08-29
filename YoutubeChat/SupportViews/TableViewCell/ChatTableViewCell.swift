@@ -41,6 +41,8 @@ class ChatTableViewCell: UITableViewCell {
     }
     
     private func configureView(){
+        self.backgroundColor = .clear
+        
         messageLabel.isMyChat = true
         messageLabelWidthContraint.constant = self.bounds.width * 0.7
     }

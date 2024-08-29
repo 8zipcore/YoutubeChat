@@ -40,10 +40,14 @@ class YoutubeView: UIView {
     }
     
     private func configreView(){
+        self.backgroundColor = .clear
+        
         youtubeView = YTPlayerView()
         youtubeView?.delegate = self
         
         self.addSubview(youtubeView!)
+        
+        youtubeView?.backgroundColor = .clear
         
         youtubeView!.snp.makeConstraints{ make in
             make.edges.equalToSuperview()

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ConfirmImageViewController: UIViewController {
+class ConfirmImageViewController: BaseViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     

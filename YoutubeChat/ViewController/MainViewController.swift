@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: BaseViewController {
 
     @IBOutlet weak var profileView: ProfileView!
     @IBOutlet weak var myProfileLabel: SDGothicLabel!
@@ -36,27 +36,28 @@ class MainViewController: UIViewController {
     }
     
     private func configureView(){
+        self.view.backgroundColor = .black
+        
         let profileViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped(_:)))
         profileView.addGestureRecognizer(profileViewTapGestureRecognizer)
         
         myProfileLabel.text = "내 프로필"
         chattingLabel.text = "채팅"
         
-        myProfileLabel.textColor = .black
+        myProfileLabel.textColor = .white
         myProfileLabel.font = SDGothic(size: 15)
         myProfileLabel.setLetterSpacing(0.4)
         
-        chattingLabel.textColor = .black
+        chattingLabel.textColor = .white
         chattingLabel.font = SDGothic(size: 15)
         chattingLabel.setLetterSpacing(0.4)
         
         let groupChatTableViewCellNib = UINib(nibName: GroupChatTableViewCell.identifier, bundle: nil)
         groupChatTableView.register(groupChatTableViewCellNib, forCellReuseIdentifier: GroupChatTableViewCell.identifier)
-        
         groupChatTableView.dataSource = self
         groupChatTableView.delegate = self
-        
         groupChatTableView.bounces = false
+        groupChatTableView.backgroundColor = .clear
         
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
@@ -90,7 +91,7 @@ class MainViewController: UIViewController {
             let vc = EnterChatRoomCodeViewController()
             vc.modalPresentationStyle = .overCurrentContext
             vc.parentNavigationController = self.navigationController
-            self.present(vc, animated: false)
+            self.navigationController?.pushViewController(vc, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "취소", style: .cancel))
         self.present(alert, animated: true)
@@ -173,7 +174,7 @@ extension MainViewController: UICollectionViewDataSource{
         }
         
         if indexPath.item == 0{
-            let image = UIImage(named: "search_icon")
+            let image = searchIconImage()
             cell.configureView(image: image, title: "검색", isSelected: true)
         } else {
             let category = searchViewModel.top5Categories[indexPath.item - 1]
@@ -182,12 +183,19 @@ extension MainViewController: UICollectionViewDataSource{
         
         return cell
     }
+    
+    private func searchIconImage()-> UIImage?{
+        if let image = UIImage(named: "search_icon")?.withRenderingMode(.alwaysTemplate){
+            return image.withTintColor(Colors.blue)
+        }
+        return nil
+    }
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item == 0 {
-            let image = UIImage(named: "search_icon")
+            let image = searchIconImage()
             return ChatOptionCollectionViewCell.fittingSize(cellHeight: cellHeight, image: image, title: "검색", isSelected: false)
         } else {
             let category = searchViewModel.top5Categories[indexPath.item - 1]

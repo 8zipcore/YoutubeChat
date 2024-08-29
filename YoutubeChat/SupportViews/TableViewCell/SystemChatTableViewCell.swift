@@ -40,7 +40,9 @@ class SystemChatTableViewCell: UITableViewCell {
             make.trailing.equalToSuperview().inset(10)
         }
         
-        label.setLabel(textColor: .black, fontSize: 13)
+        self.backgroundColor = .clear
+        
+        label.setLabel(textColor: .white, fontSize: 13)
         label.textAlignment = .center
         label.numberOfLines = 0
     }

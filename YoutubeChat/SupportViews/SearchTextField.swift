@@ -1,24 +1,27 @@
 //
-//  URLInputTextField.swift
+//  SearchTextField.swift
 //  YoutubeChat
 //
-//  Created by 홍승아 on 7/31/24.
+//  Created by 홍승아 on 8/29/24.
 //
 
 import UIKit
 import SnapKit
 
-@objc protocol URLInputTextFieldDelegate{
-    @objc optional func addButtonTapped()
+@objc protocol SearchTextFieldDelegate{
     @objc optional func textFieldDidChange(_ text: String)
 }
 
-class URLInputTextField: UIView {
+class SearchTextField: UIView, ClearButtonDelegate {
     
+    var imageView = UIImageView()
     var textField = UITextField()
-    var button = UIButton()
+    var clearButton = ClearButton()
     
-    private var buttonWidthMultiplier: CGFloat = 0.6
+    private var buttonWidthMultiplier: CGFloat = 0.35
+    private var imageViewWidthMultiplier: CGFloat = 0.045
+    
+    var delegate: SearchTextFieldDelegate?
     
     var text: String{
         return textField.text ?? ""
@@ -27,8 +30,6 @@ class URLInputTextField: UIView {
     var isBlank: Bool{
         return textField.text?.count == 0
     }
-    
-    var delegate: URLInputTextFieldDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,45 +47,59 @@ class URLInputTextField: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        button.snp.makeConstraints{ make in
+        clearButton.snp.makeConstraints{ make in
             make.width.equalTo(self.bounds.height * buttonWidthMultiplier)
             make.height.equalTo(self.bounds.height * buttonWidthMultiplier)
+        }
+        
+        imageView.snp.makeConstraints{ make in
+            make.width.equalTo(self.bounds.width * imageViewWidthMultiplier)
+            make.height.equalTo(self.bounds.width * imageViewWidthMultiplier)
         }
     }
     
     func configureView(){
+        self.addSubview(imageView)
         self.addSubview(textField)
-        self.addSubview(button)
+        self.addSubview(clearButton)
+        
+        imageView.snp.makeConstraints{ make in
+            make.leading.equalToSuperview().inset(10)
+            make.centerY.equalToSuperview()
+        }
         
         textField.snp.makeConstraints{ make in
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
-            make.leading.equalToSuperview().inset(15)
+            make.leading.equalTo(imageView.snp.trailing).inset(-7)
         }
         
-        button.snp.makeConstraints{ make in
+        clearButton.snp.makeConstraints{ make in
             make.leading.equalTo(textField.snp.trailing).inset(-10)
             make.trailing.equalToSuperview().inset(10)
             make.centerY.equalToSuperview()
         }
         
         self.backgroundColor = .init(white: 1, alpha: 0.2)
-        self.layer.cornerRadius = self.bounds.height / 2
+        self.layer.cornerRadius = 10
+        
+        if let image = UIImage(named: "search_icon")?.withRenderingMode(.alwaysTemplate){
+            imageView.image = image
+            imageView.tintColor = Colors.gray
+        }
         
         textField.font = SDGothic(size: 15)
         textField.textColor = .white
         textField.tintColor = Colors.gray
         textField.delegate = self
+        textField.attributedPlaceholder = NSAttributedString(string: "검색", attributes: [NSAttributedString.Key.foregroundColor : Colors.gray])
         
-        button.setImage(UIImage(named:"plus_icon"), for: .normal)
-        textField.attributedPlaceholder = NSAttributedString(string:"유튜브 url을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : Colors.gray])
-        
-        button.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(buttonTapped(_:))))
+        clearButton.delegate = self
     }
     
-    @objc func buttonTapped(_ sender: UITapGestureRecognizer){
-        // guard let button = sender.view as? UIButton else { return }
-        delegate?.addButtonTapped?()
+    func clearButtonTapped(){
+        textField.text = ""
+        textField.sendActions(for: .editingChanged)
     }
     
     func hideKeyboard(){
@@ -96,9 +111,11 @@ class URLInputTextField: UIView {
     }
 }
 
-extension URLInputTextField: UITextFieldDelegate{
+extension SearchTextField: UITextFieldDelegate{
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        clearButton.isHidden = !(textField.text?.count ?? 0 > 0)
         delegate?.textFieldDidChange?(textField.text!)
     }
 }
+
 

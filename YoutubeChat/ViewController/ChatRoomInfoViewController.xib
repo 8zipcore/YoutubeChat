@@ -31,6 +31,12 @@
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjM-Vl-Vtl" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
+                    <rect key="frame" x="23.666666666666657" y="664" width="345.66666666666674" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o9l-m6-NZo">
                     <rect key="frame" x="353.33333333333331" y="74" width="19.666666666666686" height="19.666666666666671"/>
                     <constraints>
@@ -43,19 +49,13 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WZ-af-NJi" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
-                    <rect key="frame" x="23.666666666666657" y="648" width="345.66666666666674" height="21"/>
+                    <rect key="frame" x="23.666666666666657" y="674" width="345.66666666666674" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="채팅방 설명" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Je-p7-han" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
-                    <rect key="frame" x="23.666666666666657" y="682" width="345.66666666666674" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50명 / 익명 / 동영상 추가 허용" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IjM-Vl-Vtl" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
-                    <rect key="frame" x="23.666666666666657" y="713" width="345.66666666666674" height="21"/>
+                    <rect key="frame" x="23.666666666666657" y="708" width="345.66666666666674" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -81,22 +81,22 @@
                 <constraint firstItem="8Je-p7-han" firstAttribute="leading" secondItem="0WZ-af-NJi" secondAttribute="leading" id="3ZN-3T-0xe"/>
                 <constraint firstItem="KwO-jV-4oD" firstAttribute="bottom" secondItem="QfB-kr-6dd" secondAttribute="bottom" id="8km-pQ-uQI"/>
                 <constraint firstItem="KwO-jV-4oD" firstAttribute="trailing" secondItem="QfB-kr-6dd" secondAttribute="trailing" id="9cZ-C0-Usv"/>
+                <constraint firstItem="0WZ-af-NJi" firstAttribute="top" secondItem="IjM-Vl-Vtl" secondAttribute="bottom" constant="10" id="JC5-94-10L"/>
+                <constraint firstItem="IjM-Vl-Vtl" firstAttribute="trailing" secondItem="0WZ-af-NJi" secondAttribute="trailing" id="JY4-4Y-YNG"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="JjV-BU-3T6" secondAttribute="bottom" constant="10" id="KXC-wv-9VB"/>
                 <constraint firstItem="0WZ-af-NJi" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.88" id="OE7-LJ-YLn"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QfB-kr-6dd" secondAttribute="trailing" id="OTc-B7-iT5"/>
                 <constraint firstItem="JjV-BU-3T6" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.88" id="OZk-dN-aco"/>
                 <constraint firstItem="8Je-p7-han" firstAttribute="trailing" secondItem="0WZ-af-NJi" secondAttribute="trailing" id="Xek-4b-Fei"/>
-                <constraint firstItem="IjM-Vl-Vtl" firstAttribute="leading" secondItem="8Je-p7-han" secondAttribute="leading" id="agJ-yX-6eC"/>
                 <constraint firstItem="KwO-jV-4oD" firstAttribute="leading" secondItem="QfB-kr-6dd" secondAttribute="leading" id="giH-30-SP4"/>
-                <constraint firstItem="IjM-Vl-Vtl" firstAttribute="top" secondItem="8Je-p7-han" secondAttribute="bottom" constant="10" id="ieZ-mE-r2B"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="o9l-m6-NZo" secondAttribute="trailing" constant="20" id="j4A-PH-VpZ"/>
                 <constraint firstItem="o9l-m6-NZo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="15" id="j9Q-fZ-526"/>
                 <constraint firstItem="8Je-p7-han" firstAttribute="top" secondItem="0WZ-af-NJi" secondAttribute="bottom" constant="13" id="jG9-Hs-Tp9"/>
-                <constraint firstItem="JjV-BU-3T6" firstAttribute="top" secondItem="IjM-Vl-Vtl" secondAttribute="bottom" constant="20" id="jmN-fE-ujW"/>
+                <constraint firstItem="IjM-Vl-Vtl" firstAttribute="leading" secondItem="0WZ-af-NJi" secondAttribute="leading" id="oJM-y8-SIT"/>
                 <constraint firstItem="o9l-m6-NZo" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.05" id="rWM-Jm-rUa"/>
-                <constraint firstItem="IjM-Vl-Vtl" firstAttribute="trailing" secondItem="8Je-p7-han" secondAttribute="trailing" id="wBa-1e-J12"/>
                 <constraint firstItem="0WZ-af-NJi" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="xl9-MM-yDt"/>
                 <constraint firstItem="QfB-kr-6dd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="zAk-3Y-HKz"/>
+                <constraint firstItem="JjV-BU-3T6" firstAttribute="top" secondItem="8Je-p7-han" secondAttribute="bottom" constant="25" id="zm6-hc-B00"/>
                 <constraint firstItem="JjV-BU-3T6" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="zna-82-epF"/>
             </constraints>
             <point key="canvasLocation" x="91" y="-11"/>

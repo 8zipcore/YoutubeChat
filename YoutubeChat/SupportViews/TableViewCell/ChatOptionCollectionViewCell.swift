@@ -54,7 +54,7 @@ class ChatOptionCollectionViewCell: UICollectionViewCell {
         
         self.backgroundColor = Colors.lightGray
         self.layer.cornerRadius = self.bounds.height / 2
-        label.font = SDGothicSemiBold(size: 14)
+        label.font = SDGothic(size: 14)
         label.textColor = Colors.gray
         label.textAlignment = .center
         
@@ -65,26 +65,35 @@ class ChatOptionCollectionViewCell: UICollectionViewCell {
     func configureView(image: UIImage?, title: String, isSelected: Bool){
         labelLeadingConstraint?.deactivate()
         
-        imageView.isHidden = (image == nil)
+        self.label.text = title
         
         var margin: CGFloat = horizontalMargin
+        var labelColor = isSelected ? .black : Colors.white
+        var backgroundColor = isSelected ? Colors.white : .init(white: 1, alpha: 0.05)
+        var borderColor = isSelected ? Colors.white : .init(white: 1, alpha: 0.1)
         
+        imageView.isHidden = (image == nil)
+        
+        // 첫번째 검색일 때
         if let image = image {
             imageView.image = image
             let spacing: CGFloat = 5
             margin = imageViewWidth + horizontalMargin + spacing
+            backgroundColor = Colors.indigo
+            labelColor = .white
+            borderColor = Colors.borderIndigo
         }
+        
+        self.backgroundColor = backgroundColor
+        self.label.textColor = labelColor
+        self.layer.borderColor = borderColor.cgColor
+        self.layer.borderWidth = 1.5
         
         label.snp.makeConstraints{
             self.labelLeadingConstraint = $0.leading.equalToSuperview().inset(margin).constraint
         }
         
         labelLeadingConstraint?.isActive = true
-        
-        self.label.text = title
-
-        self.backgroundColor = isSelected ? Colors.blue : Colors.lightGray
-        self.label.textColor = isSelected ? Colors.white : Colors.gray
     }
     
     func setText(text: String){

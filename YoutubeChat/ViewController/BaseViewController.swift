@@ -7,15 +7,28 @@
 
 import UIKit
 
-class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
+class BaseViewController: UIViewController, UIGestureRecognizerDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationController?.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.delegate = self
         view.addGestureRecognizer(tapGesture)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("🟢 \(String(describing: type(of: self)))")
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        print("🔴 \(String(describing: type(of: self)))")
+    }
+    
 
     // 키보드 내리기 메서드
     @objc func dismissKeyboard() {
@@ -36,4 +49,23 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         return true
     }
+
+    /*
+    func navigationController(
+        _ navigationController: UINavigationController,
+        animationControllerFor operation: UINavigationController.Operation,
+        from fromVC: UIViewController,
+        to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+            switch operation{
+            case .none:
+                return nil
+            case .push:
+                return PushAnimation()
+            case .pop:
+                return PopAnimation()
+            @unknown default:
+                return nil
+            }
+        }
+     */
 }

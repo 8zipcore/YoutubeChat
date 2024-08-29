@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.overrideUserInterfaceStyle = .light
         let rootViewController = ProfileManager.shared.isSavedID() ? MainViewController() : ProfileViewController()
         ProfileManager.shared.setUser()
-        let navigationViewController = UINavigationController(rootViewController: rootViewController)
+        let navigationViewController = BaseNavigationController(rootViewController: rootViewController)
         navigationViewController.navigationBar.isHidden = true
         window.rootViewController = navigationViewController
         window.makeKeyAndVisible()

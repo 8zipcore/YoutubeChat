@@ -18,7 +18,10 @@ func RGB(red: Int, green: Int, blue: Int, alpha: CGFloat)-> UIColor{
 struct Colors{
     static let lightGray = RGB(red: 245, green: 245, blue: 245)
     static let gray = RGB(red: 167, green: 163, blue: 163)
-    static let white = RGB(red: 253, green: 253, blue: 253)
-    static let blue = RGB(red: 0, green: 145, blue: 233)
-    static let skyBlue = RGB(red: 235, green: 247, blue: 255)
+    static let backgroundWhite = UIColor(white: 1, alpha: 0.1)
+    static let borderGray = RGB(red: 72, green: 72, blue: 72)
+    static let white = RGB(red: 242, green: 242, blue: 242)
+    static let blue = RGB(red: 46, green: 95, blue: 255)
+    static let indigo = RGB(red: 8, green: 24, blue: 40)
+    static let borderIndigo = RGB(red: 16, green: 51, blue: 83)
 }

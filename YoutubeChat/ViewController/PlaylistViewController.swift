@@ -52,7 +52,9 @@ class PlaylistViewController: BaseViewController{
     private func configureView(){
         guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
         
-        titleLabel.setLabel(textColor: .black, fontSize: 18)
+        self.view.backgroundColor = .black
+        
+        titleLabel.setLabel(textColor: .white, fontSize: 18)
         videoNumberLabel.setLabel(textColor: Colors.gray, fontSize: 15)
         
         indicatorView.layer.cornerRadius = self.indicatorView.bounds.height / 2
@@ -62,9 +64,9 @@ class PlaylistViewController: BaseViewController{
         
         playlistTableView.dataSource = self
         playlistTableView.delegate = self
+        playlistTableView.bounces = false
         
         urlTextField.delegate = self
-        urlTextField.type = .url
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureAction(_:)))
         self.topBarView.addGestureRecognizer(panGestureRecognizer)
@@ -77,6 +79,8 @@ class PlaylistViewController: BaseViewController{
             urlTextFieldHeightConstraint.constant = 0
             urlTextField.isHidden = true
         }
+        
+        self.videoNumberLabel.text = "\(String(describing: self.youtubeViewModel?.videoArray.count ?? 0))"
     }
     
     @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
@@ -124,6 +128,7 @@ class PlaylistViewController: BaseViewController{
             print("⭐️ received : \(data.videos)")
             DispatchQueue.main.async{
                 self.playlistTableView.reloadData()
+                self.videoNumberLabel.text = "\(String(describing: self.youtubeViewModel?.videoArray.count ?? 0))"
             }
             
         } else {

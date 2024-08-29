@@ -31,7 +31,9 @@ class ProfileView: UIView {
     private func configureView(){
         addSubViews()
         
-        nameLabel.setLabel(textColor: .black, fontSize: 15)
+        self.backgroundColor = .clear
+        
+        nameLabel.setLabel(textColor: .white, fontSize: 15)
         
         messageLabel.setLabel(textColor: .gray, fontSize: 12)
         messageLabel.textAlignment = .right

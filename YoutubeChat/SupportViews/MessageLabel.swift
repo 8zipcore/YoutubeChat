@@ -50,11 +50,11 @@ class MessageLabel: UIView {
             make.height.lessThanOrEqualTo(1000)
         }
         
-        label.setLabel(textColor: .black, fontSize: 15)
+        label.setLabel(textColor: .white, fontSize: 15)
         label.numberOfLines = 0
         label.lineBreakMode = .byCharWrapping
-
-        self.backgroundColor = Colors.lightGray
+        
+        self.backgroundColor = isMyChat ? RGB(red: 49, green: 132, blue: 246) : UIColor(white: 1, alpha: 0.15)
         self.layer.cornerRadius = 10
     }
     

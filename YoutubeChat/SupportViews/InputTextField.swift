@@ -12,7 +12,7 @@ protocol InputTextFieldDelegate{
     func textFieldTextDidChange(_ sender: InputTextField)
 }
 
-class InputTextField: UIView {
+class InputTextField: UIView, ClearButtonDelegate {
     
     // 비율 986:213
     // 크기 superView.width * 0.88
@@ -20,6 +20,8 @@ class InputTextField: UIView {
     var titleLabel = SDGothicLabel()
     var textField = UITextField()
     var lengthLabel = SDGothicLabel()
+    var clearButton = ClearButton()
+    var contentView = UIView()
     
     var maxLength = -1
     
@@ -51,15 +53,23 @@ class InputTextField: UIView {
         super.init(coder: coder)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        clearButton.snp.makeConstraints{ make in
+            make.width.equalTo(self.bounds.width * 0.05)
+            make.height.equalTo(self.bounds.width * 0.05)
+        }
+    }
+    
     private func configureView(){
         self.backgroundColor = .clear
         
-        let inputView = UIView()
-
         self.addSubview(titleLabel)
         self.addSubview(lengthLabel)
-        self.addSubview(inputView)
-        inputView.addSubview(textField)
+        self.addSubview(contentView)
+        contentView.addSubview(textField)
+        contentView.addSubview(clearButton)
         
         titleLabel.snp.makeConstraints{ make in
             make.top.equalToSuperview()
@@ -73,7 +83,7 @@ class InputTextField: UIView {
             make.centerY.equalTo(titleLabel)
         }
         
-        inputView.snp.makeConstraints{ make in
+        contentView.snp.makeConstraints{ make in
             make.top.equalTo(titleLabel.snp.bottom).inset(-5)
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
@@ -81,28 +91,38 @@ class InputTextField: UIView {
         }
         
         textField.snp.makeConstraints{ make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.top.equalToSuperview()
+            make.bottom.equalToSuperview()
             make.leading.equalToSuperview().inset(13)
-            make.trailing.equalToSuperview().inset(13)
         }
         
+        clearButton.snp.makeConstraints{ make in
+            make.leading.equalTo(textField.snp.trailing).inset(-5)
+            make.trailing.equalToSuperview().inset(10)
+            make.centerY.equalToSuperview()
+        }
         
-        titleLabel.setLabel(textColor: .black, fontSize: 13)
+        titleLabel.setLabel(textColor: .white, fontSize: 13)
         lengthLabel.setLabel(textColor: Colors.gray, fontSize: 13)
 
-        inputView.backgroundColor = Colors.lightGray
-        inputView.layer.cornerRadius = 10
+        contentView.backgroundColor = Colors.backgroundWhite
+        contentView.layer.cornerRadius = 10
+        contentView.layer.borderColor = Colors.borderGray.cgColor
+        contentView.layer.borderWidth = 1.5
         
         textField.font = SDGothic(size: 15)
-        textField.textColor = .black
+        textField.textColor = .white
         textField.tintColor = Colors.gray
         textField.delegate = self
+        textField.backgroundColor = .clear
         
-        textField.attributedPlaceholder = NSAttributedString(string: "채팅방 이름을 입력해주세요.", attributes: [NSAttributedString.Key.foregroundColor : Colors.gray])
+        textField.attributedPlaceholder = NSAttributedString(string: "채팅방 이름을 입력해주세요.",
+                                                             attributes: [NSAttributedString.Key.foregroundColor : Colors.gray])
         
         textField.autocorrectionType = .no
         textField.spellCheckingType = .no
+        
+        clearButton.delegate = self
     }
     
     func setText(title: String, placeHolder: String){
@@ -155,10 +175,16 @@ class InputTextField: UIView {
     func becomeFirstResponder(){
         self.textField.becomeFirstResponder()
     }
+    
+    func clearButtonTapped(){
+        self.textField.text = ""
+        self.textField.sendActions(for: .editingChanged)
+    }
 }
 
 extension InputTextField: UITextFieldDelegate{
     func textFieldDidChangeSelection(_ textField: UITextField) {
+        clearButton.isHidden = !(textField.text?.count ?? 0 > 0)
         setLengthLabel()
         delegate?.textFieldTextDidChange(self)
     }
@@ -170,5 +196,13 @@ extension InputTextField: UITextFieldDelegate{
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
         // 텍스트 길이 제한 설정
         return maxLength != -1 ? updatedText.count <= maxLength : true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.contentView.backgroundColor = UIColor(white: 1, alpha: 0.15)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.contentView.backgroundColor = Colors.backgroundWhite
     }
 }

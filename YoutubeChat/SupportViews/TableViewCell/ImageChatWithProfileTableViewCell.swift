@@ -45,7 +45,7 @@ class ImageChatWithProfileTableViewCell: UITableViewCell {
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = self.profileImageView.bounds.height / 2
         
-        nameLabel.setLabel(textColor: .black, fontSize: 13)
+        nameLabel.setLabel(textColor: .white, fontSize: 13)
         nameLabelHeightConstraint.constant = self.bounds.height * 0.1
         
         nameLabel.text = "리코"

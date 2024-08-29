@@ -13,18 +13,19 @@ class ProfileTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImageView: ProfileImageView!
     @IBOutlet weak var nameLabel: SDGothicLabel!
-    
-    @IBOutlet weak var leaderImageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var leaderImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.backgroundColor = .clear
+        nameLabel.textColor = .white
     }
     
     func configureView(_ user: User, _ isHost: Bool){
         profileImageView.setImage(user.image)
         nameLabel.text = user.name
-        leaderImageWidthConstraint.constant = isHost ? 12 : 0
+        leaderImageView.isHidden = !isHost
     }
     
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatMenuViewController: UIViewController {
+class ChatMenuViewController: BaseViewController {
 
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var contentView: UIView!
@@ -27,7 +27,7 @@ class ChatMenuViewController: UIViewController {
     }
     
     private func configureView(){
-        participantsLabel.setLabel(textColor: .black, fontSize: 15)
+        participantsLabel.setLabel(textColor: .white, fontStyle: .semibold, fontSize: 15)
         
         profileTableView.register(UINib(nibName: ProfileTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileTableViewCell.identifier)
         profileTableView.dataSource = self
@@ -35,6 +35,16 @@ class ChatMenuViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss(_:)))
         self.backgroundView.addGestureRecognizer(tapGesture)
+        
+        if let editImage = UIImage(named: "edit_icon")?.withRenderingMode(.alwaysTemplate){
+            self.chatRoomEditButton.setImage(editImage, for: .normal)
+            self.chatRoomEditButton.tintColor = UIColor(white: 1, alpha: 0.5)
+        }
+        
+        if let shareImage = UIImage(named: "share_icon")?.withRenderingMode(.alwaysTemplate){
+            self.enterCodeShareButton.setImage(shareImage, for: .normal)
+            self.enterCodeShareButton.tintColor = UIColor(white: 1, alpha: 0.5)
+        }
         
         /*
         if let chatRoom = chatRoom {
@@ -52,6 +62,7 @@ class ChatMenuViewController: UIViewController {
         let vc = CreateChatRoomViewController()
         vc.viewType = .edit
         vc.chatRoom = chatRoom
+        vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true)
     }
     

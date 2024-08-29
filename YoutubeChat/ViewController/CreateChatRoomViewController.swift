@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerDelegate{
     
     enum ViewType{
         case create, edit
@@ -46,11 +46,13 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
     }
     
     private func configureView(){
-        titleLabel.setLabel(textColor: .black, fontSize: 17)
+        self.view.backgroundColor = .black
+        
+        titleLabel.setLabel(textColor: .white, fontSize: 17)
         
         chatNameTextField.setText(title: "채팅방 이름", placeHolder: "채팅방 이름을 입력해주세요.", maxLength: 30)
         descriptionTextView.setText(title: "채팅방 소개", placeHolder: "해시태그로 채팅방을 소개해보세요.", maxLength: 80)
-        chatOptionLabel.setLabel(textColor: .black, fontSize: 13)
+        chatOptionLabel.setLabel(textColor: .white, fontSize: 13)
         
         chatOptionCollectionView.dataSource = self
         chatOptionCollectionView.delegate = self       

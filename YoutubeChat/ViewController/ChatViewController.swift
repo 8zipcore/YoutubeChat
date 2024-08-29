@@ -65,7 +65,9 @@ class ChatViewController: BaseViewController {
     }
     
     private func configureView(){
-        chatNameLabel.setLabel(textColor: .black, fontSize: 17)
+        self.view.backgroundColor = .black
+        
+        chatNameLabel.setLabel(textColor: .white, fontSize: 17)
         peopleNumberLabel.setLabel(textColor: Colors.gray, fontSize: 15)
         
         self.chatTableView.dataSource = self

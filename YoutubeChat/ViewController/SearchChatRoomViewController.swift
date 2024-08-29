@@ -7,11 +7,12 @@
 
 import UIKit
 
-class SearchChatRoomViewController: BaseViewController {
+class SearchChatRoomViewController: BaseViewController, SearchTextFieldDelegate {
 
-    @IBOutlet weak var textField: URLInputTextField!
+    @IBOutlet weak var textField: SearchTextField!
     @IBOutlet weak var chatOptionCollectionView: UICollectionView!
     @IBOutlet weak var groupChatTableView: UITableView!
+    @IBOutlet weak var cancelButton: SDGothicButton!
     
     private let cellHeight: CGFloat = 30
     private let cellSpacing: CGFloat = 6
@@ -24,6 +25,8 @@ class SearchChatRoomViewController: BaseViewController {
     }
 
     private func configureView(){
+        self.view.backgroundColor = .black
+        
         let groupChatTableViewCellNib = UINib(nibName: GroupChatTableViewCell.identifier, bundle: nil)
         groupChatTableView.register(groupChatTableViewCellNib, forCellReuseIdentifier: GroupChatTableViewCell.identifier)
         
@@ -37,7 +40,8 @@ class SearchChatRoomViewController: BaseViewController {
         chatOptionCollectionView.delegate = self
         
         textField.delegate = self
-        textField.type = .search
+        
+        cancelButton.setTitle("취소", .white, 17)
     }
     
     @IBAction func dismissButtonTapped(_ sender: Any) {
@@ -55,14 +59,11 @@ extension SearchChatRoomViewController: URLInputTextFieldDelegate{
                     self.groupChatTableView.reloadData()
                 }
             }
+        } else {
+            searchViewModel.chatRoomArray = []
+            self.groupChatTableView.reloadData()
         }
-        
-        self.textField.button.isHidden = text.count > 0 ? false : true
-    }
-    
-    func buttonTapped() {
-        self.textField.setText("")
-        self.textField.button.isHidden = true
+            
     }
 }
 

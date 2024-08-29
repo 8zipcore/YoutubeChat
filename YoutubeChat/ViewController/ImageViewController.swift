@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageViewController: UIViewController {
+class ImageViewController: BaseViewController {
 
     @IBOutlet weak var imageView: UIImageView!
     var image: UIImage?

@@ -64,7 +64,7 @@ class ChatRoomImageView: UIView {
             make.height.equalTo(self.bounds.width * 0.2)
         }
         
-        overlayView.backgroundColor = UIColor(white: 0, alpha: 0.3)
+        overlayView.backgroundColor = UIColor(white: 1, alpha: 0.3)
         
         let editImage = UIImage(named: "edit_image_icon")?.withRenderingMode(.alwaysTemplate)
         editImageView.image = editImage
@@ -73,7 +73,7 @@ class ChatRoomImageView: UIView {
         chatRoomImageView.contentMode = .scaleAspectFill
         chatRoomImageView.clipsToBounds = true
 
-        chatRoomImageView.layer.cornerRadius = self.bounds.height * 0.08
+        chatRoomImageView.layer.cornerRadius = 20
         overlayView.layer.cornerRadius = self.bounds.height * 0.08
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(editViewTapped(_:)))

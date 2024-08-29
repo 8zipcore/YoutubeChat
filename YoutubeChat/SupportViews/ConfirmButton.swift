@@ -18,7 +18,7 @@ class ConfirmButton: UIButton {
         }
         set {
             super.isHighlighted = newValue
-            backgroundColor = isHighlighted ? .init(white: 0, alpha: 0.8) : .black
+            backgroundColor = isHighlighted ? Colors.blue.withAlphaComponent(0.8) : Colors.blue
         }
     }
         
@@ -37,15 +37,14 @@ class ConfirmButton: UIButton {
     }
     
     private func configureView(){
-        // self.backgroundColor = Colors.pastelBlue
-        self.backgroundColor = .black
+        self.backgroundColor = Colors.blue
         self.setAttributedTitle(
             NSMutableAttributedString(
             string: "완료",
             attributes: [.foregroundColor : UIColor.white,
                          .font : SDGothicSemiBold(size: 18)]),
             for: .normal)
-        self.layer.cornerRadius = self.bounds.height / 2
+        self.layer.cornerRadius = 10
     }
     
     func setTitle(_ string: String){

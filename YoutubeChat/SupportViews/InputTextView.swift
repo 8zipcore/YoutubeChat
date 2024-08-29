@@ -8,11 +8,13 @@
 import Foundation
 import SnapKit
 
-class InputTextView: UIView{
+class InputTextView: UIView, ClearButtonDelegate{
     var titleLabel = SDGothicLabel()
     var lengthLabel = SDGothicLabel()
     var textView = UITextView()
     var placeHolderLabel = UILabel()
+    var clearButton = ClearButton()
+    var contentView = UIView()
     
     var maxLength = 100
     
@@ -42,16 +44,24 @@ class InputTextView: UIView{
         super.init(coder: coder)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        clearButton.snp.makeConstraints{ make in
+            make.width.equalTo(self.bounds.width * 0.05)
+            make.height.equalTo(self.bounds.width * 0.05)
+        }
+    }
+    
     private func configureView(){
         self.backgroundColor = .clear
-        
-        let inputView = UIView()
 
         self.addSubview(titleLabel)
         self.addSubview(lengthLabel)
-        self.addSubview(inputView)
-        inputView.addSubview(textView)
-        inputView.addSubview(placeHolderLabel)
+        self.addSubview(contentView)
+        contentView.addSubview(textView)
+        contentView.addSubview(placeHolderLabel)
+        contentView.addSubview(clearButton)
         
         titleLabel.snp.makeConstraints{ make in
             make.top.equalToSuperview()
@@ -65,7 +75,7 @@ class InputTextView: UIView{
             make.centerY.equalTo(titleLabel)
         }
         
-        inputView.snp.makeConstraints{ make in
+        contentView.snp.makeConstraints{ make in
             make.top.equalTo(titleLabel.snp.bottom).inset(-5)
             make.bottom.equalToSuperview().inset(5)
             make.leading.equalToSuperview()
@@ -77,7 +87,6 @@ class InputTextView: UIView{
             make.top.equalToSuperview().inset(15)
             make.bottom.equalToSuperview().inset(15)
             make.leading.equalToSuperview().inset(10)
-            make.trailing.equalToSuperview().inset(10)
         }
         
         placeHolderLabel.snp.makeConstraints{ make in
@@ -86,14 +95,21 @@ class InputTextView: UIView{
             make.trailing.equalTo(textView.snp.trailing).inset(4)
         }
         
-        titleLabel.setLabel(textColor: .black, fontSize: 13)
+        clearButton.snp.makeConstraints{ make in
+            make.leading.equalTo(textView.snp.trailing).inset(-5)
+            make.trailing.equalToSuperview().inset(10)
+            make.bottom.equalToSuperview().inset(15)
+        }
+        
+        titleLabel.setLabel(textColor: .white, fontSize: 13)
         lengthLabel.setLabel(textColor: Colors.gray, fontSize: 13)
 
-        inputView.backgroundColor = Colors.lightGray
-        inputView.layer.cornerRadius = 10
+        contentView.backgroundColor = Colors.backgroundWhite
+        contentView.layer.cornerRadius = 10
+        contentView.layer.borderColor = Colors.borderGray.cgColor
+        contentView.layer.borderWidth = 1.5
         
         textView.font = SDGothic(size: 15)
-        textView.textColor = .black
         textView.tintColor = Colors.gray
         textView.backgroundColor = .clear
         textView.textContainerInset = .zero
@@ -104,6 +120,8 @@ class InputTextView: UIView{
         
         placeHolderLabel.font = SDGothic(size: 15)
         placeHolderLabel.textColor = Colors.gray
+        
+        clearButton.delegate = self
     }
     
     func setText(title: String, placeHolder: String){
@@ -146,9 +164,10 @@ class InputTextView: UIView{
         // NSMutableAttributedString을 사용하여 텍스트 속성 설정
         let attributedString = NSMutableAttributedString(string: text)
         attributedString.addAttribute(.font, value: SDGothic(size: 15), range: NSRange(location: 0, length: text.count))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.white, range: NSRange(location: 0, length: text.count))
 
         for match in matches {
-            attributedString.addAttribute(.foregroundColor, value: Colors.skyBlue, range: match.range)
+            attributedString.addAttribute(.foregroundColor, value: Colors.blue, range: match.range)
             // attributedString.addAttribute(.backgroundColor, value: Colors.pastelBlue, range: match.range)
         }
 
@@ -169,11 +188,17 @@ class InputTextView: UIView{
             return String(text[Range(range, in: text)!])
         }
     }
+    
+    func clearButtonTapped() {
+        textView.text = ""
+        textViewDidChange(textView)
+    }
 }
 
 extension InputTextView: UITextViewDelegate{
     func textViewDidChange(_ textView: UITextView) {
         placeHolderLabel.isHidden = textView.text.count > 0
+        clearButton.isHidden = !(textView.text.count > 0)
         setLengthLabel()
         setHashTagText()
     }
@@ -185,5 +210,13 @@ extension InputTextView: UITextViewDelegate{
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: text)
         // 텍스트 길이 제한 설정
         return updatedText.count <= maxLength
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.contentView.backgroundColor = .init(white: 1, alpha: 0.15)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        self.contentView.backgroundColor = Colors.backgroundWhite
     }
 }

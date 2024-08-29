@@ -9,12 +9,9 @@ import UIKit
 
 class EnterChatRoomCodeViewController: BaseViewController {
 
-    @IBOutlet weak var backgroundView: UIView!
-    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var titleLabel: SDGothicLabel!
     @IBOutlet weak var codeTextField: InputTextField!
     @IBOutlet weak var confirmButton: ConfirmButton!
-    
-    @IBOutlet weak var codeTextFieldTopConstraint: NSLayoutConstraint!
     
     let chatViewModel = ChatViewModel()
     var parentNavigationController: UINavigationController?
@@ -30,44 +27,13 @@ class EnterChatRoomCodeViewController: BaseViewController {
         super.viewWillAppear(animated)
     }
     
-    override func viewDidLayoutSubviews() {
-        self.codeTextFieldTopConstraint.constant = self.view.safeAreaInsets.top + 30
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        self.contentView.frame = CGRect(x: 0, y: -self.contentView.bounds.height, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
-
-        UIView.animate(withDuration: 0.15, animations: {
-            self.backgroundView.backgroundColor = UIColor(white: 0, alpha: 0.3)
-            self.contentView.frame = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
-        },completion: { _ in
-            self.codeTextField.becomeFirstResponder()
-        })
-    }
-    
     private func configureView(){
-        self.view.backgroundColor = .clear
-        self.backgroundView.backgroundColor = .clear
-        
-        self.contentView.layer.cornerRadius = self.contentView.bounds.height / 10
+        self.view.backgroundColor = .black
+        titleLabel.setLabel(textColor: .white, fontSize: 17)
         
         codeTextField.delegate = self
         codeTextField.setText(title: "참여 코드", placeHolder: "참여 코드를 입력하세요.")
         confirmButton.setTitle("참여하기")
-        
-        backgroundView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss(_:))))
-    }
-
-    @objc func dismiss(_ sender: UITapGestureRecognizer){
-        UIView.animate(withDuration: 0.2, animations: {
-            self.backgroundView.backgroundColor = .clear
-            self.contentView.frame = CGRect(x: 0, y: -self.contentView.bounds.height, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
-        }, completion: {_ in
-            self.dismiss(animated: false)
-        })
-    
     }
     
     @IBAction func enterButtonTapped(_ sender: Any) {
@@ -109,6 +75,10 @@ class EnterChatRoomCodeViewController: BaseViewController {
                 print("오류 - - -")
             }
         }
+    }
+    
+    @IBAction func backButtonTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

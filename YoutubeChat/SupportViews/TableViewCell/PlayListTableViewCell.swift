@@ -21,17 +21,15 @@ class PlayListTableViewCell: UITableViewCell {
         configureView()
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
     private func configureView(){
-        titleLabel.setLabel(textColor: .black, fontSize: 15)
+        self.backgroundColor = .clear
+        
+        titleLabel.setLabel(textColor: .white, fontSize: 15)
         titleLabel.numberOfLines = 2
         
-        uploaderLabel.setLabel(textColor: .black, fontSize: 13)
+        uploaderLabel.setLabel(textColor: .white, fontSize: 13)
+        
+        thumbnailImageView.layer.cornerRadius = 10
     }
     
     func setVideo(_ video: Video){

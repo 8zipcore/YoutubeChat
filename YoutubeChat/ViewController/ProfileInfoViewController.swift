@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDelegate{
 
     enum ImageType{
         case profile, background

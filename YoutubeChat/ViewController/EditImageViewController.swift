@@ -11,7 +11,7 @@ protocol EditImageViewControllerDelegate{
     func didDismissWithImage(image: UIImage?)
 }
 
-class EditImageViewController: UIViewController {
+class EditImageViewController: BaseViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!

@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SearchChatRoomViewController" customModule="YoutubeChat" customModuleProvider="target">
             <connections>
+                <outlet property="cancelButton" destination="niA-om-Enf" id="tX6-oB-SKz"/>
                 <outlet property="chatOptionCollectionView" destination="y3k-kk-zkU" id="ZHf-Ec-LvX"/>
                 <outlet property="groupChatTableView" destination="4Ba-Ya-tMK" id="avX-jU-a7b"/>
                 <outlet property="textField" destination="7v3-3q-7Jy" id="JDN-EK-wfI"/>
@@ -22,18 +23,18 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7v3-3q-7Jy" customClass="URLInputTextField" customModule="YoutubeChat" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7v3-3q-7Jy" customClass="SearchTextField" customModule="YoutubeChat" customModuleProvider="target">
                     <rect key="frame" x="10" y="74" width="328.66666666666669" height="40"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="40" id="LOG-d6-0uu"/>
                     </constraints>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="niA-om-Enf">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="niA-om-Enf" customClass="SDGothicButton" customModule="YoutubeChat" customModuleProvider="target">
                     <rect key="frame" x="343.66666666666669" y="74" width="39.333333333333314" height="40"/>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                     <state key="normal" title="취소">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </state>
                     <connections>
                         <action selector="dismissButtonTapped:" destination="-1" eventType="touchUpInside" id="i35-ME-x2F"/>
@@ -41,7 +42,7 @@
                 </button>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="y3k-kk-zkU">
                     <rect key="frame" x="15" y="124" width="363" height="30"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="30" id="wOG-OY-quG"/>
                     </constraints>
@@ -54,7 +55,7 @@
                 </collectionView>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4Ba-Ya-tMK">
                     <rect key="frame" x="0.0" y="164" width="393" height="654"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

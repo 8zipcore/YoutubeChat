@@ -23,15 +23,16 @@ class GroupChatTableViewCell: UITableViewCell {
     }
     
     private func configurView(){
+        self.backgroundColor = .clear
+        
         chatImageView.contentMode = .scaleAspectFill
         chatImageView.clipsToBounds = true
         chatImageView.layer.cornerRadius = (self.bounds.height * 0.77) / 2.5
-        chatImageView.backgroundColor = Colors.skyBlue
         
-        chatNameLabel.setLabel(textColor: .black, fontStyle: .semibold, fontSize: 15)
-        peopleNumberLabel.setLabel(textColor: .darkGray, fontSize: 13)
+        chatNameLabel.setLabel(textColor: .white, fontStyle: .bold, fontSize: 15)
+        peopleNumberLabel.setLabel(textColor: .lightGray, fontStyle: .semibold, fontSize: 13)
         
-        descriptionLabel.setLabel(textColor: .gray, fontSize: 12)
+        descriptionLabel.setLabel(textColor: .init(white: 1, alpha: 0.8), fontStyle: .semibold, fontSize: 12)
         descriptionLabel.numberOfLines = 2
         
         self.selectionStyle = .none

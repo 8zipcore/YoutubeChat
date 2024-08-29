@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatRoomInfoViewController: UIViewController {
+class ChatRoomInfoViewController: BaseViewController {
 
     @IBOutlet weak var nameLabel: SDGothicLabel!
     @IBOutlet weak var descriptionLabel: SDGothicLabel!
