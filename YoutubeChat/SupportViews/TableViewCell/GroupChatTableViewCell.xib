@@ -44,10 +44,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="방금 전" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wPc-5H-XbP" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
+                                <rect key="frame" x="236.33333333333334" y="4.3333333333333339" width="48.666666666666657" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="R11-cn-mDq" firstAttribute="top" secondItem="ugV-GM-WOs" secondAttribute="bottom" constant="4" id="3iQ-p5-cjg"/>
+                            <constraint firstItem="wPc-5H-XbP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gkU-Ob-QYp" secondAttribute="trailing" constant="5" id="4yU-8X-Hhn"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="R11-cn-mDq" secondAttribute="bottom" id="BDV-5Y-Hl9"/>
                             <constraint firstItem="Gy9-QT-wAK" firstAttribute="top" secondItem="8Vx-zG-Ezk" secondAttribute="top" id="JxK-eT-7EH"/>
                             <constraint firstItem="ugV-GM-WOs" firstAttribute="centerY" secondItem="Gy9-QT-wAK" secondAttribute="centerY" multiplier="0.5" id="M3q-pX-LtK"/>
@@ -56,6 +63,8 @@
                             <constraint firstItem="gkU-Ob-QYp" firstAttribute="centerY" secondItem="ugV-GM-WOs" secondAttribute="centerY" constant="0.90000000000000002" id="Yrr-h4-Cb4"/>
                             <constraint firstAttribute="trailing" secondItem="R11-cn-mDq" secondAttribute="trailing" constant="10" id="aG4-OD-Y7M"/>
                             <constraint firstItem="ugV-GM-WOs" firstAttribute="leading" secondItem="Gy9-QT-wAK" secondAttribute="trailing" constant="10" id="aRk-iT-O5e"/>
+                            <constraint firstAttribute="trailing" secondItem="wPc-5H-XbP" secondAttribute="trailing" constant="10" id="rGJ-Bh-h7D"/>
+                            <constraint firstItem="wPc-5H-XbP" firstAttribute="centerY" secondItem="gkU-Ob-QYp" secondAttribute="centerY" id="tUE-Vy-d98"/>
                             <constraint firstAttribute="bottom" secondItem="Gy9-QT-wAK" secondAttribute="bottom" id="teG-WV-stx"/>
                             <constraint firstItem="gkU-Ob-QYp" firstAttribute="leading" secondItem="ugV-GM-WOs" secondAttribute="trailing" constant="8" symbolic="YES" id="vU1-ES-1dz"/>
                         </constraints>
@@ -74,6 +83,7 @@
                 <outlet property="chatImageView" destination="Gy9-QT-wAK" id="SBC-9h-9KG"/>
                 <outlet property="chatNameLabel" destination="ugV-GM-WOs" id="T7I-rZ-Bu3"/>
                 <outlet property="descriptionLabel" destination="R11-cn-mDq" id="Vko-J6-Oc1"/>
+                <outlet property="lastChatTimeLabel" destination="wPc-5H-XbP" id="Hfj-qs-EmG"/>
                 <outlet property="peopleNumberLabel" destination="gkU-Ob-QYp" id="ZFE-7i-AAq"/>
             </connections>
             <point key="canvasLocation" x="11.450381679389313" y="-1.7605633802816902"/>

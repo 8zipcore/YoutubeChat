@@ -15,6 +15,7 @@ class GroupChatTableViewCell: UITableViewCell {
     @IBOutlet weak var chatNameLabel: SDGothicLabel!
     @IBOutlet weak var descriptionLabel: SDGothicLabel!
     @IBOutlet weak var peopleNumberLabel: SDGothicLabel!
+    @IBOutlet weak var lastChatTimeLabel: SDGothicLabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,6 +36,8 @@ class GroupChatTableViewCell: UITableViewCell {
         descriptionLabel.setLabel(textColor: .init(white: 1, alpha: 0.8), fontStyle: .semibold, fontSize: 12)
         descriptionLabel.numberOfLines = 2
         
+        lastChatTimeLabel.setLabel(textColor: Colors.lightGray, fontSize: 12)
+        
         self.selectionStyle = .none
     }
     
@@ -43,7 +46,7 @@ class GroupChatTableViewCell: UITableViewCell {
         chatNameLabel.text = chatRoom.name
         peopleNumberLabel.text = String(chatRoom.participantIds.count)
         descriptionLabel.text = chatRoom.description
-        // latestChatTimeLabel.text = myChatInfo.timestamp
+        lastChatTimeLabel.text =  lastChatTimeToText(chatRoom.lastChatTime)
     }
 
     func showSeletedAnimation(){
@@ -51,4 +54,30 @@ class GroupChatTableViewCell: UITableViewCell {
             self.backgroundColor = .red
         })
     }
+    
+    func lastChatTimeToText(_ lastChatTime:Double) -> String{
+        if lastChatTime < 0 {
+            return ""
+        }
+        
+        let time = Date().timeIntervalSince1970 - lastChatTime
+        let minuteToSecond: Double = 60
+        let hourToSecond: Double = 60 * minuteToSecond
+        let dayToSecond: Double = 24 * hourToSecond
+        let weekToSecond: Double = 7 * dayToSecond
+        
+        if time < 3 * minuteToSecond{
+            return "방금"
+        } else if time < hourToSecond {
+            return "\(Int(floor(time / minuteToSecond)))분"
+        } else if time < dayToSecond {
+            return "\(Int(floor(time / hourToSecond)))시간"
+        } else if time < weekToSecond {
+            return "\(Int(floor(time / dayToSecond)))일"
+        } else {
+            return "\(Int(floor(time / weekToSecond)))주"
+        }
+        
+    }
+    
 }

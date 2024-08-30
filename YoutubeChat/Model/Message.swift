@@ -18,6 +18,6 @@ struct Message: Codable{
     var messageType: MessageType
     var text: String = ""
     var image: String?
-    var timestamp: TimeInterval?
+    var timestamp: Double = -1
     var isRead: Bool
 }

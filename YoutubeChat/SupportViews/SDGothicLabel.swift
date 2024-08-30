@@ -48,9 +48,4 @@ class SDGothicLabel: UILabel {
             self.font = SDGothicBold(size: fontSize)
         }
     }
-    
-    func setTitleLabel(){
-        self.textColor = .black
-        self.font = SDGothic(size: 18)
-    }
 }

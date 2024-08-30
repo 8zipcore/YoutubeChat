@@ -27,7 +27,9 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
     }
     
     private func configureView(){
-        titleLabel.setTitleLabel()
+        self.view.backgroundColor = .black
+        
+        titleLabel.setLabel(textColor: .white, fontSize: 17)
         titleLabel.text = "프로필 설정"
         nameTextField.setText(title: "이름", placeHolder: "이름을 입력하세요.")
         

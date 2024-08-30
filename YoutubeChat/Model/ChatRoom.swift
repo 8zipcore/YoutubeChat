@@ -17,6 +17,7 @@ struct ChatRoom: Codable{
     var participantIds: [UUID]
     var chatOptions: [Int]
     var categories: [String]
+    var lastChatTime: Double
 }
 
 struct ChatRoomData: Codable{
@@ -30,6 +31,7 @@ struct ChatRoomData: Codable{
     var participants: [User] // 이것이 새로 추가됏다 . . .
     var chatOptions: [Int]
     var categories: [String]
+    var lastChatTime: Double
     
     func isOptionContains(_ chatOption: ChatOption) -> Bool{
         return self.chatOptions.contains(chatOption.rawValue)

@@ -107,7 +107,7 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
             Task{
                 switch viewType {
                 case .create:
-                    let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoomImageView.imageToString(), enterCode: "", hostId: MyProfile.id, participantIds: [MyProfile.id], chatOptions: chatViewModel.selectedChatOptions(), categories: descriptionTextView.hashTagTextArray())
+                    let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoomImageView.imageToString(), enterCode: "", hostId: MyProfile.id, participantIds: [MyProfile.id], chatOptions: chatViewModel.selectedChatOptions(), categories: descriptionTextView.hashTagTextArray(), lastChatTime: -1)
                     
                     let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom)
                     DispatchQueue.main.async {
