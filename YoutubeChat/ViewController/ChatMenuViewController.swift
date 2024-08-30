@@ -26,12 +26,17 @@ class ChatMenuViewController: BaseViewController {
         configureView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        showPresentAnimation()
+    }
+    
     private func configureView(){
         participantsLabel.setLabel(textColor: .white, fontStyle: .semibold, fontSize: 15)
         
         profileTableView.register(UINib(nibName: ProfileTableViewCell.identifier, bundle: nil), forCellReuseIdentifier: ProfileTableViewCell.identifier)
         profileTableView.dataSource = self
-        profileTableView.delegate = self 
+        profileTableView.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss(_:)))
         self.backgroundView.addGestureRecognizer(tapGesture)
@@ -46,16 +51,36 @@ class ChatMenuViewController: BaseViewController {
             self.enterCodeShareButton.tintColor = UIColor(white: 1, alpha: 0.5)
         }
         
-        /*
         if let chatRoom = chatRoom {
             if chatRoom.hostId != MyProfile.id{
                 chatRoomEditButtonTrailingConstraint.constant = -chatRoomEditButton.bounds.width
             }
-        }*/
+        }
+        
+        // animation 주기 전 세팅
+        backgroundView.alpha = 0
+        contentView.frame = CGRect(x: contentView.bounds.width, y: 0, width: contentView.bounds.width, height: contentView.bounds.height)
     }
     
+    private func showPresentAnimation(){
+        UIView.animate(withDuration: 0.3, animations: {
+            self.backgroundView.alpha = 1
+            self.contentView.frame = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
+        })
+    }
+    
+    private func showDismissAnimation(){
+        UIView.animate(withDuration: 0.3, animations: {
+            self.backgroundView.alpha = 0
+            self.contentView.frame = CGRect(x: self.contentView.bounds.width * 2, y: 0, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
+        }, completion: { _ in
+            self.dismiss(animated: false)
+        })
+    }
+
+    
     @objc func dismiss(_ sender: UITapGestureRecognizer){
-        self.dismiss(animated: true)
+        showDismissAnimation()
     }
     
     @IBAction func chatRoomEditButtonTapped(_ sender: Any) {

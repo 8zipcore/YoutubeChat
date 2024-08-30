@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="categoryCollectionView" destination="inD-7D-zfz" id="u0n-Tq-x4T"/>
                 <outlet property="chattingLabel" destination="0Wl-UN-enQ" id="Br4-8o-W1j"/>
+                <outlet property="fetchChatRoomButton" destination="3bu-jj-osk" id="AOA-tw-gRq"/>
                 <outlet property="groupChatTableView" destination="ycR-by-KKi" id="W49-K7-81K"/>
                 <outlet property="myProfileLabel" destination="ZFg-DJ-qoG" id="JF8-n7-Uyd"/>
                 <outlet property="profileView" destination="Y7b-6M-0iV" id="M44-sh-IRJ"/>
@@ -176,7 +177,7 @@
     </objects>
     <resources>
         <image name="plus_icon" width="202" height="202"/>
-        <image name="refresh_icon" width="70" height="70"/>
+        <image name="refresh_icon" width="512" height="512"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

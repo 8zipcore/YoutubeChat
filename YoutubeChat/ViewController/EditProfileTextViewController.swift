@@ -17,6 +17,7 @@ class EditProfileTextViewController: BaseViewController {
         case name, description
     }
 
+    @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var titleLabel: SDGothicLabel!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var clearButton: UIButton!
@@ -38,6 +39,10 @@ class EditProfileTextViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.backgroundView.alpha = 1
+        })
         
         textViewHeightConstraint.constant = estimatedHeight()
         textView.becomeFirstResponder()
@@ -68,6 +73,7 @@ class EditProfileTextViewController: BaseViewController {
             maxCharacterCount = 30
         }
         
+        backgroundView.alpha = 0
     }
     
     private func estimatedHeight()-> CGFloat{
@@ -82,12 +88,20 @@ class EditProfileTextViewController: BaseViewController {
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true)
+        dismissWithAnimation()
     }
     
     @IBAction func confirmButtonTapped(_ sender: Any) {
         self.delegate?.didEndEdit(self.textView.text, self.viewType)
-        self.dismiss(animated: true)
+        dismissWithAnimation()
+    }
+    
+    private func dismissWithAnimation(){
+        UIView.animate(withDuration: 0.1, animations: {
+            self.view.alpha = 0
+        }, completion: { _ in
+            self.dismiss(animated: false)
+        })
     }
 }
 

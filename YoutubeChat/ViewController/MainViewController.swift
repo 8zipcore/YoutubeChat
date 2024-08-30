@@ -13,6 +13,7 @@ class MainViewController: BaseViewController {
     @IBOutlet weak var myProfileLabel: SDGothicLabel!
     @IBOutlet weak var chattingLabel: SDGothicLabel!
     @IBOutlet weak var groupChatTableView: UITableView!
+    @IBOutlet weak var fetchChatRoomButton: UIButton!
     @IBOutlet weak var categoryCollectionView: UICollectionView!
     
     private let cellHeight: CGFloat = 30

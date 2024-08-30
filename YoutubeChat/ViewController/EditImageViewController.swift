@@ -19,11 +19,13 @@ class EditImageViewController: BaseViewController {
     @IBOutlet weak var editView: UIView!
     @IBOutlet weak var cancelButton: SDGothicButton!
     @IBOutlet weak var confirmButton: UIButton!
+    @IBOutlet weak var fullImageView: UIImageView!
     
     @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     
     var pickedImage = UIImage()
+    var imageType: ProfileInfoViewController.ImageType?
     var delegate: EditImageViewControllerDelegate?
 
     override func viewDidLoad() {
@@ -33,11 +35,20 @@ class EditImageViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setImage()
+        
+        editView.isHidden = imageType == .background
+        fullImageView.isHidden = imageType == .profile
+        
+        if imageType == .profile{
+            setImage()
+        } else {
+            fullImageView.image = pickedImage
+        }
     }
     
     private func configureView(){
         imageView.contentMode = .scaleAspectFit
+        fullImageView.contentMode = .scaleAspectFit
         
         self.maskingView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         self.maskingView.isUserInteractionEnabled = false
@@ -104,11 +115,12 @@ class EditImageViewController: BaseViewController {
     }
 
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: false)
+        self.dismiss(animated: false)
     }
     
     @IBAction func confirmButtonTapped(_ sender: Any) {
-        self.delegate?.didDismissWithImage(image: self.captureScrollView())
+        let image = imageType == .profile ? self.captureScrollView() : pickedImage
+        self.delegate?.didDismissWithImage(image: image)
     }
     
     private func captureScrollView() -> UIImage? {

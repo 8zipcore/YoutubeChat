@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EditProfileTextViewController" customModule="YoutubeChat" customModuleProvider="target">
             <connections>
+                <outlet property="backgroundView" destination="pdR-fO-EdH" id="Dcr-FJ-GJz"/>
                 <outlet property="clearButton" destination="Pld-zm-CWm" id="ZlE-iO-eDn"/>
                 <outlet property="textCountLabel" destination="XaD-0g-6rd" id="5VV-gD-poz"/>
                 <outlet property="textView" destination="QPY-FO-GZk" id="Zg7-rX-SrC"/>
@@ -24,6 +25,10 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pdR-fO-EdH">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sd7-hl-jIR" userLabel="TopBarView">
                     <rect key="frame" x="0.0" y="59" width="393" height="42.666666666666657"/>
                     <subviews>
@@ -115,15 +120,19 @@
                 </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" white="0.0" alpha="0.60503186677631582" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Psv-5X-WMz" firstAttribute="trailing" secondItem="xMI-wx-hxr" secondAttribute="trailing" id="2vD-dY-pRg"/>
                 <constraint firstItem="XaD-0g-6rd" firstAttribute="centerX" secondItem="Psv-5X-WMz" secondAttribute="centerX" id="3iT-sh-d9Z"/>
                 <constraint firstItem="XaD-0g-6rd" firstAttribute="top" secondItem="Psv-5X-WMz" secondAttribute="bottom" constant="10" id="8br-gJ-aAA"/>
                 <constraint firstItem="Sd7-hl-jIR" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="AUf-7P-5RK"/>
                 <constraint firstItem="Psv-5X-WMz" firstAttribute="top" secondItem="xMI-wx-hxr" secondAttribute="bottom" constant="10" id="I6m-Om-oBz"/>
+                <constraint firstItem="pdR-fO-EdH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="On7-As-yma"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pdR-fO-EdH" secondAttribute="trailing" id="QFd-cL-9Hg"/>
                 <constraint firstItem="xMI-wx-hxr" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" multiplier="0.8" id="QHt-2W-PA4"/>
+                <constraint firstItem="pdR-fO-EdH" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="QPD-4x-8es"/>
                 <constraint firstItem="Sd7-hl-jIR" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="XMS-Cc-PFr"/>
+                <constraint firstAttribute="bottom" secondItem="pdR-fO-EdH" secondAttribute="bottom" id="eDt-cb-llN"/>
                 <constraint firstItem="Psv-5X-WMz" firstAttribute="leading" secondItem="xMI-wx-hxr" secondAttribute="leading" id="eY2-cr-3CP"/>
                 <constraint firstItem="Sd7-hl-jIR" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="hmK-WN-RU2"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Sd7-hl-jIR" secondAttribute="trailing" id="mm9-vd-B2i"/>

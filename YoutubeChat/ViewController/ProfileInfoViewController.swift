@@ -33,7 +33,7 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
     @IBOutlet var lineViewArray: [UIView] = []
     @IBOutlet var editButtonArray: [UIButton] = []
     
-    private var imagePicker = UIImagePickerController()
+    private var imagePickerController: UIImagePickerController?
     private var imageEditViewController = EditImageViewController()
     
     private var profileViewModel = ProfileViewModel()
@@ -69,12 +69,8 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
         profileEditButton.addGestureRecognizer(profileEditButtonTapGestureRecognizer)
         
         profileImageView.delegate = self
-        imageEditViewController.delegate = self
-        
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = false
-        
+                
+        setImagePickerController()
         imageEditViewController.modalPresentationStyle = .fullScreen
         imageEditViewController.delegate = self
 
@@ -94,6 +90,13 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
         case nil:
             break
         }
+    }
+    
+    private func setImagePickerController(){
+        imagePickerController = UIImagePickerController()
+        imagePickerController?.delegate = self
+        imagePickerController?.sourceType = .photoLibrary
+        imagePickerController?.allowsEditing = false
     }
     
     @IBAction func dismissButtonTapped(_ sender: Any) {
@@ -139,7 +142,7 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
             vc.text = descriptionLabel.text ?? ""
             vc.viewType = .description
         }
-        self.present(vc, animated: true)
+        self.present(vc, animated: false)
     }
     
     private func setEditMode(_ isEdit: Bool){
@@ -215,7 +218,7 @@ extension ProfileInfoViewController: ProfileImageViewDelegate{
         let title = imageType == .profile ? "프로필 사진 설정" : "배경 사진 설정"
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
         alert.addAction(UIAlertAction(title: "앨범에서 사진 선택", style: .default, handler: { _ in
-            self.present(self.imagePicker, animated: true)
+            self.present(self.imagePickerController!, animated: true)
         }))
         alert.addAction(UIAlertAction(title: "기본 이미지 적용", style: .default, handler: { _ in
             switch self.imageType {
@@ -237,15 +240,27 @@ extension ProfileInfoViewController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             imageEditViewController.pickedImage = pickedImage
-            imagePicker.pushViewController(imageEditViewController, animated: false)
+            imageEditViewController.imageType = imageType
+            imagePickerController?.present(imageEditViewController, animated: false)
         }
     }
 }
 
 extension ProfileInfoViewController: EditImageViewControllerDelegate{
     func didDismissWithImage(image: UIImage?) {
-        self.dismiss(animated: true)
+        self.dismiss(animated: true, completion: {
+            self.setImagePickerController()
+        })
+        
         guard let image = image else { return }
-        profileImageView.setImage(image)
+        switch self.imageType {
+        case .profile:
+            profileImageView.setImage(image)
+        case .background:
+            self.backgroundImageView.image = image
+        case .none:
+            break
+        }
+        
     }
 }

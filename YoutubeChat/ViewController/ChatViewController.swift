@@ -198,7 +198,7 @@ extension ChatViewController{
         let vc = ChatMenuViewController()
         vc.chatRoom = chatRoom
         vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: true)
+        self.present(vc, animated: false)
     }
     
     @IBAction func youtubeButtonTapped(_ sender: Any) {
