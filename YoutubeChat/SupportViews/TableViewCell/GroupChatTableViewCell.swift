@@ -16,6 +16,9 @@ class GroupChatTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: SDGothicLabel!
     @IBOutlet weak var peopleNumberLabel: SDGothicLabel!
     @IBOutlet weak var lastChatTimeLabel: SDGothicLabel!
+    @IBOutlet weak var lockImageView: UIImageView!
+    
+    @IBOutlet weak var lockImageViewWidthConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,6 +50,8 @@ class GroupChatTableViewCell: UITableViewCell {
         peopleNumberLabel.text = String(chatRoom.participantIds.count)
         descriptionLabel.text = chatRoom.description
         lastChatTimeLabel.text =  lastChatTimeToText(chatRoom.lastChatTime)
+        
+        lockImageViewWidthConstraint.constant = chatRoom.isOptionContains(.password) ? self.bounds.width * 0.03 : 0
     }
 
     func showSeletedAnimation(){

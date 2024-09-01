@@ -13,7 +13,7 @@
             <connections>
                 <outlet property="chatRoomImageView" destination="QfB-kr-6dd" id="Flw-KB-ofg"/>
                 <outlet property="descriptionLabel" destination="8Je-p7-han" id="MpM-Rq-XSI"/>
-                <outlet property="enterButton" destination="JjV-BU-3T6" id="KNm-yd-imq"/>
+                <outlet property="enterButton" destination="nMS-xL-ALI" id="NbR-tK-T9X"/>
                 <outlet property="nameLabel" destination="0WZ-af-NJi" id="ml5-w4-PjO"/>
                 <outlet property="optionLabel" destination="IjM-Vl-Vtl" id="a0b-C4-xhI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -60,17 +60,13 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JjV-BU-3T6" customClass="ConfirmButton" customModule="YoutubeChat" customModuleProvider="target">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nMS-xL-ALI" customClass="ImageConfirmButton" customModule="YoutubeChat" customModuleProvider="target">
                     <rect key="frame" x="23.666666666666657" y="754" width="345.66666666666674" height="54"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="JjV-BU-3T6" secondAttribute="height" multiplier="986:154" id="fIj-pR-gpq"/>
+                        <constraint firstAttribute="width" secondItem="nMS-xL-ALI" secondAttribute="height" multiplier="986:154" id="L2C-hK-dzl"/>
                     </constraints>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                    <connections>
-                        <action selector="enterButtonTapped:" destination="-1" eventType="touchUpInside" id="HgV-Ps-26c"/>
-                    </connections>
-                </button>
+                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -83,21 +79,21 @@
                 <constraint firstItem="KwO-jV-4oD" firstAttribute="trailing" secondItem="QfB-kr-6dd" secondAttribute="trailing" id="9cZ-C0-Usv"/>
                 <constraint firstItem="0WZ-af-NJi" firstAttribute="top" secondItem="IjM-Vl-Vtl" secondAttribute="bottom" constant="10" id="JC5-94-10L"/>
                 <constraint firstItem="IjM-Vl-Vtl" firstAttribute="trailing" secondItem="0WZ-af-NJi" secondAttribute="trailing" id="JY4-4Y-YNG"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="JjV-BU-3T6" secondAttribute="bottom" constant="10" id="KXC-wv-9VB"/>
                 <constraint firstItem="0WZ-af-NJi" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.88" id="OE7-LJ-YLn"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QfB-kr-6dd" secondAttribute="trailing" id="OTc-B7-iT5"/>
-                <constraint firstItem="JjV-BU-3T6" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.88" id="OZk-dN-aco"/>
                 <constraint firstItem="8Je-p7-han" firstAttribute="trailing" secondItem="0WZ-af-NJi" secondAttribute="trailing" id="Xek-4b-Fei"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="nMS-xL-ALI" secondAttribute="bottom" constant="10" id="YGS-eu-Wha"/>
+                <constraint firstItem="nMS-xL-ALI" firstAttribute="top" secondItem="8Je-p7-han" secondAttribute="bottom" constant="25" id="aG4-hU-wxU"/>
+                <constraint firstItem="nMS-xL-ALI" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.88" id="gXQ-pm-aaR"/>
                 <constraint firstItem="KwO-jV-4oD" firstAttribute="leading" secondItem="QfB-kr-6dd" secondAttribute="leading" id="giH-30-SP4"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="o9l-m6-NZo" secondAttribute="trailing" constant="20" id="j4A-PH-VpZ"/>
                 <constraint firstItem="o9l-m6-NZo" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="15" id="j9Q-fZ-526"/>
                 <constraint firstItem="8Je-p7-han" firstAttribute="top" secondItem="0WZ-af-NJi" secondAttribute="bottom" constant="13" id="jG9-Hs-Tp9"/>
                 <constraint firstItem="IjM-Vl-Vtl" firstAttribute="leading" secondItem="0WZ-af-NJi" secondAttribute="leading" id="oJM-y8-SIT"/>
+                <constraint firstItem="nMS-xL-ALI" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="r0v-hr-zEY"/>
                 <constraint firstItem="o9l-m6-NZo" firstAttribute="width" secondItem="i5M-Pr-FkT" secondAttribute="width" multiplier="0.05" id="rWM-Jm-rUa"/>
                 <constraint firstItem="0WZ-af-NJi" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="xl9-MM-yDt"/>
                 <constraint firstItem="QfB-kr-6dd" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="zAk-3Y-HKz"/>
-                <constraint firstItem="JjV-BU-3T6" firstAttribute="top" secondItem="8Je-p7-han" secondAttribute="bottom" constant="25" id="zm6-hc-B00"/>
-                <constraint firstItem="JjV-BU-3T6" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="zna-82-epF"/>
             </constraints>
             <point key="canvasLocation" x="91" y="-11"/>
         </view>

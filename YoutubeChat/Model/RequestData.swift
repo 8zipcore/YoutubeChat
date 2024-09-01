@@ -7,12 +7,13 @@
 
 import Foundation
 
-struct EnterChatRequestData: Codable{
+struct EnterChatRoomData: Codable{
+    var chatRoomId: UUID
     var enterCode: String
     var userId: UUID
 }
 
-struct EnterChatRoomData: Codable{
+struct ChatRoomRequestData: Codable{
     var chatRoomId: UUID
     var userId: UUID
 }

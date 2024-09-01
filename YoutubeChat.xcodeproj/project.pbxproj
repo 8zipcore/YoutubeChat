@@ -86,8 +86,7 @@
 		36C9A4712C365852001D9A8B /* YoutubeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36C9A4702C365852001D9A8B /* YoutubeViewModel.swift */; };
 		36CA84A22C32BB8F00427471 /* ImageChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CA84A02C32BB8F00427471 /* ImageChatTableViewCell.swift */; };
 		36CA84A32C32BB8F00427471 /* ImageChatTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36CA84A12C32BB8F00427471 /* ImageChatTableViewCell.xib */; };
-		36CD688E2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CD688C2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.swift */; };
-		36CD688F2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36CD688D2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.xib */; };
+		36CB2C502C843544006E0435 /* ImageConfirmButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CB2C4F2C843544006E0435 /* ImageConfirmButton.swift */; };
 		36D01CB52C4E7D43001F0D10 /* RequestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D01CB42C4E7D43001F0D10 /* RequestData.swift */; };
 		36D4488B2C5FC97800BAD898 /* ConfirmImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36D448892C5FC97800BAD898 /* ConfirmImageViewController.swift */; };
 		36D4488C2C5FC97800BAD898 /* ConfirmImageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36D4488A2C5FC97800BAD898 /* ConfirmImageViewController.xib */; };
@@ -213,8 +212,7 @@
 		36C9A4702C365852001D9A8B /* YoutubeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeViewModel.swift; sourceTree = "<group>"; };
 		36CA84A02C32BB8F00427471 /* ImageChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageChatTableViewCell.swift; sourceTree = "<group>"; };
 		36CA84A12C32BB8F00427471 /* ImageChatTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageChatTableViewCell.xib; sourceTree = "<group>"; };
-		36CD688C2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterChatRoomCodeViewController.swift; sourceTree = "<group>"; };
-		36CD688D2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EnterChatRoomCodeViewController.xib; sourceTree = "<group>"; };
+		36CB2C4F2C843544006E0435 /* ImageConfirmButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageConfirmButton.swift; sourceTree = "<group>"; };
 		36D01CB42C4E7D43001F0D10 /* RequestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestData.swift; sourceTree = "<group>"; };
 		36D448892C5FC97800BAD898 /* ConfirmImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmImageViewController.swift; sourceTree = "<group>"; };
 		36D4488A2C5FC97800BAD898 /* ConfirmImageViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConfirmImageViewController.xib; sourceTree = "<group>"; };
@@ -316,6 +314,7 @@
 				36BEF3952C7F6F9B00631D17 /* TransitionAnimation.swift */,
 				36EDC6402C803ADF00FF92DD /* SearchTextField.swift */,
 				36EDC6422C8051C000FF92DD /* ClearButton.swift */,
+				36CB2C4F2C843544006E0435 /* ImageConfirmButton.swift */,
 			);
 			path = SupportViews;
 			sourceTree = "<group>";
@@ -417,8 +416,6 @@
 				36F351A52C351A3B0055BF64 /* PlaylistViewController.xib */,
 				363974692C37C294009C96CF /* EditImageViewController.swift */,
 				3639746A2C37C294009C96CF /* EditImageViewController.xib */,
-				36CD688C2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.swift */,
-				36CD688D2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.xib */,
 				36D448892C5FC97800BAD898 /* ConfirmImageViewController.swift */,
 				36D4488A2C5FC97800BAD898 /* ConfirmImageViewController.xib */,
 				366105E32C63616800BB7585 /* ChatRoomInfoViewController.swift */,
@@ -618,7 +615,6 @@
 				3659B61A2C70DEA0004327DF /* SearchChatRoomViewController.xib in Resources */,
 				36C1F2212C6F33310053B164 /* ProfileInfoViewController.xib in Resources */,
 				3602746E2C2E6F4D00A377FD /* ChatTableViewCell.xib in Resources */,
-				36CD688F2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.xib in Resources */,
 				36AAECB92C198E3E00532AF5 /* LaunchScreen.storyboard in Resources */,
 				366BA3652C79FEE300AAEFC9 /* ChatMenuViewController.xib in Resources */,
 				3639746C2C37C294009C96CF /* EditImageViewController.xib in Resources */,
@@ -768,13 +764,13 @@
 				3602746D2C2E6F4D00A377FD /* ChatTableViewCell.swift in Sources */,
 				3639746E2C37D9CF009C96CF /* ScrollView.swift in Sources */,
 				366BA3642C79FEE300AAEFC9 /* ChatMenuViewController.swift in Sources */,
+				36CB2C502C843544006E0435 /* ImageConfirmButton.swift in Sources */,
 				36C9A4712C365852001D9A8B /* YoutubeViewModel.swift in Sources */,
 				3655CB2B2C23041A0037F3DC /* Color.swift in Sources */,
 				365C9DAD2C25C111004936FB /* ChatOptionCollectionViewCell.swift in Sources */,
 				363974622C379595009C96CF /* ProfileViewModel.swift in Sources */,
 				36C3A2B12C1B48C6008AE26F /* SDGothicLabel.swift in Sources */,
 				36E4F9F42C33F31300EC9285 /* YoutubeView.swift in Sources */,
-				36CD688E2C4A6FC5003D6DB8 /* EnterChatRoomCodeViewController.swift in Sources */,
 				36DE90EB2C48E1CA002FE3C0 /* NotificationName.swift in Sources */,
 				3639745E2C3794C2009C96CF /* NetworkManager.swift in Sources */,
 				36AE4E052C7A2B000027D442 /* ImageViewController.swift in Sources */,

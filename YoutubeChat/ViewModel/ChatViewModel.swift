@@ -10,9 +10,6 @@ import Foundation
 class ChatViewModel{
     
     var categoryArray: [CategoryData] = [CategoryData(title: "검색"),CategoryData(title: "K-pop"),CategoryData(title: "ㅎㅎ"),]
-    var chatOptionArray = [ChatOptionData(chatOption: .anonymous),
-                           ChatOptionData(chatOption: .videoAddDenied),
-                           ChatOptionData(chatOption: .privateRoom)]
     var chatRoomArray: [ChatRoomData] = []
     var messageArray: [Message] = []
     
@@ -23,7 +20,7 @@ class ChatViewModel{
         let response = try await NetworkManager.shared.sendJsonData(chatRoom, ChatRoomData.self, to: url)
         return response
     }
-    
+    /*
     func confirmEnterCode(enterCode: String) async throws -> EnterChatResponseData{
         guard let url = URLManager.shared.url(.enterCode) else {
             throw HttpError.badURL
@@ -32,31 +29,31 @@ class ChatViewModel{
         let response = try await NetworkManager.shared.sendJsonData(data, EnterChatResponseData.self, to: url)
         return response
     }
-    
-    func enterChatRoom(id: UUID) async throws -> ChatRoomResponseData{
+    */
+    func enterChatRoom(id: UUID, enterCode: String) async throws -> ChatRoomResponseData{
         guard let url = URLManager.shared.url(.enter) else { throw HttpError.badURL }
-        let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
-        let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ChatRoomResponseData.self, to: url)
+        let data = EnterChatRoomData(chatRoomId: id, enterCode: enterCode, userId: MyProfile.id)
+        let response = try await NetworkManager.shared.sendJsonData(data, ChatRoomResponseData.self, to: url)
         return response
     }
     
     func leaveChatRoom(id: UUID) async throws -> ResponseData{
         guard let url = URLManager.shared.url(.leave) else { throw HttpError.badURL }
-        let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
-        let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ResponseData.self, to: url)
+        let data = ChatRoomRequestData(chatRoomId: id, userId: MyProfile.id)
+        let response = try await NetworkManager.shared.sendJsonData(data, ResponseData.self, to: url)
         return response
     }
     
     func quitChatRoom(id: UUID) async throws {
         guard let url = URLManager.shared.url(.leave) else { throw HttpError.badURL }
-        let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
-        _ = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ResponseData.self, to: url)
+        let data = ChatRoomRequestData(chatRoomId: id, userId: MyProfile.id)
+        _ = try await NetworkManager.shared.sendJsonData(data, ResponseData.self, to: url)
     }
     
     func findChatRoom(id: UUID) async throws -> ChatRoomData?{
         guard let url = URLManager.shared.url(.find) else { throw HttpError.badURL }
-        let enterChatRoomData = EnterChatRoomData(chatRoomId: id, userId: MyProfile.id)
-        let response = try await NetworkManager.shared.sendJsonData(enterChatRoomData, ChatRoomData?.self, to: url)
+        let data = ChatRoomRequestData(chatRoomId: id, userId: MyProfile.id)
+        let response = try await NetworkManager.shared.sendJsonData(data, ChatRoomData?.self, to: url)
         return response
     }
     
@@ -64,16 +61,6 @@ class ChatViewModel{
         guard let url = URLManager.shared.url(.fetch) else { throw HttpError.badURL }
         self.chatRoomArray = try await NetworkManager.shared.fetchData(to: url, [ChatRoomData].self)
         completion()
-    }
-        
-    func selectedChatOptions()-> [Int]{
-        var selectedChatOptions: [Int] = []
-        chatOptionArray.forEach{
-            if $0.isSelected{
-                selectedChatOptions.append($0.chatOption.rawValue)
-            }
-        }
-        return selectedChatOptions
     }
     
     func isPrevSender(_ index: Int)-> Bool{
@@ -95,12 +82,14 @@ class ChatViewModel{
     func optionText(_ chatRoom: ChatRoomData)-> String{
         var text = "\(chatRoom.participantIds.count)명 참여중"
         
+        /*
         chatRoom.chatOptions.forEach { option in
             text.append(" ")
             if let type = ChatOption(rawValue: option){
                 text.append(ChatOptionData(chatOption: type).title)
             }
         }
+        */
         
         return text
     }

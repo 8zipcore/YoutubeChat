@@ -8,21 +8,21 @@
 import Foundation
 
 enum ChatOption: Int, Codable{
-    case anonymous
     case videoAddDenied
-    case privateRoom
+    case searchAllowed
+    case password
 }
 
 struct ChatOptionData: Codable{
     var chatOption: ChatOption
     var title: String{
         switch chatOption{
-        case .anonymous:
-            return "익명으로 들어가기"
         case .videoAddDenied:
             return "방장만 영상 추가"
-        case .privateRoom:
-            return "비공개 방"
+        case .searchAllowed:
+            return "검색 허용"
+        case .password:
+            return "비밀번호"
         }
     }
     var isSelected: Bool

@@ -8,8 +8,9 @@
 import UIKit
 import SnapKit
 
-protocol InputTextFieldDelegate{
-    func textFieldTextDidChange(_ sender: InputTextField)
+@objc protocol InputTextFieldDelegate{
+    @objc optional func textFieldTextDidChange(_ sender: InputTextField)
+    @objc optional func textFieldDidBeginEditing(_ sender: InputTextField)
 }
 
 class InputTextField: UIView, ClearButtonDelegate {
@@ -139,7 +140,9 @@ class InputTextField: UIView, ClearButtonDelegate {
     
     func setText(_ text: String){
         self.textField.text = text
-        self.lengthLabel.text = "\(text.count)/\(maxLength)"
+        if maxLength > 0 {
+            self.lengthLabel.text = "\(text.count)/\(maxLength)"
+        }
     }
     
     func setPlaceHolder(_ placeHolder: String){
@@ -172,8 +175,12 @@ class InputTextField: UIView, ClearButtonDelegate {
         return textCount == 0
     }
     
-    func becomeFirstResponder(){
+    func showKeyboard(){
         self.textField.becomeFirstResponder()
+    }
+    
+    func hideKeyboard(){
+        textField.resignFirstResponder()
     }
     
     func clearButtonTapped(){
@@ -186,7 +193,7 @@ extension InputTextField: UITextFieldDelegate{
     func textFieldDidChangeSelection(_ textField: UITextField) {
         clearButton.isHidden = !(textField.text?.count ?? 0 > 0)
         setLengthLabel()
-        delegate?.textFieldTextDidChange(self)
+        delegate?.textFieldTextDidChange?(self)
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
@@ -200,6 +207,7 @@ extension InputTextField: UITextFieldDelegate{
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.contentView.backgroundColor = UIColor(white: 1, alpha: 0.15)
+        delegate?.textFieldDidBeginEditing?(self)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

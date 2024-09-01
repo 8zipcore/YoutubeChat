@@ -82,20 +82,9 @@ class MainViewController: BaseViewController {
     }
     
     @IBAction func creatGroupChatButtonTapped(_ sender: Any) {
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "채팅방 만들기", style: .default, handler: {_ in
-            let vc = CreateChatRoomViewController()
-            vc.viewType = .create
-            self.navigationController?.pushViewController(vc, animated: true)
-        }))
-        alert.addAction(UIAlertAction(title: "채팅방 참여하기", style: .default, handler: {_ in 
-            let vc = EnterChatRoomCodeViewController()
-            vc.modalPresentationStyle = .overCurrentContext
-            vc.parentNavigationController = self.navigationController
-            self.navigationController?.pushViewController(vc, animated: true)
-        }))
-        alert.addAction(UIAlertAction(title: "취소", style: .cancel))
-        self.present(alert, animated: true)
+        let vc = CreateChatRoomViewController()
+        vc.viewType = .create
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func testButtonTapped(_ sender: Any) {

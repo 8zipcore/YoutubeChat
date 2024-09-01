@@ -13,7 +13,7 @@ class ChatRoomInfoViewController: BaseViewController {
     @IBOutlet weak var descriptionLabel: SDGothicLabel!
     @IBOutlet weak var optionLabel: SDGothicLabel!
     @IBOutlet weak var chatRoomImageView: UIImageView!
-    @IBOutlet weak var enterButton: ConfirmButton!
+    @IBOutlet weak var enterButton: ImageConfirmButton!
     
     private var chatViewModel = ChatViewModel()
     
@@ -30,7 +30,7 @@ class ChatRoomInfoViewController: BaseViewController {
         descriptionLabel.setLabel(textColor: Colors.gray, fontSize: 18)
         optionLabel.setLabel(textColor: Colors.lightGray, fontSize: 15)
         
-        enterButton.setTitle("참여하기")
+        enterButton.setButton(UIImage(named: "lock_icon"), "참여하기")
         
         optionLabel.textAlignment = .right
         
@@ -43,11 +43,27 @@ class ChatRoomInfoViewController: BaseViewController {
         descriptionLabel.text = chatRoom.description
         optionLabel.text = chatViewModel.optionText(chatRoom)
         chatRoomImageView.setImage(imageString: chatRoom.image)
+        
+        self.enterButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(enterButtonTapped(_:))))
     }
 
-    @IBAction func enterButtonTapped(_ sender: Any) {
+    @objc func enterButtonTapped(_ sender: Any) {
+        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
+        
+        if chatRoom.isOptionContains(.password){
+            showPasswordAlert()
+        } else {
+            enterChatRoom(chatRoom: chatRoom, enterCode: "")
+        }
+    }
+    
+    @IBAction func dismissButtonTapped(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    private func enterChatRoom(chatRoom: ChatRoomData, enterCode: String){
         Task{
-            let chatRoomResponseData = try await chatViewModel.enterChatRoom(id: chatRoom!.id!)
+            let chatRoomResponseData = try await chatViewModel.enterChatRoom(id: chatRoom.id!, enterCode: enterCode)
             switch chatRoomResponseData.responseCode {
             case .success:
                 let vc = ChatViewController()
@@ -59,13 +75,48 @@ class ChatRoomInfoViewController: BaseViewController {
             case .failure:
                 // 존재하지 않는 방입니다?
                 // alert 추가
+                showFailureAlert()
+            case .invalid:
                 self.navigationController?.popViewController(animated: true)
             }
         }
     }
     
+    private func showPasswordAlert(){
+        let alert = UIAlertController(title: nil, message: "비밀번호 입력", preferredStyle: .alert)
+        
+        // 첫 번째 텍스트 필드 추가
+        alert.addTextField { textField in
+            textField.placeholder = "영문/숫자 4~8자리"
+            textField.keyboardType = .default
+        }
+        
+        // 확인 버튼 추가
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+            if let textFields = alert.textFields {
+                if let chatRoom = self.chatRoom, let firstText = textFields.first?.text{
+                    self.enterChatRoom(chatRoom: chatRoom, enterCode: firstText)
+                }
+            }
+        }
+        alert.addAction(okAction)
+        
+        // 취소 버튼 추가
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alert.addAction(cancelAction)
+        
+        // 알림을 표시
+        self.present(alert, animated: true, completion: nil)
+    }
     
-    @IBAction func dismissButtonTapped(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+    private func showFailureAlert(){
+        let alert = UIAlertController(title: nil, message: "코드를 잘못 입력했습니다.\n영문/숫자 4~8자리로 입력해주세요.", preferredStyle: .alert)
+        
+        // 확인 버튼 추가
+        let okAction = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(okAction)
+        
+        // 알림을 표시
+        self.present(alert, animated: true, completion: nil)
     }
 }

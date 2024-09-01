@@ -8,6 +8,10 @@
 import Foundation
 import SnapKit
 
+@objc protocol InputTextViewDelegate{
+    @objc optional func textViewDidBeginEditing(_ sender: InputTextView)
+}
+
 class InputTextView: UIView, ClearButtonDelegate{
     var titleLabel = SDGothicLabel()
     var lengthLabel = SDGothicLabel()
@@ -29,6 +33,8 @@ class InputTextView: UIView, ClearButtonDelegate{
     var lineHeight: CGFloat{
         return self.textView.font?.lineHeight ?? 0
     }
+    
+    var delegate: InputTextViewDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -214,6 +220,7 @@ extension InputTextView: UITextViewDelegate{
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         self.contentView.backgroundColor = .init(white: 1, alpha: 0.15)
+        delegate?.textViewDidBeginEditing?(self)
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
