@@ -30,7 +30,8 @@ class ChatRoomInfoViewController: BaseViewController {
         descriptionLabel.setLabel(textColor: Colors.gray, fontSize: 18)
         optionLabel.setLabel(textColor: Colors.lightGray, fontSize: 15)
         
-        enterButton.setButton(UIImage(named: "lock_icon"), "참여하기")
+        let buttonImage = chatRoom.isOptionContains(.password) ? UIImage(named: "lock_icon") : nil
+        enterButton.setButton(buttonImage, "참여하기")
         
         optionLabel.textAlignment = .right
         

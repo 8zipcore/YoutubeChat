@@ -21,6 +21,8 @@ class ChatViewController: BaseViewController {
     @IBOutlet weak var messageInputViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var youtubeButtonBottomConstraint: NSLayoutConstraint!
     
+    private var playlistView = UIView()
+    
     private let messageInputViewBottomMargin: CGFloat = 7
     private var keyboardAnimationDuraion: CGFloat = 0
 
@@ -181,6 +183,13 @@ class ChatViewController: BaseViewController {
                 isEnter = false
             }
         }
+        
+        if self.chatViewModel.messageArray.count > 0 {
+            DispatchQueue.main.async{
+                self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: false)
+                
+            }
+        }
     }
 }
 // MARK: ButtonTapped
@@ -191,7 +200,15 @@ extension ChatViewController{
     }
     
     @IBAction func testButtonTapped(_ sender: Any) {
+        DispatchQueue.main.async{
+            self.youtubeViewHeightConstraint.constant = self.view.bounds.width * 9 / 16
+            if self.chatViewModel.messageArray.count > 0 {
+                DispatchQueue.main.async{
+                    self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: false)
+                }
 
+            }
+        }
     }
     
     @IBAction func menuButtonTapped(_ sender: Any) {

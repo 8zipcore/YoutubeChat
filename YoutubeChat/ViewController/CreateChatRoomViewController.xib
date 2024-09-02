@@ -37,7 +37,7 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="42.666666666666657"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="siy-gw-0Ps">
-                            <rect key="frame" x="10.000000000000002" y="11.33333333333333" width="19.666666666666671" height="19.666666666666671"/>
+                            <rect key="frame" x="10.000000000000002" y="8.6666666666666696" width="25.666666666666671" height="25.333333333333329"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="siy-gw-0Ps" secondAttribute="height" multiplier="1:1" id="UFV-RR-mPR"/>
                             </constraints>
@@ -48,7 +48,7 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="채팅방 만들기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m3v-mK-3Gv" customClass="SDGothicLabel" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="44.666666666666664" y="10.666666666666671" width="92.666666666666686" height="21"/>
+                            <rect key="frame" x="50.666666666666664" y="10.666666666666671" width="92.666666666666686" height="21"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -59,7 +59,7 @@
                         <constraint firstItem="m3v-mK-3Gv" firstAttribute="centerY" secondItem="hGS-wy-cOl" secondAttribute="centerY" id="9Jc-LS-5NE"/>
                         <constraint firstItem="m3v-mK-3Gv" firstAttribute="leading" secondItem="siy-gw-0Ps" secondAttribute="trailing" constant="15" id="MGv-rk-Pfd"/>
                         <constraint firstItem="siy-gw-0Ps" firstAttribute="leading" secondItem="hGS-wy-cOl" secondAttribute="leading" constant="10" id="Qfu-x3-d4c"/>
-                        <constraint firstItem="siy-gw-0Ps" firstAttribute="width" secondItem="hGS-wy-cOl" secondAttribute="width" multiplier="0.05" id="oUx-5O-CXS"/>
+                        <constraint firstItem="siy-gw-0Ps" firstAttribute="width" secondItem="hGS-wy-cOl" secondAttribute="width" multiplier="0.065" id="oUx-5O-CXS"/>
                         <constraint firstItem="siy-gw-0Ps" firstAttribute="centerY" secondItem="hGS-wy-cOl" secondAttribute="centerY" id="vBL-13-Jwn"/>
                     </constraints>
                 </view>

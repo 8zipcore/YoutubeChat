@@ -64,8 +64,17 @@ class ImageConfirmButton: UIView {
     }
     
     func setButton(_ image: UIImage?, _ title: String){
-        self.imageView.image = image
         self.label.text = title
+        
+        var multiple: CGFloat = 1
+        if let image = image {
+            multiple = 0.95
+            self.imageView.image = image
+        }
+        
+        imageView.snp.makeConstraints{ make in
+            make.centerY.equalTo(label.snp.centerY).multipliedBy(multiple)
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

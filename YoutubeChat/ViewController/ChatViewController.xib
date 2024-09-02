@@ -99,17 +99,17 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CMZ-xZ-MrI" userLabel="ChatView">
-                    <rect key="frame" x="0.0" y="320.66666666666674" width="393" height="460.33333333333326"/>
+                    <rect key="frame" x="0.0" y="320.66666666666674" width="393" height="455.33333333333326"/>
                     <subviews>
                         <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dlW-yw-UMX">
-                            <rect key="frame" x="9.6666666666666572" y="5" width="373.66666666666674" height="450.33333333333331"/>
+                            <rect key="frame" x="9.6666666666666572" y="0.0" width="373.66666666666674" height="455.33333333333331"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </tableView>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="dlW-yw-UMX" firstAttribute="top" secondItem="CMZ-xZ-MrI" secondAttribute="top" constant="5" id="Sfr-vX-uyd"/>
-                        <constraint firstAttribute="bottom" secondItem="dlW-yw-UMX" secondAttribute="bottom" constant="5" id="cVM-4n-JoJ"/>
+                        <constraint firstItem="dlW-yw-UMX" firstAttribute="top" secondItem="CMZ-xZ-MrI" secondAttribute="top" id="Sfr-vX-uyd"/>
+                        <constraint firstAttribute="bottom" secondItem="dlW-yw-UMX" secondAttribute="bottom" id="cVM-4n-JoJ"/>
                         <constraint firstItem="dlW-yw-UMX" firstAttribute="width" secondItem="CMZ-xZ-MrI" secondAttribute="width" multiplier="0.95" id="rtw-Ls-3EM"/>
                         <constraint firstItem="dlW-yw-UMX" firstAttribute="centerX" secondItem="CMZ-xZ-MrI" secondAttribute="centerX" id="yX9-pl-5OZ"/>
                     </constraints>
@@ -161,7 +161,7 @@
                 <constraint firstItem="kRH-2e-4zm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ZoR-Iz-IDN"/>
                 <constraint firstItem="aOy-Va-Eee" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="cIa-WA-FPY"/>
                 <constraint firstItem="CMZ-xZ-MrI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="eib-mD-yrl"/>
-                <constraint firstItem="aOy-Va-Eee" firstAttribute="top" secondItem="CMZ-xZ-MrI" secondAttribute="bottom" id="k4Z-zR-lNH"/>
+                <constraint firstItem="aOy-Va-Eee" firstAttribute="top" secondItem="CMZ-xZ-MrI" secondAttribute="bottom" constant="5" id="k4Z-zR-lNH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="aOy-Va-Eee" secondAttribute="trailing" id="vyC-SW-ihH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="aOy-Va-Eee" secondAttribute="bottom" constant="7" id="yvq-Sw-Iyl"/>
                 <constraint firstItem="Oi4-D9-kgx" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="zrh-dt-LXP"/>

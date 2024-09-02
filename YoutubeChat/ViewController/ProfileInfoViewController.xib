@@ -56,10 +56,10 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qxk-IZ-XDx" userLabel="TopBarView">
-                    <rect key="frame" x="0.0" y="59" width="393" height="42.666666666666657"/>
+                    <rect key="frame" x="0.0" y="69" width="393" height="42.666666666666657"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P90-Kp-xqJ">
-                            <rect key="frame" x="353.33333333333331" y="11.33333333333333" width="19.666666666666686" height="19.666666666666671"/>
+                            <rect key="frame" x="339.33333333333331" y="20" width="23.666666666666686" height="23.666666666666671"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="P90-Kp-xqJ" secondAttribute="height" multiplier="1:1" id="aYT-ID-mYT"/>
                             </constraints>
@@ -72,9 +72,9 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="P90-Kp-xqJ" firstAttribute="width" secondItem="qxk-IZ-XDx" secondAttribute="width" multiplier="0.05" id="HtY-hK-NYZ"/>
-                        <constraint firstItem="P90-Kp-xqJ" firstAttribute="centerY" secondItem="qxk-IZ-XDx" secondAttribute="centerY" id="TRH-XY-1Ri"/>
-                        <constraint firstAttribute="trailing" secondItem="P90-Kp-xqJ" secondAttribute="trailing" constant="20" id="hfs-h8-z4s"/>
+                        <constraint firstItem="P90-Kp-xqJ" firstAttribute="width" secondItem="qxk-IZ-XDx" secondAttribute="width" multiplier="0.06" id="HtY-hK-NYZ"/>
+                        <constraint firstItem="P90-Kp-xqJ" firstAttribute="centerY" secondItem="qxk-IZ-XDx" secondAttribute="centerY" multiplier="1.5" id="TRH-XY-1Ri"/>
+                        <constraint firstAttribute="trailing" secondItem="P90-Kp-xqJ" secondAttribute="trailing" constant="30" id="hfs-h8-z4s"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZVE-HA-TGV" customClass="ProfileImageView" customModule="YoutubeChat" customModuleProvider="target">
@@ -211,7 +211,7 @@
                 <constraint firstItem="qxk-IZ-XDx" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="c9F-KR-ZQh"/>
                 <constraint firstItem="iWZ-pC-hC4" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="euh-i7-ZbA"/>
                 <constraint firstItem="iWZ-pC-hC4" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ew5-Jt-nqb"/>
-                <constraint firstItem="qxk-IZ-XDx" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="kVO-sa-nZg"/>
+                <constraint firstItem="qxk-IZ-XDx" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="kVO-sa-nZg"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="qbX-tU-iCm" secondAttribute="trailing" id="nqr-bp-iDR"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="iWZ-pC-hC4" secondAttribute="trailing" id="rQA-RT-e4D"/>
                 <constraint firstAttribute="bottom" secondItem="iWZ-pC-hC4" secondAttribute="bottom" id="sCG-tU-z5z"/>
@@ -223,7 +223,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5pB-xm-Grm" customClass="SDGothicButton" customModule="YoutubeChat" customModuleProvider="target">
-                    <rect key="frame" x="9.9999999999999964" y="7.6666666666666679" width="53.666666666666657" height="35"/>
+                    <rect key="frame" x="14.999999999999996" y="7.6666666666666679" width="53.666666666666657" height="35"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="취소">
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -233,7 +233,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7xH-Y1-suy" customClass="SDGothicButton" customModule="YoutubeChat" customModuleProvider="target">
-                    <rect key="frame" x="329.33333333333331" y="7.6666666666666679" width="53.666666666666686" height="35"/>
+                    <rect key="frame" x="324.33333333333331" y="7.6666666666666679" width="53.666666666666686" height="35"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="완료">
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -247,8 +247,8 @@
             <constraints>
                 <constraint firstItem="7xH-Y1-suy" firstAttribute="centerY" secondItem="KuB-x2-fxc" secondAttribute="centerY" id="3XF-a0-FKd"/>
                 <constraint firstItem="5pB-xm-Grm" firstAttribute="centerY" secondItem="KuB-x2-fxc" secondAttribute="centerY" id="aIs-eM-Rb7"/>
-                <constraint firstItem="5pB-xm-Grm" firstAttribute="leading" secondItem="KuB-x2-fxc" secondAttribute="leading" constant="10" id="agN-pP-nnr"/>
-                <constraint firstAttribute="trailing" secondItem="7xH-Y1-suy" secondAttribute="trailing" constant="10" id="def-uB-c0B"/>
+                <constraint firstItem="5pB-xm-Grm" firstAttribute="leading" secondItem="KuB-x2-fxc" secondAttribute="leading" constant="15" id="agN-pP-nnr"/>
+                <constraint firstAttribute="trailing" secondItem="7xH-Y1-suy" secondAttribute="trailing" constant="15" id="def-uB-c0B"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="697" y="-265"/>

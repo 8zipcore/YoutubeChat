@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDelegate{
 
@@ -73,9 +74,12 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
         setImagePickerController()
         imageEditViewController.modalPresentationStyle = .fullScreen
         imageEditViewController.delegate = self
-
-        editTopBarView.frame = topBarView.frame
+        
         self.view.addSubview(editTopBarView)
+        
+        editTopBarView.snp.makeConstraints{ make in
+            make.edges.equalTo(self.topBarView)
+        }
         
         setProfile()
         

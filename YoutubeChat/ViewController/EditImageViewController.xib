@@ -31,7 +31,7 @@
                     <rect key="frame" x="0.0" y="59" width="393" height="42.666666666666657"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ajh-LW-R1D">
-                            <rect key="frame" x="10" y="3.6666666666666643" width="54" height="35"/>
+                            <rect key="frame" x="15" y="3.6666666666666643" width="54" height="35"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="취소"/>
                             <connections>
@@ -52,17 +52,20 @@
                         <constraint firstItem="m9J-XV-82G" firstAttribute="centerY" secondItem="QOX-fz-WX5" secondAttribute="centerY" id="5uZ-mf-rIZ"/>
                         <constraint firstItem="ajh-LW-R1D" firstAttribute="centerY" secondItem="QOX-fz-WX5" secondAttribute="centerY" id="Vye-rR-f0a"/>
                         <constraint firstAttribute="trailing" secondItem="m9J-XV-82G" secondAttribute="trailing" constant="15" id="chN-UX-ObL"/>
-                        <constraint firstItem="ajh-LW-R1D" firstAttribute="leading" secondItem="QOX-fz-WX5" secondAttribute="leading" constant="10" id="mcE-AD-Sis"/>
+                        <constraint firstItem="ajh-LW-R1D" firstAttribute="leading" secondItem="QOX-fz-WX5" secondAttribute="leading" constant="15" id="mcE-AD-Sis"/>
                     </constraints>
                 </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VNN-so-PoA">
+                    <rect key="frame" x="5" y="101.66666666666669" width="383" height="716.33333333333326"/>
+                </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tV2-XF-WJL" userLabel="ProfileEditView">
-                    <rect key="frame" x="0.0" y="101.66666666666669" width="393" height="716.33333333333326"/>
+                    <rect key="frame" x="5" y="101.66666666666669" width="383" height="716.33333333333326"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6kC-w4-GAe">
-                            <rect key="frame" x="10" y="0.0" width="373" height="716.33333333333337"/>
+                            <rect key="frame" x="0.0" y="0.0" width="383" height="716.33333333333337"/>
                             <subviews>
                                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wGM-VM-6NE">
-                                    <rect key="frame" x="0.0" y="171.66666666666663" width="373" height="373"/>
+                                    <rect key="frame" x="0.0" y="166.66666666666663" width="383" height="383"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LRQ-eF-Ocf">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="393"/>
@@ -89,7 +92,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Th3-ac-jgy" userLabel="maskingView">
-                            <rect key="frame" x="10" y="0.0" width="373" height="716.33333333333337"/>
+                            <rect key="frame" x="0.0" y="0.0" width="383" height="716.33333333333337"/>
                             <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -97,17 +100,14 @@
                     <constraints>
                         <constraint firstAttribute="bottom" secondItem="Th3-ac-jgy" secondAttribute="bottom" id="01j-EA-yE5"/>
                         <constraint firstAttribute="bottom" secondItem="6kC-w4-GAe" secondAttribute="bottom" id="4jY-zd-kyQ"/>
-                        <constraint firstAttribute="trailing" secondItem="6kC-w4-GAe" secondAttribute="trailing" constant="10" id="GvR-kg-fSP"/>
+                        <constraint firstAttribute="trailing" secondItem="6kC-w4-GAe" secondAttribute="trailing" id="GvR-kg-fSP"/>
                         <constraint firstItem="Th3-ac-jgy" firstAttribute="top" secondItem="tV2-XF-WJL" secondAttribute="top" id="ISE-8F-M0N"/>
-                        <constraint firstItem="Th3-ac-jgy" firstAttribute="leading" secondItem="tV2-XF-WJL" secondAttribute="leading" constant="10" id="SqA-2t-Lnn"/>
-                        <constraint firstItem="6kC-w4-GAe" firstAttribute="leading" secondItem="tV2-XF-WJL" secondAttribute="leading" constant="10" id="Xdh-5w-hln"/>
-                        <constraint firstAttribute="trailing" secondItem="Th3-ac-jgy" secondAttribute="trailing" constant="10" id="lCX-vz-Ed4"/>
+                        <constraint firstItem="Th3-ac-jgy" firstAttribute="leading" secondItem="tV2-XF-WJL" secondAttribute="leading" id="SqA-2t-Lnn"/>
+                        <constraint firstItem="6kC-w4-GAe" firstAttribute="leading" secondItem="tV2-XF-WJL" secondAttribute="leading" id="Xdh-5w-hln"/>
+                        <constraint firstAttribute="trailing" secondItem="Th3-ac-jgy" secondAttribute="trailing" id="lCX-vz-Ed4"/>
                         <constraint firstItem="6kC-w4-GAe" firstAttribute="top" secondItem="tV2-XF-WJL" secondAttribute="top" id="yo4-Sa-woh"/>
                     </constraints>
                 </view>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VNN-so-PoA">
-                    <rect key="frame" x="10" y="101.66666666666669" width="373" height="716.33333333333326"/>
-                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -115,15 +115,15 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="tV2-XF-WJL" secondAttribute="bottom" id="3mE-yg-oN7"/>
                 <constraint firstItem="tV2-XF-WJL" firstAttribute="top" secondItem="QOX-fz-WX5" secondAttribute="bottom" id="4kd-Fi-iAq"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QOX-fz-WX5" secondAttribute="trailing" id="9Ud-OG-nJf"/>
-                <constraint firstItem="VNN-so-PoA" firstAttribute="leading" secondItem="tV2-XF-WJL" secondAttribute="leading" constant="10" id="DVh-CA-LYi"/>
+                <constraint firstItem="VNN-so-PoA" firstAttribute="leading" secondItem="tV2-XF-WJL" secondAttribute="leading" id="DVh-CA-LYi"/>
                 <constraint firstItem="QOX-fz-WX5" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Lxc-Sf-LFg"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tV2-XF-WJL" secondAttribute="trailing" id="aEc-Wu-8bd"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="tV2-XF-WJL" secondAttribute="trailing" constant="5" id="aEc-Wu-8bd"/>
                 <constraint firstItem="VNN-so-PoA" firstAttribute="bottom" secondItem="tV2-XF-WJL" secondAttribute="bottom" id="cJz-CT-Shp"/>
                 <constraint firstItem="QOX-fz-WX5" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="jL3-Tt-953"/>
                 <constraint firstItem="VNN-so-PoA" firstAttribute="top" secondItem="tV2-XF-WJL" secondAttribute="top" id="pyA-bD-euO"/>
-                <constraint firstItem="tV2-XF-WJL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="rQA-d1-SoP"/>
+                <constraint firstItem="tV2-XF-WJL" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="5" id="rQA-d1-SoP"/>
                 <constraint firstItem="QOX-fz-WX5" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.05" id="y6w-v8-SKp"/>
-                <constraint firstItem="VNN-so-PoA" firstAttribute="trailing" secondItem="tV2-XF-WJL" secondAttribute="trailing" constant="-10" id="zoT-9Z-PtJ"/>
+                <constraint firstItem="VNN-so-PoA" firstAttribute="trailing" secondItem="tV2-XF-WJL" secondAttribute="trailing" id="zoT-9Z-PtJ"/>
             </constraints>
             <point key="canvasLocation" x="11" y="-11"/>
         </view>

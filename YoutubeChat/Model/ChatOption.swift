@@ -18,7 +18,7 @@ struct ChatOptionData: Codable{
     var title: String{
         switch chatOption{
         case .videoAddDenied:
-            return "방장만 영상 추가"
+            return "동영상 추가 허용"
         case .searchAllowed:
             return "검색 허용"
         case .password:

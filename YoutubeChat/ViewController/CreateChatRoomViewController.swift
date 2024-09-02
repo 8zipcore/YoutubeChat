@@ -69,7 +69,7 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
     private func configureView(){
         self.view.backgroundColor = .black
         
-        titleLabel.setLabel(textColor: .white, fontSize: 17)
+        titleLabel.setLabel(textColor: .white, fontSize: 19)
         
         chatNameTextField.setText(title: "채팅방 이름", placeHolder: "채팅방 이름을 입력해주세요.", maxLength: 30)
         chatNameTextField.delegate = self
@@ -99,7 +99,7 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
             $0.backgroundColor = UIColor(white: 1, alpha: 0.3)
             $0.layer.cornerRadius = $0.bounds.size.height / 2
             $0.onTintColor = Colors.blue
-            $0.isOn = false
+            $0.isOn = $0.tag != 2
             $0.addTarget(self, action: #selector(switchValueChanged(_:)), for: .valueChanged)
         }
 
@@ -127,14 +127,14 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
     @IBAction func confirmButtonTapped(_ sender: Any) {
         if chatNameTextField.isBlank(){
             chatNameTextField.showAnimation()
-        } else if !isPasswordValid(){
+        } else if isOn(.password) && !isPasswordValid(){
             passwordTextField.setText("")
             passwordTextField.showAnimation()
         } else {
             Task{
                 switch viewType {
                 case .create:
-                    var chatOptions = chatOptionSwitch.filter({$0.isOn}).map{ return $0.tag }
+                    let chatOptions = chatOptionSwitch.filter({$0.isOn}).map{ return $0.tag }
                     let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoomImageView.imageToString(), enterCode: self.passwordTextField.text, hostId: MyProfile.id, participantIds: [MyProfile.id], chatOptions: chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: -1)
                     
                     let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom)
@@ -156,6 +156,10 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
         let vc = ChatViewController()
         vc.chatRoom = chatRoom
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func isOn(_ chatOption: ChatOption) -> Bool {
+        return chatOptionSwitch[chatOption.rawValue].isOn
     }
     
     private func isPasswordValid() -> Bool{

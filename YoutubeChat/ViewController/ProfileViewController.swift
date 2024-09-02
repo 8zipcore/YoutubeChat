@@ -13,7 +13,7 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
     @IBOutlet weak var titleLabel: SDGothicLabel!
     @IBOutlet weak var nameTextField: InputTextField!
     
-    private var imagePicker = UIImagePickerController()
+    private var imagePickerController: UIImagePickerController?
     private var imageEditViewController = EditImageViewController()
     
     private let profileViewModel = ProfileViewModel()
@@ -34,13 +34,9 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
         nameTextField.setText(title: "이름", placeHolder: "이름을 입력하세요.")
         
         profileImageView.delegate = self
-        imageEditViewController.delegate = self
-        
         profileImageView.isEditMode = true
         
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = false
+        setImagePickerController()
         
         imageEditViewController.modalPresentationStyle = .fullScreen
         imageEditViewController.delegate = self
@@ -74,6 +70,13 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
         navigationController.modalPresentationStyle = .fullScreen
         self.present(navigationController, animated: true)
     }
+    
+    private func setImagePickerController(){
+        imagePickerController = UIImagePickerController()
+        imagePickerController?.delegate = self
+        imagePickerController?.sourceType = .photoLibrary
+        imagePickerController?.allowsEditing = false
+    }
 }
                                                             
 extension ProfileViewController: ProfileImageViewDelegate{
@@ -84,7 +87,7 @@ extension ProfileViewController: ProfileImageViewDelegate{
     }
     
     func editButtonTapped() {
-        let alert = self.profileImageView.alert { self.present(self.imagePicker, animated: true) }
+        let alert = self.profileImageView.alert { self.present(self.imagePickerController!, animated: true) }
         self.present(alert, animated: true)
     }
 }
@@ -93,14 +96,18 @@ extension ProfileViewController {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[.originalImage] as? UIImage {
             imageEditViewController.pickedImage = pickedImage
-            imagePicker.pushViewController(imageEditViewController, animated: false)
+            imageEditViewController.imageType = .profile
+            imagePickerController?.present(imageEditViewController, animated: false)
         }
     }
 }
 
 extension ProfileViewController: EditImageViewControllerDelegate{
     func didDismissWithImage(image: UIImage?) {
-        self.dismiss(animated: true)
+        self.dismiss(animated: true, completion: {
+            self.setImagePickerController()
+        })
+                     
         guard let image = image else { return }
         profileImageView.setImage(image)
     }

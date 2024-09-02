@@ -46,13 +46,17 @@ class EditImageViewController: BaseViewController {
         }
     }
     
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        self.maskingView.layer.mask = maskLayer()
+    }
+    
     private func configureView(){
         imageView.contentMode = .scaleAspectFit
         fullImageView.contentMode = .scaleAspectFit
         
         self.maskingView.backgroundColor = UIColor(white: 0, alpha: 0.5)
         self.maskingView.isUserInteractionEnabled = false
-        maskingView.layer.mask = maskLayer()
         
         scrollView.backgroundColor = .black
         scrollView.bounces = false
@@ -75,8 +79,7 @@ class EditImageViewController: BaseViewController {
         
         self.scrollView.zoomScale = 1.0
         
-        let spacing: CGFloat = 20
-        let width = self.view.bounds.width - spacing
+        let width = self.maskingView.bounds.width
         if pickedImage.size.width > pickedImage.size.height{
             self.scrollView.clipsToBounds = true
             imageViewWidthConstraint.constant = (pickedImage.size.width * width) / pickedImage.size.height
@@ -95,7 +98,7 @@ class EditImageViewController: BaseViewController {
     }
     
     private func maskLayer()-> CAShapeLayer{
-        let maskingViewWidth = self.maskingView.bounds.width
+        let maskingViewWidth = self.view.bounds.width - 10
         let maskingViewHeight = self.maskingView.bounds.height
         
         let rectSize = CGSize(width: maskingViewWidth, height: maskingViewWidth)
@@ -106,7 +109,7 @@ class EditImageViewController: BaseViewController {
 
         let maskLayer = CAShapeLayer()
         let path = CGMutablePath()
-        path.addRect(self.maskingView.convert(self.view.frame, to: nil))
+        path.addRect(self.maskingView.frame)
         path.addPath(UIBezierPath(roundedRect: maskRect, cornerRadius: maskingViewWidth / 2).cgPath)
         maskLayer.path = path
         maskLayer.fillRule = .evenOdd
