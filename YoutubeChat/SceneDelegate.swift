@@ -26,6 +26,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = navigationViewController
         window.makeKeyAndVisible()
         self.window = window
+        
+        if let url = connectionOptions.urlContexts.first?.url {
+            handleDeeplink(url: url)
+        }
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -59,5 +64,44 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 
+}
+
+extension SceneDelegate{
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+          guard let url = URLContexts.first?.url else { return }
+          
+        handleDeeplink(url: url)
+ 
+      }
+      
+      private func handleDeeplink(url: URL) {
+          if url.scheme == "BeChat" {
+              // URL path 및 query를 분석하여 적절한 화면으로 전환
+              let path = url.path
+              let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
+              
+              // 예시: myapp://profile?user_id=123
+              if path == "/chatInfo", let id = queryItems?.first(where: { $0.name == "id" })?.value {
+                  print("🐬 id  ! ! : \(id)")
+                  let vc = ChatRoomInfoViewController()
+                  vc.id = UUID(uuidString: id)
+                  
+                  // SceneDelegate를 통해 현재의 윈도우를 찾기
+                   if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                       if let rootVC = scene.windows.first?.rootViewController {
+                           // 네비게이션 컨트롤러를 통해 푸시
+                           if let navController = rootVC as? UINavigationController {
+                               navController.pushViewController(vc, animated: true)
+                           } else {
+                               // 네비게이션 컨트롤러가 없으면 모달로 표시
+                               rootVC.present(vc, animated: true, completion: nil)
+                           }
+                       } else {
+                           print("Root View Controller not found")
+                       }
+                   }
+              }
+          }
+      }
 }
 

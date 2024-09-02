@@ -18,6 +18,7 @@ class ChatRoomInfoViewController: BaseViewController {
     private var chatViewModel = ChatViewModel()
     
     var chatRoom: ChatRoomData?
+    var id: UUID?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,11 @@ class ChatRoomInfoViewController: BaseViewController {
     }
     
     private func configureView(){
-        guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
+        guard let chatRoom = chatRoom else {
+            print("🌀 ChatRoom Data Nil Error")
+            fetchChatRoom()
+            return
+        }
         nameLabel.setLabel(textColor: .white, fontStyle: .bold, fontSize: 25)
         descriptionLabel.setLabel(textColor: Colors.gray, fontSize: 18)
         optionLabel.setLabel(textColor: Colors.lightGray, fontSize: 15)
@@ -46,6 +51,17 @@ class ChatRoomInfoViewController: BaseViewController {
         chatRoomImageView.setImage(imageString: chatRoom.image)
         
         self.enterButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(enterButtonTapped(_:))))
+    }
+    
+    private func fetchChatRoom(){
+        guard let id = id else { print("🌀 ID Nil Error") ; return }
+        Task{
+            self.chatRoom = try await chatViewModel.findChatRoom(id:id)
+            
+            DispatchQueue.main.async {
+                self.configureView()
+            }
+        }
     }
 
     @objc func enterButtonTapped(_ sender: Any) {

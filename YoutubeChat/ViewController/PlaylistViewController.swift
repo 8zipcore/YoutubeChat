@@ -75,7 +75,7 @@ class PlaylistViewController: BaseViewController{
         
         urlTextField.textField.text = "https://www.youtube.com/watch?v=2bLuBCw1zXE"
         
-        if chatRoom.isOptionContains(.videoAddDenied) && chatRoom.hostId != MyProfile.id{
+        if !chatRoom.isOptionContains(.videoAddAllowed) && chatRoom.hostId != MyProfile.id{
             urlTextFieldHeightConstraint.constant = 0
             urlTextField.isHidden = true
         }

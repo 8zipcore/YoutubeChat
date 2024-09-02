@@ -123,7 +123,6 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
     
     @IBAction func editEndedButtonTapped(_ sender: Any) {
         guard let user = user else { print("🌀 user data is nil "); return }
-        setEditMode(false)
         Task{
             let user = User(id: user.id,
                             name: nameLabel.text ?? "",
@@ -132,6 +131,10 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
                             backgroundImage: backgroundImageView.imageToString())
             let response = try await profileViewModel.updateProfile(user: user)
             try await profileViewModel.setUser(response)
+            
+            DispatchQueue.main.async{
+                self.setEditMode(false)
+            }
         }
     }
     

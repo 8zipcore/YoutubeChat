@@ -10,7 +10,7 @@ import Foundation
 class SearchViewModel{
     
     var chatRoomArray: [ChatRoomData] = []
-    var chatOptionArray = [ChatOptionData(chatOption: .videoAddDenied)]
+    var chatOptionArray = [ChatOptionData(chatOption: .videoAddAllowed)]
     var top5Categories: [CategoryData] = []
     
     func searchChatRoom(_ text: String, _ chatOptions: [ChatOption]) async throws -> [ChatRoomData]{

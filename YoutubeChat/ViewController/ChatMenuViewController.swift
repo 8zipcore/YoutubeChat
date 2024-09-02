@@ -63,10 +63,12 @@ class ChatMenuViewController: BaseViewController {
     }
     
     private func showPresentAnimation(){
-        UIView.animate(withDuration: 0.3, animations: {
-            self.backgroundView.alpha = 1
-            self.contentView.frame = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
-        })
+        if self.backgroundView.alpha == 0{
+            UIView.animate(withDuration: 0.3, animations: {
+                self.backgroundView.alpha = 1
+                self.contentView.frame = CGRect(x: 0, y: 0, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
+            })
+        }
     }
     
     private func showDismissAnimation(){
@@ -92,7 +94,16 @@ class ChatMenuViewController: BaseViewController {
     }
     
     @IBAction func enterCodeShareButtonTapped(_ sender: Any) {
+        var shareItems: [String] = []
+        
+        if let chatRoom = chatRoom, let id = chatRoom.id{
+            let deeplink = "BeChat://scene/chatInfo?id=\(id.uuidString)"
+            shareItems.append(deeplink)
+        }
 
+        let activityViewController = UIActivityViewController(activityItems: shareItems, applicationActivities: nil)
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        self.present(activityViewController, animated: true, completion: nil)
     }
 }
 

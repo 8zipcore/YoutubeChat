@@ -15,7 +15,7 @@ enum MyProfile{
     static var backgroundImage = ""
     
     static var user: User{
-        return User(name: name, description: description, image: image, backgroundImage: backgroundImage)
+        return User(id: id, name: name, description: description, image: image, backgroundImage: backgroundImage)
     }
 }
 

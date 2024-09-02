@@ -42,7 +42,6 @@ class ImageConfirmButton: UIView {
         }
         
         imageView.snp.makeConstraints{ make in
-            make.centerY.equalTo(label.snp.centerY).multipliedBy(0.95)
             make.trailing.equalTo(label.snp.leading).inset(-7)
             make.width.equalTo(self.bounds.width * 0.045)
             make.height.equalTo(self.bounds.width * 0.045)

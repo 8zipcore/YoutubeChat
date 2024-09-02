@@ -8,7 +8,7 @@
 import Foundation
 
 enum ChatOption: Int, Codable{
-    case videoAddDenied
+    case videoAddAllowed
     case searchAllowed
     case password
 }
@@ -17,7 +17,7 @@ struct ChatOptionData: Codable{
     var chatOption: ChatOption
     var title: String{
         switch chatOption{
-        case .videoAddDenied:
+        case .videoAddAllowed:
             return "동영상 추가 허용"
         case .searchAllowed:
             return "검색 허용"

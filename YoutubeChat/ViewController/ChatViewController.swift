@@ -69,8 +69,8 @@ class ChatViewController: BaseViewController {
     private func configureView(){
         self.view.backgroundColor = .black
         
-        chatNameLabel.setLabel(textColor: .white, fontSize: 17)
-        peopleNumberLabel.setLabel(textColor: Colors.gray, fontSize: 15)
+        chatNameLabel.setLabel(textColor: .white, fontSize: 19)
+        peopleNumberLabel.setLabel(textColor: Colors.gray, fontSize: 16)
         
         self.chatTableView.dataSource = self
         self.chatTableView.delegate = self
@@ -159,7 +159,7 @@ class ChatViewController: BaseViewController {
         }
     }
     
-    @objc func hideKeyboard(_ sender: UITapGestureRecognizer){
+    @objc func hideKeyboard(_ sender: UITapGestureRecognizer?){
         self.chatTextView.hideKeyboard()
         UIView.animate(withDuration: keyboardAnimationDuraion) {
             self.messageInputViewBottomConstraint.constant = self.messageInputViewBottomMargin
@@ -212,6 +212,8 @@ extension ChatViewController{
     }
     
     @IBAction func menuButtonTapped(_ sender: Any) {
+        hideKeyboard(nil)
+        
         let vc = ChatMenuViewController()
         vc.chatRoom = chatRoom
         vc.modalPresentationStyle = .overCurrentContext
@@ -220,6 +222,8 @@ extension ChatViewController{
     
     @IBAction func youtubeButtonTapped(_ sender: Any) {
         guard let chatRoom = chatRoom else { print("🌀 ChatRoom Data Nil Error") ; return }
+        
+        hideKeyboard(nil)
         
         let vc = PlaylistViewController()
         vc.chatViewModel = self.chatViewModel
