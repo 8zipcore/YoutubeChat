@@ -99,6 +99,11 @@ class ChatTextView: UIView {
         return estimatedSize.height
     }
     
+    func lineHeight() -> CGFloat{
+        let minHeight: CGFloat = 10
+        return self.textView.font?.lineHeight ?? minHeight
+    }
+    
     func resetText(){
         self.textView.text = ""
     }

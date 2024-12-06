@@ -24,6 +24,8 @@ class PlaylistViewController: BaseViewController{
     var chatViewModel: ChatViewModel?
     var youtubeViewModel: YoutubeViewModel?
     
+    var delegate: ChatViewControllerDelegate?
+    
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
@@ -73,7 +75,7 @@ class PlaylistViewController: BaseViewController{
         
         self.playlistTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:))))
         
-        urlTextField.textField.text = "https://www.youtube.com/watch?v=2bLuBCw1zXE"
+        urlTextField.textField.text = ""
         
         if !chatRoom.isOptionContains(.videoAddAllowed) && chatRoom.hostId != MyProfile.id{
             urlTextFieldHeightConstraint.constant = 0
@@ -105,7 +107,9 @@ class PlaylistViewController: BaseViewController{
                 UIView.animate(withDuration: 0.2, animations: {
                     self.view.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
                 }, completion: {_ in
-                    self.dismiss(animated: false)
+                    self.dismiss(animated: false, completion: {
+                        self.delegate?.dismiss()
+                    })
                 })
             }
         default:
@@ -114,7 +118,9 @@ class PlaylistViewController: BaseViewController{
     }
 
     @IBAction func dismissButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true)
+        self.dismiss(animated: true, completion: {
+            self.delegate?.dismiss()
+        })
     }
     
     @objc func hideKeyboard(_ sender: UITapGestureRecognizer){
@@ -166,6 +172,7 @@ extension PlaylistViewController: URLInputTextFieldDelegate{
             return
         }
         urlTextField.hideKeyboard()
+        urlTextField.resetText()
         guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
         let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .video, text: urlTextField.text, isRead: true)
         chatViewModel?.sendMessage(message)

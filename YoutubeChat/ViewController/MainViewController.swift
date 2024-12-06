@@ -63,6 +63,10 @@ class MainViewController: BaseViewController {
         categoryCollectionView.dataSource = self
         categoryCollectionView.delegate = self
         categoryCollectionView.register(ChatOptionCollectionViewCell.self, forCellWithReuseIdentifier: ChatOptionCollectionViewCell.identifier)
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal // 가로 스크롤
+        categoryCollectionView.collectionViewLayout = layout
+        categoryCollectionView.showsHorizontalScrollIndicator = false
     }
     
     private func initData(){

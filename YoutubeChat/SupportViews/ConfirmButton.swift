@@ -55,4 +55,30 @@ class ConfirmButton: UIButton {
                          .font : SDGothicSemiBold(size: 18)]),
             for: .normal)
     }
+    
+    func showLoading() {
+        self.setTitle("")
+        
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.color = .white
+        activityIndicator.tag = 999 // 나중에 제거할 때 사용할 태그
+        activityIndicator.center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
+        
+        activityIndicator.startAnimating()
+
+        addSubview(activityIndicator)
+        
+        isEnabled = false
+    }
+    
+    func hideLoading() {
+        self.setTitle("완료")
+        
+        if let activityIndicator = viewWithTag(999) as? UIActivityIndicatorView {
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+        }
+        
+        isEnabled = true
+    }
 }

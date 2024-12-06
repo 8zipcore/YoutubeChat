@@ -19,9 +19,20 @@ class SearchChatRoomViewController: BaseViewController, SearchTextFieldDelegate 
     
     let searchViewModel = SearchViewModel()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        initData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
+    }
+    
+    private func initData(){
+        Task{
+            try await searchViewModel.fetchAllChatRooms()
+        }
     }
 
     private func configureView(){

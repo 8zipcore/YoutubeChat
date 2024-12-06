@@ -21,6 +21,7 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
     @IBOutlet var chatOptionSwitch: [UISwitch]!
     @IBOutlet weak var passwordTextField: InputTextField!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var confirmButton: ConfirmButton!
     
     @IBOutlet weak var descriptionTextViewHeightConstraint: NSLayoutConstraint!
     
@@ -131,16 +132,20 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
             passwordTextField.setText("")
             passwordTextField.showAnimation()
         } else {
+            if viewType == .create{
+                confirmButton.showLoading()
+            }
             Task{
                 switch viewType {
                 case .create:
                     let chatOptions = chatOptionSwitch.filter({$0.isOn}).map{ return $0.tag }
+                    print("chatOptions", chatOptions)
                     let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoomImageView.imageToString(), enterCode: self.passwordTextField.text, hostId: MyProfile.id, participantIds: [MyProfile.id], chatOptions: chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: -1)
-                    
                     let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom)
                     DispatchQueue.main.async {
                         self.presentChatViewController(chatRoom: response)
                     }
+                    confirmButton.hideLoading()
                 case .edit:
                     DispatchQueue.main.async {
                         self.dismiss(animated: true)
@@ -188,7 +193,7 @@ extension CreateChatRoomViewController{
             passwordTextFieldHeightConstraint.constant = height
             passwordTextField.isHidden = !isOn
             self.view.layoutIfNeeded()
-            scrollView.contentSize.height = scrollView.frame.height + height
+            //scrollView.contentSize.height += height
 
             if isOn {
                 passwordTextField.showKeyboard()
@@ -201,7 +206,7 @@ extension CreateChatRoomViewController{
     
     @objc private func keyboardWillShow(_ notification: Notification) {
         guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        var keyboardYPoint = keyboardFrame.minY
+        let keyboardYPoint = keyboardFrame.minY
         var maxY: CGFloat = 0
         
         if let activeTextField = activeTextField {
@@ -219,9 +224,9 @@ extension CreateChatRoomViewController{
     }
 
     @objc private func keyboardWillHide(_ notification: Notification) {
-        self.scrollView.contentInset.bottom = 0
         self.activeTextField = nil
         self.activeTextView = nil
+        self.scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
 }
 

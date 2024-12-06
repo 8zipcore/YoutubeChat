@@ -75,6 +75,31 @@ class ImageConfirmButton: UIView {
             make.centerY.equalTo(label.snp.centerY).multipliedBy(multiple)
         }
     }
+
+    func showLoading() {
+        label.text = ""
+        
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.color = .white
+        activityIndicator.tag = 999 // 나중에 제거할 때 사용할 태그
+        activityIndicator.center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
+        
+        activityIndicator.startAnimating()
+
+        addSubview(activityIndicator)
+        
+        self.isUserInteractionEnabled = false
+    }
+    
+    func hideLoading() {
+        // activity indicator 제거
+        if let activityIndicator = viewWithTag(999) as? UIActivityIndicatorView {
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+        }
+        
+        self.isUserInteractionEnabled = true
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         DispatchQueue.main.async {

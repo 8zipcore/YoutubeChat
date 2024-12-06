@@ -94,6 +94,10 @@ class URLInputTextField: UIView {
     func setText(_ text: String){
         self.textField.text = text
     }
+    
+    func resetText(){
+        self.textField.text = ""
+    }
 }
 
 extension URLInputTextField: UITextFieldDelegate{

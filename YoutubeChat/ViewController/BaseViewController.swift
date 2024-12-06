@@ -8,6 +8,8 @@
 import UIKit
 
 class BaseViewController: UIViewController, UIGestureRecognizerDelegate, UIViewControllerTransitioningDelegate, UINavigationControllerDelegate {
+    
+    var hideKeyboard = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +34,9 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate, UIViewC
 
     // 키보드 내리기 메서드
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+        if hideKeyboard{
+            view.endEditing(true)
+        }
     }
 
     // 제스처가 다른 터치 이벤트와 함께 작동할 수 있도록 허용

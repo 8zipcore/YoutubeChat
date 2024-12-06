@@ -145,7 +145,8 @@ class InputTextView: UIView, ClearButtonDelegate{
     func setText(text: String){
         self.textView.text = text
         self.placeHolderLabel.text = ""
-        self.lengthLabel.text = "\(text.count)/\(maxLength)"
+        setLengthLabel()
+        setHashTagText()
     }
     
     func setLengthLabel(){
@@ -164,13 +165,14 @@ class InputTextView: UIView, ClearButtonDelegate{
         // 정규식을 사용하여 "#"으로 시작하는 단어 찾기
         let pattern = "#\\w+"
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
+        let textCount = text.utf16.count // emoji가 UTF-16 길이를 기반으로해서
 
-        let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
+        let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: textCount))
 
         // NSMutableAttributedString을 사용하여 텍스트 속성 설정
         let attributedString = NSMutableAttributedString(string: text)
-        attributedString.addAttribute(.font, value: SDGothic(size: 15), range: NSRange(location: 0, length: text.count))
-        attributedString.addAttribute(.foregroundColor, value: UIColor.white, range: NSRange(location: 0, length: text.count))
+        attributedString.addAttribute(.font, value: SDGothic(size: 15), range: NSRange(location: 0, length: textCount))
+        attributedString.addAttribute(.foregroundColor, value: UIColor.white, range: NSRange(location: 0, length: textCount))
 
         for match in matches {
             attributedString.addAttribute(.foregroundColor, value: Colors.blue, range: match.range)

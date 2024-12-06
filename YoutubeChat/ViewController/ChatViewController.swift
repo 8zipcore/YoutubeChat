@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ChatViewControllerDelegate{
+    func dismiss()
+}
+
 class ChatViewController: BaseViewController {
 
     @IBOutlet weak var chatNameLabel: SDGothicLabel!
@@ -34,6 +38,8 @@ class ChatViewController: BaseViewController {
     var chatRoom: ChatRoomData?
     var isEnter = false
     
+    private var isPresentedPlaylistVC = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
@@ -46,6 +52,14 @@ class ChatViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveMessage, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveVideo, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        // 방만들기, 참여하기 뷰컨 없애주는 작업
+        if let navigationController = self.navigationController,
+           navigationController.viewControllers.count > 2 {
+            var viewControllers = navigationController.viewControllers
+            viewControllers.remove(at: viewControllers.count - 2)
+            navigationController.setViewControllers(viewControllers, animated: true)
+        }
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -55,19 +69,26 @@ class ChatViewController: BaseViewController {
                 try await chatViewModel.quitChatRoom(id: chatRoom!.id!)
             }
         }
-        
         NotificationCenter.default.removeObserver(self)
     }
     
-    override func didMove(toParent parent: UIViewController?) {
-        super.didMove(toParent: parent)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
         self.chatTextViewHeightContraint.constant = chatTextView.estimatedHeight()
         self.youtubeButtonBottomConstraint.constant = (self.chatTextViewHeightContraint.constant -  self.youtubeButton.bounds.height) / 2
     }
-    
+    /*
+    override func didMove(toParent parent: UIViewController?) {
+        super.didMove(toParent: parent)
+        
+
+    }
+    */
     private func configureView(){
         self.view.backgroundColor = .black
+        
+        self.hideKeyboard = false
         
         chatNameLabel.setLabel(textColor: .white, fontSize: 19)
         peopleNumberLabel.setLabel(textColor: Colors.gray, fontSize: 16)
@@ -144,11 +165,20 @@ class ChatViewController: BaseViewController {
         }
     }
     
-    func addImageData(name:String, imgName: String){
-
+    private func isTopViewController() -> Bool {
+        if let navigationController = navigationController,
+           navigationController.viewControllers.count > 2 {
+            return false
+        }
+        
+        return true
     }
     
     @objc func keyboardWillShow(_ notification: Notification){
+        if isPresentedPlaylistVC{
+            return
+        }
+        
         if let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect,
         let animationDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double {
             keyboardAnimationDuraion = animationDuration
@@ -228,13 +258,16 @@ extension ChatViewController{
         let vc = PlaylistViewController()
         vc.chatViewModel = self.chatViewModel
         vc.youtubeViewModel = self.youtubeViewModel
+        vc.delegate = self
         
         let frame = self.youtubeView.convert(self.view.frame, to: nil)
         vc.yPoint = frame.minY + self.view.bounds.width * 9 / 16
         vc.chatRoom = chatRoom
         
         vc.modalPresentationStyle = .overCurrentContext
-        self.present(vc, animated: true)
+        self.present(vc, animated: true, completion: {
+            self.isPresentedPlaylistVC = true
+        })
     }
 }
 // MARK: UITableViewDataSource
@@ -387,6 +420,7 @@ extension ChatViewController: ChatTextViewDelegate{
         let message = Message(chatRoomId: chatRoom!.id!, senderId: MyProfile.id, messageType: .text, text: chatTextView.text, isRead: true)
         chatViewModel.sendMessage(message)
         chatTextView.resetText()
+        self.chatTextViewHeightContraint.constant = chatTextView.estimatedHeight()
     }
     
     func setChatTextViewHeight(_ height: CGFloat) {
@@ -420,5 +454,11 @@ extension ChatViewController: YoutubeViewDelegate{
                 youtubeViewHeightConstraint.constant = 0
             }
         }
+    }
+}
+
+extension ChatViewController: ChatViewControllerDelegate{
+    func dismiss() {
+        isPresentedPlaylistVC = false
     }
 }

@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="chatNameTextField" destination="ZhG-0g-SY9" id="dRv-1i-rMU"/>
                 <outlet property="chatRoomImageView" destination="ytx-XH-ign" id="Tyu-lL-9Ss"/>
+                <outlet property="confirmButton" destination="MbN-Qc-AP1" id="VXa-v8-qRQ"/>
                 <outlet property="descriptionTextView" destination="fGb-Sc-HEK" id="FgV-3G-d0b"/>
                 <outlet property="descriptionTextViewHeightConstraint" destination="QQj-4s-7Va" id="ZmH-kM-OnA"/>
                 <outlet property="passwordTextField" destination="PaO-KU-ApN" id="aFS-ft-oAf"/>

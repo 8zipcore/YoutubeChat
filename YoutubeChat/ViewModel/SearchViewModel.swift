@@ -13,6 +13,11 @@ class SearchViewModel{
     var chatOptionArray = [ChatOptionData(chatOption: .videoAddAllowed)]
     var top5Categories: [CategoryData] = []
     
+    func fetchAllChatRooms() async throws {
+        guard let url = URLManager.shared.url(.fetch) else { throw HttpError.badURL }
+        self.chatRoomArray = try await NetworkManager.shared.fetchData(to: url, [ChatRoomData].self)
+    }
+    
     func searchChatRoom(_ text: String, _ chatOptions: [ChatOption]) async throws -> [ChatRoomData]{
         guard let url = URLManager.shared.url(.search) else { throw HttpError.badURL }
         let searchChatRoomData = SearchChatRoomData(searchTerm: text, chatOptions: chatOptions)

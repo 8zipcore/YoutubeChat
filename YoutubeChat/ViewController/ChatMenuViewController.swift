@@ -40,7 +40,7 @@ class ChatMenuViewController: BaseViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismiss(_:)))
         self.backgroundView.addGestureRecognizer(tapGesture)
-        
+        /*
         if let editImage = UIImage(named: "edit_icon")?.withRenderingMode(.alwaysTemplate){
             self.chatRoomEditButton.setImage(editImage, for: .normal)
             self.chatRoomEditButton.tintColor = UIColor(white: 1, alpha: 0.5)
@@ -50,7 +50,7 @@ class ChatMenuViewController: BaseViewController {
             self.enterCodeShareButton.setImage(shareImage, for: .normal)
             self.enterCodeShareButton.tintColor = UIColor(white: 1, alpha: 0.5)
         }
-        
+        */
         if let chatRoom = chatRoom {
             if chatRoom.hostId != MyProfile.id{
                 chatRoomEditButtonTrailingConstraint.constant = -chatRoomEditButton.bounds.width

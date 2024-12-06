@@ -13,7 +13,11 @@ class WebSocketManager {
     var webSocketTask: URLSessionWebSocketTask?
 
     func connect() {
-        let url = URL(string: "ws://127.0.0.1:8080/chat/message")!
+        guard let url = URL(string: "wss://youtubechatsever.onrender.com/chat/message") else {
+            print("🌀 Websocket URL Error")
+            return
+        }
+//         let url = URL(string: "ws://127.0.0.1:8080/chat/message")!
         webSocketTask = URLSession(configuration: .default).webSocketTask(with: url)
         webSocketTask?.resume()
         receiveMessage()
