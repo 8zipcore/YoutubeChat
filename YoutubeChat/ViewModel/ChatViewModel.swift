@@ -13,6 +13,8 @@ class ChatViewModel{
     var chatRoomArray: [ChatRoomData] = []
     var messageArray: [Message] = []
     
+    var userArray: [User] = []
+    
     func createChatRoom(chatRoom: ChatRoom) async throws -> ChatRoomData{
         guard let url = URL(string: Constants.baseURL + Endpoints.create) else {
             throw HttpError.badURL
@@ -129,5 +131,24 @@ extension ChatViewModel{
         }
         
         return nil
+    }
+    
+    func findUser(id: UUID) -> User? {
+        return userArray.filter{$0.id == id}.first
+    }
+    
+    func appendUserArray(chatRoom: ChatRoomData?, senderId: UUID) {
+        if findUser(id: senderId) != nil {
+            return
+        }
+
+        if let chatRoom = chatRoom{
+            for participant in chatRoom.participants {
+                if participant.id == senderId{
+                    userArray.append(participant)
+                    break
+                }
+            }
+        }
     }
 }

@@ -13,14 +13,18 @@ class WebSocketManager {
     var webSocketTask: URLSessionWebSocketTask?
 
     func connect() {
-        guard let url = URL(string: "wss://youtubechatsever.onrender.com/chat/message") else {
-            print("🌀 Websocket URL Error")
-            return
-        }
-//        let url = URL(string: "wss://1ed6-175-114-118-140.ngrok-free.app/chat/message")!
+//        guard let url = URL(string: "wss://youtubechatsever.onrender.com/chat/message") else {
+//            print("🌀 Websocket URL Error")
+//            return
+//        }
+        
+        let url = URL(string: "wss://92f3-175-114-118-140.ngrok-free.app/chat/message")!
         webSocketTask = URLSession(configuration: .default).webSocketTask(with: url)
         webSocketTask?.resume()
         receiveMessage()
+        print("☃️ WebSocket 연결중")
+        
+        NotificationCenter.default.post(name: .reconnected, object: nil)
     }
 
     func sendMessage(_ message: Message) {
@@ -89,6 +93,8 @@ class WebSocketManager {
     }
 
     func disconnect() {
+        print("☔️ WebSocket disconnect")
         webSocketTask?.cancel(with: .goingAway, reason: nil)
+        webSocketTask = nil
     }
 }

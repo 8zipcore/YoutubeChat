@@ -12,6 +12,7 @@ class ChatWithProfileTableViewCell: UITableViewCell {
     static let identifier = "ChatWithProfileTableViewCell"
     
     private var nameLabelTopSpacing: CGFloat = 6
+    private var nameLabelHeight: CGFloat = 18
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: SDGothicLabel!
@@ -54,7 +55,7 @@ class ChatWithProfileTableViewCell: UITableViewCell {
         profileImageView.layer.cornerRadius = self.profileImageView.bounds.height / 2
         
         nameLabel.setLabel(textColor: .white, fontSize: 13)
-        nameLabelHeightConstraint.constant = self.bounds.height * 0.1
+        nameLabelHeightConstraint.constant = nameLabelHeight
     }
     
     func setText(text: String, user: User?, profileHidden: Bool){
@@ -76,6 +77,7 @@ class ChatWithProfileTableViewCell: UITableViewCell {
             self.nameLabelHeightConstraint.constant = 0
             self.nameLabelTopConstraint.constant = 0
         } else {
+            self.nameLabelHeightConstraint.constant = nameLabelHeight
             self.nameLabelTopConstraint.constant = nameLabelTopSpacing
         }
     }
@@ -86,7 +88,6 @@ class ChatWithProfileTableViewCell: UITableViewCell {
         if profileHidden{
             return spacing + messageLabelHeight
         } else {
-            let nameLabelHeight: CGFloat = nameLabelHeightConstraint.constant
             return nameLabelTopSpacing + nameLabelHeight + spacing + messageLabelHeight
         }
     }

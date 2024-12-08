@@ -18,7 +18,8 @@ class PlaylistViewController: BaseViewController{
     
     @IBOutlet weak var urlTextFieldHeightConstraint: NSLayoutConstraint!
     
-    var yPoint: CGFloat = 0
+    var viewWidth: CGFloat = .zero
+    var yPoint: CGFloat = .zero
     var chatRoom: ChatRoomData?
     
     var chatViewModel: ChatViewModel?
@@ -40,6 +41,7 @@ class PlaylistViewController: BaseViewController{
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveVideo, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reconnect(_:)), name: .reconnected, object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -48,7 +50,7 @@ class PlaylistViewController: BaseViewController{
     }
     
     override func viewWillLayoutSubviews() {
-        self.view.frame = CGRectMake(0, yPoint, self.view.bounds.width, self.view.window?.bounds.height ?? self.view.bounds.height - yPoint)
+        self.view.frame = CGRectMake(0, yPoint, viewWidth, self.view.window?.bounds.height ?? self.view.bounds.height - yPoint)
     }
     
     private func configureView(){
@@ -107,9 +109,7 @@ class PlaylistViewController: BaseViewController{
                 UIView.animate(withDuration: 0.2, animations: {
                     self.view.transform = CGAffineTransform(translationX: 0, y: self.view.bounds.height)
                 }, completion: {_ in
-                    self.dismiss(animated: false, completion: {
-                        self.delegate?.dismiss()
-                    })
+                    self.delegate?.dismiss()
                 })
             }
         default:
@@ -118,9 +118,7 @@ class PlaylistViewController: BaseViewController{
     }
 
     @IBAction func dismissButtonTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: {
-            self.delegate?.dismiss()
-        })
+        self.delegate?.dismiss()
     }
     
     @objc func hideKeyboard(_ sender: UITapGestureRecognizer){
@@ -143,6 +141,10 @@ class PlaylistViewController: BaseViewController{
         } else {
             print("🌀 decoding error")
         }
+    }
+    
+    @objc func reconnect(_ notificaton: Notification){
+        delegate?.reconnect()
     }
 }
 

@@ -9,6 +9,7 @@ import UIKit
 
 protocol ChatViewControllerDelegate{
     func dismiss()
+    func reconnect()
 }
 
 class ChatViewController: BaseViewController {
@@ -53,6 +54,7 @@ class ChatViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveMessage, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveVideo, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reconnect(_:)), name: .reconnected, object: nil)
         
         // 방만들기, 참여하기 뷰컨 없애주는 작업
         if let navigationController = self.navigationController,
@@ -65,11 +67,14 @@ class ChatViewController: BaseViewController {
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        leave()
+        /*
         if !isBackButtonClicked{
             Task{
                 try await chatViewModel.quitChatRoom(id: chatRoom!.id!)
             }
         }
+         */
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -145,21 +150,22 @@ class ChatViewController: BaseViewController {
         if notification.name == .receiveMessage {
             if let data = notification.userInfo?["message"] as? Message{
                 chatViewModel.receiveMessage(data)
-//                DispatchQueue.main.async {
-//                    self.chatTableView.reloadData()
-//                }
-                scrollToBottom()
+                
                 if data.messageType == .enter || data.messageType == .leave{
                     Task {
                         if let response = try await
                             self.chatViewModel.findChatRoom(id: id){
                             self.chatRoom = response
+                            self.chatViewModel.appendUserArray(chatRoom: response, senderId: data.senderId)
+                            
                             DispatchQueue.main.async {
                                 self.peopleNumberLabel.text = String(response.participants.count)
                             }
                         }
                     }
                 }
+                
+                scrollToBottom()
             }
         } else if notification.name == .receiveVideo {
             if let data = notification.userInfo?["video"] as? AddVideoResponseData {
@@ -167,6 +173,11 @@ class ChatViewController: BaseViewController {
                playYoutube()
            }
         }
+    }
+    
+    @objc func reconnect(_ notification: Notification?){
+        let message = Message(chatRoomId: chatRoom!.id!, senderId: MyProfile.id, messageType: .reconnect, text: "", isRead: true)
+        chatViewModel.sendMessage(message)
     }
     
     private func isTopViewController() -> Bool {
@@ -268,12 +279,18 @@ extension ChatViewController{
         
         let frame = self.youtubeView.convert(self.view.frame, to: nil)
         vc.yPoint = frame.minY + self.view.bounds.width * 9 / 16
+        vc.viewWidth = self.view.bounds.width
         vc.chatRoom = chatRoom
         
+        playlistView = vc.view
+        
+        self.view.addSubview(playlistView)
+        
+        /*
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: true, completion: {
             self.isPresentedPlaylistVC = true
-        })
+        })*/
     }
 }
 // MARK: UITableViewDataSource
@@ -313,7 +330,8 @@ extension ChatViewController: UITableViewDataSource{
                 
                 return cell
             case .enter:fallthrough
-            case .leave:break
+            case .leave:fallthrough
+            case .reconnect:break
             }
         } else { // MARK: 남이 보낸 챗
             switch message.messageType{
@@ -325,7 +343,7 @@ extension ChatViewController: UITableViewDataSource{
                     return UITableViewCell()
                 }
                 
-                let user = chatViewModel.findUser(chatRoom: chatRoom, senderId: message.senderId)
+                let user = chatViewModel.findUser(id: message.senderId)
                 
                 cell.setText(text: message.text, user: user, profileHidden: chatViewModel.isPrevSender(indexPath.item))
                 
@@ -344,7 +362,8 @@ extension ChatViewController: UITableViewDataSource{
                 
                 return cell
             case .enter:fallthrough
-            case .leave:break
+            case .leave:fallthrough
+            case .reconnect:break
             }
         }
         
@@ -382,7 +401,8 @@ extension ChatViewController: UITableViewDelegate{
                 let image = UIImage(named: message.image!)!
                 return cell.estimatedHeight(image: image)
             case .enter:fallthrough
-            case .leave:break
+            case .leave:fallthrough
+            case .reconnect:break
             }
         } else { // MARK: 남이 보낸 챗
             switch message.messageType{
@@ -404,7 +424,8 @@ extension ChatViewController: UITableViewDelegate{
                 let image = UIImage(named: message.image!)!
                 return cell.estimatedHeight(image: image, profileHidden: chatViewModel.isPrevSender(indexPath.item))
             case .enter:fallthrough
-            case .leave:break
+            case .leave:fallthrough
+            case .reconnect:break
             }
         }
         
@@ -465,6 +486,11 @@ extension ChatViewController: YoutubeViewDelegate{
 
 extension ChatViewController: ChatViewControllerDelegate{
     func dismiss() {
+        self.playlistView.removeFromSuperview()
         isPresentedPlaylistVC = false
+        hideKeyboard(nil)
+    }
+    func reconnect() {
+        reconnect(nil)
     }
 }

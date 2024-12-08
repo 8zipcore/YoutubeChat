@@ -102,7 +102,6 @@ class MainViewController: BaseViewController {
     }
     
     @IBAction func conntectWebSocketButtonTapped(_ sender: Any) {
-        WebSocketManager.shared.connect()
     }
     
     @objc func profileViewTapped(_ sender: UITapGestureRecognizer){
