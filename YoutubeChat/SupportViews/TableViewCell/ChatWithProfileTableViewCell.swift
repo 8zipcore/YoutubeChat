@@ -10,11 +10,14 @@ import UIKit
 class ChatWithProfileTableViewCell: UITableViewCell {
     
     static let identifier = "ChatWithProfileTableViewCell"
+    
+    private var nameLabelTopSpacing: CGFloat = 6
 
     @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var nameLabel: SDGothicLabel!
     @IBOutlet weak var messageLabel: MessageLabel!
     
+    @IBOutlet weak var nameLabelTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var nameLabelHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageLabelWidthContraint: NSLayoutConstraint!
     
@@ -58,7 +61,7 @@ class ChatWithProfileTableViewCell: UITableViewCell {
         messageLabel.setText(text: text)
         
         nameLabel.text = user?.name
-        profileImageView.setImage(imageString: user?.image ?? "")
+        profileImageView.setImageWithDefault(imageString: user?.image ?? "")
         
         let estimatedWidth = messageLabel.width(text: text)
         if estimatedWidth < messageLabelWidthContraint.constant{
@@ -71,15 +74,20 @@ class ChatWithProfileTableViewCell: UITableViewCell {
         self.nameLabel.isHidden = profileHidden
         if profileHidden {
             self.nameLabelHeightConstraint.constant = 0
+            self.nameLabelTopConstraint.constant = 0
+        } else {
+            self.nameLabelTopConstraint.constant = nameLabelTopSpacing
         }
     }
     
     func estimatedHeight(text: String, profileHidden: Bool)-> CGFloat{
         let spacing: CGFloat = 6
+        let messageLabelHeight = messageLabel.height(text: text)
         if profileHidden{
-            return spacing + messageLabel.height(text: text)
+            return spacing + messageLabelHeight
         } else {
-            return (self.bounds.height * 0.1) + spacing + messageLabel.height(text: text)
+            let nameLabelHeight: CGFloat = nameLabelHeightConstraint.constant
+            return nameLabelTopSpacing + nameLabelHeight + spacing + messageLabelHeight
         }
     }
 

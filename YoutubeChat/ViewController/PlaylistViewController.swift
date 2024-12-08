@@ -128,6 +128,9 @@ class PlaylistViewController: BaseViewController{
     }
     
     @objc func receiveData(_ notification: Notification){
+        DispatchQueue.main.async{
+            self.urlTextField.resetText()
+        }
         if let data = notification.userInfo?["video"] as? AddVideoResponseData {
 
             youtubeViewModel?.videoArray = data.videos
@@ -172,7 +175,6 @@ extension PlaylistViewController: URLInputTextFieldDelegate{
             return
         }
         urlTextField.hideKeyboard()
-        urlTextField.resetText()
         guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
         let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .video, text: urlTextField.text, isRead: true)
         chatViewModel?.sendMessage(message)

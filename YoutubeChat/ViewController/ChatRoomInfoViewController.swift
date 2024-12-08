@@ -70,6 +70,7 @@ class ChatRoomInfoViewController: BaseViewController {
         if chatRoom.isOptionContains(.password){
             showPasswordAlert()
         } else {
+            enterButton.showLoading()
             enterChatRoom(chatRoom: chatRoom, enterCode: "")
         }
     }
@@ -81,6 +82,9 @@ class ChatRoomInfoViewController: BaseViewController {
     private func enterChatRoom(chatRoom: ChatRoomData, enterCode: String){
         Task{
             let chatRoomResponseData = try await chatViewModel.enterChatRoom(id: chatRoom.id!, enterCode: enterCode)
+            DispatchQueue.main.async{
+                self.enterButton.hideLoading()
+            }
             switch chatRoomResponseData.responseCode {
             case .success:
                 let vc = ChatViewController()

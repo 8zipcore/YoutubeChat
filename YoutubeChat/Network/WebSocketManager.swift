@@ -17,7 +17,7 @@ class WebSocketManager {
             print("🌀 Websocket URL Error")
             return
         }
-//         let url = URL(string: "ws://127.0.0.1:8080/chat/message")!
+//        let url = URL(string: "wss://1ed6-175-114-118-140.ngrok-free.app/chat/message")!
         webSocketTask = URLSession(configuration: .default).webSocketTask(with: url)
         webSocketTask?.resume()
         receiveMessage()

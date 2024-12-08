@@ -62,8 +62,8 @@
             filePath = "YoutubeChat/ViewController/ChatViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "419"
-            endingLineNumber = "419"
+            startingLineNumber = "425"
+            endingLineNumber = "425"
             landmarkName = "sendButtonTapped()"
             landmarkType = "7">
          </BreakpointContent>

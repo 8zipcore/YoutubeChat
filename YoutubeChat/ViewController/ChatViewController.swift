@@ -39,6 +39,7 @@ class ChatViewController: BaseViewController {
     var isEnter = false
     
     private var isPresentedPlaylistVC = false
+    private var lastCellHeight: CGFloat = .zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,6 +97,9 @@ class ChatViewController: BaseViewController {
         self.chatTableView.dataSource = self
         self.chatTableView.delegate = self
         
+        self.chatTableView.contentInset = .zero
+        self.chatTableView.scrollIndicatorInsets = .zero
+        
         self.chatTextView.delegate = self
         
         chatTableView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(hideKeyboard(_:))))
@@ -141,10 +145,10 @@ class ChatViewController: BaseViewController {
         if notification.name == .receiveMessage {
             if let data = notification.userInfo?["message"] as? Message{
                 chatViewModel.receiveMessage(data)
-                DispatchQueue.main.async {
-                    self.chatTableView.reloadData()
-                    self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: true)
-                }
+//                DispatchQueue.main.async {
+//                    self.chatTableView.reloadData()
+//                }
+                scrollToBottom()
                 if data.messageType == .enter || data.messageType == .leave{
                     Task {
                         if let response = try await
@@ -215,10 +219,15 @@ class ChatViewController: BaseViewController {
         }
         
         if self.chatViewModel.messageArray.count > 0 {
-            DispatchQueue.main.async{
-                self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: false)
-                
-            }
+            scrollToBottom()
+        }
+    }
+    
+    private func scrollToBottom(){
+        DispatchQueue.main.async{
+            self.chatTableView.reloadData()
+            self.chatTableView.layoutIfNeeded()
+            self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: false)
         }
     }
 }
@@ -233,10 +242,7 @@ extension ChatViewController{
         DispatchQueue.main.async{
             self.youtubeViewHeightConstraint.constant = self.view.bounds.width * 9 / 16
             if self.chatViewModel.messageArray.count > 0 {
-                DispatchQueue.main.async{
-                    self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: false)
-                }
-
+                self.scrollToBottom()
             }
         }
     }

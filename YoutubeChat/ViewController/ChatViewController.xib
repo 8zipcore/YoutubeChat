@@ -129,7 +129,7 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d5h-dg-U4g" customClass="ChatTextView" customModule="YoutubeChat" customModuleProvider="target">
-                            <rect key="frame" x="48.666666666666657" y="0.0" width="329.33333333333337" height="30"/>
+                            <rect key="frame" x="48.666666666666657" y="0.0" width="334.33333333333337" height="30"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="XZQ-jo-WFc"/>
@@ -144,7 +144,7 @@
                         <constraint firstItem="d5h-dg-U4g" firstAttribute="leading" secondItem="SWp-qx-GUO" secondAttribute="trailing" constant="5" id="Tud-jx-Fyv"/>
                         <constraint firstItem="d5h-dg-U4g" firstAttribute="top" secondItem="aOy-Va-Eee" secondAttribute="top" id="UVz-rc-OQS"/>
                         <constraint firstAttribute="bottom" secondItem="d5h-dg-U4g" secondAttribute="bottom" id="Zrs-WZ-uOk"/>
-                        <constraint firstAttribute="trailing" secondItem="d5h-dg-U4g" secondAttribute="trailing" constant="15" id="bbY-63-dAM"/>
+                        <constraint firstAttribute="trailing" secondItem="d5h-dg-U4g" secondAttribute="trailing" constant="10" id="bbY-63-dAM"/>
                     </constraints>
                 </view>
             </subviews>

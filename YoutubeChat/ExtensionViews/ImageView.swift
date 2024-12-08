@@ -22,4 +22,13 @@ extension UIImageView{
             self.image = UIImage(data: imageData)
         }
     }
+    
+    func setImageWithDefault(imageString: String){
+        if let imageData = Data(base64Encoded: imageString),
+           let image = UIImage(data: imageData){
+            self.image = image
+        } else {
+            self.image = UIImage(named: "default_profile")
+        }
+    }
 }
