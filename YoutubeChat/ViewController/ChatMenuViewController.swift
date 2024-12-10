@@ -24,11 +24,17 @@ class ChatMenuViewController: BaseViewController {
         super.viewDidLoad()
         
         configureView()
+        initData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         showPresentAnimation()
+    }
+    
+    private func initData(){
+        guard let chatRoom = chatRoom else { return }
+        self.chatRoom?.participants = chatRoom.participants.filter{ chatRoom.participantIds.contains($0.id!) }
     }
     
     private func configureView(){

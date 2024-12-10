@@ -98,6 +98,10 @@ class URLInputTextField: UIView {
     func resetText(){
         self.textField.text = ""
     }
+    
+    func buttonEnabledToggle(){
+        self.button.isUserInteractionEnabled.toggle()
+    }
 }
 
 extension URLInputTextField: UITextFieldDelegate{

@@ -11,4 +11,5 @@ extension Notification.Name {
     static let receiveMessage = Notification.Name("receiveMessage")
     static let receiveVideo = Notification.Name("receiveVideo")
     static let reconnected = Notification.Name("reconnected")
+    static let deleteVideo = Notification.Name("deleteVideo")
 }

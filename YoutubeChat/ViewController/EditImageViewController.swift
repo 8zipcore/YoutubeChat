@@ -38,17 +38,19 @@ class EditImageViewController: BaseViewController {
         
         editView.isHidden = imageType == .background
         fullImageView.isHidden = imageType == .profile
-        
-        if imageType == .profile{
-            setImage()
-        } else {
-            fullImageView.image = pickedImage
-        }
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         self.maskingView.layer.mask = maskLayer()
+        
+        if imageType == .profile{
+            DispatchQueue.main.async{
+                self.setImage()
+            }
+        } else {
+            fullImageView.image = pickedImage
+        }
     }
     
     private func configureView(){
@@ -80,6 +82,7 @@ class EditImageViewController: BaseViewController {
         self.scrollView.zoomScale = 1.0
         
         let width = self.maskingView.bounds.width
+        
         if pickedImage.size.width > pickedImage.size.height{
             self.scrollView.clipsToBounds = true
             imageViewWidthConstraint.constant = (pickedImage.size.width * width) / pickedImage.size.height
@@ -155,5 +158,11 @@ extension EditImageViewController:UIScrollViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         targetContentOffset.pointee = scrollView.contentOffset
+    }
+    
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        if scrollView.zoomScale < 1.0 {
+            scrollView.setZoomScale(1.0, animated: false) // 즉시 1.0으로 되돌림
+        }
     }
 }

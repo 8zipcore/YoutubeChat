@@ -72,7 +72,6 @@ extension YoutubeView: YTPlayerViewDelegate{
             if video.startTime > 0 {
                 startSecond = Float(round(Date().timeIntervalSince1970 - video.startTime))
             }
-            
             playerView.seek(toSeconds: startSecond + delaySecond, allowSeekAhead: true)
             shouldSeek = false
         }

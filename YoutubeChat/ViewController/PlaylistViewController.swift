@@ -8,7 +8,7 @@
 import UIKit
 
 class PlaylistViewController: BaseViewController{
-
+    
     @IBOutlet weak var topBarView: UIView!
     @IBOutlet weak var indicatorView: UIView!
     @IBOutlet weak var titleLabel: SDGothicLabel!
@@ -23,7 +23,6 @@ class PlaylistViewController: BaseViewController{
     var chatRoom: ChatRoomData?
     
     var chatViewModel: ChatViewModel?
-    var youtubeViewModel: YoutubeViewModel?
     
     var delegate: ChatViewControllerDelegate?
     
@@ -33,7 +32,7 @@ class PlaylistViewController: BaseViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         configureView()
     }
     
@@ -84,7 +83,7 @@ class PlaylistViewController: BaseViewController{
             urlTextField.isHidden = true
         }
         
-        self.videoNumberLabel.text = "\(String(describing: self.youtubeViewModel?.videoArray.count ?? 0))"
+        self.videoNumberLabel.text = "\(String(describing: YoutubeViewModel.shared.videoArray.count ))"
     }
     
     @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
@@ -92,9 +91,9 @@ class PlaylistViewController: BaseViewController{
         let viewVelocity = sender.velocity(in: self.view) // 이동한 방향
         
         switch sender.state {
-        case .began: 
+        case .began:
             break
-        case .changed: 
+        case .changed:
             if viewVelocity.y > 0 {
                 UIView.animate(withDuration: 0.15){
                     self.view.transform = CGAffineTransform(translationX: 0, y: viewTranslation.y)
@@ -113,10 +112,10 @@ class PlaylistViewController: BaseViewController{
                 })
             }
         default:
-        return
+            return
         }
     }
-
+    
     @IBAction func dismissButtonTapped(_ sender: Any) {
         self.delegate?.dismiss()
     }
@@ -128,14 +127,15 @@ class PlaylistViewController: BaseViewController{
     @objc func receiveData(_ notification: Notification){
         DispatchQueue.main.async{
             self.urlTextField.resetText()
+            self.urlTextField.buttonEnabledToggle()
         }
         if let data = notification.userInfo?["video"] as? AddVideoResponseData {
-
-            youtubeViewModel?.videoArray = data.videos
+            
+            YoutubeViewModel.shared.videoArray = data.videos
             print("⭐️ received : \(data.videos)")
             DispatchQueue.main.async{
                 self.playlistTableView.reloadData()
-                self.videoNumberLabel.text = "\(String(describing: self.youtubeViewModel?.videoArray.count ?? 0))"
+                self.videoNumberLabel.text = "\(String(describing: YoutubeViewModel.shared.videoArray.count ))"
             }
             
         } else {
@@ -150,14 +150,14 @@ class PlaylistViewController: BaseViewController{
 
 extension PlaylistViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return youtubeViewModel?.videoArray.count ?? 0
+        return YoutubeViewModel.shared.videoArray.count 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = playlistTableView.dequeueReusableCell(withIdentifier: PlayListTableViewCell.identifier, for: indexPath) as? PlayListTableViewCell, let youtubeViewModel = youtubeViewModel else {
+        guard let cell = playlistTableView.dequeueReusableCell(withIdentifier: PlayListTableViewCell.identifier, for: indexPath) as? PlayListTableViewCell else {
             return UITableViewCell() }
         
-        cell.setVideo(youtubeViewModel.videoArray[indexPath.item])
+        cell.setVideo(YoutubeViewModel.shared.videoArray[indexPath.item])
         
         return cell
     }
@@ -169,6 +169,33 @@ extension PlaylistViewController: UITableViewDelegate{
         let thumbnailImageViewWidth = self.view.bounds.width * 0.36
         return (thumbnailImageViewWidth * 9) / 16 + spacing
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let chatRoom = chatRoom, let id = chatRoom.id,
+                let videoId = YoutubeViewModel.shared.videoArray[indexPath.item].id
+        else { print("🌀 ChatRoom Data Nil Error") ; return nil }
+        
+        if chatRoom.hostId != MyProfile.id {
+            print(chatRoom.hostId, MyProfile.id)
+            return nil
+        }
+        
+        let action = UIContextualAction(style: .normal, title: nil) { (action, view, completion) in
+            YoutubeViewModel.shared.videoArray.remove(at: indexPath.item) // 데이터에서 항목 삭제
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            Task{
+                try await YoutubeViewModel.shared.deleteVideo(id, videoId)
+            }
+            completion(true)
+        }
+        
+        action.backgroundColor = .black
+        action.image = UIImage(named: "delete_icon")?.resizedImage(targetSize: CGSize(width: 20, height: 20))
+        
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        configuration.performsFirstActionWithFullSwipe = false
+        return configuration
+    }
 }
 
 extension PlaylistViewController: URLInputTextFieldDelegate{
@@ -177,6 +204,7 @@ extension PlaylistViewController: URLInputTextFieldDelegate{
             return
         }
         urlTextField.hideKeyboard()
+        urlTextField.buttonEnabledToggle()
         guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
         let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .video, text: urlTextField.text, isRead: true)
         chatViewModel?.sendMessage(message)

@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProfileViewController" customModule="YoutubeChat" customModuleProvider="target">
             <connections>
+                <outlet property="confirmButton" destination="DIh-g9-hGZ" id="sqe-rU-tQT"/>
                 <outlet property="nameTextField" destination="GWq-hF-sc5" id="TpS-1z-GGU"/>
                 <outlet property="profileImageView" destination="LSz-Uw-VwV" id="Duc-DU-lw6"/>
                 <outlet property="titleLabel" destination="Adi-wB-uSn" id="YSG-ED-BB7"/>

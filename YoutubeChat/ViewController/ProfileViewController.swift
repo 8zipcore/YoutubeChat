@@ -12,6 +12,7 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
     @IBOutlet weak var profileImageView: ProfileImageView!
     @IBOutlet weak var titleLabel: SDGothicLabel!
     @IBOutlet weak var nameTextField: InputTextField!
+    @IBOutlet weak var confirmButton: ConfirmButton!
     
     private var imagePickerController: UIImagePickerController?
     private var imageEditViewController = EditImageViewController()
@@ -46,7 +47,7 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
         if nameTextField.isBlank(){
             nameTextField.showAnimation()
         } else {
-            print("✅ 클릭")
+            confirmButton.showLoading()
             Task{
                 let user = User(id: nil,
                                 name: nameTextField.text,
@@ -58,6 +59,7 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
                 
                 DispatchQueue.main.async {
                     self.presentMainViewController()
+                    self.confirmButton.hideLoading()
                 }
             }
         }

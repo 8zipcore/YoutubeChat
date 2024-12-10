@@ -19,7 +19,7 @@ class ProfileTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.backgroundColor = .clear
-        nameLabel.textColor = .white
+        nameLabel.setLabel(textColor: .white, fontSize: 15)
     }
     
     func configureView(_ user: User, _ isHost: Bool){

@@ -8,12 +8,15 @@
 import Foundation
 
 class YoutubeViewModel{
+    
+    static let shared = YoutubeViewModel()
 
     var videoArray: [Video] = []
     
     func fetchVideos(_ chatRoomId: UUID, _ completion: @escaping () -> Void) async throws {
         guard let url = URLManager.shared.url(.fetchVideos) else { throw HttpError.badURL }
         self.videoArray = try await NetworkManager.shared.sendJsonData(FetchVideoRequestData(chatRoomId: chatRoomId, userId: MyProfile.id), [Video].self, to: url)
+        self.videoArray = sortVideoArray(videoArray)
         completion()
     }
     
@@ -33,12 +36,22 @@ class YoutubeViewModel{
     
     func deleteVideo(_ chatRoomId: UUID, _ id: UUID) async throws{
         guard let url = URLManager.shared.url(.deleteVideo) else { throw HttpError.badURL }
-        let response = try await NetworkManager.shared.sendJsonData(DeleteVideoRequestData(chatRoomId: chatRoomId, videoId: id), ResponseData.self, to: url)
-        switch response.responseCode{
-        case .success:
-            print("✅ delete 성공")
-        case .failure:
-            print("🌀 delete 실패")
-        }
+        var newVideoArray = try await NetworkManager.shared.sendJsonData(DeleteVideoRequestData(chatRoomId: chatRoomId, videoId: id, isEnded: false), [Video].self, to: url)
+        newVideoArray = sortVideoArray(newVideoArray)
+        NotificationCenter.default.post(name: .deleteVideo, object: nil, userInfo: ["VideoArray": newVideoArray])
+    }
+    
+    func setVideoArray(_ videoArray: [Video]){
+        self.videoArray = videoArray
+    }
+    
+    func resetVideoArray(){
+        self.videoArray = []
+    }
+    
+    private func sortVideoArray(_ videoArray: [Video]) -> [Video]{
+        var videoArray = videoArray
+        videoArray.sort{ $0.uploadTime < $1.uploadTime }
+        return videoArray
     }
 }
