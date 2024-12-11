@@ -20,7 +20,6 @@ class YoutubeView: UIView {
     var youtubeView: YTPlayerView?
     
     private var video: Video?
-    private var loadTime: Double = 0
     var shouldSeek = false
     
     var delegate: YoutubeViewDelegate?
@@ -56,12 +55,21 @@ class YoutubeView: UIView {
     
     func playVideo(_ video: Video){
         self.video = video
-        self.loadTime = Date().timeIntervalSince1970
         self.youtubeView?.load(withVideoId: video.youtubeId, playerVars: ["autoplay": 1])
     }
     
     func stopVideo(){
         self.youtubeView?.stopVideo()
+    }
+    
+    func seekVideo(){
+        guard let video = video else { print("🌀 video Data Nil Error"); return }
+        var startSecond: Float = 0
+        if video.startTime > 0 {
+            startSecond = Float(round(Date().timeIntervalSince1970 - video.startTime))
+        }
+        youtubeView?.seek(toSeconds: startSecond, allowSeekAhead: true)
+        shouldSeek = false
     }
 }
 
@@ -70,14 +78,7 @@ extension YoutubeView: YTPlayerViewDelegate{
     func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
         print("Player is ready.")
         if shouldSeek{
-            guard let video = video else { print("🌀 video Data Nil Error"); return }
-            let delaySecond = Float(Date().timeIntervalSince1970 - loadTime)
-            var startSecond: Float = 0
-            if video.startTime > 0 {
-                startSecond = Float(round(Date().timeIntervalSince1970 - video.startTime))
-            }
-            playerView.seek(toSeconds: startSecond + delaySecond, allowSeekAhead: true)
-            shouldSeek = false
+            seekVideo()
         }
     }
     

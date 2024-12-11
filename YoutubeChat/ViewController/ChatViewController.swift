@@ -347,6 +347,10 @@ extension ChatViewController{
             self.isPresentedPlaylistVC = true
         })*/
     }
+    
+    @IBAction func syncVideoButtonTapped(_ sender: Any) {
+        youtubeView.seekVideo()
+    }
 }
 // MARK: UITableViewDataSource
 extension ChatViewController: UITableViewDataSource{

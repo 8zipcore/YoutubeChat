@@ -64,6 +64,14 @@
                                 <action selector="testButtonTapped:" destination="-1" eventType="touchUpInside" id="QSN-wY-Gmx"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vYG-XS-jml">
+                            <rect key="frame" x="311" y="9.6666666666666572" width="23.333333333333314" height="23.333333333333371"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="refresh_icon"/>
+                            <connections>
+                                <action selector="syncVideoButtonTapped:" destination="-1" eventType="touchUpInside" id="RaQ-VK-Gc6"/>
+                            </connections>
+                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAu-h6-6kM">
                             <rect key="frame" x="354.33333333333331" y="9.6666666666666696" width="23.666666666666686" height="23.333333333333329"/>
                             <constraints>
@@ -79,11 +87,16 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstItem="hAu-h6-6kM" firstAttribute="leading" secondItem="vYG-XS-jml" secondAttribute="trailing" constant="20" id="0uO-wO-Snm"/>
                         <constraint firstAttribute="trailing" secondItem="hAu-h6-6kM" secondAttribute="trailing" constant="15" id="4DG-ff-ovp"/>
                         <constraint firstItem="cf6-kg-QfF" firstAttribute="centerY" secondItem="Oi4-D9-kgx" secondAttribute="centerY" id="6L7-nc-Xpu"/>
                         <constraint firstItem="iL7-gF-Oen" firstAttribute="leading" secondItem="pJQ-uc-8s2" secondAttribute="trailing" constant="5" id="85g-za-Wev"/>
                         <constraint firstItem="cf6-kg-QfF" firstAttribute="width" secondItem="Oi4-D9-kgx" secondAttribute="width" multiplier="0.065" id="IgB-5Q-f4c"/>
+                        <constraint firstItem="vYG-XS-jml" firstAttribute="bottom" secondItem="hAu-h6-6kM" secondAttribute="bottom" id="RrX-Ko-r4t"/>
+                        <constraint firstItem="vYG-XS-jml" firstAttribute="height" secondItem="hAu-h6-6kM" secondAttribute="height" id="UML-LI-OP2"/>
                         <constraint firstItem="pJQ-uc-8s2" firstAttribute="leading" secondItem="cf6-kg-QfF" secondAttribute="trailing" constant="15" id="W4b-Xb-aBD"/>
+                        <constraint firstItem="vYG-XS-jml" firstAttribute="top" secondItem="hAu-h6-6kM" secondAttribute="top" id="Wmy-pM-BkZ"/>
+                        <constraint firstItem="vYG-XS-jml" firstAttribute="width" secondItem="hAu-h6-6kM" secondAttribute="width" id="aCZ-rs-Uej"/>
                         <constraint firstItem="pJQ-uc-8s2" firstAttribute="centerY" secondItem="Oi4-D9-kgx" secondAttribute="centerY" id="gti-p2-Y48"/>
                         <constraint firstItem="iL7-gF-Oen" firstAttribute="centerY" secondItem="Oi4-D9-kgx" secondAttribute="centerY" id="hCd-qa-pzT"/>
                         <constraint firstItem="hAu-h6-6kM" firstAttribute="width" secondItem="Oi4-D9-kgx" secondAttribute="width" multiplier="0.06" id="sKW-tU-HzR"/>
@@ -172,6 +185,7 @@
     <resources>
         <image name="back_icon" width="512" height="512"/>
         <image name="menu_icon" width="83" height="83"/>
+        <image name="refresh_icon" width="512" height="512"/>
         <image name="youtube_icon" width="164" height="144"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
