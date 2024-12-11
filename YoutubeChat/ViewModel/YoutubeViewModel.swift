@@ -33,12 +33,25 @@ class YoutubeViewModel{
             print("🌀 update 실패")
         }
     }
-    
+    /*
     func deleteVideo(_ chatRoomId: UUID, _ id: UUID) async throws{
         guard let url = URLManager.shared.url(.deleteVideo) else { throw HttpError.badURL }
         var newVideoArray = try await NetworkManager.shared.sendJsonData(DeleteVideoRequestData(chatRoomId: chatRoomId, videoId: id, isEnded: false), [Video].self, to: url)
         newVideoArray = sortVideoArray(newVideoArray)
         NotificationCenter.default.post(name: .deleteVideo, object: nil, userInfo: ["VideoArray": newVideoArray])
+    }
+    */
+    
+    func appendVido(_ video: Video){
+        self.videoArray.append(video)
+    }
+    
+    func removeVideo(_ video: Video){
+        if let index = self.videoArray.firstIndex(where: ({ $0.id == video.id })){
+            self.videoArray.remove(at: index)
+            print("지웟어요")
+        }
+        print(self.videoArray.count)
     }
     
     func setVideoArray(_ videoArray: [Video]){

@@ -8,8 +8,9 @@
 import Foundation
 
 enum Constants{
+    static let domain = "0616-175-114-118-140.ngrok-free.app"
 //    static let baseURL = "https://youtubechatsever.onrender.com/"
-    static let baseURL = "https://92f3-175-114-118-140.ngrok-free.app/"
+    static let baseURL = "https://\(domain)/"
 }
 
 enum Endpoints {
@@ -24,6 +25,8 @@ enum Endpoints {
     static let quit = "chat/quit"
     static let find = "chat/find"
     static let search = "chat/search"
+    
+    static let fetchChats = "chat/fetchChats"
     
     static let categories = "category/fetch"
     static let fetchByCategory = "category/fetchChatRooms"
@@ -66,6 +69,7 @@ enum URLType{
     case fetchVideos
     case updateStartTime
     case deleteVideo
+    case fetchChats
 }
 
 class URLManager {
@@ -103,6 +107,8 @@ class URLManager {
             return URL(string: Constants.baseURL + Endpoints.updateStartTime)
         case .deleteVideo:
             return URL(string: Constants.baseURL + Endpoints.deleteVideo)
+        case .fetchChats:
+            return URL(string: Constants.baseURL + Endpoints.fetchChats)
         }
     }
 }

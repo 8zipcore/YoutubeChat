@@ -13,8 +13,6 @@ class ChatViewModel{
     var chatRoomArray: [ChatRoomData] = []
     var messageArray: [Message] = []
     
-    var userArray: [User] = []
-    
     func createChatRoom(chatRoom: ChatRoom) async throws -> ChatRoomData{
         guard let url = URL(string: Constants.baseURL + Endpoints.create) else {
             throw HttpError.badURL
@@ -65,6 +63,14 @@ class ChatViewModel{
         completion()
     }
     
+    func fetchChats(id: UUID, _ completion: @escaping () -> Void) async throws {
+        guard let url = URLManager.shared.url(.fetchChats) else { throw HttpError.badURL }
+        let data = ChatRoomRequestData(chatRoomId: id, userId: MyProfile.id)
+        self.messageArray = try await NetworkManager.shared.sendJsonData(data, [Message].self, to: url)
+        print(messageArray.count)
+        completion()
+    }
+    
     func isPrevSender(_ index: Int)-> Bool{
         if index == 0 {
             return false
@@ -109,12 +115,12 @@ extension ChatViewModel{
     }
     
     func sendEnterMessage(_ id: UUID){
-        let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .enter, isRead: true)
+        let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .enter)
         sendMessage(message)
     }
     
     func sendLeaveMessage(_ id: UUID){
-        let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .leave, isRead: true)
+        let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .leave)
         sendMessage(message)
     }
 }
@@ -133,22 +139,24 @@ extension ChatViewModel{
         return nil
     }
     
-    func findUser(id: UUID) -> User? {
-        return userArray.filter{$0.id == id}.first
-    }
-    
-    func appendUserArray(chatRoom: ChatRoomData?, senderId: UUID) {
-        if findUser(id: senderId) != nil {
-            return
-        }
-
-        if let chatRoom = chatRoom{
-            for participant in chatRoom.participants {
-                if participant.id == senderId{
-                    userArray.append(participant)
-                    break
+    func setChatRoomParticipants(chatRoom: ChatRoomData, participantData: ParticipantData) -> ChatRoomData {
+        var chatRoom = chatRoom
+        let user = participantData.user
+        
+        if let id = user.id {
+            if participantData.type == .enter {
+                chatRoom.participantIds.append(id)
+                if chatRoom.participants.filter({ $0.id == id }).first == nil {
+                    chatRoom.allParticipantIds.append(id)
+                    chatRoom.participants.append(user)
+                }
+            } else if participantData.type == .leave {
+                if let index = chatRoom.participantIds.firstIndex(where: { $0 == id }) {
+                    chatRoom.participantIds.remove(at: index)
                 }
             }
         }
+        
+        return chatRoom
     }
 }

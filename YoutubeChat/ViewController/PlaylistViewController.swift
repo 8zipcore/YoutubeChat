@@ -39,7 +39,7 @@ class PlaylistViewController: BaseViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveVideo, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .updatePlaylistVC, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reconnect(_:)), name: .reconnected, object: nil)
     }
     
@@ -127,19 +127,9 @@ class PlaylistViewController: BaseViewController{
     @objc func receiveData(_ notification: Notification){
         DispatchQueue.main.async{
             self.urlTextField.resetText()
-            self.urlTextField.buttonEnabledToggle()
-        }
-        if let data = notification.userInfo?["video"] as? AddVideoResponseData {
-            
-            YoutubeViewModel.shared.videoArray = data.videos
-            print("⭐️ received : \(data.videos)")
-            DispatchQueue.main.async{
-                self.playlistTableView.reloadData()
-                self.videoNumberLabel.text = "\(String(describing: YoutubeViewModel.shared.videoArray.count ))"
-            }
-            
-        } else {
-            print("🌀 decoding error")
+            self.urlTextField.buttonEnabled(true)
+            self.playlistTableView.reloadData()
+            self.videoNumberLabel.text = "\(String(describing: YoutubeViewModel.shared.videoArray.count ))"
         }
     }
     
@@ -171,21 +161,26 @@ extension PlaylistViewController: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        guard let chatRoom = chatRoom, let id = chatRoom.id,
-                let videoId = YoutubeViewModel.shared.videoArray[indexPath.item].id
-        else { print("🌀 ChatRoom Data Nil Error") ; return nil }
+        guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return nil }
         
         if chatRoom.hostId != MyProfile.id {
-            print(chatRoom.hostId, MyProfile.id)
             return nil
         }
         
+        guard let videoId = YoutubeViewModel.shared.videoArray[indexPath.item].id else { print("🌀 VideoId Nil Error") ; return nil }
+        
         let action = UIContextualAction(style: .normal, title: nil) { (action, view, completion) in
-            YoutubeViewModel.shared.videoArray.remove(at: indexPath.item) // 데이터에서 항목 삭제
-            tableView.deleteRows(at: [indexPath], with: .automatic)
-            Task{
-                try await YoutubeViewModel.shared.deleteVideo(id, videoId)
+            Task {
+                do {
+//                    try await YoutubeViewModel.shared.deleteVideo(id, videoId)
+                    let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .deleteVideo, text: videoId.uuidString)
+                    self.chatViewModel?.sendMessage(message)
+                } catch {
+                    print("Error deleting video: \(error.localizedDescription)")
+                }
             }
+//            YoutubeViewModel.shared.videoArray.remove(at: indexPath.item)
+//            tableView.deleteRows(at: [indexPath], with: .automatic)
             completion(true)
         }
         
@@ -204,9 +199,9 @@ extension PlaylistViewController: URLInputTextFieldDelegate{
             return
         }
         urlTextField.hideKeyboard()
-        urlTextField.buttonEnabledToggle()
+        urlTextField.buttonEnabled(false)
         guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
-        let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .video, text: urlTextField.text, isRead: true)
+        let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .addVideo, text: urlTextField.text)
         chatViewModel?.sendMessage(message)
     }
 }

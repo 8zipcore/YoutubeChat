@@ -54,10 +54,14 @@ class YoutubeView: UIView {
         }
     }
     
-    func playYoutube(_ video: Video){
+    func playVideo(_ video: Video){
         self.video = video
         self.loadTime = Date().timeIntervalSince1970
         self.youtubeView?.load(withVideoId: video.youtubeId, playerVars: ["autoplay": 1])
+    }
+    
+    func stopVideo(){
+        self.youtubeView?.stopVideo()
     }
 }
 

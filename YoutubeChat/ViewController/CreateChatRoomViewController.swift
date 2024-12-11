@@ -140,7 +140,7 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
                 case .create:
                     let chatOptions = chatOptionSwitch.filter({$0.isOn}).map{ return $0.tag }
                     print("chatOptions", chatOptions)
-                    let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoomImageView.imageToString(), enterCode: self.passwordTextField.text, hostId: MyProfile.id, participantIds: [MyProfile.id], chatOptions: chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: -1)
+                    let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoomImageView.imageToString(), enterCode: self.passwordTextField.text, hostId: MyProfile.id, participantIds: [MyProfile.id], allParticipantIds: [MyProfile.id], chatOptions: chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: -1)
                     let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom)
                     DispatchQueue.main.async {
                         self.presentChatViewController(chatRoom: response)

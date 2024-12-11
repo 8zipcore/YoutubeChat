@@ -15,6 +15,7 @@ struct ChatRoom: Codable{
     var enterCode: String
     var hostId: UUID
     var participantIds: [UUID]
+    var allParticipantIds: [UUID]
     var chatOptions: [Int]
     var categories: [String]
     var lastChatTime: Double
@@ -28,7 +29,8 @@ struct ChatRoomData: Codable{
     var enterCode: String
     var hostId: UUID
     var participantIds: [UUID]
-    var participants: [User] // 이것이 새로 추가됏다 . . .
+    var allParticipantIds: [UUID]
+    var participants: [User]
     var chatOptions: [Int]
     var categories: [String]
     var lastChatTime: Double

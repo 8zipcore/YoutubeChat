@@ -32,12 +32,13 @@ class ChatViewController: BaseViewController {
     private var keyboardAnimationDuraion: CGFloat = 0
 
     private let chatViewModel = ChatViewModel()
-    private let youtubeViewModel = YoutubeViewModel()
     
     private var isBackButtonClicked = false
     
     var chatRoom: ChatRoomData?
     var isEnter = false
+    var isReconnected = false
+    var isEnded = false
     
     private var isPresentedPlaylistVC = false
     private var lastCellHeight: CGFloat = .zero
@@ -52,7 +53,9 @@ class ChatViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveMessage, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveVideo, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveAddVideo, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveDeleteVideo, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveParticipant, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reconnect(_:)), name: .reconnected, object: nil)
         
@@ -68,6 +71,7 @@ class ChatViewController: BaseViewController {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         leave()
+        YoutubeViewModel.shared.resetVideoArray()
         /*
         if !isBackButtonClicked{
             Task{
@@ -84,13 +88,7 @@ class ChatViewController: BaseViewController {
         self.chatTextViewHeightContraint.constant = chatTextView.estimatedHeight()
         self.youtubeButtonBottomConstraint.constant = (self.chatTextViewHeightContraint.constant -  self.youtubeButton.bounds.height) / 2
     }
-    /*
-    override func didMove(toParent parent: UIViewController?) {
-        super.didMove(toParent: parent)
-        
-
-    }
-    */
+    
     private func configureView(){
         self.view.backgroundColor = .black
         
@@ -121,8 +119,8 @@ class ChatViewController: BaseViewController {
         guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
         Task{
             self.chatViewModel.sendEnterMessage(id)
-            try await youtubeViewModel.fetchVideos(id,{
-                self.playYoutube()
+            try await YoutubeViewModel.shared.fetchVideos(id,{
+                self.playVideo()
             })
         }
     }
@@ -156,10 +154,8 @@ class ChatViewController: BaseViewController {
                         if let response = try await
                             self.chatViewModel.findChatRoom(id: id){
                             self.chatRoom = response
-                            self.chatViewModel.appendUserArray(chatRoom: response, senderId: data.senderId)
-                            
                             DispatchQueue.main.async {
-                                self.peopleNumberLabel.text = String(response.participants.count)
+                                self.peopleNumberLabel.text = String(response.participantIds.count)
                             }
                         }
                     }
@@ -167,17 +163,59 @@ class ChatViewController: BaseViewController {
                 
                 scrollToBottom()
             }
-        } else if notification.name == .receiveVideo {
-            if let data = notification.userInfo?["video"] as? AddVideoResponseData {
-               youtubeViewModel.videoArray = data.videos
-               playYoutube()
+        } else if notification.name == .receiveAddVideo {
+            if let video = notification.userInfo?["video"] as? Video {
+                YoutubeViewModel.shared.appendVido(video)
+                playVideo()
+                NotificationCenter.default.post(name: .updatePlaylistVC, object: nil)
            }
+        } else if notification.name == .receiveDeleteVideo{
+            if let video = notification.userInfo?["video"] as? Video {
+                let videoArray = YoutubeViewModel.shared.videoArray
+                
+                YoutubeViewModel.shared.removeVideo(video)
+                
+                if YoutubeViewModel.shared.videoArray.count == 0 {
+                    DispatchQueue.main.async{
+                        self.youtubeView.stopVideo()
+                        self.youtubeViewHeightConstraint.constant = 0
+                    }
+                } else if videoArray.count > 0 && (video.id == videoArray[0].id) { // 삭제해야될게 첫번째꺼면
+                    isEnded = true
+                    playVideo()
+                }
+                
+                NotificationCenter.default.post(name: .updatePlaylistVC, object: nil)
+           }
+        } else if notification.name == .receiveParticipant {
+            if let data = notification.userInfo?["participant"] as? User {
+                /*
+                self.chatRoom = chatViewModel.setChatRoomParticipants(chatRoom: chatRoom, participantData: data)
+                DispatchQueue.main.async {
+                    self.peopleNumberLabel.text = String(self.chatRoom!.participantIds.count)
+                }*/
+            }
         }
     }
     
     @objc func reconnect(_ notification: Notification?){
-        let message = Message(chatRoomId: chatRoom!.id!, senderId: MyProfile.id, messageType: .reconnect, text: "", isRead: true)
+        let message = Message(chatRoomId: chatRoom!.id!, senderId: MyProfile.id, messageType: .reconnect, text: "")
         chatViewModel.sendMessage(message)
+        
+        isReconnected = true
+        
+        guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
+        Task{
+            try await chatViewModel.fetchChats(id: id, {
+                DispatchQueue.main.async {
+                    self.chatTableView.reloadData()
+                }
+            })
+            
+            try await YoutubeViewModel.shared.fetchVideos(id,{
+                self.playVideo()
+            })
+        }
     }
     
     private func isTopViewController() -> Bool {
@@ -211,22 +249,40 @@ class ChatViewController: BaseViewController {
         }
     }
     
-    private func playYoutube(){
-        if self.youtubeViewModel.videoArray.count > 0{
-            if self.youtubeViewHeightConstraint.constant == 0{
-                DispatchQueue.main.async{
-                    self.youtubeViewHeightConstraint.constant = self.view.bounds.width * 9 / 16
+    private func playVideo(){
+        print("playVideo, \(isEnded)")
+        
+        let videoCount = YoutubeViewModel.shared.videoArray.count
+        if videoCount > 0{
+            if videoCount == 1 || isEnter || isReconnected || isEnded {
+                if self.youtubeViewHeightConstraint.constant == 0{
+                    DispatchQueue.main.async{
+                        self.youtubeViewHeightConstraint.constant = self.view.bounds.width * 9 / 16
+                    }
                 }
-            }
-            let videoArrayCount = self.youtubeViewModel.videoArray.count
-            if videoArrayCount == 1 || isEnter{
-                let video = self.youtubeViewModel.videoArray[0]
-                self.youtubeView.shouldSeek = isEnter
+                
+                self.youtubeView.shouldSeek = isEnter || isReconnected
+                
+                let video = YoutubeViewModel.shared.videoArray[0]
                 DispatchQueue.main.async{
-                    self.youtubeView.playYoutube(video)
+                    self.youtubeView.playVideo(video)
                 }
+                isReconnected = false
                 isEnter = false
-            }
+                isEnded = false
+            } /*else {
+                let video = YoutubeViewModel.shared.videoArray[0]
+                let currentTime = Date().timeIntervalSince1970
+                if video.startTime < currentTime {
+                    DispatchQueue.main.async{
+                        self.youtubeView.playVideo(video)
+                    }
+                }
+            }*/
+        } else {
+            isReconnected = false
+            isEnter = false
+            isEnded = false
         }
         
         if self.chatViewModel.messageArray.count > 0 {
@@ -274,7 +330,6 @@ extension ChatViewController{
         
         let vc = PlaylistViewController()
         vc.chatViewModel = self.chatViewModel
-        vc.youtubeViewModel = self.youtubeViewModel
         vc.delegate = self
         
         let frame = self.youtubeView.convert(self.view.frame, to: nil)
@@ -317,7 +372,9 @@ extension ChatViewController: UITableViewDataSource{
                 
                 return cell
             case .image:fallthrough
-            case .video:
+            case .addVideo:fallthrough
+            case .deleteVideo:fallthrough
+                /*
                 let nib = UINib(nibName: ImageChatTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatTableViewCell.identifier)
                 
@@ -329,6 +386,7 @@ extension ChatViewController: UITableViewDataSource{
                 cell.setImage(image: image)
                 
                 return cell
+                 */
             case .enter:fallthrough
             case .leave:fallthrough
             case .reconnect:break
@@ -343,13 +401,15 @@ extension ChatViewController: UITableViewDataSource{
                     return UITableViewCell()
                 }
                 
-                let user = chatViewModel.findUser(id: message.senderId)
+                let user = chatViewModel.findUser(chatRoom: chatRoom, senderId: message.senderId)
                 
                 cell.setText(text: message.text, user: user, profileHidden: chatViewModel.isPrevSender(indexPath.item))
                 
                 return cell
             case .image:fallthrough
-            case .video:
+            case .addVideo:fallthrough
+            case .deleteVideo:fallthrough
+                /*
                 let nib = UINib(nibName: ImageChatWithProfileTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatWithProfileTableViewCell.identifier)
                 
@@ -361,6 +421,7 @@ extension ChatViewController: UITableViewDataSource{
                 cell.setImage(image: image, profileHidden: chatViewModel.isPrevSender(indexPath.item))
                 
                 return cell
+                 */
             case .enter:fallthrough
             case .leave:fallthrough
             case .reconnect:break
@@ -390,7 +451,9 @@ extension ChatViewController: UITableViewDelegate{
                     return .zero}
                 return cell.estimatedHeight(text: message.text)
             case .image:fallthrough
-            case .video:
+            case .addVideo:fallthrough
+            case .deleteVideo:fallthrough
+                /*
                 let nib = UINib(nibName: ImageChatTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatTableViewCell.identifier)
                 
@@ -400,6 +463,7 @@ extension ChatViewController: UITableViewDelegate{
                 
                 let image = UIImage(named: message.image!)!
                 return cell.estimatedHeight(image: image)
+                 */
             case .enter:fallthrough
             case .leave:fallthrough
             case .reconnect:break
@@ -413,7 +477,9 @@ extension ChatViewController: UITableViewDelegate{
                 
                 return cell.estimatedHeight(text: message.text, profileHidden: chatViewModel.isPrevSender(indexPath.item))
             case .image:fallthrough
-            case .video:
+            case .addVideo:fallthrough
+            case .deleteVideo:fallthrough
+                /*
                 let nib = UINib(nibName: ImageChatWithProfileTableViewCell.identifier, bundle: nil)
                 self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatWithProfileTableViewCell.identifier)
                 
@@ -423,6 +489,7 @@ extension ChatViewController: UITableViewDelegate{
                 
                 let image = UIImage(named: message.image!)!
                 return cell.estimatedHeight(image: image, profileHidden: chatViewModel.isPrevSender(indexPath.item))
+                 */
             case .enter:fallthrough
             case .leave:fallthrough
             case .reconnect:break
@@ -444,7 +511,7 @@ extension ChatViewController: ChatTextViewDelegate{
             return
         }
         
-        let message = Message(chatRoomId: chatRoom!.id!, senderId: MyProfile.id, messageType: .text, text: chatTextView.text, isRead: true)
+        let message = Message(chatRoomId: chatRoom!.id!, senderId: MyProfile.id, messageType: .text, text: chatTextView.text)
         chatViewModel.sendMessage(message)
         chatTextView.resetText()
         self.chatTextViewHeightContraint.constant = chatTextView.estimatedHeight()
@@ -458,29 +525,19 @@ extension ChatViewController: ChatTextViewDelegate{
 // MARK: YoutubeViewDelegate
 extension ChatViewController: YoutubeViewDelegate{
     func didStartVideo(_ video: Video) {
+        /*
         guard let chatRoom = chatRoom, let videoId = video.id else { print("🌀 ChatRoom Data Nil Error") ; return }
-        if chatRoom.hostId == MyProfile.id{
+        if (chatRoom.hostId == MyProfile.id) && !isReconnected{
             Task{
-                try await self.youtubeViewModel.updateStartTime(chatRoom.id!, videoId)
+                // try await YoutubeViewModel.shared.updateStartTime(chatRoom.id!, videoId)
             }
         }
+         */
     }
     
     func didEndVideo(_ video: Video) {
-        guard let chatRoom = chatRoom, let videoId = video.id else { print("🌀 ChatRoom Data Nil Error") ; return }
-        
-        if let index = self.youtubeViewModel.videoArray.firstIndex(where: { $0.id == video.id }) {
-            self.youtubeViewModel.videoArray.remove(at: index)
-            let addVideoResponseData = AddVideoResponseData(responseCode: .success, videos: self.youtubeViewModel.videoArray)
-            NotificationCenter.default.post(name: .receiveVideo, object: nil, userInfo: ["video" : addVideoResponseData])
-            Task{
-                try await self.youtubeViewModel.deleteVideo(chatRoom.id!, videoId)
-            }
-            // 아예 없으면
-            if self.youtubeViewModel.videoArray.count == 0{
-                youtubeViewHeightConstraint.constant = 0
-            }
-        }
+        print("😀 End")
+        NotificationCenter.default.post(name: .receiveDeleteVideo, object: nil, userInfo: ["video" : video])
     }
 }
 

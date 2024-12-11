@@ -99,8 +99,8 @@ class URLInputTextField: UIView {
         self.textField.text = ""
     }
     
-    func buttonEnabledToggle(){
-        self.button.isUserInteractionEnabled.toggle()
+    func buttonEnabled(_ value: Bool){
+        self.button.isUserInteractionEnabled = value
     }
 }
 

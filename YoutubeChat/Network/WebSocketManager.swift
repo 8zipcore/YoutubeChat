@@ -13,12 +13,10 @@ class WebSocketManager {
     var webSocketTask: URLSessionWebSocketTask?
 
     func connect() {
-//        guard let url = URL(string: "wss://youtubechatsever.onrender.com/chat/message") else {
-//            print("🌀 Websocket URL Error")
-//            return
-//        }
-        
-        let url = URL(string: "wss://92f3-175-114-118-140.ngrok-free.app/chat/message")!
+        guard let url = URL(string: "wss://\(Constants.domain)/chat/message") else {
+            print("🌀 Websocket URL Error")
+            return
+        }
         webSocketTask = URLSession(configuration: .default).webSocketTask(with: url)
         webSocketTask?.resume()
         receiveMessage()
@@ -81,11 +79,19 @@ class WebSocketManager {
             case .message:
                 let message = try JSONDecoder().decode(Message.self, from: sendData.data)
                 NotificationCenter.default.post(name: .receiveMessage, object: nil, userInfo: ["message" : message])
-                print("1️⃣ 진입")
-            case .video:
-                let addVideoResponseData = try JSONDecoder().decode(AddVideoResponseData.self, from: sendData.data)
-                NotificationCenter.default.post(name: .receiveVideo, object: nil, userInfo: ["video" : addVideoResponseData])
-                print("2️⃣ 진입")
+            case .addVideo:
+                let videoResponseData = try JSONDecoder().decode(VideoResponseData.self, from: sendData.data)
+                if let video = videoResponseData.video{
+                    NotificationCenter.default.post(name: .receiveAddVideo, object: nil, userInfo: ["video" : video])
+                }
+            case .deleteVideo:
+                let videoResponseData = try JSONDecoder().decode(VideoResponseData.self, from: sendData.data)
+                if let video = videoResponseData.video{
+                    NotificationCenter.default.post(name: .receiveDeleteVideo, object: nil, userInfo: ["video" : video])
+                }
+            case .participant:
+                let participantData = try JSONDecoder().decode(User.self, from: sendData.data)
+                NotificationCenter.default.post(name: .receiveParticipant, object: nil, userInfo: ["participant" : participantData])
             }
         } catch {
             print("🌀 JSONDecoding Error: \(error.localizedDescription)")
