@@ -17,6 +17,7 @@ class ChatMenuViewController: BaseViewController {
     @IBOutlet weak var profileTableView: UITableView!
     
     var chatRoom: ChatRoomData?
+    var delegate: ChatViewControllerDelegate?
     
     @IBOutlet weak var chatRoomEditButtonTrailingConstraint: NSLayoutConstraint!
     
@@ -82,7 +83,9 @@ class ChatMenuViewController: BaseViewController {
             self.backgroundView.alpha = 0
             self.contentView.frame = CGRect(x: self.contentView.bounds.width * 2, y: 0, width: self.contentView.bounds.width, height: self.contentView.bounds.height)
         }, completion: { _ in
-            self.dismiss(animated: false)
+            self.dismiss(animated: false, completion: {
+                self.delegate?.dismiss()
+            })
         })
     }
 

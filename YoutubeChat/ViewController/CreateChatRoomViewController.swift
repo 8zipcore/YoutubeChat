@@ -91,7 +91,7 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
         confirmImageViewController.delegate = self
         
         chatRoomImageView.delegate = self
-        
+        chatRoomImageView.setImage(chatRoom?.image)
         chatOptionLabel.forEach{
             $0.setLabel(textColor: Colors.lightGray, fontStyle: .semibold, fontSize: 15)
         }
@@ -140,13 +140,24 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
                 case .create:
                     let chatOptions = chatOptionSwitch.filter({$0.isOn}).map{ return $0.tag }
                     print("chatOptions", chatOptions)
-                    let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoomImageView.imageToString(), enterCode: self.passwordTextField.text, hostId: MyProfile.id, participantIds: [MyProfile.id], allParticipantIds: [MyProfile.id], chatOptions: chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: -1)
-                    let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom)
+                    let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: "", enterCode: self.passwordTextField.text, hostId: MyProfile.id, participantIds: [MyProfile.id], allParticipantIds: [MyProfile.id], chatOptions: chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: -1)
+                    let imageData = chatRoomImageView.toJpgData()
+                    let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom, imageData: imageData)
                     DispatchQueue.main.async {
                         self.presentChatViewController(chatRoom: response)
                     }
                     confirmButton.hideLoading()
                 case .edit:
+                    if let chatRoom = chatRoom, let id = chatRoom.id{
+                        let newChatRoom = ChatRoom(id: id, name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoom.image, enterCode: self.passwordTextField.text, hostId: chatRoom.hostId, participantIds: chatRoom.participantIds, allParticipantIds: chatRoom.allParticipantIds, chatOptions: chatRoom.chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: chatRoom.lastChatTime)
+                        
+                        let imageData = chatRoomImageView.toJpgData()
+                        let response = try await chatViewModel.updateChatRoom(chatRoom: newChatRoom, imageData: imageData)
+                        self.chatRoom = response
+                        
+                        NotificationCenter.default.post(name: .updateChatRoom, object: nil, userInfo: ["chatRoomdata" : response])
+                    }
+                    
                     DispatchQueue.main.async {
                         self.dismiss(animated: true)
                     }

@@ -14,4 +14,5 @@ extension Notification.Name {
     static let updatePlaylistVC = Notification.Name("pdatePlaylistVC")
     static let reconnected = Notification.Name("reconnected")
     static let receiveParticipant = Notification.Name("receiveParticipant")
+    static let updateChatRoom = Notification.Name("updateChatRoom")
 }

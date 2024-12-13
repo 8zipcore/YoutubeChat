@@ -32,6 +32,11 @@ struct ResponseData: Codable{
     var responseCode: ResponseCode
 }
 
+struct ResponseWithStringData: Codable{
+    var responseCode: ResponseCode
+    var string: String
+}
+
 struct VideoResponseData: Codable{
     var responseCode: ResponseCode
     var video: Video?

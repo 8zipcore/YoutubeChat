@@ -6,29 +6,28 @@
 //
 
 import UIKit
+import Kingfisher
 
 extension UIImageView{
     func setCornerRadius(){
         self.layer.cornerRadius = (self.bounds.height * 0.8) / 2.5
     }
-    
+    /*
     func imageToString() -> String{
         guard let image = self.image, let imageData = image.pngData()  else { return "" }
         return imageData.base64EncodedString()
     }
-    
-    func setImage(imageString: String){
-        if let imageData = Data(base64Encoded: imageString){
-            self.image = UIImage(data: imageData)
-        }
+    */
+    func setImage(imageURLString: String){
+        let url = URL(string: imageURLString)
+        self.kf.setImage(with: url)
     }
     
-    func setImageWithDefault(imageString: String){
-        if let imageData = Data(base64Encoded: imageString),
-           let image = UIImage(data: imageData){
-            self.image = image
-        } else {
+    func setImageWithDefault(imageURLString: String){
+        if imageURLString.count == 0 {
             self.image = UIImage(named: "default_profile")
+        } else {
+            setImage(imageURLString: imageURLString)
         }
     }
 }
@@ -47,5 +46,9 @@ extension UIImage {
         UIGraphicsEndImageContext()
 
         return resizedImage ?? self
+    }
+    
+    func toJpgData() -> Data?{
+        return self.jpegData(compressionQuality: 0.8)
     }
 }

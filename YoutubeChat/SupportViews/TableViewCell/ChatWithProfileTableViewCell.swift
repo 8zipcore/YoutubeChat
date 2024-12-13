@@ -62,7 +62,7 @@ class ChatWithProfileTableViewCell: UITableViewCell {
         messageLabel.setText(text: text)
         
         nameLabel.text = user?.name
-        profileImageView.setImageWithDefault(imageString: user?.image ?? "")
+        profileImageView.setImageWithDefault(imageURLString: user?.image ?? "")
         
         let estimatedWidth = messageLabel.width(text: text)
         if estimatedWidth < messageLabelWidthContraint.constant{

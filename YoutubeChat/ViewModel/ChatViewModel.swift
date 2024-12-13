@@ -13,11 +13,37 @@ class ChatViewModel{
     var chatRoomArray: [ChatRoomData] = []
     var messageArray: [Message] = []
     
-    func createChatRoom(chatRoom: ChatRoom) async throws -> ChatRoomData{
-        guard let url = URL(string: Constants.baseURL + Endpoints.create) else {
+    func createChatRoom(chatRoom: ChatRoom, imageData: Data?) async throws -> ChatRoomData{
+        guard let createURL = URLManager.shared.url(.create), 
+                let uploadImageURL = URLManager.shared.url(.uploadChatRoomImage) else {
             throw HttpError.badURL
         }
-        let response = try await NetworkManager.shared.sendJsonData(chatRoom, ChatRoomData.self, to: url)
+        var response = try await NetworkManager.shared.sendJsonData(chatRoom, ChatRoomData.self, to: createURL)
+        
+        var imageDataSet: [String : Data] = [:]
+        if let imageData = imageData{
+            imageDataSet = ["image" : imageData]
+        }
+        
+        response.image = try await NetworkManager.shared.sendImageAndMetadata(to: uploadImageURL, ImageAndMetaData(parameters: ["id" : response.id!.uuidString], imageDataSet: imageDataSet), ResponseWithStringData.self).string
+        print(" 😳 : \(response.image)")
+        return response
+    }
+    
+    func updateChatRoom(chatRoom: ChatRoom, imageData: Data?) async throws -> ChatRoomData{
+        guard let updateChatRoomURL = URLManager.shared.url(.updateChatRoom),
+                let uploadImageURL = URLManager.shared.url(.uploadChatRoomImage) else {
+            throw HttpError.badURL
+        }
+        var response = try await NetworkManager.shared.sendJsonData(chatRoom, ChatRoomData.self, to: updateChatRoomURL)
+        
+        var imageDataSet: [String : Data] = [:]
+        if let imageData = imageData{
+            imageDataSet = ["image" : imageData]
+        }
+        
+        response.image = try await NetworkManager.shared.sendImageAndMetadata(to: uploadImageURL, ImageAndMetaData(parameters: ["id" : response.id!.uuidString], imageDataSet: imageDataSet), ResponseWithStringData.self).string
+        
         return response
     }
     /*

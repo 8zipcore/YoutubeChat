@@ -49,11 +49,12 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
         } else {
             confirmButton.showLoading()
             Task{
-                let user = User(id: nil,
-                                name: nameTextField.text,
-                                description: "",
-                                image: profileImageView.isDefaultImage ? "" : profileImageView.imageToString(),
-                                backgroundImage: "")
+                let user = UserData(id: "",
+                                    name: nameTextField.text,
+                                    description: "",
+                                    image: profileImageView.image()?.toJpgData(),
+                                    backgroundImage: nil)
+                print("🌀 image : \(user.image)")
                 let response = try await profileViewModel.createProfile(user:user)
                 try await profileViewModel.setUser(response)
                 
@@ -84,7 +85,7 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
 extension ProfileViewController: ProfileImageViewDelegate{
     func profileImageViewTapped() {
         let vc = ImageViewController()
-        vc.image = profileImageView.image
+        vc.image = profileImageView.image()
         self.present(vc, animated: true)
     }
     
@@ -99,6 +100,7 @@ extension ProfileViewController {
         if let pickedImage = info[.originalImage] as? UIImage {
             imageEditViewController.pickedImage = pickedImage
             imageEditViewController.imageType = .profile
+            imageEditViewController.settingFlag = false
             imagePickerController?.present(imageEditViewController, animated: false)
         }
     }

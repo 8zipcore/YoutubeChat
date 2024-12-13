@@ -48,7 +48,7 @@ class ChatRoomInfoViewController: BaseViewController {
         nameLabel.text = chatRoom.name
         descriptionLabel.text = chatRoom.description
         optionLabel.text = chatViewModel.optionText(chatRoom)
-        chatRoomImageView.setImage(imageString: chatRoom.image)
+        chatRoomImageView.setImage(imageURLString: chatRoom.image)
         
         self.enterButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(enterButtonTapped(_:))))
     }

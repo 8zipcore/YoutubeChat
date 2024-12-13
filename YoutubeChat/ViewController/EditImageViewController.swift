@@ -27,6 +27,8 @@ class EditImageViewController: BaseViewController {
     var pickedImage = UIImage()
     var imageType: ProfileInfoViewController.ImageType?
     var delegate: EditImageViewControllerDelegate?
+    
+    var settingFlag = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +46,15 @@ class EditImageViewController: BaseViewController {
         super.viewWillLayoutSubviews()
         self.maskingView.layer.mask = maskLayer()
         
-        if imageType == .profile{
-            DispatchQueue.main.async{
-                self.setImage()
+        if settingFlag == false {
+            if imageType == .profile{
+                DispatchQueue.main.async{
+                    self.setImage()
+                }
+            } else {
+                fullImageView.image = pickedImage
             }
-        } else {
-            fullImageView.image = pickedImage
+            settingFlag = true
         }
     }
     

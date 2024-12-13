@@ -73,7 +73,7 @@ class ChatRoomImageView: UIView {
         chatRoomImageView.contentMode = .scaleAspectFill
         chatRoomImageView.clipsToBounds = true
 
-        chatRoomImageView.layer.cornerRadius = 20
+        chatRoomImageView.layer.cornerRadius = self.bounds.height * 0.08
         overlayView.layer.cornerRadius = self.bounds.height * 0.08
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(editViewTapped(_:)))
@@ -82,6 +82,13 @@ class ChatRoomImageView: UIView {
     
     func setImage(_ image: UIImage){
         self.chatRoomImageView.image = image
+    }
+    
+    func setImage(_ imageURLToString: String?){
+        if let imageURLToString = imageURLToString{
+            let url = URL(string: imageURLToString)
+            self.chatRoomImageView.kf.setImage(with: url, options: [.forceRefresh])
+        }
     }
     
     func alert(_ presentImagePickerViewController: @escaping () -> Void) -> UIAlertController{
@@ -101,8 +108,7 @@ class ChatRoomImageView: UIView {
         self.delegate?.editButtonTapped()
     }
     
-    func imageToString()-> String{
-        return self.chatRoomImageView.imageToString()
+    func toJpgData() -> Data? {
+        return self.chatRoomImageView.image?.toJpgData()
     }
-    
 }

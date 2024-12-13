@@ -40,7 +40,7 @@ class ChatViewController: BaseViewController {
     var isReconnected = false
     var isEnded = false
     
-    private var isPresentedPlaylistVC = false
+    private var isPresentedVC = false
     private var lastCellHeight: CGFloat = .zero
     
     override func viewDidLoad() {
@@ -58,6 +58,7 @@ class ChatViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: .receiveParticipant, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(reconnect(_:)), name: .reconnected, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateChatRoom(_:)), name: .updateChatRoom, object: nil)
         
         // 방만들기, 참여하기 뷰컨 없애주는 작업
         if let navigationController = self.navigationController,
@@ -198,6 +199,22 @@ class ChatViewController: BaseViewController {
         }
     }
     
+    @objc func updateChatRoom(_ notification: Notification?){
+        if let chatRoomData = notification?.userInfo?["chatRoomdata"] as? ChatRoomData{
+            self.chatRoom?.name = chatRoomData.name
+            self.chatRoom?.description = chatRoomData.description
+            self.chatRoom?.categories = chatRoomData.categories
+            self.chatRoom?.chatOptions = chatRoomData.chatOptions
+            self.chatRoom?.image = chatRoomData.image
+            
+            print("🛠️🛠️🛠️🛠️🛠️ : \(chatRoom?.name)")
+            
+            DispatchQueue.main.async {
+                self.chatNameLabel.text = chatRoomData.name
+            }
+        }
+    }
+    
     @objc func reconnect(_ notification: Notification?){
         let message = Message(chatRoomId: chatRoom!.id!, senderId: MyProfile.id, messageType: .reconnect, text: "")
         chatViewModel.sendMessage(message)
@@ -228,7 +245,7 @@ class ChatViewController: BaseViewController {
     }
     
     @objc func keyboardWillShow(_ notification: Notification){
-        if isPresentedPlaylistVC{
+        if isPresentedVC{
             return
         }
         
@@ -319,8 +336,11 @@ extension ChatViewController{
         
         let vc = ChatMenuViewController()
         vc.chatRoom = chatRoom
+        vc.delegate = self
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
+        
+        isPresentedVC = true
     }
     
     @IBAction func youtubeButtonTapped(_ sender: Any) {
@@ -548,7 +568,7 @@ extension ChatViewController: YoutubeViewDelegate{
 extension ChatViewController: ChatViewControllerDelegate{
     func dismiss() {
         self.playlistView.removeFromSuperview()
-        isPresentedPlaylistVC = false
+        isPresentedVC = false
         hideKeyboard(nil)
     }
     func reconnect() {

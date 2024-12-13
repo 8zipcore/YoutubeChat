@@ -45,7 +45,7 @@ class GroupChatTableViewCell: UITableViewCell {
     }
     
     func initView(chatRoom: ChatRoomData){
-        chatImageView.setImageWithDefault(imageString: chatRoom.image)
+        chatImageView.setImageWithDefault(imageURLString: chatRoom.image)
         chatNameLabel.text = chatRoom.name
         peopleNumberLabel.text = String(chatRoom.participantIds.count)
         descriptionLabel.text = chatRoom.description

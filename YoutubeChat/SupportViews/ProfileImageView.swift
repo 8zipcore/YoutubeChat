@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 protocol ProfileImageViewDelegate{
     func editButtonTapped()
@@ -24,10 +25,6 @@ class ProfileImageView: UIView {
     }
     
     var delegate: ProfileImageViewDelegate?
-    
-    var image: UIImage?{
-        return profileImageView.image
-    }
     
     var isDefaultImage = true
 
@@ -95,18 +92,20 @@ class ProfileImageView: UIView {
         setImage(nil)
     }
     
-    func setImage(_ image: UIImage?){
-        isDefaultImage = image == nil ? true : false
-        self.profileImageView.image = image ?? UIImage(named: "default_profile")
+    func image() -> UIImage?{
+        return self.profileImageView.image
     }
     
-    func setImage(_ imageString: String){
-        if imageString == ""{
-            setImage(nil)
+    func setImage(_ image: UIImage){
+        self.profileImageView.image = image
+    }
+    
+    func setImage(_ imageURLString: String?){
+        if let imageURLString = imageURLString, imageURLString.count > 0 {
+            let url = URL(string: imageURLString)
+            self.profileImageView.kf.setImage(with: url)
         } else {
-            if let data = Data(base64Encoded: imageString){
-               setImage(UIImage(data: data))
-            }
+            self.profileImageView.image = UIImage(named: "default_profile")
         }
     }
     
@@ -145,9 +144,4 @@ class ProfileImageView: UIView {
         }
         delegate?.profileImageViewTapped()
     }
-    
-    func imageToString()-> String{
-        return self.profileImageView.imageToString()
-    }
-    
 }

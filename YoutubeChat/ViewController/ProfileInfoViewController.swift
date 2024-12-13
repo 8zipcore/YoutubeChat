@@ -124,11 +124,12 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
     @IBAction func editEndedButtonTapped(_ sender: Any) {
         guard let user = user else { print("🌀 user data is nil "); return }
         Task{
-            let user = User(id: user.id,
-                            name: nameLabel.text ?? "",
-                            description: descriptionLabel.text ?? "",
-                            image: profileImageView.imageToString(),
-                            backgroundImage: backgroundImageView.imageToString())
+            let user = UserData(id: user.id!.uuidString,
+                                name: nameLabel.text ?? "",
+                                description: descriptionLabel.text ?? "",
+                                image: profileImageView.isDefaultImage ? nil :
+                                    profileImageView.image()?.toJpgData(),
+                                backgroundImage: backgroundImageView.image?.toJpgData())
             let response = try await profileViewModel.updateProfile(user: user)
             try await profileViewModel.setUser(response)
             
@@ -178,7 +179,7 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
         nameLabel.text = user.name
         descriptionLabel.text = user.description
         profileImageView.setImage(user.image)
-        backgroundImageView.setImage(imageString: user.backgroundImage)
+        backgroundImageView.setImage(imageURLString: user.backgroundImage)
     }
     
     private func presentImageViewController(_ image: UIImage?){
@@ -202,7 +203,7 @@ extension ProfileInfoViewController: EditProfileTextViewControllerDelegate{
 
 extension ProfileInfoViewController: ProfileImageViewDelegate{
     func profileImageViewTapped() {
-        presentImageViewController(profileImageView.image)
+        presentImageViewController(profileImageView.image())
     }
     
     func editButtonTapped() {
@@ -248,6 +249,7 @@ extension ProfileInfoViewController {
         if let pickedImage = info[.originalImage] as? UIImage {
             imageEditViewController.pickedImage = pickedImage
             imageEditViewController.imageType = imageType
+            imageEditViewController.settingFlag = false
             imagePickerController?.present(imageEditViewController, animated: false)
         }
     }
