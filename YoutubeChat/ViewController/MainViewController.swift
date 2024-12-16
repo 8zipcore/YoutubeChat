@@ -101,9 +101,6 @@ class MainViewController: BaseViewController {
         initData()
     }
     
-    @IBAction func conntectWebSocketButtonTapped(_ sender: Any) {
-    }
-    
     @objc func profileViewTapped(_ sender: UITapGestureRecognizer){
         let vc = ProfileInfoViewController()
         vc.user = MyProfile.user

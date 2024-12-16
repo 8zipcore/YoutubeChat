@@ -138,9 +138,9 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
             Task{
                 switch viewType {
                 case .create:
-                    let chatOptions = chatOptionSwitch.filter({$0.isOn}).map{ return $0.tag }
+                    let chatOptions = self.chatOptionSwitch.filter({$0.isOn}).map{ return $0.tag }
                     print("chatOptions", chatOptions)
-                    let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: "", enterCode: self.passwordTextField.text, hostId: MyProfile.id, participantIds: [MyProfile.id], allParticipantIds: [MyProfile.id], chatOptions: chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: -1)
+                    let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: "", enterCode: self.passwordTextField.text, hostId: MyProfile.id, participantIds: [MyProfile.id], enterTimes: [:], allParticipantIds: [MyProfile.id], chatOptions: chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: -1)
                     let imageData = chatRoomImageView.toJpgData()
                     let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom, imageData: imageData)
                     DispatchQueue.main.async {
@@ -149,7 +149,7 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
                     confirmButton.hideLoading()
                 case .edit:
                     if let chatRoom = chatRoom, let id = chatRoom.id{
-                        let newChatRoom = ChatRoom(id: id, name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoom.image, enterCode: self.passwordTextField.text, hostId: chatRoom.hostId, participantIds: chatRoom.participantIds, allParticipantIds: chatRoom.allParticipantIds, chatOptions: chatRoom.chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: chatRoom.lastChatTime)
+                        let newChatRoom = ChatRoom(id: id, name: chatNameTextField.text, description: descriptionTextView.text, image: chatRoom.image, enterCode: self.passwordTextField.text, hostId: chatRoom.hostId, participantIds: chatRoom.participantIds, enterTimes: [:], allParticipantIds: chatRoom.allParticipantIds, chatOptions: chatRoom.chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: chatRoom.lastChatTime)
                         
                         let imageData = chatRoomImageView.toJpgData()
                         let response = try await chatViewModel.updateChatRoom(chatRoom: newChatRoom, imageData: imageData)

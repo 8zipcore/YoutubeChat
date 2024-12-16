@@ -27,7 +27,7 @@ class InputTextView: UIView, ClearButtonDelegate{
     }
     
     var textCount: Int{
-        return self.textView.text?.count ?? 0
+        return self.textView.text.utf16.count 
     }
     
     var lineHeight: CGFloat{
@@ -189,7 +189,7 @@ class InputTextView: UIView, ClearButtonDelegate{
         let pattern = "#\\w+"
         let regex = try! NSRegularExpression(pattern: pattern, options: [])
 
-        let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: text.count))
+        let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: textCount))
 
         return matches.map {
             let range = NSRange(location: $0.range.location + 1, length: $0.range.length - 1)

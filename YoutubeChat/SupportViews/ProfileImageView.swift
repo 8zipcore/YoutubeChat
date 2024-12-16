@@ -26,7 +26,7 @@ class ProfileImageView: UIView {
     
     var delegate: ProfileImageViewDelegate?
     
-    var isDefaultImage = true
+    var isDefaultImage = false
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -98,14 +98,17 @@ class ProfileImageView: UIView {
     
     func setImage(_ image: UIImage){
         self.profileImageView.image = image
+        isDefaultImage = false
     }
     
     func setImage(_ imageURLString: String?){
         if let imageURLString = imageURLString, imageURLString.count > 0 {
             let url = URL(string: imageURLString)
             self.profileImageView.kf.setImage(with: url)
+            isDefaultImage = false
         } else {
             self.profileImageView.image = UIImage(named: "default_profile")
+            isDefaultImage = true
         }
     }
     

@@ -19,8 +19,6 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
     
     private let profileViewModel = ProfileViewModel()
     
-    private var isDefaultImage = true
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 

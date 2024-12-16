@@ -67,7 +67,6 @@ class PlaylistViewController: BaseViewController{
         
         playlistTableView.dataSource = self
         playlistTableView.delegate = self
-        playlistTableView.bounces = false
         
         urlTextField.delegate = self
         

@@ -207,8 +207,6 @@ class ChatViewController: BaseViewController {
             self.chatRoom?.chatOptions = chatRoomData.chatOptions
             self.chatRoom?.image = chatRoomData.image
             
-            print("🛠️🛠️🛠️🛠️🛠️ : \(chatRoom?.name)")
-            
             DispatchQueue.main.async {
                 self.chatNameLabel.text = chatRoomData.name
             }

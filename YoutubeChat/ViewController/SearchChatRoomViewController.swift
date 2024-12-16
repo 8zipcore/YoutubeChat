@@ -32,6 +32,9 @@ class SearchChatRoomViewController: BaseViewController, SearchTextFieldDelegate 
     private func initData(){
         Task{
             try await searchViewModel.fetchAllChatRooms()
+            DispatchQueue.main.async{
+                self.groupChatTableView.reloadData()
+            }
         }
     }
 
