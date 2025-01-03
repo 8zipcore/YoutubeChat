@@ -104,7 +104,7 @@ class ProfileImageView: UIView {
     func setImage(_ imageURLString: String?){
         if let imageURLString = imageURLString, imageURLString.count > 0 {
             let url = URL(string: imageURLString)
-            self.profileImageView.kf.setImage(with: url)
+            self.profileImageView.kf.setImage(with: url, options: [.forceRefresh])
             isDefaultImage = false
         } else {
             self.profileImageView.image = UIImage(named: "default_profile")

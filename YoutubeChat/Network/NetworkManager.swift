@@ -102,7 +102,6 @@ class NetworkManager{
                 let _ = uploadData.imageDataSet.map{
                     let data = $0.value
                     let name = $0.key
-                    print("🙏🏻 \(data) \(name)")
                     multipartFormData.append(data, withName: name, mimeType: "image/jpg")
                 }
             }, to: url, method: .post, headers: ["Content-Type": "multipart/form-data"])

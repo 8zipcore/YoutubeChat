@@ -8,8 +8,7 @@
 import Foundation
 
 enum Constants{
-    static let domain = "d0f7-175-114-118-140.ngrok-free.app"
-//    static let baseURL = "https://youtubechatsever.onrender.com/"
+    static let domain = "youtubechatsever.onrender.com"
     static let baseURL = "https://\(domain)"
 }
 

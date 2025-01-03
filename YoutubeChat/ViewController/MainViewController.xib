@@ -39,8 +39,8 @@
                                 <action selector="fetchChatRoomButtonTapped:" destination="-1" eventType="touchUpInside" id="cff-d8-YlP"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxF-WN-Usm">
-                            <rect key="frame" x="81" y="0.0" width="114" height="35"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxF-WN-Usm">
+                            <rect key="frame" x="271" y="0.0" width="114" height="35"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Delete Data"/>
