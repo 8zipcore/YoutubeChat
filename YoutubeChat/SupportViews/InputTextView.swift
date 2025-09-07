@@ -5,7 +5,7 @@
 //  Created by 홍승아 on 8/4/24.
 //
 
-import Foundation
+import UIKit
 import SnapKit
 
 @objc protocol InputTextViewDelegate{

@@ -5,7 +5,7 @@
 //  Created by 홍승아 on 6/28/24.
 //
 
-import Foundation
+import UIKit
 import SnapKit
 
 class ImageChatView: UIView{

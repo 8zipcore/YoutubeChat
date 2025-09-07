@@ -1,6 +1,0 @@
-module Pods_YoutubeChat {
-  umbrella header "Pods-YoutubeChat-umbrella.h"
-
-  export *
-  module * { export * }
-}
