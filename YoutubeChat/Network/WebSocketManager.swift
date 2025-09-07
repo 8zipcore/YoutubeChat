@@ -10,7 +10,8 @@ import Foundation
 class WebSocketManager {
   static let shared = WebSocketManager()
   
-  var webSocketTask: URLSessionWebSocketTask?
+  private var webSocketTask: URLSessionWebSocketTask?
+  private var reconnectAttempts = 0
   
   func connect() {
     guard let url = URL(string: "wss://\(Constants.domain)/chat/message") else {
@@ -22,7 +23,20 @@ class WebSocketManager {
     receiveMessage()
     print("☃️ WebSocket 연결중")
     
-    NotificationCenter.default.post(name: .reconnected, object: nil)
+    Task { @MainActor in
+      NotificationCenter.default.post(name: .reconnected, object: nil)
+    }
+  }
+  
+  private func reconnect() {
+    reconnectAttempts += 1
+    
+    let delay = min(Double(reconnectAttempts), 5.0)
+    
+    Task {
+      try? await Task.sleep(nanoseconds: UInt64(delay * 1_000_000_000))
+      self.connect()
+    }
   }
   
   func sendMessage(_ message: Message) {
@@ -45,6 +59,7 @@ class WebSocketManager {
       switch result {
       case .failure(let error):
         print("WebSocket receiving error: \(error)")
+        self?.reconnect()
       case .success(let message):
         switch message {
         case .string(let text):
@@ -57,7 +72,7 @@ class WebSocketManager {
             print("Error handling result: \(error)")
           }
         @unknown default:
-          fatalError()
+          print("⚠️ Received unknown message type")
         }
         
         self?.receiveMessage()
