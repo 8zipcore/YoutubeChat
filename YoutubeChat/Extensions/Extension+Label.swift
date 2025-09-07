@@ -1,5 +1,5 @@
 //
-//  NSAttributedString.swift
+//  Extension+Label.swift
 //  YoutubeChat
 //
 //  Created by 홍승아 on 6/13/24.

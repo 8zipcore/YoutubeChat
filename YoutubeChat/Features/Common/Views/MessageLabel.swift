@@ -54,7 +54,7 @@ class MessageLabel: UIView {
     label.numberOfLines = 0
     label.lineBreakMode = .byCharWrapping
     
-    self.backgroundColor = isMyChat ? RGB(red: 49, green: 132, blue: 246) : UIColor(white: 1, alpha: 0.15)
+    self.backgroundColor = isMyChat ? UIColor.init(red: 49, green: 132, blue: 246) : UIColor(white: 1, alpha: 0.15)
     self.layer.cornerRadius = 10
   }
   
