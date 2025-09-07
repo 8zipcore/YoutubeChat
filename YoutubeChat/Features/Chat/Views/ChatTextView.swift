@@ -81,7 +81,7 @@ class ChatTextView: UIView {
     self.backgroundColor = UIColor(white: 1, alpha: 0.2)
     self.clipsToBounds = true
     
-    textView.font = SDGothic(size: 15)
+    textView.font = .sdGothic(size: 15)
     textView.textColor = .white
     textView.tintColor = Colors.gray
     textView.delegate = self

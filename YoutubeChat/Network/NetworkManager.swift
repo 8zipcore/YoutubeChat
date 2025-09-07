@@ -69,7 +69,6 @@ class NetworkManager{
             continuation.resume(returning: data)
           case .failure(let error):
             print("🌀 수신 Error : \(error)")
-            // continuation.resume(throwing: error)
           }
         }
     }

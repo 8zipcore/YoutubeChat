@@ -31,8 +31,6 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate, UIViewC
     print("🔴 \(String(describing: type(of: self)))")
   }
   
-  
-  // 키보드 내리기 메서드
   @objc func dismissKeyboard() {
     if hideKeyboard{
       view.endEditing(true)
@@ -44,11 +42,10 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate, UIViewC
     var touchedView = touch.view
     
     while touchedView != nil {
-      // 터치된 뷰 또는 그 상위 뷰가 UICollectionViewCell인지 확인
       if touchedView is UICollectionViewCell || touchedView is UITableViewCell {
         return false
       }
-      // 슈퍼뷰로 이동
+      
       touchedView = touchedView?.superview
     }
     return true

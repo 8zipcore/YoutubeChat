@@ -88,7 +88,7 @@ class SearchTextField: UIView, ClearButtonDelegate {
       imageView.tintColor = Colors.gray
     }
     
-    textField.font = SDGothic(size: 15)
+    textField.font = .sdGothic(size: 15)
     textField.textColor = .white
     textField.tintColor = Colors.gray
     textField.delegate = self

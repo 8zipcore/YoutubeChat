@@ -42,7 +42,7 @@ class ConfirmButton: UIButton {
       NSMutableAttributedString(
         string: "완료",
         attributes: [.foregroundColor : UIColor.white,
-                     .font : SDGothicSemiBold(size: 18)]),
+                     .font : UIFont.sdGothic(size: 18, weight: .semiBold)]),
       for: .normal)
     self.layer.cornerRadius = 10
   }
@@ -52,7 +52,7 @@ class ConfirmButton: UIButton {
       NSMutableAttributedString(
         string: string,
         attributes: [.foregroundColor : UIColor.white,
-                     .font : SDGothicSemiBold(size: 18)]),
+                     .font : UIFont.sdGothic(size: 18, weight: .semiBold)]),
       for: .normal)
   }
   

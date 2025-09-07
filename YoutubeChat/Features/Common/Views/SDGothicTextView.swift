@@ -26,7 +26,7 @@ class SDGothicTextView: UITextView {
   private func configureView(){
     self.attributedText = NSAttributedString(string: self.text, 
                                              attributes: [ NSAttributedString.Key.kern : 0.4,
-                                                           .font : SDGothic(size: 13)])
+                                                           .font : UIFont.sdGothic(size: 13)])
   }
   
 }

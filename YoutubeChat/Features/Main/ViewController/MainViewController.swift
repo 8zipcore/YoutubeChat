@@ -46,11 +46,11 @@ class MainViewController: BaseViewController {
     chattingLabel.text = "채팅"
     
     myProfileLabel.textColor = .white
-    myProfileLabel.font = SDGothic(size: 15)
+    myProfileLabel.font = .sdGothic(size: 15)
     myProfileLabel.setLetterSpacing(0.4)
     
     chattingLabel.textColor = .white
-    chattingLabel.font = SDGothic(size: 15)
+    chattingLabel.font = .sdGothic(size: 15)
     chattingLabel.setLetterSpacing(0.4)
     
     let groupChatTableViewCellNib = UINib(nibName: GroupChatTableViewCell.identifier, bundle: nil)

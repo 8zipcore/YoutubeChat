@@ -53,7 +53,7 @@ class EditProfileTextViewController: BaseViewController {
     textView.backgroundColor = .clear
     textView.tintColor = Colors.lightGray
     textView.textColor = .white
-    textView.font = SDGothic(size: 18)
+    textView.font = .sdGothic(size: 18)
     
     textView.delegate = self
     

@@ -115,7 +115,7 @@ class InputTextView: UIView, ClearButtonDelegate{
     contentView.layer.borderColor = Colors.borderGray.cgColor
     contentView.layer.borderWidth = 1.5
     
-    textView.font = SDGothic(size: 15)
+    textView.font = .sdGothic(size: 15)
     textView.tintColor = Colors.gray
     textView.backgroundColor = .clear
     textView.textContainerInset = .zero
@@ -124,7 +124,7 @@ class InputTextView: UIView, ClearButtonDelegate{
     textView.spellCheckingType = .no
     textView.autocapitalizationType = .none
     
-    placeHolderLabel.font = SDGothic(size: 15)
+    placeHolderLabel.font = .sdGothic(size: 15)
     placeHolderLabel.textColor = Colors.gray
     
     clearButton.delegate = self
@@ -171,7 +171,7 @@ class InputTextView: UIView, ClearButtonDelegate{
     
     // NSMutableAttributedString을 사용하여 텍스트 속성 설정
     let attributedString = NSMutableAttributedString(string: text)
-    attributedString.addAttribute(.font, value: SDGothic(size: 15), range: NSRange(location: 0, length: textCount))
+    attributedString.addAttribute(.font, value: UIFont.sdGothic(size: 15), range: NSRange(location: 0, length: textCount))
     attributedString.addAttribute(.foregroundColor, value: UIColor.white, range: NSRange(location: 0, length: textCount))
     
     for match in matches {

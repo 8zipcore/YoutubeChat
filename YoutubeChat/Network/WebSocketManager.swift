@@ -40,7 +40,6 @@ class WebSocketManager {
     }
   }
   
-  
   func receiveMessage() {
     webSocketTask?.receive { [weak self] result in
       switch result {
@@ -50,8 +49,6 @@ class WebSocketManager {
         switch message {
         case .string(let text):
           print("Received text: \(text)")
-          
-          // 받은 메시지를 처리
         case .data(let data):
           print("Received data: \(data)")
           do {
@@ -59,13 +56,10 @@ class WebSocketManager {
           } catch {
             print("Error handling result: \(error)")
           }
-          
-          // 받은 데이터를 처리
         @unknown default:
           fatalError()
         }
         
-        // 다시 메시지를 받기 위해 호출
         self?.receiveMessage()
       }
     }

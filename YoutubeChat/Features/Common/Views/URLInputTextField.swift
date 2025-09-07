@@ -71,7 +71,7 @@ class URLInputTextField: UIView {
     self.backgroundColor = .init(white: 1, alpha: 0.2)
     self.layer.cornerRadius = self.bounds.height / 2
     
-    textField.font = SDGothic(size: 15)
+    textField.font = .sdGothic(size: 15)
     textField.textColor = .white
     textField.tintColor = Colors.gray
     textField.delegate = self

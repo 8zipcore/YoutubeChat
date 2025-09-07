@@ -54,7 +54,7 @@ class ChatOptionCollectionViewCell: UICollectionViewCell {
     
     self.backgroundColor = Colors.lightGray
     self.layer.cornerRadius = self.bounds.height / 2
-    label.font = SDGothic(size: 14)
+    label.font = .sdGothic(size: 14)
     label.textColor = Colors.gray
     label.textAlignment = .center
     
