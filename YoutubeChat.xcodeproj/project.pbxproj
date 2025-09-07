@@ -260,77 +260,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3602746A2C2E6F1600A377FD /* TableViewCell */ = {
+		3602746A2C2E6F1600A377FD /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				36C3A2AC2C1B401D008AE26F /* GroupChatTableViewCell.swift */,
-				36C3A2AD2C1B401D008AE26F /* GroupChatTableViewCell.xib */,
-				365C9DAC2C25C111004936FB /* ChatOptionCollectionViewCell.swift */,
-				3625B0C22C2BEF8100947E07 /* ChatWithProfileTableViewCell.swift */,
-				3625B0C32C2BEF8100947E07 /* ChatWithProfileTableViewCell.xib */,
-				3602746B2C2E6F4D00A377FD /* ChatTableViewCell.swift */,
-				3602746C2C2E6F4D00A377FD /* ChatTableViewCell.xib */,
-				3602746F2C2E8C5500A377FD /* ImageChatWithProfileTableViewCell.swift */,
-				360274702C2E8C5500A377FD /* ImageChatWithProfileTableViewCell.xib */,
-				36CA84A02C32BB8F00427471 /* ImageChatTableViewCell.swift */,
-				36CA84A12C32BB8F00427471 /* ImageChatTableViewCell.xib */,
-				36F351A82C351C940055BF64 /* PlayListTableViewCell.swift */,
-				36F351A92C351C940055BF64 /* PlayListTableViewCell.xib */,
-				365158592C53DEF200A288F1 /* SystemChatTableViewCell.swift */,
-				36AE4DFB2C7A04570027D442 /* ProfileTableViewCell.swift */,
-				36AE4DFC2C7A04570027D442 /* ProfileTableViewCell.xib */,
-			);
-			path = TableViewCell;
-			sourceTree = "<group>";
-		};
-		361B06762C1ABB4B00BD529B /* SupportViews */ = {
-			isa = PBXGroup;
-			children = (
-				3602746A2C2E6F1600A377FD /* TableViewCell */,
-				361B067E2C1ACEE800BD529B /* ProfileView.swift */,
-				36C3A2B02C1B48C6008AE26F /* SDGothicLabel.swift */,
-				36DDD11D2C2076E7005A16E1 /* SDGothicButton.swift */,
-				36DDD11F2C208027005A16E1 /* InputTextField.swift */,
-				367EF3F02C5F5AD1009232C1 /* InputTextView.swift */,
-				36B3AFD22C5A7B980050BF94 /* URLInputTextField.swift */,
-				365C9DAA2C25A855004936FB /* ConfirmButton.swift */,
-				3625B0BA2C2BD16E00947E07 /* ProfileImageView.swift */,
-				3625B0C02C2BEA5A00947E07 /* ChatTextView.swift */,
-				3625B0C62C2BF0F400947E07 /* MessageLabel.swift */,
-				3625B0C82C2C0DC600947E07 /* SDGothicTextView.swift */,
+				36CB2C4F2C843544006E0435 /* ImageConfirmButton.swift */,
 				360274732C2E8E3D00A377FD /* ImageChatView.swift */,
+				36CAE5232E6DAFEF00DF41A8 /* Cell */,
 				36E4F9F32C33F31300EC9285 /* YoutubeView.swift */,
 				367EF3EE2C5F506A009232C1 /* ChatRoomImageView.swift */,
-				3659B6152C708806004327DF /* ImageButton.swift */,
 				36BEF3952C7F6F9B00631D17 /* TransitionAnimation.swift */,
-				36EDC6402C803ADF00FF92DD /* SearchTextField.swift */,
-				36EDC6422C8051C000FF92DD /* ClearButton.swift */,
-				36CB2C4F2C843544006E0435 /* ImageConfirmButton.swift */,
+				3625B0C02C2BEA5A00947E07 /* ChatTextView.swift */,
 			);
-			path = SupportViews;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		361B067D2C1ACEBA00BD529B /* ExtensionViews */ = {
-			isa = PBXGroup;
-			children = (
-				361B06792C1AC96300BD529B /* Font.swift */,
-				361B067B2C1ACD5800BD529B /* Label.swift */,
-				3655CB2A2C23041A0037F3DC /* Color.swift */,
-				3639746D2C37D9CF009C96CF /* ScrollView.swift */,
-				361102BE2C3E7CC200046BE1 /* ImageView.swift */,
-				36A418602C7CA25700A1E951 /* CollcetionView.swift */,
-			);
-			path = ExtensionViews;
-			sourceTree = "<group>";
-		};
-		3695D4682C3FAD6D00AEAC73 /* Core Data */ = {
+		3695D4682C3FAD6D00AEAC73 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
 				3695D4652C3FABF400AEAC73 /* YoutubeChat.xcdatamodeld */,
 				3695D46D2C3FB02F00AEAC73 /* CoreDataManager.swift */,
 				3653CB092C4CFA75009711F0 /* MyChat.swift */,
 			);
-			path = "Core Data";
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		36AAECA02C198E3D00532AF5 = {
@@ -340,7 +291,6 @@
 				36AAECC22C198E3E00532AF5 /* YoutubeChatTests */,
 				36AAECCC2C198E3E00532AF5 /* YoutubeChatUITests */,
 				36AAECAA2C198E3D00532AF5 /* Products */,
-				DB7EC9D9EFDF84AE5E35EAC4 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -357,19 +307,12 @@
 		36AAECAB2C198E3D00532AF5 /* YoutubeChat */ = {
 			isa = PBXGroup;
 			children = (
-				36AAECAC2C198E3D00532AF5 /* AppDelegate.swift */,
-				36AAECAE2C198E3D00532AF5 /* SceneDelegate.swift */,
-				361102BC2C3E402C00046BE1 /* ProfileManager.swift */,
-				36AAECDD2C19A00600532AF5 /* ViewController */,
-				36AAECDE2C19A00E00532AF5 /* ViewModel */,
-				36AAECDF2C19A01400532AF5 /* Model */,
-				361B06762C1ABB4B00BD529B /* SupportViews */,
+				36CAE5102E6DAC2F00DF41A8 /* Extensions */,
+				36CAE50F2E6DAC1900DF41A8 /* Features */,
+				36CAE50E2E6DABEC00DF41A8 /* Resource */,
+				36AAECDF2C19A01400532AF5 /* Models */,
 				36F351AE2C35259A0055BF64 /* Network */,
-				361B067D2C1ACEBA00BD529B /* ExtensionViews */,
-				3695D4682C3FAD6D00AEAC73 /* Core Data */,
-				36AAECB52C198E3E00532AF5 /* Assets.xcassets */,
-				36AAECB72C198E3E00532AF5 /* LaunchScreen.storyboard */,
-				36AAECBA2C198E3E00532AF5 /* Info.plist */,
+				3695D4682C3FAD6D00AEAC73 /* Persistence */,
 			);
 			path = YoutubeChat;
 			sourceTree = "<group>";
@@ -391,53 +334,7 @@
 			path = YoutubeChatUITests;
 			sourceTree = "<group>";
 		};
-		36AAECDD2C19A00600532AF5 /* ViewController */ = {
-			isa = PBXGroup;
-			children = (
-				36AAECE02C19A1A700532AF5 /* MainViewController.swift */,
-				36AAECE12C19A1A700532AF5 /* MainViewController.xib */,
-				36DDD1192C2073A6005A16E1 /* CreateChatRoomViewController.swift */,
-				36DDD11A2C2073A6005A16E1 /* CreateChatRoomViewController.xib */,
-				368F7D212C296F3400A848CE /* ProfileViewController.swift */,
-				368F7D222C296F3400A848CE /* ProfileViewController.xib */,
-				3625B0BC2C2BE1FF00947E07 /* ChatViewController.swift */,
-				3625B0BD2C2BE1FF00947E07 /* ChatViewController.xib */,
-				36F351A42C351A3B0055BF64 /* PlaylistViewController.swift */,
-				36F351A52C351A3B0055BF64 /* PlaylistViewController.xib */,
-				363974692C37C294009C96CF /* EditImageViewController.swift */,
-				3639746A2C37C294009C96CF /* EditImageViewController.xib */,
-				36D448892C5FC97800BAD898 /* ConfirmImageViewController.swift */,
-				36D4488A2C5FC97800BAD898 /* ConfirmImageViewController.xib */,
-				366105E32C63616800BB7585 /* ChatRoomInfoViewController.swift */,
-				366105E42C63616800BB7585 /* ChatRoomInfoViewController.xib */,
-				36C1F21E2C6F33310053B164 /* ProfileInfoViewController.swift */,
-				36C1F21F2C6F33310053B164 /* ProfileInfoViewController.xib */,
-				36E4CE822C6F90CD00105F62 /* EditProfileTextViewController.swift */,
-				36E4CE832C6F90CD00105F62 /* EditProfileTextViewController.xib */,
-				3659B6172C70DEA0004327DF /* SearchChatRoomViewController.swift */,
-				3659B6182C70DEA0004327DF /* SearchChatRoomViewController.xib */,
-				366BA3602C79A17F00AAEFC9 /* BaseViewController.swift */,
-				366BA3622C79FEE300AAEFC9 /* ChatMenuViewController.swift */,
-				366BA3632C79FEE300AAEFC9 /* ChatMenuViewController.xib */,
-				36AE4E032C7A2B000027D442 /* ImageViewController.swift */,
-				36AE4E042C7A2B000027D442 /* ImageViewController.xib */,
-				36BEF3972C7F709100631D17 /* BaseNavigationController.swift */,
-			);
-			path = ViewController;
-			sourceTree = "<group>";
-		};
-		36AAECDE2C19A00E00532AF5 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				36C9A4702C365852001D9A8B /* YoutubeViewModel.swift */,
-				363974612C379595009C96CF /* ProfileViewModel.swift */,
-				361102C02C3EA17000046BE1 /* ChatViewModel.swift */,
-				3659B61B2C70E4C9004327DF /* SearchViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		36AAECDF2C19A01400532AF5 /* Model */ = {
+		36AAECDF2C19A01400532AF5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				36DDD1172C2054F7005A16E1 /* GroupChatData.swift */,
@@ -450,7 +347,237 @@
 				36D01CB42C4E7D43001F0D10 /* RequestData.swift */,
 				364E19172C6C84B1004700E1 /* CategoryData.swift */,
 			);
-			path = Model;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		36CAE50E2E6DABEC00DF41A8 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				36AAECB52C198E3E00532AF5 /* Assets.xcassets */,
+				36AAECB72C198E3E00532AF5 /* LaunchScreen.storyboard */,
+				36AAECBA2C198E3E00532AF5 /* Info.plist */,
+				36AAECAC2C198E3D00532AF5 /* AppDelegate.swift */,
+				36AAECAE2C198E3D00532AF5 /* SceneDelegate.swift */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		36CAE50F2E6DAC1900DF41A8 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				36CAE5152E6DAD0B00DF41A8 /* Search */,
+				36CAE5142E6DACD400DF41A8 /* Profile */,
+				36CAE5132E6DACC500DF41A8 /* Common */,
+				36CAE5122E6DACB100DF41A8 /* Chat */,
+				36CAE5112E6DAC6C00DF41A8 /* Main */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		36CAE5102E6DAC2F00DF41A8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				361B06792C1AC96300BD529B /* Font.swift */,
+				361B067B2C1ACD5800BD529B /* Label.swift */,
+				3655CB2A2C23041A0037F3DC /* Color.swift */,
+				3639746D2C37D9CF009C96CF /* ScrollView.swift */,
+				361102BE2C3E7CC200046BE1 /* ImageView.swift */,
+				36A418602C7CA25700A1E951 /* CollcetionView.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		36CAE5112E6DAC6C00DF41A8 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				36CAE51F2E6DAF1100DF41A8 /* ViewController */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		36CAE5122E6DACB100DF41A8 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				36CAE5202E6DAF1F00DF41A8 /* ViewModel */,
+				36CAE51E2E6DAEF900DF41A8 /* ViewController */,
+				3602746A2C2E6F1600A377FD /* Views */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		36CAE5132E6DACC500DF41A8 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				36CAE51D2E6DAEEB00DF41A8 /* Views */,
+				36CAE51C2E6DAEE300DF41A8 /* ViewController */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		36CAE5142E6DACD400DF41A8 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				36CAE51B2E6DAECF00DF41A8 /* Manager */,
+				36CAE51A2E6DAEA000DF41A8 /* ViewModel */,
+				36CAE5192E6DAE8A00DF41A8 /* Views */,
+				36CAE5162E6DAE0200DF41A8 /* ViewController */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		36CAE5152E6DAD0B00DF41A8 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				36CAE5222E6DAFE600DF41A8 /* Views */,
+				36CAE5212E6DAFD200DF41A8 /* ViewController */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		36CAE5162E6DAE0200DF41A8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				36E4CE822C6F90CD00105F62 /* EditProfileTextViewController.swift */,
+				36E4CE832C6F90CD00105F62 /* EditProfileTextViewController.xib */,
+				36C1F21E2C6F33310053B164 /* ProfileInfoViewController.swift */,
+				36C1F21F2C6F33310053B164 /* ProfileInfoViewController.xib */,
+				36D448892C5FC97800BAD898 /* ConfirmImageViewController.swift */,
+				36D4488A2C5FC97800BAD898 /* ConfirmImageViewController.xib */,
+				363974692C37C294009C96CF /* EditImageViewController.swift */,
+				3639746A2C37C294009C96CF /* EditImageViewController.xib */,
+				368F7D212C296F3400A848CE /* ProfileViewController.swift */,
+				368F7D222C296F3400A848CE /* ProfileViewController.xib */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		36CAE5192E6DAE8A00DF41A8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3625B0BA2C2BD16E00947E07 /* ProfileImageView.swift */,
+				361B067E2C1ACEE800BD529B /* ProfileView.swift */,
+				3659B6152C708806004327DF /* ImageButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		36CAE51A2E6DAEA000DF41A8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				363974612C379595009C96CF /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		36CAE51B2E6DAECF00DF41A8 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				361102BC2C3E402C00046BE1 /* ProfileManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		36CAE51C2E6DAEE300DF41A8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				366BA3602C79A17F00AAEFC9 /* BaseViewController.swift */,
+				36BEF3972C7F709100631D17 /* BaseNavigationController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		36CAE51D2E6DAEEB00DF41A8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				36C3A2B02C1B48C6008AE26F /* SDGothicLabel.swift */,
+				36DDD11D2C2076E7005A16E1 /* SDGothicButton.swift */,
+				36DDD11F2C208027005A16E1 /* InputTextField.swift */,
+				367EF3F02C5F5AD1009232C1 /* InputTextView.swift */,
+				36B3AFD22C5A7B980050BF94 /* URLInputTextField.swift */,
+				365C9DAA2C25A855004936FB /* ConfirmButton.swift */,
+				3625B0C62C2BF0F400947E07 /* MessageLabel.swift */,
+				3625B0C82C2C0DC600947E07 /* SDGothicTextView.swift */,
+				36EDC6422C8051C000FF92DD /* ClearButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		36CAE51E2E6DAEF900DF41A8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				36AE4E032C7A2B000027D442 /* ImageViewController.swift */,
+				36AE4E042C7A2B000027D442 /* ImageViewController.xib */,
+				366BA3622C79FEE300AAEFC9 /* ChatMenuViewController.swift */,
+				366BA3632C79FEE300AAEFC9 /* ChatMenuViewController.xib */,
+				366105E32C63616800BB7585 /* ChatRoomInfoViewController.swift */,
+				366105E42C63616800BB7585 /* ChatRoomInfoViewController.xib */,
+				3625B0BC2C2BE1FF00947E07 /* ChatViewController.swift */,
+				3625B0BD2C2BE1FF00947E07 /* ChatViewController.xib */,
+				36F351A42C351A3B0055BF64 /* PlaylistViewController.swift */,
+				36F351A52C351A3B0055BF64 /* PlaylistViewController.xib */,
+				36DDD1192C2073A6005A16E1 /* CreateChatRoomViewController.swift */,
+				36DDD11A2C2073A6005A16E1 /* CreateChatRoomViewController.xib */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		36CAE51F2E6DAF1100DF41A8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				36AAECE12C19A1A700532AF5 /* MainViewController.xib */,
+				36AAECE02C19A1A700532AF5 /* MainViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		36CAE5202E6DAF1F00DF41A8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				36C9A4702C365852001D9A8B /* YoutubeViewModel.swift */,
+				361102C02C3EA17000046BE1 /* ChatViewModel.swift */,
+				3659B61B2C70E4C9004327DF /* SearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		36CAE5212E6DAFD200DF41A8 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				3659B6172C70DEA0004327DF /* SearchChatRoomViewController.swift */,
+				3659B6182C70DEA0004327DF /* SearchChatRoomViewController.xib */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		36CAE5222E6DAFE600DF41A8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				36EDC6402C803ADF00FF92DD /* SearchTextField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		36CAE5232E6DAFEF00DF41A8 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				36C3A2AC2C1B401D008AE26F /* GroupChatTableViewCell.swift */,
+				36C3A2AD2C1B401D008AE26F /* GroupChatTableViewCell.xib */,
+				365C9DAC2C25C111004936FB /* ChatOptionCollectionViewCell.swift */,
+				3625B0C22C2BEF8100947E07 /* ChatWithProfileTableViewCell.swift */,
+				3625B0C32C2BEF8100947E07 /* ChatWithProfileTableViewCell.xib */,
+				3602746B2C2E6F4D00A377FD /* ChatTableViewCell.swift */,
+				3602746C2C2E6F4D00A377FD /* ChatTableViewCell.xib */,
+				3602746F2C2E8C5500A377FD /* ImageChatWithProfileTableViewCell.swift */,
+				360274702C2E8C5500A377FD /* ImageChatWithProfileTableViewCell.xib */,
+				36CA84A02C32BB8F00427471 /* ImageChatTableViewCell.swift */,
+				36CA84A12C32BB8F00427471 /* ImageChatTableViewCell.xib */,
+				36F351A82C351C940055BF64 /* PlayListTableViewCell.swift */,
+				36F351A92C351C940055BF64 /* PlayListTableViewCell.xib */,
+				365158592C53DEF200A288F1 /* SystemChatTableViewCell.swift */,
+				36AE4DFB2C7A04570027D442 /* ProfileTableViewCell.swift */,
+				36AE4DFC2C7A04570027D442 /* ProfileTableViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		36F351AE2C35259A0055BF64 /* Network */ = {
@@ -462,13 +589,6 @@
 				36DE90EA2C48E1CA002FE3C0 /* NotificationName.swift */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		DB7EC9D9EFDF84AE5E35EAC4 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -880,7 +1000,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SG72AH33ZM;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = YoutubeChat/Info.plist;
+				INFOPLIST_FILE = YoutubeChat/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BeChat;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -910,7 +1030,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SG72AH33ZM;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = YoutubeChat/Info.plist;
+				INFOPLIST_FILE = YoutubeChat/Resource/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BeChat;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;

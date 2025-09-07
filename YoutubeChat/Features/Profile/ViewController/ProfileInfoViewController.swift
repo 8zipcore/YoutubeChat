@@ -14,7 +14,7 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
     case profile, background
   }
   
-  enum ViewType{ㅁ
+  enum ViewType{
     case create, myProfile, userProfile
   }
   

@@ -15,7 +15,6 @@ class BaseNavigationController: UINavigationController, UIViewControllerTransiti
     // Do any additional setup after loading the view.
   }
   
-  
   func navigationController(
     _ navigationController: UINavigationController,
     animationControllerFor operation: UINavigationController.Operation,

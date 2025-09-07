@@ -53,23 +53,4 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate, UIViewC
     }
     return true
   }
-  
-  /*
-   func navigationController(
-   _ navigationController: UINavigationController,
-   animationControllerFor operation: UINavigationController.Operation,
-   from fromVC: UIViewController,
-   to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-   switch operation{
-   case .none:
-   return nil
-   case .push:
-   return PushAnimation()
-   case .pop:
-   return PopAnimation()
-   @unknown default:
-   return nil
-   }
-   }
-   */
 }
