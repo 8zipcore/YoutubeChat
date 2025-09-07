@@ -8,13 +8,13 @@
 import UIKit
 
 func SDGothic(size: Int) -> UIFont{
-    return UIFont(name: "Apple SD Gothic Neo", size: CGFloat(size))!
+  return UIFont(name: "Apple SD Gothic Neo", size: CGFloat(size))!
 }
 
 func SDGothicSemiBold(size: Int) -> UIFont{
-    return UIFont(name: "Apple SD Gothic Neo SemiBold", size: CGFloat(size))!
+  return UIFont(name: "Apple SD Gothic Neo SemiBold", size: CGFloat(size))!
 }
 
 func SDGothicBold(size: Int) -> UIFont{
-    return UIFont(name: "Apple SD Gothic Neo Bold", size: CGFloat(size))!
+  return UIFont(name: "Apple SD Gothic Neo Bold", size: CGFloat(size))!
 }

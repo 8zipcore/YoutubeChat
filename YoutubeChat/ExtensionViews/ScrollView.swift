@@ -8,8 +8,8 @@
 import UIKit
 
 extension UIScrollView{
-    func scrollToCenter() {
-          let centerOffset = CGPoint(x: 0, y: (contentSize.height - bounds.size.height) / 2)
-          setContentOffset(centerOffset, animated: true)
-      }
+  func scrollToCenter() {
+    let centerOffset = CGPoint(x: 0, y: (contentSize.height - bounds.size.height) / 2)
+    setContentOffset(centerOffset, animated: true)
+  }
 }

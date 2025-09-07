@@ -8,51 +8,51 @@
 import Foundation
 
 enum EnterCodeResponse: Int, Codable{
-    case invalidCode, validCode, existing
+  case invalidCode, validCode, existing
 }
 
 enum ResponseCode: Int, Codable{
-    case success, failure
+  case success, failure
 }
 
 enum EnterChatRoomResponseCode: Int, Codable{
-    case success, failure, invalid
+  case success, failure, invalid
 }
 
 enum SendDataType: Int, Codable{
-    case message, addVideo, deleteVideo, participant
+  case message, addVideo, deleteVideo, participant
 }
 
 struct EnterChatResponseData: Codable{
-    var responseCode: EnterCodeResponse
-    var chatRoom: ChatRoomData?
+  var responseCode: EnterCodeResponse
+  var chatRoom: ChatRoomData?
 }
 
 struct ResponseData: Codable{
-    var responseCode: ResponseCode
+  var responseCode: ResponseCode
 }
 
 struct ResponseWithStringData: Codable{
-    var responseCode: ResponseCode
-    var string: String
+  var responseCode: ResponseCode
+  var string: String
 }
 
 struct VideoResponseData: Codable{
-    var responseCode: ResponseCode
-    var video: Video?
+  var responseCode: ResponseCode
+  var video: Video?
 }
 
 struct SendData: Codable{
-    var type: SendDataType
-    var data: Data
+  var type: SendDataType
+  var data: Data
 }
 
 struct ChatRoomResponseData: Codable{
-    var responseCode: EnterChatRoomResponseCode
-    var chatRoom: ChatRoomData?
+  var responseCode: EnterChatRoomResponseCode
+  var chatRoom: ChatRoomData?
 }
 
 struct ParticipantData: Codable {
-    var type: MessageType
-    var user: User
+  var type: MessageType
+  var user: User
 }

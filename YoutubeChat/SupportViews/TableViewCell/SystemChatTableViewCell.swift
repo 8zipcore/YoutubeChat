@@ -9,52 +9,52 @@ import UIKit
 import SnapKit
 
 class SystemChatTableViewCell: UITableViewCell {
+  
+  static let identifier = "SystemChatTableViewCell"
+  
+  var label = SDGothicLabel()
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
     
-    static let identifier = "SystemChatTableViewCell"
+    initView()
+  }
+  
+  override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    super.init(style: style, reuseIdentifier: reuseIdentifier)
     
-    var label = SDGothicLabel()
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        initView()
+    initView()
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  func initView(){
+    self.addSubview(label)
+    
+    label.snp.makeConstraints{ make in
+      make.centerX.equalToSuperview()
+      make.centerY.equalToSuperview()
+      make.leading.equalToSuperview().inset(10)
+      make.trailing.equalToSuperview().inset(10)
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        initView()
-    }
+    self.backgroundColor = .clear
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func initView(){
-        self.addSubview(label)
-
-        label.snp.makeConstraints{ make in
-            make.centerX.equalToSuperview()
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview().inset(10)
-            make.trailing.equalToSuperview().inset(10)
-        }
-        
-        self.backgroundColor = .clear
-        
-        label.setLabel(textColor: .white, fontSize: 13)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-    }
-    
-    func configureView(_ text: String){
-        self.label.text = text
-    }
-    
-    func height(_ text: String) -> CGFloat{
-        self.configureView(text)
-        self.layoutIfNeeded()
-        return self.label.bounds.height + 6
-    }
-    
+    label.setLabel(textColor: .white, fontSize: 13)
+    label.textAlignment = .center
+    label.numberOfLines = 0
+  }
+  
+  func configureView(_ text: String){
+    self.label.text = text
+  }
+  
+  func height(_ text: String) -> CGFloat{
+    self.configureView(text)
+    self.layoutIfNeeded()
+    return self.label.bounds.height + 6
+  }
+  
 }

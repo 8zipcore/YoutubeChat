@@ -11,83 +11,83 @@ import WebKit
 import YouTubeiOSPlayerHelper
 
 protocol YoutubeViewDelegate{
-    func didStartVideo(_ video: Video)
-    func didEndVideo(_ video: Video)
+  func didStartVideo(_ video: Video)
+  func didEndVideo(_ video: Video)
 }
 
 class YoutubeView: UIView {
+  
+  var youtubeView: YTPlayerView?
+  
+  private var video: Video?
+  var shouldSeek = false
+  
+  var delegate: YoutubeViewDelegate?
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    configreView()
+  }
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    configreView()
+  }
+  
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)
+  }
+  
+  private func configreView(){
+    self.backgroundColor = .clear
     
-    var youtubeView: YTPlayerView?
+    youtubeView = YTPlayerView()
+    youtubeView?.delegate = self
     
-    private var video: Video?
-    var shouldSeek = false
+    self.addSubview(youtubeView!)
     
-    var delegate: YoutubeViewDelegate?
+    youtubeView?.backgroundColor = .clear
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        configreView()
+    youtubeView!.snp.makeConstraints{ make in
+      make.edges.equalToSuperview()
     }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        configreView()
+  }
+  
+  func playVideo(_ video: Video){
+    self.video = video
+    self.youtubeView?.load(withVideoId: video.youtubeId, playerVars: ["autoplay": 1])
+  }
+  
+  func stopVideo(){
+    self.youtubeView?.stopVideo()
+  }
+  
+  func seekVideo(){
+    guard let video = video else { print("🌀 video Data Nil Error"); return }
+    var startSecond: Float = 0
+    if video.startTime > 0 {
+      startSecond = Float(round(Date().timeIntervalSince1970 - video.startTime))
     }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
-    private func configreView(){
-        self.backgroundColor = .clear
-        
-        youtubeView = YTPlayerView()
-        youtubeView?.delegate = self
-        
-        self.addSubview(youtubeView!)
-        
-        youtubeView?.backgroundColor = .clear
-        
-        youtubeView!.snp.makeConstraints{ make in
-            make.edges.equalToSuperview()
-        }
-    }
-    
-    func playVideo(_ video: Video){
-        self.video = video
-        self.youtubeView?.load(withVideoId: video.youtubeId, playerVars: ["autoplay": 1])
-    }
-    
-    func stopVideo(){
-        self.youtubeView?.stopVideo()
-    }
-    
-    func seekVideo(){
-        guard let video = video else { print("🌀 video Data Nil Error"); return }
-        var startSecond: Float = 0
-        if video.startTime > 0 {
-            startSecond = Float(round(Date().timeIntervalSince1970 - video.startTime))
-        }
-        youtubeView?.seek(toSeconds: startSecond, allowSeekAhead: true)
-        shouldSeek = false
-    }
+    youtubeView?.seek(toSeconds: startSecond, allowSeekAhead: true)
+    shouldSeek = false
+  }
 }
 
 extension YoutubeView: YTPlayerViewDelegate{
-    // 플레이어가 준비되었을 때 호출되는 메소드
-    func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
-        print("Player is ready.")
-        if shouldSeek{
-            seekVideo()
-        }
+  // 플레이어가 준비되었을 때 호출되는 메소드
+  func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
+    print("Player is ready.")
+    if shouldSeek{
+      seekVideo()
     }
-    
-    func playerView(_ playerView: YTPlayerView, didChangeTo state: YTPlayerState) {
-        guard let video = video else { print("🌀 video Data Nil Error"); return }
-        if state == .playing{
-            delegate?.didStartVideo(video)
-        } else if state == .ended{
-            delegate?.didEndVideo(video)
-        }
+  }
+  
+  func playerView(_ playerView: YTPlayerView, didChangeTo state: YTPlayerState) {
+    guard let video = video else { print("🌀 video Data Nil Error"); return }
+    if state == .playing{
+      delegate?.didStartVideo(video)
+    } else if state == .ended{
+      delegate?.didEndVideo(video)
     }
+  }
 }

@@ -8,17 +8,17 @@
 import Foundation
 
 struct User: Codable{
-    var id: UUID?
-    var name: String
-    var description: String
-    var image: String
-    var backgroundImage: String
+  var id: UUID?
+  var name: String
+  var description: String
+  var image: String
+  var backgroundImage: String
 }
 
 struct UserData: Codable{
-    var id: String
-    var name: String
-    var description: String
-    var image: Data?
-    var backgroundImage: Data?
+  var id: String
+  var name: String
+  var description: String
+  var image: Data?
+  var backgroundImage: Data?
 }

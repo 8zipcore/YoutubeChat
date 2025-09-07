@@ -8,15 +8,15 @@
 import Foundation
 
 struct CategoryData{
-    var title: String
-    var isSelected: Bool
-    
-    mutating func toggle(){
-        isSelected.toggle()
-    }
-    
-    init(title: String){
-        self.title = title
-        self.isSelected = false
-    }
+  var title: String
+  var isSelected: Bool
+  
+  mutating func toggle(){
+    isSelected.toggle()
+  }
+  
+  init(title: String){
+    self.title = title
+    self.isSelected = false
+  }
 }
