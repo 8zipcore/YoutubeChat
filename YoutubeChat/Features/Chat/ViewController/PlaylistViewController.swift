@@ -170,16 +170,10 @@ extension PlaylistViewController: UITableViewDelegate{
     
     let action = UIContextualAction(style: .normal, title: nil) { (action, view, completion) in
       Task {
-        do {
-          //                    try await YoutubeViewModel.shared.deleteVideo(id, videoId)
-          let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .deleteVideo, text: videoId.uuidString)
-          self.chatViewModel?.sendMessage(message)
-        } catch {
-          print("Error deleting video: \(error.localizedDescription)")
-        }
+        let message = Message(chatRoomId: id, senderId: MyProfile.id, messageType: .deleteVideo, text: videoId.uuidString)
+        self.chatViewModel?.sendMessage(message)
       }
-      //            YoutubeViewModel.shared.videoArray.remove(at: indexPath.item)
-      //            tableView.deleteRows(at: [indexPath], with: .automatic)
+
       completion(true)
     }
     

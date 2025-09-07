@@ -60,7 +60,6 @@ class ChatViewController: BaseViewController {
     NotificationCenter.default.addObserver(self, selector: #selector(reconnect(_:)), name: .reconnected, object: nil)
     NotificationCenter.default.addObserver(self, selector: #selector(updateChatRoom(_:)), name: .updateChatRoom, object: nil)
     
-    // 방만들기, 참여하기 뷰컨 없애주는 작업
     if let navigationController = self.navigationController,
        navigationController.viewControllers.count > 2 {
       var viewControllers = navigationController.viewControllers
@@ -73,13 +72,6 @@ class ChatViewController: BaseViewController {
     super.viewDidDisappear(animated)
     leave()
     YoutubeViewModel.shared.resetVideoArray()
-    /*
-     if !isBackButtonClicked{
-     Task{
-     try await chatViewModel.quitChatRoom(id: chatRoom!.id!)
-     }
-     }
-     */
     NotificationCenter.default.removeObserver(self)
   }
   
@@ -188,14 +180,6 @@ class ChatViewController: BaseViewController {
         
         NotificationCenter.default.post(name: .updatePlaylistVC, object: nil)
       }
-    } else if notification.name == .receiveParticipant {
-      if let data = notification.userInfo?["participant"] as? User {
-        /*
-         self.chatRoom = chatViewModel.setChatRoomParticipants(chatRoom: chatRoom, participantData: data)
-         DispatchQueue.main.async {
-         self.peopleNumberLabel.text = String(self.chatRoom!.participantIds.count)
-         }*/
-      }
     }
   }
   
@@ -285,15 +269,7 @@ class ChatViewController: BaseViewController {
         isReconnected = false
         isEnter = false
         isEnded = false
-      } /*else {
-         let video = YoutubeViewModel.shared.videoArray[0]
-         let currentTime = Date().timeIntervalSince1970
-         if video.startTime < currentTime {
-         DispatchQueue.main.async{
-         self.youtubeView.playVideo(video)
-         }
-         }
-         }*/
+      }
     } else {
       isReconnected = false
       isEnter = false
@@ -313,7 +289,8 @@ class ChatViewController: BaseViewController {
     }
   }
 }
-// MARK: ButtonTapped
+
+// MARK: - ButtonTapped
 extension ChatViewController{
   @IBAction func backButtonTapped(_ sender: Any) {
     isBackButtonClicked = true
@@ -358,19 +335,14 @@ extension ChatViewController{
     playlistView = vc.view
     
     self.view.addSubview(playlistView)
-    
-    /*
-     vc.modalPresentationStyle = .overCurrentContext
-     self.present(vc, animated: true, completion: {
-     self.isPresentedPlaylistVC = true
-     })*/
   }
   
   @IBAction func syncVideoButtonTapped(_ sender: Any) {
     youtubeView.seekVideo()
   }
 }
-// MARK: UITableViewDataSource
+
+// MARK: - UITableViewDataSource
 extension ChatViewController: UITableViewDataSource{
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return chatViewModel.messageArray.count
@@ -379,7 +351,7 @@ extension ChatViewController: UITableViewDataSource{
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let message = chatViewModel.messageArray[indexPath.item]
     
-    // MARK: 내가 보낸 챗
+    // 내가 보낸 챗
     if ProfileManager.shared.isMyID(message.senderId){
       switch message.messageType{
       case .text:
@@ -393,27 +365,10 @@ extension ChatViewController: UITableViewDataSource{
         cell.setText(text: message.text)
         
         return cell
-      case .image:fallthrough
-      case .addVideo:fallthrough
-      case .deleteVideo:fallthrough
-        /*
-         let nib = UINib(nibName: ImageChatTableViewCell.identifier, bundle: nil)
-         self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatTableViewCell.identifier)
-         
-         guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ImageChatTableViewCell.identifier) as? ImageChatTableViewCell else {
-         return UITableViewCell()
-         }
-         
-         let image = UIImage(named: message.image!)!
-         cell.setImage(image: image)
-         
-         return cell
-         */
-      case .enter:fallthrough
-      case .leave:fallthrough
-      case .reconnect:break
+      default: break
       }
-    } else { // MARK: 남이 보낸 챗
+    } else {
+      // 상대방이 보낸 챗
       switch message.messageType{
       case .text:
         let nib = UINib(nibName: ChatWithProfileTableViewCell.identifier, bundle: nil)
@@ -428,29 +383,11 @@ extension ChatViewController: UITableViewDataSource{
         cell.setText(text: message.text, user: user, profileHidden: chatViewModel.isPrevSender(indexPath.item))
         
         return cell
-      case .image:fallthrough
-      case .addVideo:fallthrough
-      case .deleteVideo:fallthrough
-        /*
-         let nib = UINib(nibName: ImageChatWithProfileTableViewCell.identifier, bundle: nil)
-         self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatWithProfileTableViewCell.identifier)
-         
-         guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ImageChatWithProfileTableViewCell.identifier) as? ImageChatWithProfileTableViewCell else {
-         return UITableViewCell()
-         }
-         
-         let image = UIImage(named: message.image!)!
-         cell.setImage(image: image, profileHidden: chatViewModel.isPrevSender(indexPath.item))
-         
-         return cell
-         */
-      case .enter:fallthrough
-      case .leave:fallthrough
-      case .reconnect:break
+      default: break
       }
     }
     
-    // MARK: 공통 챗 (시스템 챗)
+    // 공통 챗 (시스템 챗)
     self.chatTableView.register(SystemChatTableViewCell.self, forCellReuseIdentifier: SystemChatTableViewCell.identifier)
     
     guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: SystemChatTableViewCell.identifier, for: indexPath) as? SystemChatTableViewCell else { return UITableViewCell() }
@@ -460,37 +397,23 @@ extension ChatViewController: UITableViewDataSource{
     return cell
   }
 }
-// MARK: UITableViewDelegate
+
+// MARK: - UITableViewDelegate
 extension ChatViewController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     let message = chatViewModel.messageArray[indexPath.item]
     
-    // MARK: 내가 보낸 챗
+    // 내가 보낸 챗
     if ProfileManager.shared.isMyID(message.senderId){
       switch message.messageType{
       case .text:
         guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier) as? ChatTableViewCell else {
           return .zero}
         return cell.estimatedHeight(text: message.text)
-      case .image:fallthrough
-      case .addVideo:fallthrough
-      case .deleteVideo:fallthrough
-        /*
-         let nib = UINib(nibName: ImageChatTableViewCell.identifier, bundle: nil)
-         self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatTableViewCell.identifier)
-         
-         guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ImageChatTableViewCell.identifier) as? ImageChatTableViewCell else {
-         return .zero
-         }
-         
-         let image = UIImage(named: message.image!)!
-         return cell.estimatedHeight(image: image)
-         */
-      case .enter:fallthrough
-      case .leave:fallthrough
-      case .reconnect:break
+      default: break
       }
-    } else { // MARK: 남이 보낸 챗
+    } else {
+      // 상대방이 보낸 챗
       switch message.messageType{
       case .text:
         guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ChatWithProfileTableViewCell.identifier) as? ChatWithProfileTableViewCell else {
@@ -498,27 +421,11 @@ extension ChatViewController: UITableViewDelegate{
         }
         
         return cell.estimatedHeight(text: message.text, profileHidden: chatViewModel.isPrevSender(indexPath.item))
-      case .image:fallthrough
-      case .addVideo:fallthrough
-      case .deleteVideo:fallthrough
-        /*
-         let nib = UINib(nibName: ImageChatWithProfileTableViewCell.identifier, bundle: nil)
-         self.chatTableView.register(nib, forCellReuseIdentifier: ImageChatWithProfileTableViewCell.identifier)
-         
-         guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: ImageChatWithProfileTableViewCell.identifier) as? ImageChatWithProfileTableViewCell else {
-         return .zero
-         }
-         
-         let image = UIImage(named: message.image!)!
-         return cell.estimatedHeight(image: image, profileHidden: chatViewModel.isPrevSender(indexPath.item))
-         */
-      case .enter:fallthrough
-      case .leave:fallthrough
-      case .reconnect:break
+      default: break
       }
     }
     
-    // MARK: 공통 챗 (시스템 챗)
+    // 공통 챗 (시스템 챗)
     guard let cell = self.chatTableView.dequeueReusableCell(withIdentifier: SystemChatTableViewCell.identifier) as? SystemChatTableViewCell else {
       return 30
     }
@@ -526,7 +433,7 @@ extension ChatViewController: UITableViewDelegate{
   }
 }
 
-// MARK: ChatTextViewDelegate
+// MARK: - ChatTextViewDelegate
 extension ChatViewController: ChatTextViewDelegate{
   func sendButtonTapped() {
     if chatTextView.isBlank {
@@ -544,17 +451,15 @@ extension ChatViewController: ChatTextViewDelegate{
   }
 }
 
-// MARK: YoutubeViewDelegate
+// MARK: - YoutubeViewDelegate
 extension ChatViewController: YoutubeViewDelegate{
   func didStartVideo(_ video: Video) {
-    /*
-     guard let chatRoom = chatRoom, let videoId = video.id else { print("🌀 ChatRoom Data Nil Error") ; return }
-     if (chatRoom.hostId == MyProfile.id) && !isReconnected{
-     Task{
-     // try await YoutubeViewModel.shared.updateStartTime(chatRoom.id!, videoId)
-     }
-     }
-     */
+    guard let chatRoom = chatRoom, let videoId = video.id else { print("🌀 ChatRoom Data Nil Error") ; return }
+    if (chatRoom.hostId == MyProfile.id) && !isReconnected{
+      Task{
+        try await YoutubeViewModel.shared.updateStartTime(chatRoom.id!, videoId)
+      }
+    }
   }
   
   func didEndVideo(_ video: Video) {
@@ -563,6 +468,7 @@ extension ChatViewController: YoutubeViewDelegate{
   }
 }
 
+// MARK: - ChatViewControllerDelegate
 extension ChatViewController: ChatViewControllerDelegate{
   func dismiss() {
     self.playlistView.removeFromSuperview()

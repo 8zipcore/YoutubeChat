@@ -54,7 +54,6 @@ class ChatMenuViewController: BaseViewController {
       }
     }
     
-    // animation 주기 전 세팅
     backgroundView.alpha = 0
     contentView.frame = CGRect(x: contentView.bounds.width, y: 0, width: contentView.bounds.width, height: contentView.bounds.height)
   }

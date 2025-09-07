@@ -94,8 +94,6 @@ class ChatRoomInfoViewController: BaseViewController {
           self.navigationController?.pushViewController(vc, animated: true)
         }
       case .failure:
-        // 존재하지 않는 방입니다?
-        // alert 추가
         showFailureAlert()
       case .invalid:
         self.navigationController?.popViewController(animated: true)
@@ -112,7 +110,6 @@ class ChatRoomInfoViewController: BaseViewController {
       textField.keyboardType = .default
     }
     
-    // 확인 버튼 추가
     let okAction = UIAlertAction(title: "확인", style: .default) { _ in
       if let textFields = alert.textFields {
         if let chatRoom = self.chatRoom, let firstText = textFields.first?.text{
@@ -122,22 +119,18 @@ class ChatRoomInfoViewController: BaseViewController {
     }
     alert.addAction(okAction)
     
-    // 취소 버튼 추가
     let cancelAction = UIAlertAction(title: "취소", style: .cancel)
     alert.addAction(cancelAction)
     
-    // 알림을 표시
     self.present(alert, animated: true, completion: nil)
   }
   
   private func showFailureAlert(){
     let alert = UIAlertController(title: nil, message: "코드를 잘못 입력했습니다.\n영문/숫자 4~8자리로 입력해주세요.", preferredStyle: .alert)
     
-    // 확인 버튼 추가
     let okAction = UIAlertAction(title: "확인", style: .default)
     alert.addAction(okAction)
     
-    // 알림을 표시
     self.present(alert, animated: true, completion: nil)
   }
 }

@@ -83,10 +83,9 @@ class ChatViewModel{
     return response
   }
   
-  func fetchAllChatRooms(_ completion: @escaping () -> Void) async throws {
+  func fetchAllChatRooms() async throws {
     guard let url = URLManager.shared.url(.fetch) else { throw HttpError.badURL }
     self.chatRoomArray = try await NetworkManager.shared.fetchData(to: url, [ChatRoomData].self)
-    completion()
   }
   
   func fetchChats(id: UUID, _ completion: @escaping () -> Void) async throws {
@@ -129,7 +128,7 @@ class ChatViewModel{
   }
 }
 
-//MARK: - Message 관련
+// MARK: - Message
 extension ChatViewModel{
   func sendMessage(_ data: Message){
     WebSocketManager.shared.sendMessage(data)
@@ -137,7 +136,6 @@ extension ChatViewModel{
   
   func receiveMessage(_ data: Message){
     messageArray.append(data)
-    // CoreDataManager.shared.saveMessage(data)
   }
   
   func sendEnterMessage(_ id: UUID){
@@ -151,7 +149,7 @@ extension ChatViewModel{
   }
 }
 
-//MARK: - 참가자 관련
+// MARK: - Participants
 extension ChatViewModel{
   func findUser(chatRoom: ChatRoomData?, senderId: UUID) -> User?{
     if let chatRoom = chatRoom{

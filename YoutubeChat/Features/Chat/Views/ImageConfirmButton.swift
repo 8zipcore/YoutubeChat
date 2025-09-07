@@ -58,8 +58,6 @@ class ImageConfirmButton: UIView {
     touchView.isUserInteractionEnabled = false
     touchView.alpha = 0
     touchView.layer.cornerRadius = 10
-    
-    
   }
   
   func setButton(_ image: UIImage?, _ title: String){
@@ -92,7 +90,6 @@ class ImageConfirmButton: UIView {
   }
   
   func hideLoading() {
-    // activity indicator 제거
     if let activityIndicator = viewWithTag(999) as? UIActivityIndicatorView {
       activityIndicator.stopAnimating()
       activityIndicator.removeFromSuperview()

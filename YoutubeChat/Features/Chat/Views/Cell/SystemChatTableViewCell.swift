@@ -56,5 +56,4 @@ class SystemChatTableViewCell: UITableViewCell {
     self.layoutIfNeeded()
     return self.label.bounds.height + 6
   }
-  
 }

@@ -74,7 +74,6 @@ class YoutubeView: UIView {
 }
 
 extension YoutubeView: YTPlayerViewDelegate{
-  // 플레이어가 준비되었을 때 호출되는 메소드
   func playerViewDidBecomeReady(_ playerView: YTPlayerView) {
     print("Player is ready.")
     if shouldSeek{

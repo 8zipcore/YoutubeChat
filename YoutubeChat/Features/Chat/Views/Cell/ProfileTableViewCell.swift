@@ -27,5 +27,4 @@ class ProfileTableViewCell: UITableViewCell {
     nameLabel.text = user.name
     leaderImageView.isHidden = !isHost
   }
-  
 }

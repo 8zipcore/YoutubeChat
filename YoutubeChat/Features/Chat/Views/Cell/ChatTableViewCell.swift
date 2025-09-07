@@ -62,11 +62,4 @@ class ChatTableViewCell: UITableViewCell {
     let spacing: CGFloat = 3
     return messageLabel.height(text: text) + (spacing * 2)
   }
-  
-  override func setSelected(_ selected: Bool, animated: Bool) {
-    super.setSelected(selected, animated: animated)
-    
-    // Configure the view for the selected state
-  }
-  
 }

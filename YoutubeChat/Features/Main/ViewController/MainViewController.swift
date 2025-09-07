@@ -64,7 +64,7 @@ class MainViewController: BaseViewController {
     categoryCollectionView.delegate = self
     categoryCollectionView.register(ChatOptionCollectionViewCell.self, forCellWithReuseIdentifier: ChatOptionCollectionViewCell.identifier)
     let layout = UICollectionViewFlowLayout()
-    layout.scrollDirection = .horizontal // 가로 스크롤
+    layout.scrollDirection = .horizontal
     categoryCollectionView.collectionViewLayout = layout
     categoryCollectionView.showsHorizontalScrollIndicator = false
   }
@@ -72,16 +72,13 @@ class MainViewController: BaseViewController {
   private func initData(){
     profileView.setMyProfile()
     Task{
-      try await chatViewModel.fetchAllChatRooms({
-        DispatchQueue.main.async{
-          self.groupChatTableView.reloadData()
-        }
-      })
+      try await chatViewModel.fetchAllChatRooms()
+      await MainActor.run { self.groupChatTableView.reloadData() }
+      
       let response = try await searchViewModel.fetchCategories()
       searchViewModel.setTop5Categories(response)
-      DispatchQueue.main.async{
-        self.categoryCollectionView.reloadData()
-      }
+      
+      await MainActor.run { self.categoryCollectionView.reloadData() }
     }
   }
   
@@ -92,7 +89,6 @@ class MainViewController: BaseViewController {
   }
   
   @IBAction func testButtonTapped(_ sender: Any) {
-    // 데이터 삭제
     ProfileManager.shared.deleteUser()
     CoreDataManager.shared.deleteAllData()
   }
@@ -135,24 +131,9 @@ extension MainViewController: UITableViewDelegate{
     vc.chatRoom = self.chatViewModel.chatRoomArray[indexPath.item]
     self.navigationController?.pushViewController(vc, animated: true)
   }
-  
-  /*
-   func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-   let deleteAction = UIContextualAction(style: .normal, title: "나가기") { [weak self] _, _, success in
-   self?.chatViewModel.chatRoomArray.remove(at: indexPath.row)
-   self?.groupChatTableView.deleteRows(at: [indexPath], with: .none)
-   success(true)
-   }
-   
-   let swipeActionConfig = UISwipeActionsConfiguration(actions: [deleteAction])
-   swipeActionConfig.performsFirstActionWithFullSwipe = false
-   
-   
-   return swipeActionConfig
-   }*/
 }
 
-//MARK: CollectionView 관련
+// MARK: - UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource{
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     return searchViewModel.top5Categories.count + 1
@@ -182,6 +163,7 @@ extension MainViewController: UICollectionViewDataSource{
   }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension MainViewController: UICollectionViewDelegateFlowLayout{
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
     if indexPath.item == 0 {
@@ -198,20 +180,17 @@ extension MainViewController: UICollectionViewDelegateFlowLayout{
   }
 }
 
+// MARK: - UICollectionViewDelegate
 extension MainViewController: UICollectionViewDelegate{
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     if indexPath.item == 0 {
       let vc = SearchChatRoomViewController()
       self.navigationController?.pushViewController(vc, animated: true)
     } else {
-      // 취소하는거면 unselected
       if searchViewModel.top5Categories[indexPath.item - 1].isSelected == true {
         Task{
-          try await chatViewModel.fetchAllChatRooms({
-            DispatchQueue.main.async{
-              self.groupChatTableView.reloadData()
-            }
-          })
+          try await chatViewModel.fetchAllChatRooms()
+          await MainActor.run { self.groupChatTableView.reloadData() }
         }
       } else {
         searchViewModel.resetTop5CategoriesSelection()
@@ -219,9 +198,7 @@ extension MainViewController: UICollectionViewDelegate{
           let category = searchViewModel.top5Categories[indexPath.item - 1].title
           let response = try await self.searchViewModel.fetchChatRooms(category)
           self.chatViewModel.chatRoomArray = response
-          DispatchQueue.main.async{
-            self.groupChatTableView.reloadData()
-          }
+          await MainActor.run { self.groupChatTableView.reloadData() }
         }
       }
       searchViewModel.top5Categories[indexPath.item - 1].toggle()
