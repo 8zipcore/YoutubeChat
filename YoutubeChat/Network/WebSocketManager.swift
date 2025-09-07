@@ -72,20 +72,28 @@ class WebSocketManager {
       switch sendData.type{
       case .message:
         let message = try JSONDecoder().decode(Message.self, from: sendData.data)
-        NotificationCenter.default.post(name: .receiveMessage, object: nil, userInfo: ["message" : message])
+        Task { @MainActor in
+          NotificationCenter.default.post(name: .receiveMessage, object: nil, userInfo: ["message" : message])
+        }
       case .addVideo:
         let videoResponseData = try JSONDecoder().decode(VideoResponseData.self, from: sendData.data)
         if let video = videoResponseData.video{
-          NotificationCenter.default.post(name: .receiveAddVideo, object: nil, userInfo: ["video" : video])
+          Task { @MainActor in
+            NotificationCenter.default.post(name: .receiveAddVideo, object: nil, userInfo: ["video" : video])
+          }
         }
       case .deleteVideo:
         let videoResponseData = try JSONDecoder().decode(VideoResponseData.self, from: sendData.data)
         if let video = videoResponseData.video{
-          NotificationCenter.default.post(name: .receiveDeleteVideo, object: nil, userInfo: ["video" : video])
+          Task { @MainActor in
+            NotificationCenter.default.post(name: .receiveDeleteVideo, object: nil, userInfo: ["video" : video])
+          }
         }
       case .participant:
         let participantData = try JSONDecoder().decode(User.self, from: sendData.data)
-        NotificationCenter.default.post(name: .receiveParticipant, object: nil, userInfo: ["participant" : participantData])
+        Task { @MainActor in
+          NotificationCenter.default.post(name: .receiveParticipant, object: nil, userInfo: ["participant" : participantData])
+        }
       }
     } catch {
       print("🌀 JSONDecoding Error: \(error.localizedDescription)")
