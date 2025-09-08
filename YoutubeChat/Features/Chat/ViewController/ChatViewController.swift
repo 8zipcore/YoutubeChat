@@ -173,7 +173,7 @@ class ChatViewController: BaseViewController {
             self.youtubeView.stopVideo()
             self.youtubeViewHeightConstraint.constant = 0
           }
-        } else if videoArray.count > 0 && (video.id == videoArray[0].id) { // 삭제해야될게 첫번째꺼면
+        } else if videoArray.count > 0 && (video.id == videoArray[0].id) { 
           isEnded = true
           playVideo()
         }

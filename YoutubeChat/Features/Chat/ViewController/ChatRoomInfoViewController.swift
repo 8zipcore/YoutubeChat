@@ -104,7 +104,6 @@ class ChatRoomInfoViewController: BaseViewController {
   private func showPasswordAlert(){
     let alert = UIAlertController(title: nil, message: "비밀번호 입력", preferredStyle: .alert)
     
-    // 첫 번째 텍스트 필드 추가
     alert.addTextField { textField in
       textField.placeholder = "영문/숫자 4~8자리"
       textField.keyboardType = .default

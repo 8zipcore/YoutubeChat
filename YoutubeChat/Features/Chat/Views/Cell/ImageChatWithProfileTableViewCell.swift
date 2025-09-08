@@ -57,7 +57,6 @@ class ImageChatWithProfileTableViewCell: UITableViewCell {
   }
   
   private func setImageSize(image: UIImage?)-> CGSize{
-    // ⭐️ 사이즈 바꾸면 테이블 뷰 재사용 관련 오류 나는거 해결하기
     guard let image = image else { return .zero}
     
     let size = image.size
@@ -65,7 +64,6 @@ class ImageChatWithProfileTableViewCell: UITableViewCell {
     let maxWidth = self.bounds.width * 0.7
     let minWidth = maxWidth * 0.85
     
-    // 기종별 화면 비율로 바꾸기
     let maxHeight: CGFloat = (maxWidth * 16) / 9
     let minHeight: CGFloat = maxHeight * 0.3
     

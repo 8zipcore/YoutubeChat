@@ -197,11 +197,9 @@ extension InputTextField: UITextFieldDelegate{
   }
   
   func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    // 현재 텍스트 길이
     let currentText = textField.text ?? ""
-    // 변경될 텍스트 길이
     let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
-    // 텍스트 길이 제한 설정
+    
     return maxLength != -1 ? updatedText.count <= maxLength : true
   }
   

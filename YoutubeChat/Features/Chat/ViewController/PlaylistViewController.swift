@@ -86,8 +86,8 @@ class PlaylistViewController: BaseViewController{
   }
   
   @objc func panGestureAction(_ sender: UIPanGestureRecognizer) {
-    let viewTranslation = sender.translation(in: self.view) // 이동한 위치
-    let viewVelocity = sender.velocity(in: self.view) // 이동한 방향
+    let viewTranslation = sender.translation(in: self.view)
+    let viewVelocity = sender.velocity(in: self.view)
     
     switch sender.state {
     case .began:

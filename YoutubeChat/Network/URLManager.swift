@@ -32,7 +32,6 @@ enum Endpoints {
   static let categories = "/category/fetch"
   static let fetchByCategory = "/category/fetchChatRooms"
   
-  // Youtube 관련
   static let fetchVideos = "/chat/fetchVideos"
   static let updateStartTime = "/chat/updateStartTime"
   static let deleteVideo = "/chat/deleteVideo"

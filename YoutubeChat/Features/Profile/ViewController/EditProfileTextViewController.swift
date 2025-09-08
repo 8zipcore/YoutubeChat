@@ -112,11 +112,9 @@ extension EditProfileTextViewController: UITextViewDelegate{
   }
   
   func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-    // 현재 텍스트와 변경될 텍스트를 결합하여 전체 텍스트를 생성합니다.
     let currentText = textView.text ?? ""
     let newText = (currentText as NSString).replacingCharacters(in: range, with: text)
     
-    // 새로운 텍스트의 길이를 확인하여 최대 길이를 초과하지 않도록 합니다.
     return newText.count <= maxCharacterCount
   }
 }

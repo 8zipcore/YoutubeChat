@@ -83,7 +83,6 @@ class URLInputTextField: UIView {
   }
   
   @objc func buttonTapped(_ sender: UITapGestureRecognizer){
-    // guard let button = sender.view as? UIButton else { return }
     delegate?.addButtonTapped?()
   }
   

@@ -61,7 +61,7 @@ class ConfirmButton: UIButton {
     
     let activityIndicator = UIActivityIndicatorView(style: .medium)
     activityIndicator.color = .white
-    activityIndicator.tag = 999 // 나중에 제거할 때 사용할 태그
+    activityIndicator.tag = 999 
     activityIndicator.center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
     
     activityIndicator.startAnimating()

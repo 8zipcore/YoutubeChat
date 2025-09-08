@@ -74,7 +74,6 @@ class ChatOptionCollectionViewCell: UICollectionViewCell {
     
     imageView.isHidden = (image == nil)
     
-    // 첫번째 검색일 때
     if let image = image {
       imageView.image = image
       let spacing: CGFloat = 5

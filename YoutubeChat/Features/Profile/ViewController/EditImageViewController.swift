@@ -167,7 +167,7 @@ extension EditImageViewController:UIScrollViewDelegate {
   
   func scrollViewDidZoom(_ scrollView: UIScrollView) {
     if scrollView.zoomScale < 1.0 {
-      scrollView.setZoomScale(1.0, animated: false) // 즉시 1.0으로 되돌림
+      scrollView.setZoomScale(1.0, animated: false)
     }
   }
 }

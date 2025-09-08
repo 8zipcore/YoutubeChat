@@ -37,7 +37,6 @@ class BaseViewController: UIViewController, UIGestureRecognizerDelegate, UIViewC
     }
   }
   
-  // 제스처가 다른 터치 이벤트와 함께 작동할 수 있도록 허용
   func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
     var touchedView = touch.view
     

@@ -86,7 +86,6 @@ class InputTextView: UIView, ClearButtonDelegate{
       make.bottom.equalToSuperview().inset(5)
       make.leading.equalToSuperview()
       make.trailing.equalToSuperview()
-      // make.height.equalTo(self.bounds.height * 0.7)
     }
     
     textView.snp.makeConstraints{ make in
@@ -159,27 +158,22 @@ class InputTextView: UIView, ClearButtonDelegate{
   }
   
   func setHashTagText(){
-    // 텍스트 설정
     let text = textView.text ?? ""
     
-    // 정규식을 사용하여 "#"으로 시작하는 단어 찾기
     let pattern = "#\\w+"
     let regex = try! NSRegularExpression(pattern: pattern, options: [])
-    let textCount = text.utf16.count // emoji가 UTF-16 길이를 기반으로해서
+    let textCount = text.utf16.count
     
     let matches = regex.matches(in: text, options: [], range: NSRange(location: 0, length: textCount))
     
-    // NSMutableAttributedString을 사용하여 텍스트 속성 설정
     let attributedString = NSMutableAttributedString(string: text)
     attributedString.addAttribute(.font, value: UIFont.sdGothic(size: 15), range: NSRange(location: 0, length: textCount))
     attributedString.addAttribute(.foregroundColor, value: UIColor.white, range: NSRange(location: 0, length: textCount))
     
     for match in matches {
       attributedString.addAttribute(.foregroundColor, value: Colors.blue, range: match.range)
-      // attributedString.addAttribute(.backgroundColor, value: Colors.pastelBlue, range: match.range)
     }
     
-    // 속성 텍스트 뷰에 설정
     textView.attributedText = attributedString
   }
   
@@ -212,11 +206,9 @@ extension InputTextView: UITextViewDelegate{
   }
   
   func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-    // 현재 텍스트 길이
     let currentText = textView.text ?? ""
-    // 변경될 텍스트 길이
     let updatedText = (currentText as NSString).replacingCharacters(in: range, with: text)
-    // 텍스트 길이 제한 설정
+    
     return updatedText.count <= maxLength
   }
   
