@@ -14,8 +14,8 @@ class ChatViewModel{
   var messageArray: [Message] = []
   
   func createChatRoom(chatRoom: ChatRoom, imageData: Data?) async throws -> ChatRoomData{
-    guard let createURL = URLManager.shared.url(.create), 
-            let uploadImageURL = URLManager.shared.url(.uploadChatRoomImage) else {
+    guard let createURL = URLManager.shared.url(for: ChatEndpoint.create),
+            let uploadImageURL = URLManager.shared.url(for: ChatEndpoint.uploadImage) else {
       throw HttpError.badURL
     }
     var response = try await NetworkManager.shared.sendJsonData(chatRoom, ChatRoomData.self, to: createURL)
@@ -31,8 +31,8 @@ class ChatViewModel{
   }
   
   func updateChatRoom(chatRoom: ChatRoom, imageData: Data?) async throws -> ChatRoomData{
-    guard let updateChatRoomURL = URLManager.shared.url(.updateChatRoom),
-          let uploadImageURL = URLManager.shared.url(.uploadChatRoomImage) else {
+    guard let updateChatRoomURL = URLManager.shared.url(for: ChatEndpoint.update),
+          let uploadImageURL = URLManager.shared.url(for: ChatEndpoint.uploadImage) else {
       throw HttpError.badURL
     }
     var response = try await NetworkManager.shared.sendJsonData(chatRoom, ChatRoomData.self, to: updateChatRoomURL)
@@ -46,50 +46,41 @@ class ChatViewModel{
     
     return response
   }
-  /*
-   func confirmEnterCode(enterCode: String) async throws -> EnterChatResponseData{
-   guard let url = URLManager.shared.url(.enterCode) else {
-   throw HttpError.badURL
-   }
-   let data = EnterChatRequestData(enterCode: enterCode, userId: MyProfile.id)
-   let response = try await NetworkManager.shared.sendJsonData(data, EnterChatResponseData.self, to: url)
-   return response
-   }
-   */
+
   func enterChatRoom(id: UUID, enterCode: String) async throws -> ChatRoomResponseData{
-    guard let url = URLManager.shared.url(.enter) else { throw HttpError.badURL }
+    guard let url = URLManager.shared.url(for: ChatEndpoint.enter) else { throw HttpError.badURL }
     let data = EnterChatRoomData(chatRoomId: id, enterCode: enterCode, userId: MyProfile.id)
     let response = try await NetworkManager.shared.sendJsonData(data, ChatRoomResponseData.self, to: url)
     return response
   }
   
   func leaveChatRoom(id: UUID) async throws -> ResponseData{
-    guard let url = URLManager.shared.url(.leave) else { throw HttpError.badURL }
+    guard let url = URLManager.shared.url(for: ChatEndpoint.leave) else { throw HttpError.badURL }
     let data = ChatRoomRequestData(chatRoomId: id, userId: MyProfile.id)
     let response = try await NetworkManager.shared.sendJsonData(data, ResponseData.self, to: url)
     return response
   }
   
   func quitChatRoom(id: UUID) async throws {
-    guard let url = URLManager.shared.url(.leave) else { throw HttpError.badURL }
+    guard let url = URLManager.shared.url(for: ChatEndpoint.leave) else { throw HttpError.badURL }
     let data = ChatRoomRequestData(chatRoomId: id, userId: MyProfile.id)
     _ = try await NetworkManager.shared.sendJsonData(data, ResponseData.self, to: url)
   }
   
   func findChatRoom(id: UUID) async throws -> ChatRoomData?{
-    guard let url = URLManager.shared.url(.find) else { throw HttpError.badURL }
+    guard let url = URLManager.shared.url(for: ChatEndpoint.find) else { throw HttpError.badURL }
     let data = ChatRoomRequestData(chatRoomId: id, userId: MyProfile.id)
     let response = try await NetworkManager.shared.sendJsonData(data, ChatRoomData?.self, to: url)
     return response
   }
   
   func fetchAllChatRooms() async throws {
-    guard let url = URLManager.shared.url(.fetch) else { throw HttpError.badURL }
+    guard let url = URLManager.shared.url(for: ChatEndpoint.fetch) else { throw HttpError.badURL }
     self.chatRoomArray = try await NetworkManager.shared.fetchData(to: url, [ChatRoomData].self)
   }
   
   func fetchChats(id: UUID, _ completion: @escaping () -> Void) async throws {
-    guard let url = URLManager.shared.url(.fetchChats) else { throw HttpError.badURL }
+    guard let url = URLManager.shared.url(for: ChatEndpoint.fetchChats) else { throw HttpError.badURL }
     let data = ChatRoomRequestData(chatRoomId: id, userId: MyProfile.id)
     self.messageArray = try await NetworkManager.shared.sendJsonData(data, [Message].self, to: url)
     print(messageArray.count)
@@ -112,19 +103,8 @@ class ChatViewModel{
     return isPrevSender
   }
   
-  func optionText(_ chatRoom: ChatRoomData)-> String{
-    var text = "\(chatRoom.participantIds.count)명 참여중"
-    
-    /*
-     chatRoom.chatOptions.forEach { option in
-     text.append(" ")
-     if let type = ChatOption(rawValue: option){
-     text.append(ChatOptionData(chatOption: type).title)
-     }
-     }
-     */
-    
-    return text
+  func optionText(_ chatRoom: ChatRoomData)-> String{    
+    return "\(chatRoom.participantIds.count)명 참여중"
   }
 }
 

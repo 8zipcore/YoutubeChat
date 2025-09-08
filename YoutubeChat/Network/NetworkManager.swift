@@ -8,7 +8,8 @@
 import Foundation
 import Alamofire
 
-class NetworkManager{
+final class NetworkManager {
+  
   static let shared = NetworkManager()
   
   func sendJsonData<T: Codable>(_ data: T, to url: URL) async throws -> T{

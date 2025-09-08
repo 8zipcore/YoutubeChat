@@ -7,14 +7,14 @@
 
 import Foundation
 
-class WebSocketManager {
+final class WebSocketManager {
   static let shared = WebSocketManager()
   
   private var webSocketTask: URLSessionWebSocketTask?
   private var reconnectAttempts = 0
   
   func connect() {
-    guard let url = URL(string: "wss://\(Constants.domain)/chat/message") else {
+    guard let url = Constant.local.websocketURL else {
       print("🌀 Websocket URL Error")
       return
     }

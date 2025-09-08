@@ -475,6 +475,7 @@ extension ChatViewController: ChatViewControllerDelegate{
     isPresentedVC = false
     hideKeyboard(nil)
   }
+  
   func reconnect() {
     reconnect(nil)
   }

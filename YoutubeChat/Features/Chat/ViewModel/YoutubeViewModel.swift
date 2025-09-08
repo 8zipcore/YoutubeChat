@@ -14,14 +14,14 @@ class YoutubeViewModel{
   var videoArray: [Video] = []
   
   func fetchVideos(_ chatRoomId: UUID, _ completion: @escaping () -> Void) async throws {
-    guard let url = URLManager.shared.url(.fetchVideos) else { throw HttpError.badURL }
+    guard let url = URLManager.shared.url(for: ChatEndpoint.fetchVideos) else { throw HttpError.badURL }
     self.videoArray = try await NetworkManager.shared.sendJsonData(FetchVideoRequestData(chatRoomId: chatRoomId, userId: MyProfile.id), [Video].self, to: url)
     self.videoArray = sortVideoArray(videoArray)
     completion()
   }
   
   func updateStartTime(_ chatRoomId: UUID, _ id: UUID) async throws{
-    guard let url = URLManager.shared.url(.updateStartTime) else { throw HttpError.badURL }
+    guard let url = URLManager.shared.url(for: ChatEndpoint.updateStartTime) else { throw HttpError.badURL }
     let startTime = Date().timeIntervalSince1970
     self.videoArray[0].startTime = startTime
     print("😉 start Time : \(startTime)")

@@ -11,13 +11,13 @@ import Alamofire
 class ProfileViewModel{
   
   func createProfile(user: UserData) async throws -> User{
-    guard let url = URL(string: Constants.baseURL + Endpoints.join) else { throw HttpError.badURL }
+    guard let url = URLManager.shared.url(for: UserEndpoint.join) else { throw HttpError.badURL }
     let uploadData = userDataToUploadData(user)
     return try await NetworkManager.shared.sendImageAndMetadata(to: url, uploadData, User.self)
   }
   
   func updateProfile(user: UserData) async throws -> User{
-    guard let url = URL(string: Constants.baseURL + Endpoints.update) else { throw HttpError.badURL }
+    guard let url = URLManager.shared.url(for: UserEndpoint.update) else { throw HttpError.badURL }
     let uploadData = userDataToUploadData(user)
     return try await NetworkManager.shared.sendImageAndMetadata(to: url, uploadData, User.self)
   }

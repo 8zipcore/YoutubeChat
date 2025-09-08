@@ -1,5 +1,5 @@
 //
-//  NotificationName.swift
+//  Extension+Notification.Name.swift
 //  YoutubeChat
 //
 //  Created by 홍승아 on 7/18/24.
