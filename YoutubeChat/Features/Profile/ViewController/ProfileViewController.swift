@@ -56,7 +56,7 @@ class ProfileViewController: BaseViewController, UIImagePickerControllerDelegate
         let response = try await profileViewModel.createProfile(user:user)
         try await profileViewModel.setUser(response)
         
-        DispatchQueue.main.async {
+        await MainActor.run { 
           self.presentMainViewController()
           self.confirmButton.hideLoading()
         }

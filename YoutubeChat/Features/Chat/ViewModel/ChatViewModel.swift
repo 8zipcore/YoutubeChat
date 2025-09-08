@@ -79,12 +79,11 @@ class ChatViewModel{
     self.chatRoomArray = try await NetworkManager.shared.fetchData(to: url, [ChatRoomData].self)
   }
   
-  func fetchChats(id: UUID, _ completion: @escaping () -> Void) async throws {
+  func fetchChats(id: UUID) async throws {
     guard let url = URLManager.shared.url(for: ChatEndpoint.fetchChats) else { throw HttpError.badURL }
     let data = ChatRoomRequestData(chatRoomId: id, userId: MyProfile.id)
     self.messageArray = try await NetworkManager.shared.sendJsonData(data, [Message].self, to: url)
     print(messageArray.count)
-    completion()
   }
   
   func isPrevSender(_ index: Int)-> Bool{
@@ -103,7 +102,7 @@ class ChatViewModel{
     return isPrevSender
   }
   
-  func optionText(_ chatRoom: ChatRoomData)-> String{    
+  func optionText(_ chatRoom: ChatRoomData)-> String{
     return "\(chatRoom.participantIds.count)명 참여중"
   }
 }

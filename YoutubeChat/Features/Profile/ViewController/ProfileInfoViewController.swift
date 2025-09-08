@@ -132,9 +132,7 @@ class ProfileInfoViewController: BaseViewController, UIImagePickerControllerDele
                           backgroundImage: backgroundImageView.image?.toJpgData())
       let response = try await profileViewModel.updateProfile(user: user)
       try await profileViewModel.setUser(response)
-      DispatchQueue.main.async{
-        self.setEditMode(false)
-      }
+      await MainActor.run { self.setEditMode(false) }
     }
   }
   

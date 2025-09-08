@@ -99,7 +99,7 @@ class ImageConfirmButton: UIView {
   }
   
   override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    DispatchQueue.main.async {
+    Task { @MainActor in
       self.touchView.alpha = 0
       UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveLinear, animations: {
         self.touchView.alpha = 0.8
@@ -108,7 +108,7 @@ class ImageConfirmButton: UIView {
   }
   
   override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-    DispatchQueue.main.async {
+    Task { @MainActor in
       self.touchView.alpha = 0.8
       UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveLinear, animations: {
         self.touchView.alpha = 0
@@ -117,7 +117,7 @@ class ImageConfirmButton: UIView {
   }
   
   override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-    DispatchQueue.main.async {
+    Task { @MainActor in
       self.touchView.alpha = 0.8
       UIView.animate(withDuration: 0.2, delay: 0.0, options: .curveLinear, animations: {
         self.touchView.alpha = 0

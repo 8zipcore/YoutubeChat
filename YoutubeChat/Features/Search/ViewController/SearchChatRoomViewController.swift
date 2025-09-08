@@ -32,9 +32,7 @@ class SearchChatRoomViewController: BaseViewController, SearchTextFieldDelegate 
   private func initData(){
     Task{
       try await searchViewModel.fetchAllChatRooms()
-      DispatchQueue.main.async{
-        self.groupChatTableView.reloadData()
-      }
+      await MainActor.run { self.groupChatTableView.reloadData() }
     }
   }
   
@@ -69,9 +67,7 @@ extension SearchChatRoomViewController: URLInputTextFieldDelegate{
       Task{
         let response = try await searchViewModel.searchChatRoom(text, searchViewModel.selectedChatOptionArray())
         searchViewModel.chatRoomArray = response
-        DispatchQueue.main.async{
-          self.groupChatTableView.reloadData()
-        }
+        await MainActor.run { self.groupChatTableView.reloadData() }
       }
     } else {
       searchViewModel.chatRoomArray = []

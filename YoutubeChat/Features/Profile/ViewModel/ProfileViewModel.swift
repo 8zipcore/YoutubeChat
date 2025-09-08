@@ -8,7 +8,7 @@
 import Foundation
 import Alamofire
 
-class ProfileViewModel{
+final class ProfileViewModel{
   
   func createProfile(user: UserData) async throws -> User{
     guard let url = URLManager.shared.url(for: UserEndpoint.join) else { throw HttpError.badURL }

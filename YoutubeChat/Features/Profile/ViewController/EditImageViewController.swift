@@ -48,9 +48,7 @@ class EditImageViewController: BaseViewController {
     
     if settingFlag == false {
       if imageType == .profile{
-        DispatchQueue.main.async{
-          self.setImage()
-        }
+        Task { @MainActor in self.setImage() }
       } else {
         fullImageView.image = pickedImage
       }

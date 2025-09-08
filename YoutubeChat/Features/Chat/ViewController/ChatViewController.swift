@@ -112,9 +112,8 @@ class ChatViewController: BaseViewController {
     guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
     Task{
       self.chatViewModel.sendEnterMessage(id)
-      try await YoutubeViewModel.shared.fetchVideos(id,{
-        self.playVideo()
-      })
+      try await YoutubeViewModel.shared.fetchVideos(id)
+      self.playVideo()
     }
   }
   
@@ -126,7 +125,9 @@ class ChatViewController: BaseViewController {
       switch responseData.responseCode {
       case .success:
         self.navigationController?.popToRootViewController(animated: true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+        
+        try? await Task.sleep(nanoseconds: UInt64(0.3 * 1_000_000_000))
+        await MainActor.run {
           self.chatViewModel.sendLeaveMessage(id)
         }
       case .failure:
@@ -147,7 +148,7 @@ class ChatViewController: BaseViewController {
             if let response = try await
                 self.chatViewModel.findChatRoom(id: id){
               self.chatRoom = response
-              DispatchQueue.main.async {
+              await MainActor.run {
                 self.peopleNumberLabel.text = String(response.participantIds.count)
               }
             }
@@ -169,7 +170,7 @@ class ChatViewController: BaseViewController {
         YoutubeViewModel.shared.removeVideo(video)
         
         if YoutubeViewModel.shared.videoArray.count == 0 {
-          DispatchQueue.main.async{
+          Task { @MainActor in
             self.youtubeView.stopVideo()
             self.youtubeViewHeightConstraint.constant = 0
           }
@@ -191,7 +192,7 @@ class ChatViewController: BaseViewController {
       self.chatRoom?.chatOptions = chatRoomData.chatOptions
       self.chatRoom?.image = chatRoomData.image
       
-      DispatchQueue.main.async {
+      Task { @MainActor in
         self.chatNameLabel.text = chatRoomData.name
       }
     }
@@ -205,15 +206,13 @@ class ChatViewController: BaseViewController {
     
     guard let chatRoom = chatRoom, let id = chatRoom.id else { print("🌀 ChatRoom Data Nil Error") ; return }
     Task{
-      try await chatViewModel.fetchChats(id: id, {
-        DispatchQueue.main.async {
-          self.chatTableView.reloadData()
-        }
-      })
+      try await chatViewModel.fetchChats(id: id)
+      await MainActor.run {
+        self.chatTableView.reloadData()
+      }
       
-      try await YoutubeViewModel.shared.fetchVideos(id,{
-        self.playVideo()
-      })
+      try await YoutubeViewModel.shared.fetchVideos(id)
+      self.playVideo()
     }
   }
   
@@ -255,7 +254,7 @@ class ChatViewController: BaseViewController {
     if videoCount > 0{
       if videoCount == 1 || isEnter || isReconnected || isEnded {
         if self.youtubeViewHeightConstraint.constant == 0{
-          DispatchQueue.main.async{
+          Task { @MainActor in
             self.youtubeViewHeightConstraint.constant = self.view.bounds.width * 9 / 16
           }
         }
@@ -263,7 +262,7 @@ class ChatViewController: BaseViewController {
         self.youtubeView.shouldSeek = isEnter || isReconnected
         
         let video = YoutubeViewModel.shared.videoArray[0]
-        DispatchQueue.main.async{
+        Task { @MainActor in
           self.youtubeView.playVideo(video)
         }
         isReconnected = false
@@ -282,7 +281,7 @@ class ChatViewController: BaseViewController {
   }
   
   private func scrollToBottom(){
-    DispatchQueue.main.async{
+    Task { @MainActor in
       self.chatTableView.reloadData()
       self.chatTableView.layoutIfNeeded()
       self.chatTableView.scrollToRow(at: IndexPath(row: self.chatViewModel.messageArray.count - 1, section: 0), at: .bottom, animated: false)
@@ -298,7 +297,7 @@ extension ChatViewController{
   }
   
   @IBAction func testButtonTapped(_ sender: Any) {
-    DispatchQueue.main.async{
+    Task { @MainActor in
       self.youtubeViewHeightConstraint.constant = self.view.bounds.width * 9 / 16
       if self.chatViewModel.messageArray.count > 0 {
         self.scrollToBottom()

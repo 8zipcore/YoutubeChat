@@ -143,7 +143,7 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
           let chatRoom = ChatRoom(name: chatNameTextField.text, description: descriptionTextView.text, image: "", enterCode: self.passwordTextField.text, hostId: MyProfile.id, participantIds: [MyProfile.id], enterTimes: [:], allParticipantIds: [MyProfile.id], chatOptions: chatOptions, categories: descriptionTextView.hashTagTextArray(), lastChatTime: -1)
           let imageData = chatRoomImageView.toJpgData()
           let response = try await chatViewModel.createChatRoom(chatRoom: chatRoom, imageData: imageData)
-          DispatchQueue.main.async {
+          await MainActor.run {
             self.presentChatViewController(chatRoom: response)
           }
           confirmButton.hideLoading()
@@ -158,9 +158,7 @@ class CreateChatRoomViewController: BaseViewController, UIImagePickerControllerD
             NotificationCenter.default.post(name: .updateChatRoom, object: nil, userInfo: ["chatRoomdata" : response])
           }
           
-          DispatchQueue.main.async {
-            self.dismiss(animated: true)
-          }
+          await MainActor.run { self.dismiss(animated: true) }
         case nil:
           break
         }

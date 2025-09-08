@@ -13,11 +13,10 @@ class YoutubeViewModel{
   
   var videoArray: [Video] = []
   
-  func fetchVideos(_ chatRoomId: UUID, _ completion: @escaping () -> Void) async throws {
+  func fetchVideos(_ chatRoomId: UUID) async throws {
     guard let url = URLManager.shared.url(for: ChatEndpoint.fetchVideos) else { throw HttpError.badURL }
     self.videoArray = try await NetworkManager.shared.sendJsonData(FetchVideoRequestData(chatRoomId: chatRoomId, userId: MyProfile.id), [Video].self, to: url)
     self.videoArray = sortVideoArray(videoArray)
-    completion()
   }
   
   func updateStartTime(_ chatRoomId: UUID, _ id: UUID) async throws{

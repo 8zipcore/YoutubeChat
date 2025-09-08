@@ -58,9 +58,7 @@ class ChatRoomInfoViewController: BaseViewController {
     Task{
       self.chatRoom = try await chatViewModel.findChatRoom(id:id)
       
-      DispatchQueue.main.async {
-        self.configureView()
-      }
+      await MainActor.run { self.configureView() }
     }
   }
   
@@ -82,17 +80,13 @@ class ChatRoomInfoViewController: BaseViewController {
   private func enterChatRoom(chatRoom: ChatRoomData, enterCode: String){
     Task{
       let chatRoomResponseData = try await chatViewModel.enterChatRoom(id: chatRoom.id!, enterCode: enterCode)
-      DispatchQueue.main.async{
-        self.enterButton.hideLoading()
-      }
+      await MainActor.run { self.enterButton.hideLoading() }
       switch chatRoomResponseData.responseCode {
       case .success:
         let vc = ChatViewController()
         vc.chatRoom = chatRoomResponseData.chatRoom!
         vc.isEnter = true
-        DispatchQueue.main.async{
-          self.navigationController?.pushViewController(vc, animated: true)
-        }
+        await MainActor.run { self.navigationController?.pushViewController(vc, animated: true) }
       case .failure:
         showFailureAlert()
       case .invalid:

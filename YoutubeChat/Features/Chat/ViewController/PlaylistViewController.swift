@@ -124,7 +124,7 @@ class PlaylistViewController: BaseViewController{
   }
   
   @objc func receiveData(_ notification: Notification){
-    DispatchQueue.main.async{
+    Task { @MainActor in
       self.urlTextField.resetText()
       self.urlTextField.buttonEnabled(true)
       self.playlistTableView.reloadData()

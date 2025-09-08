@@ -117,5 +117,3 @@ extension SearchTextField: UITextFieldDelegate{
     delegate?.textFieldDidChange?(textField.text!)
   }
 }
-
-
