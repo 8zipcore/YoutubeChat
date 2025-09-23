@@ -40,6 +40,7 @@
 		36E1D1312E82E5E9005B6DC1 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				.gitignore,
 				/Localized/Resource/LaunchScreen.storyboard,
 				"Extensions/Extenion+ScrollView.swift",
 				"Extensions/Extension+Color.swift",
