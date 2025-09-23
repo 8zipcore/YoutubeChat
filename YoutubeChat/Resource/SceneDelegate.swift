@@ -25,9 +25,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     self.window = window
     
     if let url = connectionOptions.urlContexts.first?.url {
-      handleDeeplink(url: url)
+      DeepLinkManager.handleDeeplink(url: url)
     }
-    
   }
   
   func sceneDidDisconnect(_ scene: UIScene) {
@@ -46,40 +45,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
   
   func sceneDidEnterBackground(_ scene: UIScene) {
   }
-}
-
-extension SceneDelegate{
+  
   func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
     guard let url = URLContexts.first?.url else { return }
-    
-    handleDeeplink(url: url)
-    
-  }
-  
-  private func handleDeeplink(url: URL) {
-    if url.scheme == "BeChat" {
-      let path = url.path
-      let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
-      
-      // 예시: myapp://profile?user_id=123
-      if path == "/chatInfo", let id = queryItems?.first(where: { $0.name == "id" })?.value {
-        print("🐬 id  ! ! : \(id)")
-        let vc = ChatRoomInfoViewController()
-        vc.id = UUID(uuidString: id)
-        
-        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-          if let rootVC = scene.windows.first?.rootViewController {
-            if let navController = rootVC as? UINavigationController {
-              navController.pushViewController(vc, animated: true)
-            } else {
-              rootVC.present(vc, animated: true, completion: nil)
-            }
-          } else {
-            print("Root View Controller not found")
-          }
-        }
-      }
-    }
+    DeepLinkManager.handleDeeplink(url: url)
   }
 }
-

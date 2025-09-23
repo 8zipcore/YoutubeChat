@@ -104,6 +104,7 @@
 		36E4CE842C6F90CD00105F62 /* EditProfileTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E4CE822C6F90CD00105F62 /* EditProfileTextViewController.swift */; };
 		36E4CE852C6F90CD00105F62 /* EditProfileTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 36E4CE832C6F90CD00105F62 /* EditProfileTextViewController.xib */; };
 		36E4F9F42C33F31300EC9285 /* YoutubeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E4F9F32C33F31300EC9285 /* YoutubeView.swift */; };
+		36E8A91F2E818D1B00010A55 /* DeepLinkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E8A91E2E818D1B00010A55 /* DeepLinkManager.swift */; };
 		36EDC6412C803ADF00FF92DD /* SearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EDC6402C803ADF00FF92DD /* SearchTextField.swift */; };
 		36EDC6432C8051C000FF92DD /* ClearButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36EDC6422C8051C000FF92DD /* ClearButton.swift */; };
 		36F351A62C351A3B0055BF64 /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36F351A42C351A3B0055BF64 /* PlaylistViewController.swift */; };
@@ -228,6 +229,7 @@
 		36E4CE822C6F90CD00105F62 /* EditProfileTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTextViewController.swift; sourceTree = "<group>"; };
 		36E4CE832C6F90CD00105F62 /* EditProfileTextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EditProfileTextViewController.xib; sourceTree = "<group>"; };
 		36E4F9F32C33F31300EC9285 /* YoutubeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeView.swift; sourceTree = "<group>"; };
+		36E8A91E2E818D1B00010A55 /* DeepLinkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeepLinkManager.swift; sourceTree = "<group>"; };
 		36EDC6402C803ADF00FF92DD /* SearchTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTextField.swift; sourceTree = "<group>"; };
 		36EDC6422C8051C000FF92DD /* ClearButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClearButton.swift; sourceTree = "<group>"; };
 		36F351A42C351A3B0055BF64 /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; };
@@ -415,6 +417,7 @@
 		36CAE5132E6DACC500DF41A8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				36E8A91D2E818D0D00010A55 /* Managers */,
 				36CAE51D2E6DAEEB00DF41A8 /* Views */,
 				36CAE51C2E6DAEE300DF41A8 /* ViewController */,
 			);
@@ -586,6 +589,14 @@
 				36AE4DFC2C7A04570027D442 /* ProfileTableViewCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		36E8A91D2E818D0D00010A55 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				36E8A91E2E818D1B00010A55 /* DeepLinkManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		36F351AE2C35259A0055BF64 /* Network */ = {
@@ -793,6 +804,7 @@
 				3651585A2C53DEF200A288F1 /* SystemChatTableViewCell.swift in Sources */,
 				3625B0BB2C2BD16E00947E07 /* ProfileImageView.swift in Sources */,
 				3695D4642C3F863000AEAC73 /* ChatRoom.swift in Sources */,
+				36E8A91F2E818D1B00010A55 /* DeepLinkManager.swift in Sources */,
 				36C1F2202C6F33310053B164 /* ProfileInfoViewController.swift in Sources */,
 				3639746B2C37C294009C96CF /* EditImageViewController.swift in Sources */,
 				3695D4672C3FABF400AEAC73 /* YoutubeChat.xcdatamodeld in Sources */,
