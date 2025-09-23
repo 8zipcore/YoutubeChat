@@ -90,7 +90,6 @@ class MainViewController: BaseViewController {
   
   @IBAction func testButtonTapped(_ sender: Any) {
     ProfileManager.shared.deleteUser()
-    CoreDataManager.shared.deleteAllData()
   }
   
   @IBAction func fetchChatRoomButtonTapped(_ sender: Any) {
